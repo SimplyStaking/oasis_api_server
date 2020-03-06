@@ -68,6 +68,7 @@ func startServer() error {
 	// router.Path("/consensus/").Queries("name","{name}").HandlerFunc(co.Pong)
 	router.HandleFunc("/api/pingNode/",co.Pong).Queries("name","{name}").Methods("Get")
 	router.HandleFunc("/api/getConnectionsList", co.GetConnectionslist).Methods("Get")
+	router.HandleFunc("/api/rpc/system/chain", co.GetChainID).Methods("Get")
 
 	// //Router Function Handlers to handle the Registry Calls
 	//router.HandleFunc("/api/registry/pingNode/", ro.Pong).Queries("name","{name}").Methods("Get")

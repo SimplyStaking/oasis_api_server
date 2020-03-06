@@ -49,7 +49,6 @@ func (c ConsensusObject) Pong(w http.ResponseWriter, r *http.Request) {
 	if clientVal, ok := c.clients[nodeName]; ok{
 		//Check if the nodeName is online by attempting to retreive the height of the heighest block
 		blk, err := clientVal.GetBlock(c.ctx, consensus.HeightLatest)
-		// fmt.Println("Block Meta Data " + blk.Meta.Unmarshal)
 		if err != nil || blk == nil{
 			json.NewEncoder(w).Encode(responses.Response_error{"No reply from node"})
 			fmt.Println("Received request for /api/pingNode for node : " + nodeName + " but failed as node is offline!")
@@ -60,6 +59,28 @@ func (c ConsensusObject) Pong(w http.ResponseWriter, r *http.Request) {
 	}else{
 		json.NewEncoder(w).Encode(responses.Response_pong{"An API for " + nodeName + " needs to be setup before it can be queried"})
 		fmt.Println("Received request for /api/pingNode for node : " + nodeName + " but the node does not exist.")
+	}
+}
+
+//Parse the JSON to read the specific client and then respond with a pong message
+func (c ConsensusObject) GetChainID(w http.ResponseWriter, r *http.Request) {
+	//Adding a header so that the receiver knows they are receiving a JSON structure
+	w.Header().Add("Content-Type", "application/json")
+	//Retrieving the name of the ndoe from the query request
+	nodeName := r.URL.Query().Get("name")
+	if clientVal, ok := c.clients[nodeName]; ok{
+		//Check if the nodeName is online by attempting to retreive the height of the heighest block
+		consensusGenesis, err := clientVal.StateToGenesis(c.ctx, consensus.HeightLatest)		
+		if err != nil || consensusGenesis == nil{
+			json.NewEncoder(w).Encode(responses.Response_error{"No reply from node"})
+			fmt.Println("Received request for /api/rpc/system/chain for node : " + nodeName + " but failed as node is offline!")
+		}else{
+			fmt.Println("Received request for /api/rpc/system/chain for node : " + nodeName + ". Chain ID is : " + consensusGenesis.ChainID)
+			json.NewEncoder(w).Encode(responses.Response_pong{consensusGenesis.ChainID})
+		}
+	}else{
+		json.NewEncoder(w).Encode(responses.Response_pong{"An API for " + nodeName + " needs to be setup before it can be queried"})
+		fmt.Println("Received request for /api/rpc/system/chain for node : " + nodeName + " but the node does not exist.")
 	}
 }
 
