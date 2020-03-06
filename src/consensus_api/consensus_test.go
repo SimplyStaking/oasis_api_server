@@ -16,6 +16,8 @@ import (
 var (
 	ctx context.Context
 	co  consensus_api.ConsensusObject
+	ws_url = "unix:/home/vvol/serverdir/node/internal.sock"
+	ws_url_Invalid = "unix:/home/vvol/serverdir/nodes/internal.sock"
 )
 
 func TestMain(m *testing.M) {
@@ -24,14 +26,14 @@ func TestMain(m *testing.M) {
 	teardown()
 	os.Exit(code)
 }
- 
+
 func setup() {
 	ctx = context.Background()
 	co = consensus_api.ConsensusObject{}
 
 	co.SetContext(ctx)
 
-	_, consensusClient, err := rpc.ConsensusClient("unix:/home/vvol/serverdir/node/internal.sock")
+	_, consensusClient, err := rpc.ConsensusClient(ws_url)
 	if err != nil {
 		panic(err)
 	}
@@ -65,7 +67,7 @@ func TestConsensusObject_1(t *testing.T){
 func TestConsensusObject_2(t *testing.T){
 	nodeName := "Oasis_Local_1"
 
-	_, consensusClient, err := rpc.ConsensusClient("unix:/home/vvol/serverdir/node2/internal.sock")
+	_, consensusClient, err := rpc.ConsensusClient(ws_url_Invalid)
 	if err != nil {
 		panic(err)
 	}
@@ -126,7 +128,7 @@ func TestPingNode_2(t *testing.T) {
 	
 	nodeName := "Oasis_Local_Failure"
 
-	_, consensusClient, err := rpc.ConsensusClient("unix:/home/vvol/serverdir/nodes/internal.sock")
+	_, consensusClient, err := rpc.ConsensusClient(ws_url_Invalid)
 	if err != nil {
 		panic(err)
 	}

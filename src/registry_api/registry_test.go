@@ -13,6 +13,8 @@ import (
 var (
 	ctx context.Context
 	co  registry_api.RegistryObject
+	ws_url = "unix:/home/vvol/serverdir/node/internal.sock"
+	ws_url_Invalid = "unix:/home/vvol/serverdir/nodes/internal.sock"
 )
 
 func TestMain(m *testing.M) {
@@ -28,7 +30,7 @@ func setup() {
 
 	co.SetContext(ctx)
 
-	_, registryClient, err := rpc.RegistryClient("unix:/home/vvol/serverdir/node/internal.sock")
+	_, registryClient, err := rpc.RegistryClient(ws_url)
 	if err != nil {
 		panic(err)
 	}
@@ -62,7 +64,7 @@ func TestRegistryObject_1(t *testing.T){
 func TestRegistryObject_2(t *testing.T){
 	nodeName := "Oasis_Local_1"
 
-	_, registryClient, err := rpc.RegistryClient("unix:/home/vvol/serverdir/node2/internal.sock")
+	_, registryClient, err := rpc.RegistryClient(ws_url_Invalid)
 	if err != nil {
 		panic(err)
 	}

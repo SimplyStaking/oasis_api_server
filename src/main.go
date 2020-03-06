@@ -26,19 +26,19 @@ func main() {
 }
 
 //Configuration loader to read the .ini file and return maps of it.
-func loadConfig() (map [string]map[string]string, map [string]map[string]string){
+func loadConfig(PortFile string, SocketFile string) (map [string]map[string]string, map [string]map[string]string){
 	//First open and parse the .ini file
 	var portConf ini.Config
 	var socketConf ini.Config
 
 	//Decode and read the file containing the port information
-	if err := ini.DecodeFile("../config/user_config_main.ini", &portConf); err != nil {
+	if err := ini.DecodeFile(PortFile, &portConf); err != nil {
 		fmt.Println(err)
 		return nil,nil
 	}
 
 	//Decode and read the file containing the internal socket information
-	if err := ini.DecodeFile("../config/user_config_nodes.ini", &socketConf); err != nil {
+	if err := ini.DecodeFile(SocketFile, &socketConf); err != nil {
 		fmt.Println(err)
 		return nil,nil
 	}
@@ -46,16 +46,43 @@ func loadConfig() (map [string]map[string]string, map [string]map[string]string)
 }
 
 func startServer() error {
-
-	//Create context to be used by the Oasis API
-	ctx := context.Background()
-
+	PortFile := "../config/user_config_main.ini"
+	SocketFile := "../config/user_config_nodes.ini"
 	//Load the configuration and start create the necessary objects
-	portConf, socketConf := loadConfig()
+	portConf, socketConf := loadConfig(PortFile , SocketFile)
 	
 	//Assign the API port retrieved from the .ini file
 	api_port := portConf["api_server"]["port"]
 	fmt.Println("Hosting Port at : ", api_port)
+
+	//Return the created Oasis Objects
+	co, _, _ := loadOasisAPIs(socketConf)
+
+	// //Router object to handle the requests
+	router := mux.NewRouter().StrictSlash(true)
+
+	//Router Function Handlers to run general API calls
+	router.HandleFunc("/api/pingApi", Pong).Methods("Get")
+
+	//Router Handlers to handle the Consensus Calls
+	// router.Path("/consensus/").Queries("name","{name}").HandlerFunc(co.Pong)
+	router.HandleFunc("/api/pingNode/",co.Pong).Queries("name","{name}").Methods("Get")
+
+	// //Router Function Handlers to handle the Registry Calls
+	//router.HandleFunc("/api/registry/pingNode/", ro.Pong).Queries("name","{name}").Methods("Get")
+
+	// //Router Function Handlers to handle the Staking Calls
+	//router.HandleFunc("/api/staking/pingNode/", so.Pong).Queries("name","{name}").Methods("Get")
+
+	log.Fatal(http.ListenAndServe(":"+api_port, router))
+
+	return nil
+}
+
+//Load the Objects needed to start a server
+func loadOasisAPIs(socketConf map [string]map[string]string)(consensus_api.ConsensusObject,  registry_api.RegistryObject, staking_api.StakingObject){
+	//Create context to be used by the Oasis API
+	ctx := context.Background()
 
 	//Creating the Consensus/Registry/Staking Object which will run all the consensus API methods
 	co := consensus_api.ConsensusObject{}
@@ -96,25 +123,7 @@ func startServer() error {
 		so.AddClient(socketConf[i]["node_name"],stakingClient)
 	}
 
-	// //Router object to handle the requests
-	router := mux.NewRouter().StrictSlash(true)
-
-	//Router Function Handlers to run general API calls
-	router.HandleFunc("/api/pingApi", Pong).Methods("Get")
-
-	//Router Handlers to handle the Consensus Calls
-	// router.Path("/consensus/").Queries("name","{name}").HandlerFunc(co.Pong)
-	router.HandleFunc("/api/pingNode/",co.Pong).Queries("name","{name}").Methods("Get")
-
-	// //Router Function Handlers to handle the Registry Calls
-	//router.HandleFunc("/api/registry/pingNode/", ro.Pong).Queries("name","{name}").Methods("Get")
-
-	// //Router Function Handlers to handle the Staking Calls
-	//router.HandleFunc("/api/staking/pingNode/", so.Pong).Queries("name","{name}").Methods("Get")
-
-	log.Fatal(http.ListenAndServe(":"+api_port, router))
-
-	return nil
+	return co,ro,so
 }
 
 
