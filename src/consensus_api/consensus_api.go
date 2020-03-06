@@ -49,6 +49,7 @@ func (c ConsensusObject) Pong(w http.ResponseWriter, r *http.Request) {
 	if clientVal, ok := c.clients[nodeName]; ok{
 		//Check if the nodeName is online by attempting to retreive the height of the heighest block
 		blk, err := clientVal.GetBlock(c.ctx, consensus.HeightLatest)
+		// fmt.Println("Block Meta Data " + blk.Meta.Unmarshal)
 		if err != nil || blk == nil{
 			json.NewEncoder(w).Encode(responses.Response_error{"No reply from node"})
 			fmt.Println("Received request for /api/pingNode for node : " + nodeName + " but failed as node is offline!")
@@ -60,4 +61,23 @@ func (c ConsensusObject) Pong(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.Response_pong{"An API for " + nodeName + " needs to be setup before it can be queried"})
 		fmt.Println("Received request for /api/pingNode for node : " + nodeName + " but the node does not exist.")
 	}
+}
+
+//Get all the possible connections
+func (c ConsensusObject) GetConnectionslist(w http.ResponseWriter, r *http.Request) {
+	//Adding a header so that the receiver knows they are receiving a JSON structure
+	w.Header().Add("Content-Type", "application/json")
+	fmt.Println("Received request for /api/getConnectionsList")
+
+	//Create new empty Slice of strings where the connections will be stored
+	connectionsResponse := []string{} 
+
+	//Iterate through all the clients and retrieve their Keys without retrieving the Values
+	//Note Iteration is random
+	for k, _ := range c.clients {
+		fmt.Println("Iterating through Consensus Object Clients : ",k)
+		connectionsResponse = append(connectionsResponse, k)
+	}
+	//Encode the object and send it using a predefind response
+	json.NewEncoder(w).Encode(responses.Response_Conns{connectionsResponse})
 }

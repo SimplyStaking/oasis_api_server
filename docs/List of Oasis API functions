@@ -1,0 +1,40 @@
+Consensus:
+    TransactionAuthHandler -> GetSignerNonce returns the nonce that should be used by the given signer for transmitting the next transaction.
+    SubmitTx -> Submits signed consensus transaction
+    StateToGenesis -> StateToGenesis returns the genesis state at the specified block height.
+    EstimateGas ->  calculates the amount of gas required to execute the given transaction.
+    WaitEpoch -> waits for consensus to reach an epoch.
+    GetEpoch -> returns the current epoch.
+    GetBlock -> returns a consensus block at a specific height.
+    GetTransactions -> returns a list of all transactions contained within a consensus block at a specific height.
+    WatchBlocks ->  WatchBlocks returns a channel that produces a stream of consensus blocks as they are being finalized.
+
+Registry:
+    GetEntity -> gets an entity by ID.
+    GetEntities -> gets a list of all registered entities.
+    WatchEntities -> returns a channel that produces a stream of EntityEvent on entity registration changes.
+    GetNode -> gets a node by ID.
+    GetNodeStatus -> returns a node's status.
+    GetNodes -> gets a list of all registered nodes.
+    WatchNodes -> returns a channel that produces a stream of NodeEvent on node registration changes.
+    WatchNodeList -> returns a channel that produces a stream of NodeList.
+    GetRuntime -> gets a runtime by ID.
+    GetRuntimes -> returns the registered Runtimes at the specified block height.
+    GetNodeList -> returns the NodeList at the specified block height.
+    WatchRuntimes -> returns a stream of Runtime.  Upon subscription, all runtimes will be sent immediately.
+    StateToGenesis -> returns the genesis state at specified block height.
+    Cleanup -> cleans up the registry backend.
+
+Staking: 
+    TotalSupply -> returns the total number of tokens.
+    CommonPool -> returns the common pool balance.
+    Threshold -> returns the specific staking threshold by kind.
+    Accounts -> returns the IDs of all accounts with a non-zero general or escrow balance.
+    AccountInfo -> returns the account descriptor for the given account.
+    Delegations -> returns the list of delegations for the given owner (delegator).
+    DebondingDelegations -> returns the list of debonding delegations for the given owner (delegator).
+    StateToGenesis -> returns the genesis state at specified block height.
+    WatchTransfers -> returns a channel that produces a stream of TranserEvent on all balance transfers.
+    WatchBurns -> returns a channel of BurnEvent on token destruction.
+    WatchEscrows -> returns a channel that produces a stream of EscrowEvent.
+    Cleanup -> cleans up the backend.
