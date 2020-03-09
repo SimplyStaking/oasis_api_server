@@ -84,6 +84,52 @@ func (c ConsensusObject) GetChainID(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+//Parse the JSON to read the specific client and then respond with a pong message
+func (c ConsensusObject) StateToGensis(w http.ResponseWriter, r *http.Request) {
+	//Adding a header so that the receiver knows they are receiving a JSON structure
+	w.Header().Add("Content-Type", "application/json")
+	//Retrieving the name of the ndoe from the query request
+	nodeName := r.URL.Query().Get("name")
+	//Check if the node being pinged exists
+	if clientVal, ok := c.clients[nodeName]; ok{
+		//Check if the nodeName is online by attempting to retreive the height of the heighest block
+		consensusGenesis, err := clientVal.StateToGenesis(c.ctx, consensus.HeightLatest)
+		//Print all the possible information inside the Genesis Document
+		fmt.Println(consensusGenesis.Height)
+		fmt.Println(consensusGenesis.Time)
+		fmt.Println(consensusGenesis.ChainID)
+		fmt.Println(consensusGenesis.EpochTime)
+		fmt.Println(consensusGenesis.Registry.Parameters)
+		fmt.Println(consensusGenesis.Registry.Entities)
+		fmt.Println(consensusGenesis.Registry.Runtimes)
+		fmt.Println(consensusGenesis.Registry.SuspendedRuntimes)
+		fmt.Println(consensusGenesis.Registry.Nodes)
+		fmt.Println(consensusGenesis.Registry.NodeStatuses)
+
+		for k,v := range consensusGenesis.RootHash.RuntimeStates {
+			fmt.Println("K : ",k)
+			fmt.Println("V : ",v)
+		}
+		fmt.Println(consensusGenesis.RootHash)
+		fmt.Println(consensusGenesis.KeyManager)
+		fmt.Println(consensusGenesis.Scheduler)
+		fmt.Println(consensusGenesis.Beacon)
+		fmt.Println(consensusGenesis.Consensus)
+		fmt.Println(consensusGenesis.HaltEpoch)
+		fmt.Println(consensusGenesis.ExtraData)
+
+		if err != nil || consensusGenesis == nil{
+			json.NewEncoder(w).Encode(responses.Response_error{"No reply from node"})
+			fmt.Println("Received request for /api/pingNode for node : " + nodeName + " but failed as node is offline!")
+		}else{
+			fmt.Println("Received request for /api/pingNode for node : " + nodeName + ". Current Block Height : ")
+			json.NewEncoder(w).Encode(responses.Responded_pong)
+		}
+	}else{
+		json.NewEncoder(w).Encode(responses.Response_pong{"An API for " + nodeName + " needs to be setup before it can be queried"})
+		fmt.Println("Received request for /api/pingNode for node : " + nodeName + " but the node does not exist.")
+	}
+}
 //Get all the possible connections
 func (c ConsensusObject) GetConnectionslist(w http.ResponseWriter, r *http.Request) {
 	//Adding a header so that the receiver knows they are receiving a JSON structure

@@ -8,7 +8,19 @@ import (
 	consensus "github.com/oasislabs/oasis-core/go/consensus/api"
 	staking "github.com/oasislabs/oasis-core/go/staking/api"
 	registry "github.com/oasislabs/oasis-core/go/registry/api"
+	runtime "github.com/oasislabs/oasis-core/go/runtime/client/api"
 )
+
+//RegistryClient - initiate a new registry client
+func RuntimeClient(address string) (*grpc.ClientConn, runtime.RuntimeClient, error){
+	conn, err := Connect(address)
+	if err != nil {
+		return nil, nil, fmt.Errorf("Failed to establish Runtime Client Connection with node %s", address)
+	}
+
+	client := runtime.NewRuntimeClient(conn)
+	return conn, client, nil
+}
 
 //RegistryClient - initiate a new registry client
 func RegistryClient(address string) (*grpc.ClientConn, registry.Backend, error){

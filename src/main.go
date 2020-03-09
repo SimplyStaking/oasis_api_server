@@ -14,6 +14,7 @@ import (
 	consensus_api "github.com/SimplyVC/oasis_api_server/src/consensus_api"
 	registry_api "github.com/SimplyVC/oasis_api_server/src/registry_api"
 	staking_api "github.com/SimplyVC/oasis_api_server/src/staking_api"
+	runtime_api "github.com/SimplyVC/oasis_api_server/src/runtime_api"
 	response "github.com/SimplyVC/oasis_api_server/src/responses"
 )
 
@@ -56,7 +57,7 @@ func startServer() error {
 	fmt.Println("Hosting Port at : ", api_port)
 
 	//Return the created Oasis Objects
-	co, _, _ := loadOasisAPIs(socketConf)
+	co, ro, _ := loadOasisAPIs(socketConf)
 
 	// //Router object to handle the requests
 	router := mux.NewRouter().StrictSlash(true)
@@ -69,9 +70,12 @@ func startServer() error {
 	router.HandleFunc("/api/pingNode/",co.Pong).Queries("name","{name}").Methods("Get")
 	router.HandleFunc("/api/getConnectionsList", co.GetConnectionslist).Methods("Get")
 	router.HandleFunc("/api/rpc/system/chain", co.GetChainID).Methods("Get")
+	router.HandleFunc("/api/States", co.StateToGensis).Methods("Get")
 
 	// //Router Function Handlers to handle the Registry Calls
 	//router.HandleFunc("/api/registry/pingNode/", ro.Pong).Queries("name","{name}").Methods("Get")
+	router.HandleFunc("/api/GetEntity", ro.GetEntity).Methods("Get")
+	router.HandleFunc("/api/GetRunTimes", ro.GetRunTimes).Methods("Get")
 
 	// //Router Function Handlers to handle the Staking Calls
 	//router.HandleFunc("/api/staking/pingNode/", so.Pong).Queries("name","{name}").Methods("Get")
@@ -90,11 +94,13 @@ func loadOasisAPIs(socketConf map [string]map[string]string)(consensus_api.Conse
 	co := consensus_api.ConsensusObject{}
 	ro := registry_api.RegistryObject{}
 	so := staking_api.StakingObject{}
+	ru := runtime_api.RuntimeObject{}
 
 	//Setting Context only once for each api object
 	co.SetContext(ctx)
 	ro.SetContext(ctx)
 	so.SetContext(ctx)
+	ru.SetContext(ctx)
 
 	//Retrieve all the possible local internal.sock the api needs to run with.
 	//Create a client for each internal socket
@@ -123,6 +129,13 @@ func loadOasisAPIs(socketConf map [string]map[string]string)(consensus_api.Conse
 			panic(err)
 		}
 		so.AddClient(socketConf[i]["node_name"],stakingClient)
+
+		//Creating a Staking Client Object
+		_, runtimeClient, err := rpc.RuntimeClient("unix:"+socketConf[i]["ws_url"])
+		if err != nil {
+			panic(err)
+		}
+		ru.AddClient(socketConf[i]["node_name"],runtimeClient)
 	}
 
 	return co,ro,so
