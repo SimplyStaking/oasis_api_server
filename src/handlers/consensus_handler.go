@@ -201,6 +201,7 @@ func GetBlockHeader(w http.ResponseWriter, r *http.Request) {
 		lgr.Error.Println("Request at /api/GetBlockHeader/ Failed to retrieve a Block : " , err)
 		return
 	}
+
 	var meta mint_api.BlockMeta
 	if err := cbor.Unmarshal(blk.Meta, &meta); err != nil {
 		lgr.Error.Println("Request at /api/GetBlockHeader/ Failed to Unmarshal Block Metadata : " , err)

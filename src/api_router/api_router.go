@@ -35,10 +35,10 @@ func StartServer() error {
 	router := mux.NewRouter().StrictSlash(true)
 
 	//Router Handlers to handle the General API Calls
-	router.HandleFunc("/api/pingNode/", handler.Pong).Queries("name","{name}").Methods("Get")
+	router.HandleFunc("/api/ping/", handler.Pong).Queries("name","{name}").Methods("Get")
+	router.HandleFunc("/api/getConnectionsList", handler.GetConnections).Methods("Get")
 
 	//Router Handlers to handle the Consensus API Calls
-	router.HandleFunc("/api/pingNode/", handler.Pong).Queries("name","{name}").Methods("Get")
 	router.HandleFunc("/api/GetConsensusStateToGenesis/", handler.GetConsensusStateToGenesis).Methods("Get")
 	router.HandleFunc("/api/GetEpoch/", handler.GetEpoch).Methods("Get")
 	router.HandleFunc("/api/GetBlock/", handler.GetBlock).Methods("Get")
@@ -57,7 +57,22 @@ func StartServer() error {
 	router.HandleFunc("/api/GetRuntime/", handler.GetRuntime).Methods("Get")
 
 	//Router Handlers to handle the Staking API Calls
+	router.HandleFunc("/api/GetTotalSupply/", handler.GetTotalSupply).Methods("Get")
+	router.HandleFunc("/api/GetCommonPool/", handler.GetCommonPool).Methods("Get")
+	router.HandleFunc("/api/GetStakingStateToGenesis/", handler.GetStakingStateToGenesis).Methods("Get")
+	router.HandleFunc("/api/GetThreshold/", handler.GetThreshold).Methods("Get")
+	router.HandleFunc("/api/GetAccounts/", handler.GetAccounts).Methods("Get")
+	router.HandleFunc("/api/GetAccountInfo/", handler.GetAccountInfo).Methods("Get")
+	router.HandleFunc("/api/GetDelegations/", handler.GetDelegations).Methods("Get")
+	router.HandleFunc("/api/GetDebondingDelegations/", handler.GetDebondingDelegations).Methods("Get")
 
+	//Router Handlers to handle the NodeController API Calls
+	router.HandleFunc("/api/GetIsSynced/", handler.GetIsSynced).Methods("Get")
+
+	//Router Handlers to handle the Scheduler API Calls
+	router.HandleFunc("/api/GetValidators/", handler.GetValidators).Methods("Get")
+	router.HandleFunc("/api/GetCommittees/", handler.GetCommittees).Methods("Get")
+	router.HandleFunc("/api/GetSchedulerStateToGenesis/", handler.GetSchedulerStateToGenesis).Methods("Get")
 
 	log.Fatal(http.ListenAndServe(":"+apiPort, router))
 	return nil

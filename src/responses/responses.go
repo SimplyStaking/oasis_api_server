@@ -5,10 +5,65 @@ import (
 	epoch_api "github.com/oasislabs/oasis-core/go/epochtime/api"
 	consensus_api "github.com/oasislabs/oasis-core/go/consensus/api"
 	registry_api "github.com/oasislabs/oasis-core/go/registry/api"
+	staking_api "github.com/oasislabs/oasis-core/go/staking/api"
+	scheduler_api "github.com/oasislabs/oasis-core/go/scheduler/api"
 	mint_types "github.com/tendermint/tendermint/types"
+	common_signature "github.com/oasislabs/oasis-core/go/common/crypto/signature"
 	common_entity "github.com/oasislabs/oasis-core/go/common/entity"
 	common_node "github.com/oasislabs/oasis-core/go/common/node"
+	common_quantity "github.com/oasislabs/oasis-core/go/common/quantity"
 )
+
+//Responding with the scheduler genesis state
+type Response_SchedulerGenesisState struct{
+	SchedulerGenesisState *scheduler_api.Genesis `json:"gensis"`
+}
+
+//Responding with Committees
+type Response_Committees struct{
+	Committee []*scheduler_api.Committee `json:"commitees"`
+}
+
+//Responding with Validators and their voting power
+type Response_Validators struct{
+	Validators []*scheduler_api.Validator `json:"validators"`
+}
+
+//Responding with the IsSynced State
+type Response_IsSynced struct{
+	Synced bool `json:"issynced"`
+}
+
+//Responding with debonding delegations for a public key
+type Response_DebondingDelegations struct{
+	DebondingDelegations map[common_signature.PublicKey][] *staking_api.DebondingDelegation `json:"debondig_delegations"`
+}
+
+//Responding with delegations for a public key
+type Response_delegations struct{
+	Delegations map[common_signature.PublicKey] *staking_api.Delegation `json:"delegations"`
+}
+
+//Responding with an account
+type Response_account struct{
+	AccountInfo *staking_api.Account `json:"account"`
+}
+
+//Responding with a list of Accounts
+type Response_allAccounts struct{
+	AllAccounts []common_signature.PublicKey `json:"accounts"`
+}
+
+//Responding with a Staking Genesis File
+type Response_stakingGenesis struct{
+	GenesisStaking *staking_api.Genesis `json:"genesis"`
+}
+
+//Responding with a quantity
+type Response_quantity struct{
+	Quantity *common_quantity.Quantity  `json:"quantity"`
+}
+
 //Respond with the details of a single Entity
 type Response_registryEntity struct{
 	Entity *common_entity.Entity  `json:"entity"`
@@ -21,7 +76,7 @@ type Response_registryNode struct{
 
 //Respond with the genesis state of the registry
 type Response_registryGenesis struct {
-	GenesisRegistry *registry_api.Genesis 
+	GenesisRegistry *registry_api.Genesis `json:"genesis"`
 }
 
 //Respond with a NodeList

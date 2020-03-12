@@ -8,7 +8,43 @@ import (
 	consensus "github.com/oasislabs/oasis-core/go/consensus/api"
 	staking "github.com/oasislabs/oasis-core/go/staking/api"
 	registry "github.com/oasislabs/oasis-core/go/registry/api"
+	control "github.com/oasislabs/oasis-core/go/control/api"
+	scheduler "github.com/oasislabs/oasis-core/go/scheduler/api"
+	sentry "github.com/oasislabs/oasis-core/go/sentry/api"
 )
+
+//SentryClient - initiate a new sentry client
+func SentryClient(address string) (*grpc.ClientConn, sentry.Backend, error){
+	conn, err := Connect(address)
+	if err != nil {
+		return nil, nil, fmt.Errorf("Failed to establish Sentry Client Connection with node %s", address)
+	}
+	
+	client := sentry.NewSentryClient(conn)
+	return conn, client, nil
+}
+
+//SchedulerClient - initiate a new scheduler client
+func SchedulerClient(address string) (*grpc.ClientConn, scheduler.Backend, error){
+	conn, err := Connect(address)
+	if err != nil {
+		return nil, nil, fmt.Errorf("Failed to establish Scheduler Client Connection with node %s", address)
+	}
+
+	client := scheduler.NewSchedulerClient(conn)
+	return conn, client, nil
+}
+
+//NodeControllerClient - initiate a new registry client
+func NodeControllerClient(address string) (*grpc.ClientConn, control.NodeController, error){
+	conn, err := Connect(address)
+	if err != nil {
+		return nil, nil, fmt.Errorf("Failed to establish NodeController Client Connection with node %s", address)
+	}
+
+	client := control.NewNodeControllerClient(conn)
+	return conn, client, nil
+}
 
 //RegistryClient - initiate a new registry client
 func RegistryClient(address string) (*grpc.ClientConn, registry.Backend, error){

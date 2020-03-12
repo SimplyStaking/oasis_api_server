@@ -14,9 +14,9 @@ import (
 	common_namespace "github.com/oasislabs/oasis-core/go/common"
 )
 
-//loadRegistryClient loads the consensus client and returns it
+//loadRegistryClient loads the registry client and returns it
 func loadRegistryClient(socket string) (*grpc.ClientConn, registry.Backend){
-	//Attempt to load a connection with the consensus client
+	//Attempt to load a connection with the registry client
 	connection, registryClient, err := rpc.RegistryClient(socket)
 	if err != nil {
 		lgr.Error.Println("Failed to establish connection to the registry client : ", err)
@@ -46,7 +46,7 @@ func GetEntities(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//Attempt to load a connection with the consensus client
+	//Attempt to load a connection with the registry client
 	connection, ro := loadRegistryClient(socket)
 
 	//Wait for the code underneath it to execute and then close the connection
@@ -91,7 +91,7 @@ func GetNodes(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//Attempt to load a connection with the consensus client
+	//Attempt to load a connection with the registry client
 	connection, ro := loadRegistryClient(socket)
 
 	//Wait for the code underneath it to execute and then close the connection
@@ -136,7 +136,7 @@ func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//Attempt to load a connection with the consensus client
+	//Attempt to load a connection with the registry client
 	connection, ro := loadRegistryClient(socket)
 
 	//Wait for the code underneath it to execute and then close the connection
@@ -181,7 +181,7 @@ func GetNodeList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//Attempt to load a connection with the consensus client
+	//Attempt to load a connection with the registry client
 	connection, ro := loadRegistryClient(socket)
 
 	//Wait for the code underneath it to execute and then close the connection
@@ -226,7 +226,7 @@ func GetRegistryStateToGenesis(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//Attempt to load a connection with the consensus client
+	//Attempt to load a connection with the registry client
 	connection, ro := loadRegistryClient(socket)
 
 	//Wait for the code underneath it to execute and then close the connection
@@ -288,7 +288,7 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with the consensus client
+	// Attempt to load a connection with the registry client
 	connection, ro := loadRegistryClient(socket)
 
 	//Wait for the code underneath it to execute and then close the connection
@@ -355,7 +355,7 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with the consensus client
+	// Attempt to load a connection with the registry client
 	connection, ro := loadRegistryClient(socket)
 
 	//Wait for the code underneath it to execute and then close the connection
@@ -420,7 +420,7 @@ func GetRuntime(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with the consensus client
+	// Attempt to load a connection with the registry client
 	connection, ro := loadRegistryClient(socket)
 
 	//Wait for the code underneath it to execute and then close the connection
