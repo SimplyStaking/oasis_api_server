@@ -3,7 +3,6 @@ package main
 import (
     "io/ioutil"
     "os"
-	"fmt"
 
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
 	api_router "github.com/SimplyVC/oasis_api_server/src/api_router"
@@ -17,6 +16,6 @@ func main() {
 	//Start the server
 	err := api_router.StartServer()
 	if err != nil{
-		fmt.Println("Server Stopped")
+		lgr.Info.Println("Server Stopped")
 	}
 }

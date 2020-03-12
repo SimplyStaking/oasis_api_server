@@ -34,34 +34,44 @@ func teardown() {
 	fmt.Printf("\n")
 }
 
+//Testing if Scheduler Client Connects
+func TestSchedulerClient_Success(t *testing.T){
+	_, _, err := rpc.SchedulerClient(ws_url)
+	if err != nil {
+		t.Errorf("Failed to create a SchedulerClient for socket %v got %v", ws_url, err)
+	}
+}
+
+//Testing if Node Controller Client Connects
+func TestNodeControllerClient_Success(t *testing.T){
+	_, _, err := rpc.NodeControllerClient(ws_url)
+	if err != nil {
+		t.Errorf("Failed to create a SchedulerClient for socket %v got %v", ws_url, err)
+	}
+}
+
 //Testing if Registry Client Connects
 func TestRegistryClient_Success(t *testing.T){
-
 	_, _, err := rpc.RegistryClient(ws_url)
 	if err != nil {
 		t.Errorf("Failed to create a RegistryClient for socket %v got %v", ws_url, err)
 	}
-
 }
 
 //Testing if Registry Client Connects
 func TestStakingClient_Success(t *testing.T){
-
 	_, _, err := rpc.StakingClient(ws_url)
 	if err != nil {
 		t.Errorf("Failed to create a StakingClient for socket %v got %v", ws_url, err)
 	}
-	
 }
 
 //Testing if Registry Client Connects
 func TestConsensusClient_Success(t *testing.T){
-
 	_, _, err := rpc.ConsensusClient(ws_url)
 	if err != nil {
 		t.Errorf("Failed to create a ConsensusClient for socket %v got %v", ws_url, err)
 	}
-	
 }
 
 //Testing the connection function

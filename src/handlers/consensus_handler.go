@@ -14,6 +14,8 @@ import (
 	mint_api "github.com/oasislabs/oasis-core/go/consensus/tendermint/api"
 )
 
+//https://techsquad.rocks/blog/go_grpc_cheap_ping/
+
 //loadConsensusClient loads the consensus client and returns it
 func loadConsensusClient(socket string) (*grpc.ClientConn, consensus.ClientBackend){
 	//Attempt to load a connection with the consensus client
@@ -70,7 +72,7 @@ func GetConsensusStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(responses.Response_consensusgenesis{consensusGenesis})
 }
 
-// GetEpoch returns the current epoch.
+//GetEpoch returns the current epoch.
 func GetEpoch(w http.ResponseWriter, r *http.Request) {
 	//Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
@@ -260,7 +262,6 @@ func GetBlockLastCommit(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.Response_error{"Failed to Unmarshal Block Metadata!"})
 		return
 	}
-
 	lgr.Info.Println("Request at /api/GetBlockLastCommit/ responding with a Block Last Commit!")
 	json.NewEncoder(w).Encode(responses.Response_blockLastCommit{meta.LastCommit})
 }

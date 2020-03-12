@@ -10,19 +10,7 @@ import (
 	registry "github.com/oasislabs/oasis-core/go/registry/api"
 	control "github.com/oasislabs/oasis-core/go/control/api"
 	scheduler "github.com/oasislabs/oasis-core/go/scheduler/api"
-	sentry "github.com/oasislabs/oasis-core/go/sentry/api"
 )
-
-//SentryClient - initiate a new sentry client
-func SentryClient(address string) (*grpc.ClientConn, sentry.Backend, error){
-	conn, err := Connect(address)
-	if err != nil {
-		return nil, nil, fmt.Errorf("Failed to establish Sentry Client Connection with node %s", address)
-	}
-	
-	client := sentry.NewSentryClient(conn)
-	return conn, client, nil
-}
 
 //SchedulerClient - initiate a new scheduler client
 func SchedulerClient(address string) (*grpc.ClientConn, scheduler.Backend, error){
