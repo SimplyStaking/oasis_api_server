@@ -2,19 +2,20 @@ package handlers
 
 import (
 	"context"
-	"net/http"
 	"encoding/json"
+	"net/http"
+
 	"google.golang.org/grpc"
 
-	responses "github.com/SimplyVC/oasis_api_server/src/responses"
-	scheduler "github.com/oasislabs/oasis-core/go/scheduler/api"
-	common_namespace "github.com/oasislabs/oasis-core/go/common"
-	rpc "github.com/SimplyVC/oasis_api_server/src/rpc"
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
+	responses "github.com/SimplyVC/oasis_api_server/src/responses"
+	rpc "github.com/SimplyVC/oasis_api_server/src/rpc"
+	common_namespace "github.com/oasislabs/oasis-core/go/common"
+	scheduler "github.com/oasislabs/oasis-core/go/scheduler/api"
 )
 
 //loadSchedulerClient loads the scheduler client and returns it
-func loadSchedulerClient(socket string) (*grpc.ClientConn, scheduler.Backend){
+func loadSchedulerClient(socket string) (*grpc.ClientConn, scheduler.Backend) {
 	//Attempt to load a connection with the scheduler client
 	connection, schedulerClient, err := rpc.SchedulerClient(socket)
 	if err != nil {
@@ -36,7 +37,7 @@ func GetValidators(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.Response_error{"Node name requested doesn't exist"})
 		return
 	}
-	
+
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
@@ -52,16 +53,16 @@ func GetValidators(w http.ResponseWriter, r *http.Request) {
 	defer connection.Close()
 
 	//If a null object was retrieved send response
-	if sc == nil{
+	if sc == nil {
 		//Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.Response_error{"Failed to establish a connection using the socket : " + socket})
 		return
 	}
 
-	validators, err := sc.GetValidators(context.Background(),height)
-	if err != nil{
+	validators, err := sc.GetValidators(context.Background(), height)
+	if err != nil {
 		json.NewEncoder(w).Encode(responses.Response_error{"Failed to get Validators!"})
-		lgr.Error.Println("Request at /api/GetValidators/ Failed to retrieve the validators : " , err)
+		lgr.Error.Println("Request at /api/GetValidators/ Failed to retrieve the validators : ", err)
 		return
 	}
 
@@ -83,7 +84,7 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.Response_error{"Node name requested doesn't exist"})
 		return
 	}
-	
+
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
@@ -106,7 +107,7 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 
 	err := nameSpace.UnmarshalText([]byte(nmspace))
 	if err != nil {
-		lgr.Error.Println("Failed to UnmarshalText into Namespace",err)
+		lgr.Error.Println("Failed to UnmarshalText into Namespace", err)
 		json.NewEncoder(w).Encode(responses.Response_error{"Failed to UnmarshalText into Namespace."})
 		return
 	}
@@ -118,7 +119,7 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 	defer connection.Close()
 
 	//If a null object was retrieved send response
-	if sc == nil{
+	if sc == nil {
 		//Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.Response_error{"Failed to establish a connection using the socket : " + socket})
 		return
@@ -127,9 +128,9 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 	query := scheduler.GetCommitteesRequest{height, nameSpace}
 
 	committees, err := sc.GetCommittees(context.Background(), &query)
-	if err != nil{
+	if err != nil {
 		json.NewEncoder(w).Encode(responses.Response_error{"Failed to get Committees!"})
-		lgr.Error.Println("Request at /api/GetCommittees/ Failed to retrieve the committees : " , err)
+		lgr.Error.Println("Request at /api/GetCommittees/ Failed to retrieve the committees : ", err)
 		return
 	}
 
@@ -149,7 +150,7 @@ func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.Response_error{"Node name requested doesn't exist"})
 		return
 	}
-	
+
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
@@ -165,16 +166,16 @@ func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	defer connection.Close()
 
 	//If a null object was retrieved send response
-	if sc == nil{
+	if sc == nil {
 		//Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.Response_error{"Failed to establish a connection using the socket : " + socket})
 		return
 	}
 
-	gensis, err := sc.StateToGenesis(context.Background(),height)
-	if err != nil{
+	gensis, err := sc.StateToGenesis(context.Background(), height)
+	if err != nil {
 		json.NewEncoder(w).Encode(responses.Response_error{"Failed to get Scheduler Genesis State!"})
-		lgr.Error.Println("Request at /api/GetSchedulerStateToGenesis/ Failed to retrieve the Scheduler Genesis State : " , err)
+		lgr.Error.Println("Request at /api/GetSchedulerStateToGenesis/ Failed to retrieve the Scheduler Genesis State : ", err)
 		return
 	}
 

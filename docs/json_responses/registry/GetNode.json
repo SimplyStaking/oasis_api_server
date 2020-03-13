@@ -1,0 +1,23 @@
+{
+    "node": {
+        "id": "A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU+h+blS9pto=",
+        "entity_id": "GwOSEEM/Lej8DrY1iQrX1zOvAkX2qk4/HWgS5jaHTb8=",
+        "expiration": 3493,
+        "committee": {
+            "certificate": "MIIBCTCBvKADAgECAgEBMAUGAytlcDAVMRMwEQYDVQQDEwpvYXNpcy1ub2RlMB4XDTIwMDIxMjAzMTAzNFoXDTIxMDIxMjA0MTAzNFowFTETMBEGA1UEAxMKb2FzaXMtbm9kZTAqMAUGAytlcAMhAHKhFbVmw6Tl5/SjvAH5OvDu1MSn+LPXF79cw1lJm+NjozEwLzAOBgNVHQ8BAf8EBAMCAqQwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMAUGAytlcANBAO8pb3LWCGk5hleNeH97/wJt9EP7QUHw4NNTY+fQCUmPZny89zfQgDWcPwfdF4EBCOdGGEEjl6VZFx4FylTG/Qo=",
+            "addresses": null
+        },
+        "p2p": {
+            "id": "seVo4Y9syUGRlQwok/hnZgXszHl9qfJEUKplH8KTky0=",
+            "addresses": null
+        },
+        "consensus": {
+            "id": "ANWIgquHmHT/Pb+Ln9PgMqZlc/NTQYobDCFIJ0tKxc0=",
+            "addresses": [
+                "A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU+h+blS9pto=@152.32.214.179:26656"
+            ]
+        },
+        "runtimes": null,
+        "roles": 8
+    }
+}
