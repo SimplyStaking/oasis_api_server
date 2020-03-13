@@ -104,7 +104,7 @@ func Test_GetConsensusStateToGenesis_Height3(t *testing.T){
 	expected := "questnet-2020-03-05-1583427600"
 	
 	//Responding with a Genesis File
-	geneisState := &responses.Response_consensusgenesis {
+	geneisState := &responses.ConsensusGenesisResponse {
 		GenJSON : &gen_api.Document{},
 	}
 
@@ -209,7 +209,7 @@ func Test_GetEpoch_Height3(t *testing.T){
 
 	expected := 3492
 	
-	epochTime := &responses.Response_epoch{}
+	epochTime := &responses.EpochResponse{}
 
 	err := json.Unmarshal([]byte(rr.Body.String()), epochTime)
 	if err != nil {
@@ -288,7 +288,7 @@ func Test_GetBlock_Height3(t *testing.T){
 	var expected int64
 	expected =  3
 	
-	block := &responses.Response_block {
+	block := &responses.BlockResponse {
 		Blk : &consensus_api.Block{},
 	}
 
@@ -369,7 +369,7 @@ func Test_GetBlockHeader_Height3(t *testing.T){
 	var expected int64
 	expected =  3
 	
-	blockHeader := &responses.Response_blockHeader {
+	blockHeader := &responses.BlockHeaderResponse {
 		BlkHeader : &mint_types.Header{},
 	}
 
@@ -449,7 +449,7 @@ func Test_GetBlockLastCommit_Height3(t *testing.T){
 	var expected int64
 	expected =  2
 	
-	blkLastCommit := &responses.Response_blockLastCommit {
+	blkLastCommit := &responses.BlockLastCommitResponse {
 		BlkLastCommit : &mint_types.Commit{},
 	}
 

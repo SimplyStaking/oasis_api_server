@@ -34,7 +34,7 @@ func GetValidators(w http.ResponseWriter, r *http.Request) {
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
 		//Stop the code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.Response_error{"Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{"Node name requested doesn't exist"})
 		return
 	}
 
@@ -42,7 +42,7 @@ func GetValidators(w http.ResponseWriter, r *http.Request) {
 	height := checkHeight(recvHeight)
 	if height == -1 {
 		//Stop the code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.Response_error{"Unexepcted value found, height needs to be string of int!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{"Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
@@ -55,19 +55,19 @@ func GetValidators(w http.ResponseWriter, r *http.Request) {
 	//If a null object was retrieved send response
 	if sc == nil {
 		//Stop the code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.Response_error{"Failed to establish a connection using the socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{"Failed to establish a connection using the socket : " + socket})
 		return
 	}
 
 	validators, err := sc.GetValidators(context.Background(), height)
 	if err != nil {
-		json.NewEncoder(w).Encode(responses.Response_error{"Failed to get Validators!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{"Failed to get Validators!"})
 		lgr.Error.Println("Request at /api/GetValidators/ Failed to retrieve the validators : ", err)
 		return
 	}
 
 	lgr.Info.Println("Request at /api/GetValidators/ responding with Validators!")
-	json.NewEncoder(w).Encode(responses.Response_Validators{validators})
+	json.NewEncoder(w).Encode(responses.ValidatorsResponse{validators})
 }
 
 // GetCommittees returns the vector of committees for a given
@@ -81,7 +81,7 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
 		//Stop the code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.Response_error{"Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{"Node name requested doesn't exist"})
 		return
 	}
 
@@ -89,7 +89,7 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 	height := checkHeight(recvHeight)
 	if height == -1 {
 		//Stop the code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.Response_error{"Unexepcted value found, height needs to be string of int!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{"Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
@@ -101,14 +101,14 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 	if len(nmspace) == 0 {
 		//Stop the code here no need to establish connection and reply
 		lgr.Warning.Println("Request at /api/GetRuntime/ failed, namespace can't be empty!")
-		json.NewEncoder(w).Encode(responses.Response_error{"namespace can't be empty!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{"namespace can't be empty!"})
 		return
 	}
 
 	err := nameSpace.UnmarshalText([]byte(nmspace))
 	if err != nil {
 		lgr.Error.Println("Failed to UnmarshalText into Namespace", err)
-		json.NewEncoder(w).Encode(responses.Response_error{"Failed to UnmarshalText into Namespace."})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{"Failed to UnmarshalText into Namespace."})
 		return
 	}
 
@@ -121,7 +121,7 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 	//If a null object was retrieved send response
 	if sc == nil {
 		//Stop the code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.Response_error{"Failed to establish a connection using the socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{"Failed to establish a connection using the socket : " + socket})
 		return
 	}
 
@@ -129,13 +129,13 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 
 	committees, err := sc.GetCommittees(context.Background(), &query)
 	if err != nil {
-		json.NewEncoder(w).Encode(responses.Response_error{"Failed to get Committees!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{"Failed to get Committees!"})
 		lgr.Error.Println("Request at /api/GetCommittees/ Failed to retrieve the committees : ", err)
 		return
 	}
 
 	lgr.Info.Println("Request at /api/GetCommittees/ responding with Committees!")
-	json.NewEncoder(w).Encode(responses.Response_Committees{committees})
+	json.NewEncoder(w).Encode(responses.CommitteesResponse{committees})
 }
 
 //GetSchedulerStateToGenesis returns the genesis state at specified block height.
@@ -147,7 +147,7 @@ func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
 		//Stop the code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.Response_error{"Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{"Node name requested doesn't exist"})
 		return
 	}
 
@@ -155,7 +155,7 @@ func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	height := checkHeight(recvHeight)
 	if height == -1 {
 		//Stop the code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.Response_error{"Unexepcted value found, height needs to be string of int!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{"Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
@@ -168,17 +168,17 @@ func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	//If a null object was retrieved send response
 	if sc == nil {
 		//Stop the code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.Response_error{"Failed to establish a connection using the socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{"Failed to establish a connection using the socket : " + socket})
 		return
 	}
 
 	gensis, err := sc.StateToGenesis(context.Background(), height)
 	if err != nil {
-		json.NewEncoder(w).Encode(responses.Response_error{"Failed to get Scheduler Genesis State!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{"Failed to get Scheduler Genesis State!"})
 		lgr.Error.Println("Request at /api/GetSchedulerStateToGenesis/ Failed to retrieve the Scheduler Genesis State : ", err)
 		return
 	}
 
 	lgr.Info.Println("Request at /api/GetSchedulerStateToGenesis/ responding with scheduler genesis state!")
-	json.NewEncoder(w).Encode(responses.Response_SchedulerGenesisState{gensis})
+	json.NewEncoder(w).Encode(responses.SchedulerGenesisState{gensis})
 }

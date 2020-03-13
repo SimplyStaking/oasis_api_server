@@ -14,7 +14,7 @@ func Pong(w http.ResponseWriter, r *http.Request) {
 	//Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 	lgr.Info.Println("Received request for /api/pingApi")
-	json.NewEncoder(w).Encode(responses.Responded_pong)
+	json.NewEncoder(w).Encode(responses.PongResponsed)
 }
 
 //Get all the possible connections that have been loaded in the configuration file
@@ -33,5 +33,5 @@ func GetConnections(w http.ResponseWriter, r *http.Request){
 		connectionsResponse = append(connectionsResponse, socket["ws_url"])
 	}
 	//Encode the object and send it using a predefind response
-	json.NewEncoder(w).Encode(responses.Response_Conns{connectionsResponse})
+	json.NewEncoder(w).Encode(responses.ConnectionsResponse{connectionsResponse})
 }

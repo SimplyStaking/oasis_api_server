@@ -79,7 +79,7 @@ func Test_GetEntities_Height3(t *testing.T){
 	expected := 87
 	
 	//Responding with a Genesis File
-	allEntities := &responses.Response_entities {
+	allEntities := &responses.EntitiesResponse {
 		Entities : []*common_entity.Entity{},
 	}
 

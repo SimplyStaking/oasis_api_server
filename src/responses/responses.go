@@ -1,152 +1,153 @@
 package responses
 
 import (
-	gen_api "github.com/oasislabs/oasis-core/go/genesis/api"
-	epoch_api "github.com/oasislabs/oasis-core/go/epochtime/api"
-	consensus_api "github.com/oasislabs/oasis-core/go/consensus/api"
-	registry_api "github.com/oasislabs/oasis-core/go/registry/api"
-	staking_api "github.com/oasislabs/oasis-core/go/staking/api"
-	scheduler_api "github.com/oasislabs/oasis-core/go/scheduler/api"
-	mint_types "github.com/tendermint/tendermint/types"
 	common_signature "github.com/oasislabs/oasis-core/go/common/crypto/signature"
 	common_entity "github.com/oasislabs/oasis-core/go/common/entity"
 	common_node "github.com/oasislabs/oasis-core/go/common/node"
 	common_quantity "github.com/oasislabs/oasis-core/go/common/quantity"
+	consensus_api "github.com/oasislabs/oasis-core/go/consensus/api"
+	epoch_api "github.com/oasislabs/oasis-core/go/epochtime/api"
+	gen_api "github.com/oasislabs/oasis-core/go/genesis/api"
+	registry_api "github.com/oasislabs/oasis-core/go/registry/api"
+	scheduler_api "github.com/oasislabs/oasis-core/go/scheduler/api"
+	staking_api "github.com/oasislabs/oasis-core/go/staking/api"
+	mint_types "github.com/tendermint/tendermint/types"
 )
 
-//Responding with the scheduler genesis state
-type Response_SchedulerGenesisState struct{
+//SchedulerGenesisState responds with the scheduler genesis state
+type SchedulerGenesisState struct {
 	SchedulerGenesisState *scheduler_api.Genesis `json:"gensis"`
 }
 
-//Responding with Committees
-type Response_Committees struct{
+//CommitteesResponse responds with Committees
+type CommitteesResponse struct {
 	Committee []*scheduler_api.Committee `json:"commitees"`
 }
 
-//Responding with Validators and their voting power
-type Response_Validators struct{
+//ValidatorsResponse responds with Validators and their voting power
+type ValidatorsResponse struct {
 	Validators []*scheduler_api.Validator `json:"validators"`
 }
 
-//Responding with the IsSynced State
-type Response_IsSynced struct{
+//IsSyncedResponse responds with the IsSynced State
+type IsSyncedResponse struct {
 	Synced bool `json:"issynced"`
 }
 
-//Responding with debonding delegations for a public key
-type Response_DebondingDelegations struct{
-	DebondingDelegations map[common_signature.PublicKey][] *staking_api.DebondingDelegation `json:"debondig_delegations"`
+//DebondingDelegationsResponse responds with debonding delegations for a public key
+type DebondingDelegationsResponse struct {
+	DebondingDelegations map[common_signature.PublicKey][]*staking_api.DebondingDelegation `json:"debondig_delegations"`
 }
 
-//Responding with delegations for a public key
-type Response_delegations struct{
-	Delegations map[common_signature.PublicKey] *staking_api.Delegation `json:"delegations"`
+//DelegationsResponse responds with delegations for a public key
+type DelegationsResponse struct {
+	Delegations map[common_signature.PublicKey]*staking_api.Delegation `json:"delegations"`
 }
 
-//Responding with an account
-type Response_account struct{
+//AccountResponse responds with an account
+type AccountResponse struct {
 	AccountInfo *staking_api.Account `json:"account"`
 }
 
-//Responding with a list of Accounts
-type Response_allAccounts struct{
+//AllAccountsResponse responds with a list of Accounts
+type AllAccountsResponse struct {
 	AllAccounts []common_signature.PublicKey `json:"accounts"`
 }
 
-//Responding with a Staking Genesis File
-type Response_stakingGenesis struct{
+//StakingGenesisResponse responds with a Staking Genesis File
+type StakingGenesisResponse struct {
 	GenesisStaking *staking_api.Genesis `json:"genesis"`
 }
 
-//Responding with a quantity
-type Response_quantity struct{
-	Quantity *common_quantity.Quantity  `json:"quantity"`
+//QuantityResponse responds with a quantity
+type QuantityResponse struct {
+	Quantity *common_quantity.Quantity `json:"quantity"`
 }
 
-//Respond with the details of a single Entity
-type Response_registryEntity struct{
-	Entity *common_entity.Entity  `json:"entity"`
+//RegistryEntityResponse responds with the details of a single Entity
+type RegistryEntityResponse struct {
+	Entity *common_entity.Entity `json:"entity"`
 }
 
-//Respond with the details of a single Node
-type Response_registryNode struct{
-	Node *common_node.Node  `json:"node"`
+//RegistryNodeResponse responds with the details of a single Node
+type RegistryNodeResponse struct {
+	Node *common_node.Node `json:"node"`
 }
 
-//Respond with the genesis state of the registry
-type Response_registryGenesis struct {
+//RegistryGenesisResponse responds with the genesis state of the registry
+type RegistryGenesisResponse struct {
 	GenesisRegistry *registry_api.Genesis `json:"genesis"`
 }
 
-//Respond with a NodeList
-type Response_nodelist struct{
-	NodeList *registry_api.NodeList  `json:"nodelist"`
+//NodelistResponse responds with a NodeList
+type NodelistResponse struct {
+	NodeList *registry_api.NodeList `json:"nodelist"`
 }
 
-//Respondig with a single Runtime
-type Response_runtime struct{
-	Runtime *registry_api.Runtime  `json:"runtime"`
+//RuntimeResponse responds with a single Runtime
+type RuntimeResponse struct {
+	Runtime *registry_api.Runtime `json:"runtime"`
 }
 
-//Respondig with Multiple Runtimes
-type Response_runtimes struct{
-	Runtimes []*registry_api.Runtime  `json:"runtimes"`
+//RuntimesResponse responds with Multiple Runtimes
+type RuntimesResponse struct {
+	Runtimes []*registry_api.Runtime `json:"runtimes"`
 }
 
-//Respondig with Multiple Nodes
-type Response_nodes struct{
-	Nodes []*common_node.Node  `json:"nodes"`
+//NodesResponse responding with Multiple Nodes
+type NodesResponse struct {
+	Nodes []*common_node.Node `json:"nodes"`
 }
 
-//Respondig with Multiple Entities
-type Response_entities struct{
-	Entities []*common_entity.Entity  `json:"entities"`
+//EntitiesResponse responding with Multiple Entities
+type EntitiesResponse struct {
+	Entities []*common_entity.Entity `json:"entities"`
 }
 
-//Responding with all the transactions in a block
-type Response_transactions struct{
-	Transactions [][]byte  `json:"transactions"`
+//TransactionsResponse responds with all the transactions in a block
+type TransactionsResponse struct {
+	Transactions [][]byte `json:"transactions"`
 }
 
-//Responding with a Tendermint Header Type
-type Response_blockHeader struct{
-	BlkHeader *mint_types.Header  `json:"block_header"`
+//BlockHeaderResponse responds with a Tendermint Header Type
+type BlockHeaderResponse struct {
+	BlkHeader *mint_types.Header `json:"block_header"`
 }
 
-//Responding with a Tendermint Last Commit Type
-type Response_blockLastCommit struct{
-	BlkLastCommit *mint_types.Commit  `json:"block_last_commit"`
+//BlockLastCommitResponse responds with a Tendermint Last Commit Type
+type BlockLastCommitResponse struct {
+	BlkLastCommit *mint_types.Commit `json:"block_last_commit"`
 }
 
-//Responding with a custom Block Response with an unmarshalled message
-type Response_block struct{
+//BlockResponse responds with a custom Block Response with an unmarshalled message
+type BlockResponse struct {
 	Blk *consensus_api.Block `json:"block"`
 }
 
-//Responding with epcoh time
-type Response_epoch struct{
+//EpochResponse responds with epcoh time
+type EpochResponse struct {
 	Ep epoch_api.EpochTime `json:"epoch"`
 }
 
-//Responding with a Genesis File
-type Response_consensusgenesis struct{
+//ConsensusGenesisResponse  with the consensus Genesis Document
+type ConsensusGenesisResponse struct {
 	GenJSON *gen_api.Document `json:"genesis"`
 }
 
-//Responding to Pong Requests
-type Response_pong struct{
+//PongResponse responding to pong requests
+type PongResponse struct {
 	Result string `json:"result"`
 }
 
-//Responding to Pong Requests with an error
-type Response_error struct{
+//ErrorResponse repsonds with an error message that will be set
+type ErrorResponse struct {
 	Error string `json:"error"`
 }
 
-type Response_Conns struct{
+//ConnectionsResponse responds with all the connections configured
+type ConnectionsResponse struct {
 	Results []string `json:"result"`
 }
 
-//Assinging Variable Responses that do not need to be changed.
-var Responded_pong = Response_pong{"pong"}
+//PongResponsed Assinging Variable Responses that do not need to be changed.
+var PongResponsed = PongResponse{Result: "pong"}

@@ -33,7 +33,7 @@ func GetIsSynced(w http.ResponseWriter, r *http.Request) {
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
 		//Stop the code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.Response_error{"Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{"Node name requested doesn't exist"})
 		return
 	}
 
@@ -46,17 +46,17 @@ func GetIsSynced(w http.ResponseWriter, r *http.Request) {
 	//If a null object was retrieved send response
 	if nc == nil{
 		//Stop the code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.Response_error{"Failed to establish a connection using the socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{"Failed to establish a connection using the socket : " + socket})
 		return
 	}
 
 	synced, err := nc.IsSynced(context.Background())
 	if err != nil{
-		json.NewEncoder(w).Encode(responses.Response_error{"Failed to get IsSynced!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{"Failed to get IsSynced!"})
 		lgr.Error.Println("Request at /api/GetIsSynced/ Failed to retrieve the IsSynced : " , err)
 		return
 	}
 
 	lgr.Info.Println("Request at /api/GetIsSynced/ responding with the IsSynced State!")
-	json.NewEncoder(w).Encode(responses.Response_IsSynced{synced})
+	json.NewEncoder(w).Encode(responses.IsSyncedResponse{synced})
 }
