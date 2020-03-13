@@ -2,18 +2,31 @@ package rpc
 
 import (
 	"fmt"
+
 	"google.golang.org/grpc"
 
 	cmnGrpc "github.com/oasislabs/oasis-core/go/common/grpc"
 	consensus "github.com/oasislabs/oasis-core/go/consensus/api"
-	staking "github.com/oasislabs/oasis-core/go/staking/api"
-	registry "github.com/oasislabs/oasis-core/go/registry/api"
 	control "github.com/oasislabs/oasis-core/go/control/api"
+	registry "github.com/oasislabs/oasis-core/go/registry/api"
 	scheduler "github.com/oasislabs/oasis-core/go/scheduler/api"
+	staking "github.com/oasislabs/oasis-core/go/staking/api"
+	storage "github.com/oasislabs/oasis-core/go/storage/api"
 )
 
+//StorageClient - initiate a new storage client
+func StorageClient(address string) (*grpc.ClientConn, storage.Backend, error) {
+	conn, err := Connect(address)
+	if err != nil {
+		return nil, nil, fmt.Errorf("Failed to establish Storage Client Connection with node %s", address)
+	}
+
+	client := storage.NewStorageClient(conn)
+	return conn, client, nil
+}
+
 //SchedulerClient - initiate a new scheduler client
-func SchedulerClient(address string) (*grpc.ClientConn, scheduler.Backend, error){
+func SchedulerClient(address string) (*grpc.ClientConn, scheduler.Backend, error) {
 	conn, err := Connect(address)
 	if err != nil {
 		return nil, nil, fmt.Errorf("Failed to establish Scheduler Client Connection with node %s", address)
@@ -24,7 +37,7 @@ func SchedulerClient(address string) (*grpc.ClientConn, scheduler.Backend, error
 }
 
 //NodeControllerClient - initiate a new registry client
-func NodeControllerClient(address string) (*grpc.ClientConn, control.NodeController, error){
+func NodeControllerClient(address string) (*grpc.ClientConn, control.NodeController, error) {
 	conn, err := Connect(address)
 	if err != nil {
 		return nil, nil, fmt.Errorf("Failed to establish NodeController Client Connection with node %s", address)
@@ -35,7 +48,7 @@ func NodeControllerClient(address string) (*grpc.ClientConn, control.NodeControl
 }
 
 //RegistryClient - initiate a new registry client
-func RegistryClient(address string) (*grpc.ClientConn, registry.Backend, error){
+func RegistryClient(address string) (*grpc.ClientConn, registry.Backend, error) {
 	conn, err := Connect(address)
 	if err != nil {
 		return nil, nil, fmt.Errorf("Failed to establish Registry Client Connection with node %s", address)
