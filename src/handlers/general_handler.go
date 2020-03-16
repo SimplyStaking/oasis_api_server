@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 	"encoding/json"
-	
+
 	config "github.com/SimplyVC/oasis_api_server/src/config"
 	responses "github.com/SimplyVC/oasis_api_server/src/responses"
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"

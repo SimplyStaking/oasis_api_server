@@ -11,19 +11,7 @@ import (
 	registry "github.com/oasislabs/oasis-core/go/registry/api"
 	scheduler "github.com/oasislabs/oasis-core/go/scheduler/api"
 	staking "github.com/oasislabs/oasis-core/go/staking/api"
-	storage "github.com/oasislabs/oasis-core/go/storage/api"
 )
-
-//StorageClient - initiate a new storage client
-func StorageClient(address string) (*grpc.ClientConn, storage.Backend, error) {
-	conn, err := Connect(address)
-	if err != nil {
-		return nil, nil, fmt.Errorf("Failed to establish Storage Client Connection with node %s", address)
-	}
-
-	client := storage.NewStorageClient(conn)
-	return conn, client, nil
-}
 
 //SchedulerClient - initiate a new scheduler client
 func SchedulerClient(address string) (*grpc.ClientConn, scheduler.Backend, error) {

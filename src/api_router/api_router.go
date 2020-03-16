@@ -45,6 +45,7 @@ func StartServer() error {
 	router.HandleFunc("/api/GetBlockHeader/", handler.GetBlockHeader).Methods("Get")
 	router.HandleFunc("/api/GetBlockLastCommit/", handler.GetBlockLastCommit).Methods("Get")
 	router.HandleFunc("/api/GetTransactions/", handler.GetTransactions).Methods("Get")
+	router.HandleFunc("/api/pingNode/", handler.PingNode).Queries("name","{name}").Methods("Get")
 
 	//Router Handlers to handle the Registry API Calls
 	router.HandleFunc("/api/GetEntities/", handler.GetEntities).Methods("Get")

@@ -74,14 +74,6 @@ func TestConsensusClient_Success(t *testing.T) {
 	}
 }
 
-//Testing if Storage Client Connects
-func TestStorageClient_Success(t *testing.T) {
-	_, _, err := rpc.StorageClient(ws_url)
-	if err != nil {
-		t.Errorf("Failed to create a StorageClient for socket %v got %v", ws_url, err)
-	}
-}
-
 //Testing the connection function
 func TestConnect_Success(t *testing.T) {
 	_, err := rpc.Connect(ws_url)

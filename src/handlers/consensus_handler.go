@@ -14,8 +14,6 @@ import (
 	mint_api "github.com/oasislabs/oasis-core/go/consensus/tendermint/api"
 )
 
-//https://techsquad.rocks/blog/go_grpc_cheap_ping/
-
 //loadConsensusClient loads the consensus client and returns it
 func loadConsensusClient(socket string) (*grpc.ClientConn, consensus.ClientBackend){
 	//Attempt to load a connection with the consensus client
@@ -115,6 +113,45 @@ func GetEpoch(w http.ResponseWriter, r *http.Request) {
 
 	lgr.Info.Println("Request at /api/GetEpoch/ responding with an Epoch!")
 	json.NewEncoder(w).Encode(responses.EpochResponse{epoch})
+}
+
+// PingNode returns a consensus block at a specific height thus signifying that it was pinged.
+func PingNode(w http.ResponseWriter, r *http.Request) {
+	//Adding a header so that the receiver knows they are receiving a JSON structure
+	w.Header().Add("Content-Type", "application/json")
+	//Retrieving the name of the ndoe from the query request
+	nodeName := r.URL.Query().Get("name")
+	confirmation, socket := checkNodeName(nodeName)
+	if confirmation == false {
+		//Stop the code here no need to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{"Node name requested doesn't exist"})
+		return
+	}
+	
+	height := consensus.HeightLatest
+
+	//Attempt to load a connection with the consensus client
+	connection, co := loadConsensusClient(socket)
+
+	//Wait for the code underneath it to execute and then close the connection
+	defer connection.Close()
+
+	//If a null object was retrieved send response
+	if co == nil{
+		//Stop the code here faild to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{"Failed to establish a connection using the socket : " + socket})
+		return
+	}
+
+	_, err := co.GetBlock(context.Background(), height)		
+	if err != nil{
+		json.NewEncoder(w).Encode(responses.ErrorResponse{"Failed to ping a node by retrieving heighest block height!"})
+		lgr.Error.Println("Request at /api/pingNode/ Failed to ping node : " , err)
+		return
+	}
+
+	lgr.Info.Println("Request at /api/pingNode/ responding with Pong!")
+	json.NewEncoder(w).Encode(responses.PongResponsed)
 }
 
 // GetBlock returns a consensus block at a specific height.

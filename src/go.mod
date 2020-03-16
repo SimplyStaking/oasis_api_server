@@ -17,11 +17,12 @@ require (
 	github.com/eapache/channels v1.1.0
 	github.com/fxamacker/cbor/v2 v2.2.0
 	github.com/go-kit/kit v0.9.0
-	github.com/golang/protobuf v1.3.2
+	github.com/golang/protobuf v1.3.5
 	github.com/golang/snappy v0.0.1
 	github.com/gorilla/mux v1.7.4
 	github.com/grpc-ecosystem/go-grpc-middleware v1.0.0
 	github.com/hpcloud/tail v1.0.0
+	github.com/kainlite/grpc-ping v0.0.0-20190623201649-d8f897f70424
 	github.com/libp2p/go-libp2p v0.1.1
 	github.com/libp2p/go-libp2p-core v0.0.3
 	github.com/multiformats/go-multiaddr v0.0.4
@@ -33,6 +34,7 @@ require (
 	github.com/pkg/errors v0.8.1
 	github.com/prometheus/client_golang v0.9.4
 	github.com/seccomp/libseccomp-golang v0.9.1
+	github.com/sparrc/go-ping v0.0.0-20190613174326-4e5b6552494c
 	github.com/spf13/cobra v0.0.5
 	github.com/spf13/pflag v1.0.3
 	github.com/spf13/viper v1.5.0
@@ -46,7 +48,8 @@ require (
 	github.com/zondax/ledger-oasis-go v0.3.0
 	gitlab.com/yawning/dynlib.git v0.0.0-20190911075527-1e6ab3739fd8
 	golang.org/x/crypto v0.0.0-20191119213627-4f8c1d86b1ba
-	golang.org/x/net v0.0.0-20190628185345-da137c7871d7
-	google.golang.org/genproto v0.0.0-20190819201941-24fa4b261c55
-	google.golang.org/grpc v1.25.1
+	golang.org/x/net v0.0.0-20200301022130-244492dfa37a
+	golang.org/x/sys v0.0.0-20200302150141-5c8b2ff67527 // indirect
+	google.golang.org/genproto v0.0.0-20200313141609-30c55424f95d
+	google.golang.org/grpc v1.28.0
 )
