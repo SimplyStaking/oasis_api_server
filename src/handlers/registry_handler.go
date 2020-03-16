@@ -161,51 +161,6 @@ func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(responses.RuntimesResponse{runtimes})
 }
 
-// GetNodeList returns the NodeList at the specified block height.
-func GetNodeList(w http.ResponseWriter, r *http.Request) {
-	//Adding a header so that the receiver knows they are receiving a JSON structure
-	w.Header().Add("Content-Type", "application/json")
-	//Retrieving the name of the ndoe from the query request
-	nodeName := r.URL.Query().Get("name")
-	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
-		//Stop the code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{"Node name requested doesn't exist"})
-		return
-	}
-
-	recvHeight := r.URL.Query().Get("height")
-	height := checkHeight(recvHeight)
-	if height == -1 {
-		//Stop the code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{"Unexepcted value found, height needs to be string of int!"})
-		return
-	}
-
-	//Attempt to load a connection with the registry client
-	connection, ro := loadRegistryClient(socket)
-
-	//Wait for the code underneath it to execute and then close the connection
-	defer connection.Close()
-
-	//If a null object was retrieved send response
-	if ro == nil {
-		//Stop the code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{"Failed to establish a connection using the socket : " + socket})
-		return
-	}
-
-	nodeList, err := ro.GetNodeList(context.Background(), height)
-	if err != nil {
-		json.NewEncoder(w).Encode(responses.ErrorResponse{"Failed to get NodeList!"})
-		lgr.Error.Println("Request at /api/GetNodeList/ Failed to retrieve the nodelist : ", err)
-		return
-	}
-
-	lgr.Info.Println("Request at /api/GetNodeList/ responding with a NodeList!")
-	json.NewEncoder(w).Encode(responses.NodelistResponse{nodeList})
-}
-
 // GetRegistryStateToGenesis returns the StateToGenesis at the specified block height for Registry.
 func GetRegistryStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	//Adding a header so that the receiver knows they are receiving a JSON structure

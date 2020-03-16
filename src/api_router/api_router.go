@@ -51,7 +51,6 @@ func StartServer() error {
 	router.HandleFunc("/api/GetEntities/", handler.GetEntities).Methods("Get")
 	router.HandleFunc("/api/GetNodes/", handler.GetNodes).Methods("Get")
 	router.HandleFunc("/api/GetRuntimes/", handler.GetRuntimes).Methods("Get")
-	router.HandleFunc("/api/GetNodeList/", handler.GetNodeList).Methods("Get")
 	router.HandleFunc("/api/GetRegistryStateToGenesis/", handler.GetRegistryStateToGenesis).Methods("Get")
 	router.HandleFunc("/api/GetEntity/", handler.GetEntity).Methods("Get")
 	router.HandleFunc("/api/GetNode/", handler.GetNode).Methods("Get")
