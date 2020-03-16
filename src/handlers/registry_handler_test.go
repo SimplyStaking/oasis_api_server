@@ -261,3 +261,295 @@ func Test_GetRuntimes_Height3(t *testing.T){
 	}
 }
 
+func Test_GetRegistryStateToGenesis_BadNode(t *testing.T){
+	req, _ := http.NewRequest("GET", "/api/GetRegistryStateToGenesis", nil)
+	q := req.URL.Query()
+	q.Add("name", "Unicorn")
+	req.URL.RawQuery = q.Encode()
+
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(hdl.GetRegistryStateToGenesis)
+	handler.ServeHTTP(rr, req)
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	expected := `{"error":"Node name requested doesn't exist"}`
+
+	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			rr.Body.String(), expected)
+	}
+}
+
+
+func Test_GetRegistryStateToGenesis_InvalidHeight(t *testing.T){
+	req, _ := http.NewRequest("GET", "/api/GetRegistryStateToGenesis", nil)
+	q := req.URL.Query()
+	q.Add("name", "Oasis_Local")
+	q.Add("height", "Unicorn")
+
+	req.URL.RawQuery = q.Encode()
+
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(hdl.GetRegistryStateToGenesis)
+	handler.ServeHTTP(rr, req)
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	expected := `{"error":"Unexepcted value found, height needs to be string of int!"}`
+
+	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			rr.Body.String(), expected)
+	}
+}
+
+func Test_GetRegistryStateToGenesis_Height3(t *testing.T){
+	req, _ := http.NewRequest("GET", "/api/GetRegistryStateToGenesis", nil)
+	q := req.URL.Query()
+	q.Add("name", "Oasis_Local")
+	q.Add("height", "3")
+
+	req.URL.RawQuery = q.Encode()
+
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(hdl.GetRegistryStateToGenesis)
+	handler.ServeHTTP(rr, req)
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	// Expecting 87 Entities to be found at Height 3 in Genesis State
+	expected := 87
+
+	//Responding with all the Runtimes
+	registryGenesis := &responses.RegistryGenesisResponse {
+		GenesisRegistry : &registry_api.Genesis{},
+	}
+
+	err := json.Unmarshal([]byte(rr.Body.String()), registryGenesis)
+	if err != nil {
+		t.Errorf("Failed to unmarshall data")
+	}
+
+	if len(registryGenesis.GenesisRegistry.Entities) != expected {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			len(registryGenesis.GenesisRegistry.Entities), expected)
+	}
+}
+
+func Test_GetEntity_BadNode(t *testing.T){
+	req, _ := http.NewRequest("GET", "/api/GetEntity", nil)
+	q := req.URL.Query()
+	q.Add("name", "Unicorn")
+	req.URL.RawQuery = q.Encode()
+
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(hdl.GetEntity)
+	handler.ServeHTTP(rr, req)
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	expected := `{"error":"Node name requested doesn't exist"}`
+
+	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			rr.Body.String(), expected)
+	}
+}
+
+
+func Test_GetEntity_InvalidHeight(t *testing.T){
+	req, _ := http.NewRequest("GET", "/api/GetEntity", nil)
+	q := req.URL.Query()
+	q.Add("name", "Oasis_Local")
+	q.Add("height", "Unicorn")
+
+	req.URL.RawQuery = q.Encode()
+
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(hdl.GetEntity)
+	handler.ServeHTTP(rr, req)
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	expected := `{"error":"Unexepcted value found, height needs to be string of int!"}`
+
+	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			rr.Body.String(), expected)
+	}
+}
+
+func Test_GetEntity_Height3(t *testing.T){
+	req, _ := http.NewRequest("GET", "/api/GetEntity", nil)
+	q := req.URL.Query()
+	q.Add("name", "Oasis_Local")
+	q.Add("height", "3")
+	q.Add("entity", "CVzqFIADD2Ed0khGBNf4Rvh7vSNtrL1ULTkWYQszDpc=")
+
+	req.URL.RawQuery = q.Encode()
+
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(hdl.GetEntity)
+	handler.ServeHTTP(rr, req)
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	// Expecting the same entity ID to be retrieved 
+	expected := "CVzqFIADD2Ed0khGBNf4Rvh7vSNtrL1ULTkWYQszDpc="
+
+	//Responding with all the Runtimes
+	registryEntity := &responses.RegistryEntityResponse {
+		Entity : &common_entity.Entity{},
+	}
+
+	err := json.Unmarshal([]byte(rr.Body.String()), registryEntity)
+	if err != nil {
+		t.Errorf("Failed to unmarshall data")
+	}
+
+	if registryEntity.Entity.ID.String() != expected {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			registryEntity.Entity.ID.String(), expected)
+	}
+}
+
+func Test_GetNode_BadNode(t *testing.T){
+	req, _ := http.NewRequest("GET", "/api/GetNode", nil)
+	q := req.URL.Query()
+	q.Add("name", "Unicorn")
+	req.URL.RawQuery = q.Encode()
+
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(hdl.GetNode)
+	handler.ServeHTTP(rr, req)
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	expected := `{"error":"Node name requested doesn't exist"}`
+
+	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			rr.Body.String(), expected)
+	}
+}
+
+
+func Test_GetNode_InvalidHeight(t *testing.T){
+	req, _ := http.NewRequest("GET", "/api/GetNode", nil)
+	q := req.URL.Query()
+	q.Add("name", "Oasis_Local")
+	q.Add("height", "Unicorn")
+
+	req.URL.RawQuery = q.Encode()
+
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(hdl.GetNode)
+	handler.ServeHTTP(rr, req)
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	expected := `{"error":"Unexepcted value found, height needs to be string of int!"}`
+
+	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			rr.Body.String(), expected)
+	}
+}
+
+func Test_GetNode_Height3(t *testing.T){
+	req, _ := http.NewRequest("GET", "/api/GetNode", nil)
+	q := req.URL.Query()
+	q.Add("name", "Oasis_Local")
+	q.Add("height", "3")
+	q.Add("nodeID", "A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU+h+blS9pto=")
+
+	req.URL.RawQuery = q.Encode()
+
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(hdl.GetNode)
+	handler.ServeHTTP(rr, req)
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	// Expecting the same entity ID to be retrieved 
+	expected := "A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU+h+blS9pto="
+
+	registryNode := &responses.RegistryNodeResponse {
+		Node : &common_node.Node{},
+	}
+
+	err := json.Unmarshal([]byte(rr.Body.String()), registryNode)
+	if err != nil {
+		t.Errorf("Failed to unmarshall data")
+	}
+
+	if registryNode.Node.ID.String() != expected {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			registryNode.Node.ID.String(), expected)
+	}
+}
+
+func Test_GetRuntime_BadNode(t *testing.T){
+	req, _ := http.NewRequest("GET", "/api/GetRuntime", nil)
+	q := req.URL.Query()
+	q.Add("name", "Unicorn")
+	req.URL.RawQuery = q.Encode()
+
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(hdl.GetRuntime)
+	handler.ServeHTTP(rr, req)
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	expected := `{"error":"Node name requested doesn't exist"}`
+
+	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			rr.Body.String(), expected)
+	}
+}
+
+func Test_GetRuntime_InvalidHeight(t *testing.T){
+	req, _ := http.NewRequest("GET", "/api/GetRuntime", nil)
+	q := req.URL.Query()
+	q.Add("name", "Oasis_Local")
+	q.Add("height", "Unicorn")
+
+	req.URL.RawQuery = q.Encode()
+
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(hdl.GetRuntime)
+	handler.ServeHTTP(rr, req)
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	expected := `{"error":"Unexepcted value found, height needs to be string of int!"}`
+
+	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			rr.Body.String(), expected)
+	}
+}
