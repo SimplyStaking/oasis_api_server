@@ -37,6 +37,7 @@ func setup(){
 	lgr.SetLogger(ioutil.Discard, os.Stdout, os.Stdout, os.Stderr)
 	conf.LoadPortConfiguration()
 	conf.LoadSocketConfiguration()
+	conf.LoadPrometheusConfiguration()
 }
 
 func Test_GetConsensusStateToGenesis_BadNode(t *testing.T){

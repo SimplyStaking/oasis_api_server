@@ -32,7 +32,7 @@ func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//Setting the gauge query
-	gaugeName := r.URL.Query().Get("gauage")
+	gaugeName := r.URL.Query().Get("gauge")
 	if gaugeName == "" {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to retrieve gauge name, please specify!"})
 		lgr.Error.Println("Failed to retrieve gauge name, not specified!")
