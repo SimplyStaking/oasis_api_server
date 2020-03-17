@@ -1,24 +1,24 @@
 package handlers
 
 import (
-	"io/ioutil"
-	"net/http"
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"net/http"
 
-	expfmt "github.com/prometheus/common/expfmt"
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
 	responses "github.com/SimplyVC/oasis_api_server/src/responses"
+	expfmt "github.com/prometheus/common/expfmt"
 )
 
 var parser expfmt.TextParser
 
-//PrometheusQueryGauge to retreive prometheus data. 
+//PrometheusQueryGauge to retreive prometheus data.
 func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
 
 	lgr.Info.Println("Received request for /api/prometheus/gauge")
-	
+
 	//Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -43,9 +43,9 @@ func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		lgr.Error.Println("Failed to retrieve Prometheus Data")
 	}
-	
+
 	defer resp.Body.Close()
-	
+
 	//Read the body response of the Prometheus Configuration
 	body, err1 := ioutil.ReadAll(resp.Body)
 	if err1 != nil {
@@ -60,15 +60,15 @@ func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
 	output := parsed[gaugeName].GetMetric()[0].GetGauge().GetValue()
 	s := fmt.Sprintf("%f", output)
 
-	json.NewEncoder(w).Encode(responses.PrometheusResponse{Result: s })
+	json.NewEncoder(w).Encode(responses.PrometheusResponse{Result: s})
 	lgr.Info.Println("Received request for /api/prometheus/gauge responding with : ", s)
 }
 
-//PrometheusQueryCounter to retreive prometheus data. 
+//PrometheusQueryCounter to retreive prometheus data.
 func PrometheusQueryCounter(w http.ResponseWriter, r *http.Request) {
 
 	lgr.Info.Println("Received request for /api/prometheus/counter")
-	
+
 	//Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -93,9 +93,9 @@ func PrometheusQueryCounter(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		lgr.Error.Println("Failed to retrieve Prometheus Data")
 	}
-	
+
 	defer resp.Body.Close()
-	
+
 	//Read the body response of the Prometheus Configuration
 	body, err1 := ioutil.ReadAll(resp.Body)
 	if err1 != nil {
@@ -110,6 +110,6 @@ func PrometheusQueryCounter(w http.ResponseWriter, r *http.Request) {
 	output := parsed[counterName].GetMetric()[0].GetCounter().GetValue()
 	s := fmt.Sprintf("%f", output)
 
-	json.NewEncoder(w).Encode(responses.PrometheusResponse{Result: s })
+	json.NewEncoder(w).Encode(responses.PrometheusResponse{Result: s})
 	lgr.Info.Println("Received request for /api/prometheus/counter responding with : ", s)
 }

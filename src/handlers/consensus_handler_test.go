@@ -1,21 +1,21 @@
 package handlers_test
 
 import (
-	"testing"
-	"strings"
+	"encoding/json"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
-	"io/ioutil"
-	"encoding/json"
+	"strings"
+	"testing"
 
-	gen_api "github.com/oasislabs/oasis-core/go/genesis/api"
-	epoch_api "github.com/oasislabs/oasis-core/go/epochtime/api"
-	consensus_api "github.com/oasislabs/oasis-core/go/consensus/api"
-	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
-	hdl "github.com/SimplyVC/oasis_api_server/src/handlers"
 	conf "github.com/SimplyVC/oasis_api_server/src/config"
+	hdl "github.com/SimplyVC/oasis_api_server/src/handlers"
+	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
 	responses "github.com/SimplyVC/oasis_api_server/src/responses"
+	consensus_api "github.com/oasislabs/oasis-core/go/consensus/api"
+	epoch_api "github.com/oasislabs/oasis-core/go/epochtime/api"
+	gen_api "github.com/oasislabs/oasis-core/go/genesis/api"
 	mint_types "github.com/tendermint/tendermint/types"
 )
 
@@ -30,7 +30,7 @@ func TestMain(m *testing.M) {
 	os.Exit(code)
 }
 
-func setup(){
+func setup() {
 	//Set the Logger that will be used by the API through all the packages
 	//And Load all the configuration that need to be used by the router
 	os.Chdir("../")
@@ -40,7 +40,7 @@ func setup(){
 	conf.LoadPrometheusConfiguration()
 }
 
-func Test_GetConsensusStateToGenesis_BadNode(t *testing.T){
+func Test_GetConsensusStateToGenesis_BadNode(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetConsensusStateToGenesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
@@ -62,7 +62,7 @@ func Test_GetConsensusStateToGenesis_BadNode(t *testing.T){
 	}
 }
 
-func Test_GetConsensusStateToGenesis_InvalidHeight(t *testing.T){
+func Test_GetConsensusStateToGenesis_InvalidHeight(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetConsensusStateToGenesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -86,7 +86,7 @@ func Test_GetConsensusStateToGenesis_InvalidHeight(t *testing.T){
 	}
 }
 
-func Test_GetConsensusStateToGenesis_Height3(t *testing.T){
+func Test_GetConsensusStateToGenesis_Height3(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetConsensusStateToGenesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -103,10 +103,10 @@ func Test_GetConsensusStateToGenesis_Height3(t *testing.T){
 	}
 
 	expected := "questnet-2020-03-05-1583427600"
-	
+
 	//Responding with a Genesis File
-	geneisState := &responses.ConsensusGenesisResponse {
-		GenJSON : &gen_api.Document{},
+	geneisState := &responses.ConsensusGenesisResponse{
+		GenJSON: &gen_api.Document{},
 	}
 
 	err := json.Unmarshal([]byte(rr.Body.String()), geneisState)
@@ -121,12 +121,12 @@ func Test_GetConsensusStateToGenesis_Height3(t *testing.T){
 }
 
 //By Sending a negative 2 value I'm making sure that the client can't retrieve a state
-func Test_GetConsensusStateToGenesis_Heightn2(t *testing.T){
+func Test_GetConsensusStateToGenesis_Heightn2(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetConsensusStateToGenesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "-2")
-	
+
 	req.URL.RawQuery = q.Encode()
 
 	rr := httptest.NewRecorder()
@@ -145,7 +145,7 @@ func Test_GetConsensusStateToGenesis_Heightn2(t *testing.T){
 	}
 }
 
-func Test_GetEpoch_BadNode(t *testing.T){
+func Test_GetEpoch_BadNode(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetEpoch", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
@@ -167,7 +167,7 @@ func Test_GetEpoch_BadNode(t *testing.T){
 	}
 }
 
-func Test_GetEpoch_InvalidHeight(t *testing.T){
+func Test_GetEpoch_InvalidHeight(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetEpoch", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -191,8 +191,7 @@ func Test_GetEpoch_InvalidHeight(t *testing.T){
 	}
 }
 
-
-func Test_GetEpoch_Height3(t *testing.T){
+func Test_GetEpoch_Height3(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetEpoch", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -209,7 +208,7 @@ func Test_GetEpoch_Height3(t *testing.T){
 	}
 
 	expected := 3492
-	
+
 	epochTime := &responses.EpochResponse{}
 
 	err := json.Unmarshal([]byte(rr.Body.String()), epochTime)
@@ -223,7 +222,7 @@ func Test_GetEpoch_Height3(t *testing.T){
 	}
 }
 
-func Test_GetBlock_BadNode(t *testing.T){
+func Test_GetBlock_BadNode(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetBlock", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
@@ -245,7 +244,7 @@ func Test_GetBlock_BadNode(t *testing.T){
 	}
 }
 
-func Test_GetBlock_InvalidHeight(t *testing.T){
+func Test_GetBlock_InvalidHeight(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetBlock", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -269,8 +268,7 @@ func Test_GetBlock_InvalidHeight(t *testing.T){
 	}
 }
 
-
-func Test_GetBlock_Height3(t *testing.T){
+func Test_GetBlock_Height3(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetBlock", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -287,10 +285,10 @@ func Test_GetBlock_Height3(t *testing.T){
 	}
 
 	var expected int64
-	expected =  3
-	
-	block := &responses.BlockResponse {
-		Blk : &consensus_api.Block{},
+	expected = 3
+
+	block := &responses.BlockResponse{
+		Blk: &consensus_api.Block{},
 	}
 
 	err := json.Unmarshal([]byte(rr.Body.String()), block)
@@ -304,8 +302,7 @@ func Test_GetBlock_Height3(t *testing.T){
 	}
 }
 
-
-func Test_GetBlockHeader_BadNode(t *testing.T){
+func Test_GetBlockHeader_BadNode(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetBlockHeader", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
@@ -327,7 +324,7 @@ func Test_GetBlockHeader_BadNode(t *testing.T){
 	}
 }
 
-func Test_GetBlockHeader_InvalidHeight(t *testing.T){
+func Test_GetBlockHeader_InvalidHeight(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetBlockHeader", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -351,7 +348,7 @@ func Test_GetBlockHeader_InvalidHeight(t *testing.T){
 	}
 }
 
-func Test_GetBlockHeader_Height3(t *testing.T){
+func Test_GetBlockHeader_Height3(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetBlockHeader", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -368,10 +365,10 @@ func Test_GetBlockHeader_Height3(t *testing.T){
 	}
 
 	var expected int64
-	expected =  3
-	
-	blockHeader := &responses.BlockHeaderResponse {
-		BlkHeader : &mint_types.Header{},
+	expected = 3
+
+	blockHeader := &responses.BlockHeaderResponse{
+		BlkHeader: &mint_types.Header{},
 	}
 
 	err := json.Unmarshal([]byte(rr.Body.String()), blockHeader)
@@ -385,7 +382,7 @@ func Test_GetBlockHeader_Height3(t *testing.T){
 	}
 }
 
-func Test_GetBlockLastCommit_BadNode(t *testing.T){
+func Test_GetBlockLastCommit_BadNode(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetBlockLastCommit", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
@@ -407,7 +404,7 @@ func Test_GetBlockLastCommit_BadNode(t *testing.T){
 	}
 }
 
-func Test_GetBlockLastCommit_InvalidHeight(t *testing.T){
+func Test_GetBlockLastCommit_InvalidHeight(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetBlockLastCommit", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -431,7 +428,7 @@ func Test_GetBlockLastCommit_InvalidHeight(t *testing.T){
 	}
 }
 
-func Test_GetBlockLastCommit_Height3(t *testing.T){
+func Test_GetBlockLastCommit_Height3(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetBlockLastCommit", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -448,10 +445,10 @@ func Test_GetBlockLastCommit_Height3(t *testing.T){
 	}
 
 	var expected int64
-	expected =  2
-	
-	blkLastCommit := &responses.BlockLastCommitResponse {
-		BlkLastCommit : &mint_types.Commit{},
+	expected = 2
+
+	blkLastCommit := &responses.BlockLastCommitResponse{
+		BlkLastCommit: &mint_types.Commit{},
 	}
 
 	err := json.Unmarshal([]byte(rr.Body.String()), blkLastCommit)
@@ -462,11 +459,11 @@ func Test_GetBlockLastCommit_Height3(t *testing.T){
 	newCommitObject := mint_types.Commit(*blkLastCommit.BlkLastCommit)
 	if newCommitObject.Height() != expected {
 		t.Errorf("handler returned unexpected body: got %v want %v",
-		newCommitObject.Height(), expected)
+			newCommitObject.Height(), expected)
 	}
 }
 
-func Test_GetTransactions_BadNode(t *testing.T){
+func Test_GetTransactions_BadNode(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetTransactions", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
@@ -488,7 +485,7 @@ func Test_GetTransactions_BadNode(t *testing.T){
 	}
 }
 
-func Test_GetTransactions_InvalidHeight(t *testing.T){
+func Test_GetTransactions_InvalidHeight(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetTransactions", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
