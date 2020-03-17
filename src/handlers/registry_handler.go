@@ -30,7 +30,7 @@ func loadRegistryClient(socket string) (*grpc.ClientConn, registry.Backend) {
 func GetEntities(w http.ResponseWriter, r *http.Request) {
 	//Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
-	//Retrieving the name of the ndoe from the query request
+	//Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
@@ -75,7 +75,7 @@ func GetEntities(w http.ResponseWriter, r *http.Request) {
 func GetNodes(w http.ResponseWriter, r *http.Request) {
 	//Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
-	//Retrieving the name of the ndoe from the query request
+	//Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
@@ -120,7 +120,7 @@ func GetNodes(w http.ResponseWriter, r *http.Request) {
 func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 	//Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
-	//Retrieving the name of the ndoe from the query request
+	//Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
@@ -165,7 +165,7 @@ func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 func GetRegistryStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	//Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
-	//Retrieving the name of the ndoe from the query request
+	//Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
@@ -210,7 +210,7 @@ func GetRegistryStateToGenesis(w http.ResponseWriter, r *http.Request) {
 func GetEntity(w http.ResponseWriter, r *http.Request) {
 	//Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
-	//Retrieving the name of the ndoe from the query request
+	//Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
@@ -273,7 +273,7 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 func GetNode(w http.ResponseWriter, r *http.Request) {
 	//Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
-	//Retrieving the name of the ndoe from the query request
+	//Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
@@ -339,7 +339,7 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 func GetRuntime(w http.ResponseWriter, r *http.Request) {
 	//Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
-	//Retrieving the name of the ndoe from the query request
+	//Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {

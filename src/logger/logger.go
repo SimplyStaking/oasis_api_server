@@ -13,7 +13,7 @@ var (
 	Error   *log.Logger
 )
 
-//SetLogger creates the loggers that will be used
+//SetLogger creates the loggers that will be used through out the API
 func SetLogger(
 	traceHandle io.Writer,
 	infoHandle io.Writer,

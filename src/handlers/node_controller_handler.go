@@ -28,7 +28,7 @@ func loadNodeControllerClient(socket string) (*grpc.ClientConn, control.NodeCont
 func GetIsSynced(w http.ResponseWriter, r *http.Request) {
 	//Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
-	//Retrieving the name of the ndoe from the query request
+	//Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {

@@ -19,7 +19,7 @@ type SchedulerGenesisState struct {
 	SchedulerGenesisState *scheduler_api.Genesis `json:"gensis"`
 }
 
-//CommitteesResponse responds with Committees
+//CommitteesResponse responds with the Committees
 type CommitteesResponse struct {
 	Committee []*scheduler_api.Committee `json:"commitees"`
 }
@@ -29,12 +29,12 @@ type ValidatorsResponse struct {
 	Validators []*scheduler_api.Validator `json:"validators"`
 }
 
-//IsSyncedResponse responds with the IsSynced State
+//IsSyncedResponse responds with a boolean signifying the synchronisation state of a node
 type IsSyncedResponse struct {
 	Synced bool `json:"issynced"`
 }
 
-//DebondingDelegationsResponse responds with debonding delegations for a public key
+//DebondingDelegationsResponse responds with debonding delegations for a specified public key
 type DebondingDelegationsResponse struct {
 	DebondingDelegations map[common_signature.PublicKey][]*staking_api.DebondingDelegation `json:"debondig_delegations"`
 }
@@ -139,7 +139,7 @@ type PongResponse struct {
 	Result string `json:"result"`
 }
 
-//Prometheus response with gauge
+//PrometheusResponse with the Gauge or Counter queried from localhost prometheus
 type PrometheusResponse struct {
 	Result string `json:"result"`
 }

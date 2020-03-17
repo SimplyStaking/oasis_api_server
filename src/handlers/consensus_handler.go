@@ -29,7 +29,7 @@ func loadConsensusClient(socket string) (*grpc.ClientConn, consensus.ClientBacke
 func GetConsensusStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	//Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
-	//Retrieving the name of the ndoe from the query request
+	//Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
@@ -74,7 +74,7 @@ func GetConsensusStateToGenesis(w http.ResponseWriter, r *http.Request) {
 func GetEpoch(w http.ResponseWriter, r *http.Request) {
 	//Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
-	//Retrieving the name of the ndoe from the query request
+	//Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
@@ -119,7 +119,7 @@ func GetEpoch(w http.ResponseWriter, r *http.Request) {
 func PingNode(w http.ResponseWriter, r *http.Request) {
 	//Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
-	//Retrieving the name of the ndoe from the query request
+	//Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
@@ -158,7 +158,7 @@ func PingNode(w http.ResponseWriter, r *http.Request) {
 func GetBlock(w http.ResponseWriter, r *http.Request) {
 		//Adding a header so that the receiver knows they are receiving a JSON structure
 		w.Header().Add("Content-Type", "application/json")
-		//Retrieving the name of the ndoe from the query request
+		//Retrieving the name of the node from the query request
 		nodeName := r.URL.Query().Get("name")
 		confirmation, socket := checkNodeName(nodeName)
 		if confirmation == false {
@@ -204,7 +204,7 @@ func GetBlock(w http.ResponseWriter, r *http.Request) {
 func GetBlockHeader(w http.ResponseWriter, r *http.Request) {
 	//Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
-	//Retrieving the name of the ndoe from the query request
+	//Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
@@ -257,7 +257,7 @@ func GetBlockHeader(w http.ResponseWriter, r *http.Request) {
 func GetBlockLastCommit(w http.ResponseWriter, r *http.Request) {
 	//Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
-	//Retrieving the name of the ndoe from the query request
+	//Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
@@ -308,7 +308,7 @@ func GetBlockLastCommit(w http.ResponseWriter, r *http.Request) {
 func GetTransactions(w http.ResponseWriter, r *http.Request) {
 	//Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
-	//Retrieving the name of the ndoe from the query request
+	//Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {

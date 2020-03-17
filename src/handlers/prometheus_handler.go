@@ -22,7 +22,7 @@ func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
 	//Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
-	//Retrieving the name of the ndoe from the query request
+	//Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, prometheusConfig := checkNodeNamePrometheus(nodeName)
 	if confirmation == false {
@@ -72,7 +72,7 @@ func PrometheusQueryCounter(w http.ResponseWriter, r *http.Request) {
 	//Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
-	//Retrieving the name of the ndoe from the query request
+	//Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, prometheusConfig := checkNodeNamePrometheus(nodeName)
 	if confirmation == false {
