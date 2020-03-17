@@ -13,6 +13,14 @@ import (
 )
 
 func StartServer() error {
+	//Load the prometheus configurations
+	prometheusConf := conf.LoadPrometheusConfiguration()
+	if prometheusConf == nil{
+		lgr.Error.Println("Loading of Prometheus configuration has Failed!")
+		//Abort Program no Port configured to run the API on
+		os.Exit(0)
+	}
+
 	//Load the port configurations
 	portConf := conf.LoadPortConfiguration()
 	if portConf == nil{
@@ -73,6 +81,10 @@ func StartServer() error {
 	router.HandleFunc("/api/GetValidators/", handler.GetValidators).Methods("Get")
 	router.HandleFunc("/api/GetCommittees/", handler.GetCommittees).Methods("Get")
 	router.HandleFunc("/api/GetSchedulerStateToGenesis/", handler.GetSchedulerStateToGenesis).Methods("Get")
+
+	//Router Handlers to handle the Prometheus API Calls
+	router.HandleFunc("/api/prometheus/gauge/", handler.PrometheusQueryGauge).Methods("Get")
+	router.HandleFunc("/api/prometheus/counter/", handler.PrometheusQueryCounter).Methods("Get")
 
 	log.Fatal(http.ListenAndServe(":"+apiPort, router))
 	return nil

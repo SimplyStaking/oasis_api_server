@@ -24,6 +24,22 @@ func checkNodeName(nodeName string) (bool, string) {
 	return false, ""
 }
 
+//Function to check if node name has a prometheus configuration for it
+func checkNodeNamePrometheus(nodeName string) (bool, string) {
+	//Check if nodeName is in the configuration
+	prometheus := config.GetPrometheusFile()
+	for _, conf := range prometheus {
+		//If the nodeName isn't in the configuration produce Log and Reply with Error
+		if  conf["node_name"] == nodeName {
+			lgr.Info.Println("Requested node ",nodeName,"was found!")
+			return true, conf["ws_url"] 
+		}
+	}
+	//If the nodeName isn't in the configuration produce Log and Reply with False
+	lgr.Error.Println("Requested node ",nodeName,"was not found, check if configured!")
+	return false, ""
+}
+
 //Function to check if height is valid or to set height to latest
 func checkHeight(recvHeight string) int64 {
 	//Declare height here so that it can be set inside the if statement

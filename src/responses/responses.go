@@ -139,6 +139,11 @@ type PongResponse struct {
 	Result string `json:"result"`
 }
 
+//Prometheus response with gauge
+type PrometheusResponse struct {
+	Result string `json:"result"`
+}
+
 //ErrorResponse repsonds with an error message that will be set
 type ErrorResponse struct {
 	Error string `json:"error"`
