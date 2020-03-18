@@ -62,7 +62,10 @@ The API Server works as follows:
 | /api/GetSchedulerStateToGenesis/ | Node Name                       | Height          | Scheduler Genesis State   | Returns a scheduler genesis state at a given block height.                          |
 | /api/prometheus/gauge/           |  Node Name, gauge name          | none            | Gauge Value               | Returns a gauge value for a given gauge name.                                       |
 | /api/prometheus/counter/         |  Node Name, counter name        | none            | Counter Value             | Returns a counter value for a given counter name.                                   |
-
+| /api/system/GetMemory/         |  none      | none            | Memory Stats             | Returns the memory stats of the system                                   |
+| /api/system/GetCPU/         |  none        | none            | CPU Stats             | Returns the CPU stats of the system (Linux Only)                                   |
+| /api/system/GetDisk/         |  node       | none            | Disk Stats             | Returns the DISK stats of the system (Linux Only)                                   |
+| /api/system/GetNetwork/         |  node        | none            | Network Stats             | Returns the Network Stats of the system (Linux Only)                                  |
 ## Using the API
 
 For example, the endpoint `/api/GetIsSynced` can be called as follows: `http://localhost:8880/api/GetIsSynced?name=Oasis_Local`.
