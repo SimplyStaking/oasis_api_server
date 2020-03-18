@@ -25,6 +25,7 @@ require (
 	github.com/kainlite/grpc-ping v0.0.0-20190623201649-d8f897f70424
 	github.com/libp2p/go-libp2p v0.1.1
 	github.com/libp2p/go-libp2p-core v0.0.3
+	github.com/mackerelio/go-osstat v0.1.0
 	github.com/multiformats/go-multiaddr v0.0.4
 	github.com/multiformats/go-multiaddr-net v0.0.1
 	github.com/oasislabs/deoxysii v0.0.0-20190807103041-6159f99c2236

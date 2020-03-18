@@ -1,0 +1,17 @@
+{
+    "cpu": {
+        "User": 1165095,
+        "Nice": 2136,
+        "System": 388260,
+        "Idle": 9239505,
+        "Iowait": 294767,
+        "Irq": 0,
+        "Softirq": 24765,
+        "Steal": 0,
+        "Guest": 0,
+        "GuestNice": 0,
+        "Total": 11114528,
+        "CPUCount": 4,
+        "StatCount": 10
+    }
+}

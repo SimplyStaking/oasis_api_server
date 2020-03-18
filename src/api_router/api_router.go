@@ -1,4 +1,4 @@
-package api_router
+package router
 
 import (
 	"log"
@@ -8,14 +8,15 @@ import (
 	"github.com/gorilla/mux"
 
 	conf "github.com/SimplyVC/oasis_api_server/src/config"
-	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
 	handler "github.com/SimplyVC/oasis_api_server/src/handlers"
+	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
 )
 
+//StartServer starts the server by setting the router and all the endpoints
 func StartServer() error {
 	//Load the prometheus configurations
 	prometheusConf := conf.LoadPrometheusConfiguration()
-	if prometheusConf == nil{
+	if prometheusConf == nil {
 		lgr.Error.Println("Loading of Prometheus configuration has Failed!")
 		//Abort Program no Port configured to run the API on
 		os.Exit(0)
@@ -23,14 +24,14 @@ func StartServer() error {
 
 	//Load the port configurations
 	portConf := conf.LoadPortConfiguration()
-	if portConf == nil{
+	if portConf == nil {
 		lgr.Error.Println("Loading of Port configuration has Failed!")
 		//Abort Program no Port configured to run the API on
 		os.Exit(0)
 	}
 	//Load the socket configuration but do not use them
-	socketConf:= conf.LoadSocketConfiguration()
-	if socketConf == nil{
+	socketConf := conf.LoadSocketConfiguration()
+	if socketConf == nil {
 		lgr.Error.Println("Loading of Socket configuration has Failed!")
 		//Abort Program no Sockets configured to run the API on
 		os.Exit(0)
@@ -43,7 +44,7 @@ func StartServer() error {
 	router := mux.NewRouter().StrictSlash(true)
 
 	//Router Handlers to handle the General API Calls
-	router.HandleFunc("/api/ping/", handler.Pong).Queries("name","{name}").Methods("Get")
+	router.HandleFunc("/api/ping/", handler.Pong).Queries("name", "{name}").Methods("Get")
 	router.HandleFunc("/api/getConnectionsList", handler.GetConnections).Methods("Get")
 
 	//Router Handlers to handle the Consensus API Calls
@@ -53,7 +54,7 @@ func StartServer() error {
 	router.HandleFunc("/api/GetBlockHeader/", handler.GetBlockHeader).Methods("Get")
 	router.HandleFunc("/api/GetBlockLastCommit/", handler.GetBlockLastCommit).Methods("Get")
 	router.HandleFunc("/api/GetTransactions/", handler.GetTransactions).Methods("Get")
-	router.HandleFunc("/api/pingNode/", handler.PingNode).Queries("name","{name}").Methods("Get")
+	router.HandleFunc("/api/pingNode/", handler.PingNode).Queries("name", "{name}").Methods("Get")
 
 	//Router Handlers to handle the Registry API Calls
 	router.HandleFunc("/api/GetEntities/", handler.GetEntities).Methods("Get")
@@ -85,6 +86,12 @@ func StartServer() error {
 	//Router Handlers to handle the Prometheus API Calls
 	router.HandleFunc("/api/prometheus/gauge/", handler.PrometheusQueryGauge).Methods("Get")
 	router.HandleFunc("/api/prometheus/counter/", handler.PrometheusQueryCounter).Methods("Get")
+
+	//Router Handlers to handle the System API Calls
+	router.HandleFunc("/api/system/GetMemory/", handler.GetMemory).Methods("Get")
+	router.HandleFunc("/api/system/GetDisk/", handler.GetDisk).Methods("Get")
+	router.HandleFunc("/api/system/GetCPU/", handler.GetCPU).Methods("Get")
+	router.HandleFunc("/api/system/GetNetwork/", handler.GetNetwork).Methods("Get")
 
 	log.Fatal(http.ListenAndServe(":"+apiPort, router))
 	return nil

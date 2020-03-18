@@ -1,6 +1,10 @@
 package responses
 
 import (
+	cpu "github.com/mackerelio/go-osstat/cpu"
+	disk "github.com/mackerelio/go-osstat/disk"
+	memory "github.com/mackerelio/go-osstat/memory"
+	network "github.com/mackerelio/go-osstat/network"
 	common_signature "github.com/oasislabs/oasis-core/go/common/crypto/signature"
 	common_entity "github.com/oasislabs/oasis-core/go/common/entity"
 	common_node "github.com/oasislabs/oasis-core/go/common/node"
@@ -13,6 +17,26 @@ import (
 	staking_api "github.com/oasislabs/oasis-core/go/staking/api"
 	mint_types "github.com/tendermint/tendermint/types"
 )
+
+//NetworkResponse responds with the network statistics of the system
+type NetworkResponse struct {
+	Network []network.Stats `json:"network"`
+}
+
+//CPUResponse responds with the CPU statistics of the system
+type CPUResponse struct {
+	CPU *cpu.Stats `json:"cpu"`
+}
+
+//DiskResponse responds with the memory statistics of the system
+type DiskResponse struct {
+	Disk []disk.Stats `json:"disk"`
+}
+
+//MemoryResponse responds with the memory statistics of the system
+type MemoryResponse struct {
+	Memory *memory.Stats `json:"memory"`
+}
 
 //SchedulerGenesisState responds with the scheduler genesis state
 type SchedulerGenesisState struct {
