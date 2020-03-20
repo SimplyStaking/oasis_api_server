@@ -88,20 +88,19 @@ func checkKind(recvKind string) int64 {
 func checkAmount(recvAmount string) int64 {
 	// Declare amount here so that it can be set inside the if statement
 	var amount int64
+	var err error
 	// If the string is empty meaning no optional parameter was passed use the latest amount therefore set the amount to 0
 	if len(recvAmount) == 0 {
 		amount = 0
 		lgr.Info.Println("No amount is specified setting amount to 0!")
 	} else {
 		// If the amount isn't empty attempt to parse it into a int64
-		_, err := (strconv.ParseInt(recvAmount, 10, 64))
+		amount, err = (strconv.ParseInt(recvAmount, 10, 64))
 		if err != nil {
 			// If it fails it means that the string given wasn't a number and return result for
 			lgr.Error.Println("Unexpected value found, required string of int but received ", recvAmount)
 			return -1
 		}
-		// If succeeded then parse it again and set the amount.
-		amount, _ = (strconv.ParseInt(recvAmount, 10, 64))
 	}
 	return amount
 }
