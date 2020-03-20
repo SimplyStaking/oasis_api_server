@@ -21,18 +21,18 @@ docker --version
 ### Creating a new user
 You should create a new user from which you will run the Docker images. This is not required, but suggested for security reasons.
 ```bash
-sudo adduser polkadot_api_server
+sudo adduser oasis_api_server
 ```
 
 You must then grant this user access to use Docker.
 ```bash
-sudo usermod -aG docker polkadot_api_server
+sudo usermod -aG docker oasis_api_server
 ```
 [Source](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04#step-2-%E2%80%94-executing-the-docker-command-without-sudo-\(optional\))
 
 In order to log in to this user, you can simply run:
 ```bash
-su polkadot_api_server
+su oasis_api_server
 ```
 
 ## On Windows
