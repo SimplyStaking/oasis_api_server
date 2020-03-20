@@ -2,9 +2,12 @@
 
 ## Configuring the Nodes
 In order for the API to be able to run correctly, Prometheus Metrics should be enabled in the configuration file `config.yml` in the `/serverdir/etc/` directory. To enable the metrics append this to the end of the file :
-` metrics: `
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`mode: pull `
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`addr: 0.0.0.0:9090 `
+
+```
+metrics:
+    mode: pull
+    addr: 0.0.0.0:9090 
+```
 
 Change `:9090` to the port you want prometheus to be exposed at.
 
