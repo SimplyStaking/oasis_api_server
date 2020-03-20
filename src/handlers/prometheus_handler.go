@@ -14,24 +14,24 @@ import (
 
 var parser expfmt.TextParser
 
-//PrometheusQueryGauge to retreive prometheus data.
+// PrometheusQueryGauge to retreive prometheus data.
 func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
 
 	lgr.Info.Println("Received request for /api/prometheus/gauge")
 
-	//Adding a header so that the receiver knows they are receiving a JSON structure
+	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
-	//Retrieving the name of the node from the query request
+	// Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, prometheusConfig := checkNodeNamePrometheus(nodeName)
 	if confirmation == false {
-		//Stop the code here no need to establish connection and reply
+		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
 	}
 
-	//Setting the gauge query
+	// Setting the gauge query
 	gaugeName := r.URL.Query().Get("gauge")
 	if gaugeName == "" {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to retrieve gauge name, please specify!"})
@@ -46,7 +46,7 @@ func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
 
 	defer resp.Body.Close()
 
-	//Read the body response of the Prometheus Configuration
+	// Read the body response of the Prometheus Configuration
 	body, err1 := ioutil.ReadAll(resp.Body)
 	if err1 != nil {
 		lgr.Error.Println("Failed to read the Prometheus Response")
@@ -64,24 +64,24 @@ func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
 	lgr.Info.Println("Received request for /api/prometheus/gauge responding with : ", s)
 }
 
-//PrometheusQueryCounter to retreive prometheus data.
+// PrometheusQueryCounter to retreive prometheus data.
 func PrometheusQueryCounter(w http.ResponseWriter, r *http.Request) {
 
 	lgr.Info.Println("Received request for /api/prometheus/counter")
 
-	//Adding a header so that the receiver knows they are receiving a JSON structure
+	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
-	//Retrieving the name of the node from the query request
+	// Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, prometheusConfig := checkNodeNamePrometheus(nodeName)
 	if confirmation == false {
-		//Stop the code here no need to establish connection and reply
+		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
 	}
 
-	//Setting the counter query
+	// Setting the counter query
 	counterName := r.URL.Query().Get("counter")
 	if counterName == "" {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to retrieve counter name, please specify!"})
@@ -96,7 +96,7 @@ func PrometheusQueryCounter(w http.ResponseWriter, r *http.Request) {
 
 	defer resp.Body.Close()
 
-	//Read the body response of the Prometheus Configuration
+	// Read the body response of the Prometheus Configuration
 	body, err1 := ioutil.ReadAll(resp.Body)
 	if err1 != nil {
 		lgr.Error.Println("Failed to read the Prometheus Response")

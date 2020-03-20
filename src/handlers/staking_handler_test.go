@@ -1,20 +1,20 @@
 package handlers_test
 
 import (
-	"testing"
-	"strings"
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
-	"encoding/json"
+	"strings"
+	"testing"
 
-	staking_api "github.com/oasislabs/oasis-core/go/staking/api"
-	common_quantity "github.com/oasislabs/oasis-core/go/common/quantity"
-	common_signature "github.com/oasislabs/oasis-core/go/common/crypto/signature"
 	hdl "github.com/SimplyVC/oasis_api_server/src/handlers"
 	responses "github.com/SimplyVC/oasis_api_server/src/responses"
+	common_signature "github.com/oasislabs/oasis-core/go/common/crypto/signature"
+	common_quantity "github.com/oasislabs/oasis-core/go/common/quantity"
+	staking_api "github.com/oasislabs/oasis-core/go/staking/api"
 )
 
-func Test_GetTotalSupply_BadNode(t *testing.T){
+func Test_GetTotalSupply_BadNode(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetTotalSupply", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
@@ -36,7 +36,7 @@ func Test_GetTotalSupply_BadNode(t *testing.T){
 	}
 }
 
-func Test_GetTotalSupply_InvalidHeight(t *testing.T){
+func Test_GetTotalSupply_InvalidHeight(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetTotalSupply", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -60,7 +60,7 @@ func Test_GetTotalSupply_InvalidHeight(t *testing.T){
 	}
 }
 
-func Test_GetTotalSupply_Height3(t *testing.T){
+func Test_GetTotalSupply_Height3(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetTotalSupply", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -78,9 +78,9 @@ func Test_GetTotalSupply_Height3(t *testing.T){
 
 	// Expecting 10000000000000000000 Total Supply
 	expected := "10000000000000000000"
-	
-	quantity := &responses.QuantityResponse {
-		Quantity : &common_quantity.Quantity{},
+
+	quantity := &responses.QuantityResponse{
+		Quantity: &common_quantity.Quantity{},
 	}
 
 	err := json.Unmarshal([]byte(rr.Body.String()), quantity)
@@ -94,7 +94,7 @@ func Test_GetTotalSupply_Height3(t *testing.T){
 	}
 }
 
-func Test_GetCommonPool_BadNode(t *testing.T){
+func Test_GetCommonPool_BadNode(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetCommonPool", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
@@ -116,7 +116,7 @@ func Test_GetCommonPool_BadNode(t *testing.T){
 	}
 }
 
-func Test_GetCommonPool_InvalidHeight(t *testing.T){
+func Test_GetCommonPool_InvalidHeight(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetCommonPool", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -140,7 +140,7 @@ func Test_GetCommonPool_InvalidHeight(t *testing.T){
 	}
 }
 
-func Test_GetCommonPool_Height3(t *testing.T){
+func Test_GetCommonPool_Height3(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetCommonPool", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -157,9 +157,9 @@ func Test_GetCommonPool_Height3(t *testing.T){
 	}
 
 	expected := "7999142984653504864"
-	
-	quantity := &responses.QuantityResponse {
-		Quantity : &common_quantity.Quantity{},
+
+	quantity := &responses.QuantityResponse{
+		Quantity: &common_quantity.Quantity{},
 	}
 
 	err := json.Unmarshal([]byte(rr.Body.String()), quantity)
@@ -173,7 +173,7 @@ func Test_GetCommonPool_Height3(t *testing.T){
 	}
 }
 
-func Test_GetStakingStateToGenesis_BadNode(t *testing.T){
+func Test_GetStakingStateToGenesis_BadNode(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetStakingStateToGenesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
@@ -195,7 +195,7 @@ func Test_GetStakingStateToGenesis_BadNode(t *testing.T){
 	}
 }
 
-func Test_GetStakingStateToGenesis_InvalidHeight(t *testing.T){
+func Test_GetStakingStateToGenesis_InvalidHeight(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetStakingStateToGenesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -219,7 +219,7 @@ func Test_GetStakingStateToGenesis_InvalidHeight(t *testing.T){
 	}
 }
 
-func Test_GetStakingStateToGenesis_Height3(t *testing.T){
+func Test_GetStakingStateToGenesis_Height3(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetStakingStateToGenesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -236,9 +236,9 @@ func Test_GetStakingStateToGenesis_Height3(t *testing.T){
 	}
 
 	expected := "7999142984653504864"
-	
-	stakingGenesis := &responses.StakingGenesisResponse {
-		GenesisStaking : &staking_api.Genesis{},
+
+	stakingGenesis := &responses.StakingGenesisResponse{
+		GenesisStaking: &staking_api.Genesis{},
 	}
 
 	err := json.Unmarshal([]byte(rr.Body.String()), stakingGenesis)
@@ -252,7 +252,7 @@ func Test_GetStakingStateToGenesis_Height3(t *testing.T){
 	}
 }
 
-func Test_GetThreshold_BadNode(t *testing.T){
+func Test_GetThreshold_BadNode(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetThreshold", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
@@ -274,7 +274,7 @@ func Test_GetThreshold_BadNode(t *testing.T){
 	}
 }
 
-func Test_GetThreshold_InvalidHeight(t *testing.T){
+func Test_GetThreshold_InvalidHeight(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetThreshold", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -298,7 +298,7 @@ func Test_GetThreshold_InvalidHeight(t *testing.T){
 	}
 }
 
-func Test_GetThreshold_Height3(t *testing.T){
+func Test_GetThreshold_Height3(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetThreshold", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -317,8 +317,8 @@ func Test_GetThreshold_Height3(t *testing.T){
 
 	expected := "100000000000"
 
-	quantity := &responses.QuantityResponse {
-		Quantity : &common_quantity.Quantity{},
+	quantity := &responses.QuantityResponse{
+		Quantity: &common_quantity.Quantity{},
 	}
 
 	err := json.Unmarshal([]byte(rr.Body.String()), quantity)
@@ -332,7 +332,7 @@ func Test_GetThreshold_Height3(t *testing.T){
 	}
 }
 
-func Test_GetAccounts_BadNode(t *testing.T){
+func Test_GetAccounts_BadNode(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetAccounts", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
@@ -354,7 +354,7 @@ func Test_GetAccounts_BadNode(t *testing.T){
 	}
 }
 
-func Test_GetAccounts_InvalidHeight(t *testing.T){
+func Test_GetAccounts_InvalidHeight(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetAccounts", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -378,7 +378,7 @@ func Test_GetAccounts_InvalidHeight(t *testing.T){
 	}
 }
 
-func Test_GetAccounts_Height3(t *testing.T){
+func Test_GetAccounts_Height3(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetAccounts", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -394,10 +394,10 @@ func Test_GetAccounts_Height3(t *testing.T){
 			status, http.StatusOK)
 	}
 
-	expected :=  260
+	expected := 260
 
-	allAccounts := &responses.AllAccountsResponse {
-		AllAccounts : []common_signature.PublicKey{},
+	allAccounts := &responses.AllAccountsResponse{
+		AllAccounts: []common_signature.PublicKey{},
 	}
 
 	err := json.Unmarshal([]byte(rr.Body.String()), allAccounts)
@@ -411,7 +411,7 @@ func Test_GetAccounts_Height3(t *testing.T){
 	}
 }
 
-func Test_GetAccountInfo_BadNode(t *testing.T){
+func Test_GetAccountInfo_BadNode(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetAccountInfo", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
@@ -433,7 +433,7 @@ func Test_GetAccountInfo_BadNode(t *testing.T){
 	}
 }
 
-func Test_GetAccountInfo_InvalidHeight(t *testing.T){
+func Test_GetAccountInfo_InvalidHeight(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetAccountInfo", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -457,7 +457,7 @@ func Test_GetAccountInfo_InvalidHeight(t *testing.T){
 	}
 }
 
-func Test_GetAccountInfo_Height3(t *testing.T){
+func Test_GetAccountInfo_Height3(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetAccountInfo", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -474,10 +474,10 @@ func Test_GetAccountInfo_Height3(t *testing.T){
 			status, http.StatusOK)
 	}
 
-	expected :=  "0"
+	expected := "0"
 
-	account := &responses.AccountResponse {
-		AccountInfo : &staking_api.Account{},
+	account := &responses.AccountResponse{
+		AccountInfo: &staking_api.Account{},
 	}
 
 	err := json.Unmarshal([]byte(rr.Body.String()), account)
@@ -491,7 +491,7 @@ func Test_GetAccountInfo_Height3(t *testing.T){
 	}
 }
 
-func Test_GetDelegations_BadNode(t *testing.T){
+func Test_GetDelegations_BadNode(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetDelegations", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
@@ -513,7 +513,7 @@ func Test_GetDelegations_BadNode(t *testing.T){
 	}
 }
 
-func Test_GetDelegations_InvalidHeight(t *testing.T){
+func Test_GetDelegations_InvalidHeight(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetDelegations", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -537,7 +537,7 @@ func Test_GetDelegations_InvalidHeight(t *testing.T){
 	}
 }
 
-func Test_GetDelegations_Height3(t *testing.T){
+func Test_GetDelegations_Height3(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetDelegations", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -556,8 +556,8 @@ func Test_GetDelegations_Height3(t *testing.T){
 
 	expected := 0
 
-	delegations := &responses.DelegationsResponse {
-		Delegations : map[common_signature.PublicKey]*staking_api.Delegation{},
+	delegations := &responses.DelegationsResponse{
+		Delegations: map[common_signature.PublicKey]*staking_api.Delegation{},
 	}
 
 	err := json.Unmarshal([]byte(rr.Body.String()), delegations)
@@ -571,7 +571,7 @@ func Test_GetDelegations_Height3(t *testing.T){
 	}
 }
 
-func Test_GetDebondingDelegations_BadNode(t *testing.T){
+func Test_GetDebondingDelegations_BadNode(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetDebondingDelegations", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
@@ -593,7 +593,7 @@ func Test_GetDebondingDelegations_BadNode(t *testing.T){
 	}
 }
 
-func Test_GetDebondingDelegations_InvalidHeight(t *testing.T){
+func Test_GetDebondingDelegations_InvalidHeight(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetDebondingDelegations", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -617,7 +617,7 @@ func Test_GetDebondingDelegations_InvalidHeight(t *testing.T){
 	}
 }
 
-func Test_GetDebondingDelegations_Height3(t *testing.T){
+func Test_GetDebondingDelegations_Height3(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetDebondingDelegations", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -636,8 +636,8 @@ func Test_GetDebondingDelegations_Height3(t *testing.T){
 
 	expected := 0
 
-	debondingDelegations := &responses.DebondingDelegationsResponse {
-		DebondingDelegations : map[common_signature.PublicKey][]*staking_api.DebondingDelegation{},
+	debondingDelegations := &responses.DebondingDelegationsResponse{
+		DebondingDelegations: map[common_signature.PublicKey][]*staking_api.DebondingDelegation{},
 	}
 
 	err := json.Unmarshal([]byte(rr.Body.String()), debondingDelegations)

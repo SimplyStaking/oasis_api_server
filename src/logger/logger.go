@@ -5,7 +5,7 @@ import (
 	"log"
 )
 
-//4 Types of loggers to be used
+// 4 Types of loggers to be used
 var (
 	Trace   *log.Logger
 	Info    *log.Logger
@@ -13,7 +13,7 @@ var (
 	Error   *log.Logger
 )
 
-//SetLogger creates the loggers that will be used through out the API
+// SetLogger creates the loggers that will be used through out the API
 func SetLogger(
 	traceHandle io.Writer,
 	infoHandle io.Writer,

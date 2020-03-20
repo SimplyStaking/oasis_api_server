@@ -34,7 +34,7 @@ func teardown() {
 	fmt.Printf("\n")
 }
 
-//Testing if Scheduler Client Connects
+// Testing if Scheduler Client Connects
 func TestSchedulerClient_Success(t *testing.T) {
 	_, _, err := rpc.SchedulerClient(ws_url)
 	if err != nil {
@@ -42,7 +42,7 @@ func TestSchedulerClient_Success(t *testing.T) {
 	}
 }
 
-//Testing if Node Controller Client Connects
+// Testing if Node Controller Client Connects
 func TestNodeControllerClient_Success(t *testing.T) {
 	_, _, err := rpc.NodeControllerClient(ws_url)
 	if err != nil {
@@ -50,7 +50,7 @@ func TestNodeControllerClient_Success(t *testing.T) {
 	}
 }
 
-//Testing if Registry Client Connects
+// Testing if Registry Client Connects
 func TestRegistryClient_Success(t *testing.T) {
 	_, _, err := rpc.RegistryClient(ws_url)
 	if err != nil {
@@ -58,7 +58,7 @@ func TestRegistryClient_Success(t *testing.T) {
 	}
 }
 
-//Testing if Registry Client Connects
+// Testing if Registry Client Connects
 func TestStakingClient_Success(t *testing.T) {
 	_, _, err := rpc.StakingClient(ws_url)
 	if err != nil {
@@ -66,7 +66,7 @@ func TestStakingClient_Success(t *testing.T) {
 	}
 }
 
-//Testing if Registry Client Connects
+// Testing if Registry Client Connects
 func TestConsensusClient_Success(t *testing.T) {
 	_, _, err := rpc.ConsensusClient(ws_url)
 	if err != nil {
@@ -74,7 +74,7 @@ func TestConsensusClient_Success(t *testing.T) {
 	}
 }
 
-//Testing the connection function
+// Testing the connection function
 func TestConnect_Success(t *testing.T) {
 	_, err := rpc.Connect(ws_url)
 	if err != nil {

@@ -18,165 +18,165 @@ import (
 	mint_types "github.com/tendermint/tendermint/types"
 )
 
-//NetworkResponse responds with the network statistics of the system
+// NetworkResponse responds with the network statistics of the system
 type NetworkResponse struct {
 	Network []network.Stats `json:"network"`
 }
 
-//CPUResponse responds with the CPU statistics of the system
+// CPUResponse responds with the CPU statistics of the system
 type CPUResponse struct {
 	CPU *cpu.Stats `json:"cpu"`
 }
 
-//DiskResponse responds with the memory statistics of the system
+// DiskResponse responds with the memory statistics of the system
 type DiskResponse struct {
 	Disk []disk.Stats `json:"disk"`
 }
 
-//MemoryResponse responds with the memory statistics of the system
+// MemoryResponse responds with the memory statistics of the system
 type MemoryResponse struct {
 	Memory *memory.Stats `json:"memory"`
 }
 
-//SchedulerGenesisState responds with the scheduler genesis state
+// SchedulerGenesisState responds with the scheduler genesis state
 type SchedulerGenesisState struct {
 	SchedulerGenesisState *scheduler_api.Genesis `json:"gensis"`
 }
 
-//CommitteesResponse responds with the Committees
+// CommitteesResponse responds with the Committees
 type CommitteesResponse struct {
 	Committee []*scheduler_api.Committee `json:"commitees"`
 }
 
-//ValidatorsResponse responds with Validators and their voting power
+// ValidatorsResponse responds with Validators and their voting power
 type ValidatorsResponse struct {
 	Validators []*scheduler_api.Validator `json:"validators"`
 }
 
-//IsSyncedResponse responds with a boolean signifying the synchronisation state of a node
+// IsSyncedResponse responds with a boolean signifying the synchronisation state of a node
 type IsSyncedResponse struct {
 	Synced bool `json:"issynced"`
 }
 
-//DebondingDelegationsResponse responds with debonding delegations for a specified public key
+// DebondingDelegationsResponse responds with debonding delegations for a specified public key
 type DebondingDelegationsResponse struct {
 	DebondingDelegations map[common_signature.PublicKey][]*staking_api.DebondingDelegation `json:"debondig_delegations"`
 }
 
-//DelegationsResponse responds with delegations for a public key
+// DelegationsResponse responds with delegations for a public key
 type DelegationsResponse struct {
 	Delegations map[common_signature.PublicKey]*staking_api.Delegation `json:"delegations"`
 }
 
-//AccountResponse responds with an account
+// AccountResponse responds with an account
 type AccountResponse struct {
 	AccountInfo *staking_api.Account `json:"account"`
 }
 
-//AllAccountsResponse responds with a list of Accounts
+// AllAccountsResponse responds with a list of Accounts
 type AllAccountsResponse struct {
 	AllAccounts []common_signature.PublicKey `json:"accounts"`
 }
 
-//StakingGenesisResponse responds with a Staking Genesis File
+// StakingGenesisResponse responds with a Staking Genesis File
 type StakingGenesisResponse struct {
 	GenesisStaking *staking_api.Genesis `json:"genesis"`
 }
 
-//QuantityResponse responds with a quantity
+// QuantityResponse responds with a quantity
 type QuantityResponse struct {
 	Quantity *common_quantity.Quantity `json:"quantity"`
 }
 
-//RegistryEntityResponse responds with the details of a single Entity
+// RegistryEntityResponse responds with the details of a single Entity
 type RegistryEntityResponse struct {
 	Entity *common_entity.Entity `json:"entity"`
 }
 
-//RegistryNodeResponse responds with the details of a single Node
+// RegistryNodeResponse responds with the details of a single Node
 type RegistryNodeResponse struct {
 	Node *common_node.Node `json:"node"`
 }
 
-//RegistryGenesisResponse responds with the genesis state of the registry
+// RegistryGenesisResponse responds with the genesis state of the registry
 type RegistryGenesisResponse struct {
 	GenesisRegistry *registry_api.Genesis `json:"genesis"`
 }
 
-//NodelistResponse responds with a NodeList
+// NodelistResponse responds with a NodeList
 type NodelistResponse struct {
 	NodeList *registry_api.NodeList `json:"nodelist"`
 }
 
-//RuntimeResponse responds with a single Runtime
+// RuntimeResponse responds with a single Runtime
 type RuntimeResponse struct {
 	Runtime *registry_api.Runtime `json:"runtime"`
 }
 
-//RuntimesResponse responds with Multiple Runtimes
+// RuntimesResponse responds with Multiple Runtimes
 type RuntimesResponse struct {
 	Runtimes []*registry_api.Runtime `json:"runtimes"`
 }
 
-//NodesResponse responding with Multiple Nodes
+// NodesResponse responding with Multiple Nodes
 type NodesResponse struct {
 	Nodes []*common_node.Node `json:"nodes"`
 }
 
-//EntitiesResponse responding with Multiple Entities
+// EntitiesResponse responding with Multiple Entities
 type EntitiesResponse struct {
 	Entities []*common_entity.Entity `json:"entities"`
 }
 
-//TransactionsResponse responds with all the transactions in a block
+// TransactionsResponse responds with all the transactions in a block
 type TransactionsResponse struct {
 	Transactions [][]byte `json:"transactions"`
 }
 
-//BlockHeaderResponse responds with a Tendermint Header Type
+// BlockHeaderResponse responds with a Tendermint Header Type
 type BlockHeaderResponse struct {
 	BlkHeader *mint_types.Header `json:"block_header"`
 }
 
-//BlockLastCommitResponse responds with a Tendermint Last Commit Type
+// BlockLastCommitResponse responds with a Tendermint Last Commit Type
 type BlockLastCommitResponse struct {
 	BlkLastCommit *mint_types.Commit `json:"block_last_commit"`
 }
 
-//BlockResponse responds with a custom Block Response with an unmarshalled message
+// BlockResponse responds with a custom Block Response with an unmarshalled message
 type BlockResponse struct {
 	Blk *consensus_api.Block `json:"block"`
 }
 
-//EpochResponse responds with epcoh time
+// EpochResponse responds with epcoh time
 type EpochResponse struct {
 	Ep epoch_api.EpochTime `json:"epoch"`
 }
 
-//ConsensusGenesisResponse  with the consensus Genesis Document
+// ConsensusGenesisResponse  with the consensus Genesis Document
 type ConsensusGenesisResponse struct {
 	GenJSON *gen_api.Document `json:"genesis"`
 }
 
-//PongResponse responding to pong requests
+// PongResponse responding to pong requests
 type PongResponse struct {
 	Result string `json:"result"`
 }
 
-//PrometheusResponse with the Gauge or Counter queried from localhost prometheus
+// PrometheusResponse with the Gauge or Counter queried from localhost prometheus
 type PrometheusResponse struct {
 	Result string `json:"result"`
 }
 
-//ErrorResponse repsonds with an error message that will be set
+// ErrorResponse repsonds with an error message that will be set
 type ErrorResponse struct {
 	Error string `json:"error"`
 }
 
-//ConnectionsResponse responds with all the connections configured
+// ConnectionsResponse responds with all the connections configured
 type ConnectionsResponse struct {
 	Results []string `json:"result"`
 }
 
-//PongResponsed Assinging Variable Responses that do not need to be changed.
+// PongResponsed Assinging Variable Responses that do not need to be changed.
 var PongResponsed = PongResponse{Result: "pong"}

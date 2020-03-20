@@ -1,18 +1,18 @@
 package handlers_test
 
 import (
-	"testing"
-	"strings"
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
-	"encoding/json"
+	"strings"
+	"testing"
 
-	scheduler_api "github.com/oasislabs/oasis-core/go/scheduler/api"
 	hdl "github.com/SimplyVC/oasis_api_server/src/handlers"
 	responses "github.com/SimplyVC/oasis_api_server/src/responses"
+	scheduler_api "github.com/oasislabs/oasis-core/go/scheduler/api"
 )
 
-func Test_GetValidators_BadNode(t *testing.T){
+func Test_GetValidators_BadNode(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetValidators", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
@@ -34,7 +34,7 @@ func Test_GetValidators_BadNode(t *testing.T){
 	}
 }
 
-func Test_GetValidators_InvalidHeight(t *testing.T){
+func Test_GetValidators_InvalidHeight(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetValidators", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -58,7 +58,7 @@ func Test_GetValidators_InvalidHeight(t *testing.T){
 	}
 }
 
-func Test_GetValidators_Height3(t *testing.T){
+func Test_GetValidators_Height3(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetValidators", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -76,10 +76,10 @@ func Test_GetValidators_Height3(t *testing.T){
 
 	// Expecting 52 Validators at Block Height 3
 	expected := 52
-	
-	//Responding with a Genesis File
-	validators := &responses.ValidatorsResponse {
-		Validators : []*scheduler_api.Validator{},
+
+	// Responding with a Genesis File
+	validators := &responses.ValidatorsResponse{
+		Validators: []*scheduler_api.Validator{},
 	}
 
 	err := json.Unmarshal([]byte(rr.Body.String()), validators)
@@ -93,8 +93,7 @@ func Test_GetValidators_Height3(t *testing.T){
 	}
 }
 
-
-func Test_GetCommittees_BadNode(t *testing.T){
+func Test_GetCommittees_BadNode(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetCommittees", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
@@ -116,8 +115,7 @@ func Test_GetCommittees_BadNode(t *testing.T){
 	}
 }
 
-
-func Test_GetCommittees_InvalidHeight(t *testing.T){
+func Test_GetCommittees_InvalidHeight(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetCommittees", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -141,8 +139,7 @@ func Test_GetCommittees_InvalidHeight(t *testing.T){
 	}
 }
 
-
-func Test_GetSchedulerStateToGenesis_BadNode(t *testing.T){
+func Test_GetSchedulerStateToGenesis_BadNode(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetSchedulerStateToGenesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
@@ -164,7 +161,7 @@ func Test_GetSchedulerStateToGenesis_BadNode(t *testing.T){
 	}
 }
 
-func Test_GetSchedulerStateToGenesis_InvalidHeight(t *testing.T){
+func Test_GetSchedulerStateToGenesis_InvalidHeight(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetSchedulerStateToGenesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -188,7 +185,7 @@ func Test_GetSchedulerStateToGenesis_InvalidHeight(t *testing.T){
 	}
 }
 
-func Test_GetSchedulerStateToGenesis_Height3(t *testing.T){
+func Test_GetSchedulerStateToGenesis_Height3(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetSchedulerStateToGenesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -204,12 +201,12 @@ func Test_GetSchedulerStateToGenesis_Height3(t *testing.T){
 			status, http.StatusOK)
 	}
 
-	//Expecting 10 Minimum Validators at Block Height 3
+	// Expecting 10 Minimum Validators at Block Height 3
 	expected := 10
-	
-	//Responding with a Genesis File
-	schedulerGenesis := &responses.SchedulerGenesisState {
-		SchedulerGenesisState : &scheduler_api.Genesis{},
+
+	// Responding with a Genesis File
+	schedulerGenesis := &responses.SchedulerGenesisState{
+		SchedulerGenesisState: &scheduler_api.Genesis{},
 	}
 
 	err := json.Unmarshal([]byte(rr.Body.String()), schedulerGenesis)

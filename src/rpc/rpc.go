@@ -13,7 +13,7 @@ import (
 	staking "github.com/oasislabs/oasis-core/go/staking/api"
 )
 
-//SchedulerClient - initiate a new scheduler client
+// SchedulerClient - initiate a new scheduler client
 func SchedulerClient(address string) (*grpc.ClientConn, scheduler.Backend, error) {
 	conn, err := Connect(address)
 	if err != nil {
@@ -24,7 +24,7 @@ func SchedulerClient(address string) (*grpc.ClientConn, scheduler.Backend, error
 	return conn, client, nil
 }
 
-//NodeControllerClient - initiate a new registry client
+// NodeControllerClient - initiate a new registry client
 func NodeControllerClient(address string) (*grpc.ClientConn, control.NodeController, error) {
 	conn, err := Connect(address)
 	if err != nil {
@@ -35,7 +35,7 @@ func NodeControllerClient(address string) (*grpc.ClientConn, control.NodeControl
 	return conn, client, nil
 }
 
-//RegistryClient - initiate a new registry client
+// RegistryClient - initiate a new registry client
 func RegistryClient(address string) (*grpc.ClientConn, registry.Backend, error) {
 	conn, err := Connect(address)
 	if err != nil {
@@ -69,7 +69,7 @@ func StakingClient(address string) (*grpc.ClientConn, staking.Backend, error) {
 }
 
 // Connect - connect to grpc
-//Add a grpc.WithBlock() and grpc.WithTimeout() to have the dial to constantly try and establish a connection
+// Add a grpc.WithBlock() and grpc.WithTimeout() to have the dial to constantly try and establish a connection
 func Connect(address string) (*grpc.ClientConn, error) {
 	opts := []grpc.DialOption{grpc.WithInsecure()}
 	opts = append(opts, grpc.WithDefaultCallOptions(grpc.WaitForReady(false)))

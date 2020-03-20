@@ -1,15 +1,15 @@
 package handlers_test
 
 import (
-	"testing"
-	"strings"
 	"net/http"
 	"net/http/httptest"
+	"strings"
+	"testing"
 
 	hdl "github.com/SimplyVC/oasis_api_server/src/handlers"
 )
 
-func Test_Pong(t *testing.T){
+func Test_Pong(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/ping", nil)
 	q := req.URL.Query()
 	req.URL.RawQuery = q.Encode()
@@ -30,7 +30,7 @@ func Test_Pong(t *testing.T){
 	}
 }
 
-func Test_GetConnections(t *testing.T){
+func Test_GetConnections(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/getConnectionsList", nil)
 	q := req.URL.Query()
 	req.URL.RawQuery = q.Encode()

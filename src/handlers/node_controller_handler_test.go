@@ -1,15 +1,15 @@
 package handlers_test
 
 import (
-	"testing"
-	"strings"
 	"net/http"
 	"net/http/httptest"
-	
+	"strings"
+	"testing"
+
 	hdl "github.com/SimplyVC/oasis_api_server/src/handlers"
 )
 
-func Test_GetIsSynced_BadNode(t *testing.T){
+func Test_GetIsSynced_BadNode(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetIsSynced", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
@@ -31,7 +31,7 @@ func Test_GetIsSynced_BadNode(t *testing.T){
 	}
 }
 
-func Test_GetIsSynced_Height3(t *testing.T){
+func Test_GetIsSynced_Height3(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetIsSynced", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")

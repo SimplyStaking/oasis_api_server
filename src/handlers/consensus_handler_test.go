@@ -19,7 +19,7 @@ import (
 	mint_types "github.com/tendermint/tendermint/types"
 )
 
-//Setting data to test with, valid and invalid path locations
+// Setting data to test with, valid and invalid path locations
 const (
 	socketFileFail = "../config/user_config_nodes_test_fail.ini"
 )
@@ -31,8 +31,8 @@ func TestMain(m *testing.M) {
 }
 
 func setup() {
-	//Set the Logger that will be used by the API through all the packages
-	//And Load all the configuration that need to be used by the router
+	// Set the Logger that will be used by the API through all the packages
+	// And Load all the configuration that need to be used by the router
 	os.Chdir("../")
 	lgr.SetLogger(ioutil.Discard, os.Stdout, os.Stdout, os.Stderr)
 	conf.LoadPortConfiguration()
@@ -104,7 +104,7 @@ func Test_GetConsensusStateToGenesis_Height3(t *testing.T) {
 
 	expected := "questnet-2020-03-05-1583427600"
 
-	//Responding with a Genesis File
+	// Responding with a Genesis File
 	geneisState := &responses.ConsensusGenesisResponse{
 		GenJSON: &gen_api.Document{},
 	}
@@ -120,7 +120,7 @@ func Test_GetConsensusStateToGenesis_Height3(t *testing.T) {
 	}
 }
 
-//By Sending a negative 2 value I'm making sure that the client can't retrieve a state
+// By Sending a negative 2 value I'm making sure that the client can't retrieve a state
 func Test_GetConsensusStateToGenesis_Heightn2(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/GetConsensusStateToGenesis", nil)
 	q := req.URL.Query()
