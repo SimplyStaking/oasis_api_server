@@ -33,7 +33,7 @@ pipenv sync
 pipenv run python run_setup.py
 ```
 ### Manually
-Alternatively, for advanced users, you can make a copy of the `example_*.ini` files inside the `config` folder, without the `example_` prefix, and manually change the values as required.
+Alternatively, for advanced users, you can make a copy of the `example_*.ini` files inside the `config` folder without the `example_` prefix, and manually change the values as required.
 
 ## Installing the API and Dependencies
 This section will guide you through the installation of the API and any of its dependencies.
