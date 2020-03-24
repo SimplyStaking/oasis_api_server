@@ -26,7 +26,7 @@ func SetSocketFile(newFile string) {
 	socketFile = newFile
 }
 
-// SetPrometheusFile sets file location containing Prometheus Config
+// SetPrometheusFile containing prometheus configuration
 func SetPrometheusFile(newFile string) {
 	prometheusFile = newFile
 }
@@ -68,7 +68,7 @@ func LoadSocketConfiguration() map[string]map[string]string {
 	return confSockets
 }
 
-// LoadPrometheusConfiguration loads prometheus configuration
+// LoadPrometheusConfiguration loads prometheus configuration so that it can be queried
 func LoadPrometheusConfiguration() map[string]map[string]string {
 
 	// Decode and read file containing port information

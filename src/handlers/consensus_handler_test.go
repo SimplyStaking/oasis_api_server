@@ -20,7 +20,7 @@ import (
 
 // Setting data to test with, valid and invalid path locations
 const (
-	socketFileFail = "../config/user_config_nodes_test_fail.ini"
+	socketFileFail = "config/user_config_nodes_test_fail.ini"
 )
 
 func TestMain(m *testing.M) {
