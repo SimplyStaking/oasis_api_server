@@ -11,10 +11,10 @@ import (
 
 // Setting data to test with, valid and invalid path locations
 const (
-	mainConfigFile = "config/test_user_config_main.ini"
-	socketFile     = "config/test_config_nodes.ini"
-	portFileFail   = "config/test_config_main_fail.ini"
-	socketFileFail = "config/test_config_nodes_fail.ini"
+	mainConfigFile = "testdata/test_user_config_main.ini"
+	socketFile     = "testdata/test_config_nodes.ini"
+	portFileFail   = "testdata/test_config_main_fail.ini"
+	socketFileFail = "testdata/test_config_nodes_fail.ini"
 )
 
 func TestMain(m *testing.M) {
