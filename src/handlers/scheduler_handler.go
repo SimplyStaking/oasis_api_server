@@ -17,7 +17,7 @@ import (
 // loadSchedulerClient loads scheduler client and returns it
 func loadSchedulerClient(socket string) (*grpc.ClientConn, scheduler.Backend) {
 
-	// Attempt to load a connection with scheduler client
+	// Attempt to load connection with scheduler client
 	connection, schedulerClient, err := rpc.SchedulerClient(socket)
 	if err != nil {
 		lgr.Error.Println("Failed to establish connection to scheduler client : ", err)
@@ -26,7 +26,7 @@ func loadSchedulerClient(socket string) (*grpc.ClientConn, scheduler.Backend) {
 	return connection, schedulerClient
 }
 
-// GetValidators returns vector of consensus validators for a given epoch.
+// GetValidators returns vector of consensus validators for given epoch.
 func GetValidators(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
@@ -52,21 +52,21 @@ func GetValidators(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with scheduler client
+	// Attempt to load connection with scheduler client
 	connection, sc := loadSchedulerClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if sc == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
-	// Retrieve validators at a given block height
+	// Retrieve validators at given block height
 	validators, err := sc.GetValidators(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Validators!"})
@@ -79,9 +79,9 @@ func GetValidators(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(responses.ValidatorsResponse{Validators: validators})
 }
 
-// GetCommittees returns vector of committees for a given
+// GetCommittees returns vector of committees for given
 // runtime ID, at specified block height, and optional callback
-// for querying beacon for a given epoch/block height.
+// for querying beacon for given epoch/block height.
 func GetCommittees(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
@@ -117,7 +117,7 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Unmarshal text into namespace object to be used in a query
+	// Unmarshal text into namespace object to be used in query
 	err := nameSpace.UnmarshalText([]byte(nmspace))
 	if err != nil {
 		lgr.Error.Println("Failed to UnmarshalText into Namespace", err)
@@ -125,21 +125,21 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with scheduler client
+	// Attempt to load connection with scheduler client
 	connection, sc := loadSchedulerClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if sc == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
-	// Create a query to be used to retrieve Committees
+	// Create query to be used to retrieve Committees
 	query := scheduler.GetCommitteesRequest{Height: height, RuntimeID: nameSpace}
 
 	// Retrieving Committees using query above
@@ -181,21 +181,21 @@ func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with scheduler client
+	// Attempt to load connection with scheduler client
 	connection, sc := loadSchedulerClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if sc == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
-	// Retrieve genesis state of scheduler at a specific block height
+	// Retrieve genesis state of scheduler at specific block height
 	gensis, err := sc.StateToGenesis(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Scheduler Genesis State!"})

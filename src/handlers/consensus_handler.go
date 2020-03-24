@@ -18,7 +18,7 @@ import (
 // loadConsensusClient loads consensus client and returns it
 func loadConsensusClient(socket string) (*grpc.ClientConn, consensus.ClientBackend) {
 
-	// Attempt to load a connection with consensus client
+	// Attempt to load connection with consensus client
 	connection, consensusClient, err := rpc.ConsensusClient(socket)
 	if err != nil {
 		lgr.Error.Println("Failed to establish connection to consensus client : ", err)
@@ -53,17 +53,17 @@ func GetConsensusStateToGenesis(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with consensus client
+	// Attempt to load connection with consensus client
 	connection, co := loadConsensusClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if co == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
@@ -76,11 +76,11 @@ func GetConsensusStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Responding with consensus genesis state object, retrieved above.
-	lgr.Info.Println("Request at /api/GetStateToGenesis/ responding with a genesis file!")
+	lgr.Info.Println("Request at /api/GetStateToGenesis/ responding with genesis file!")
 	json.NewEncoder(w).Encode(responses.ConsensusGenesisResponse{GenJSON: consensusGenesis})
 }
 
-// GetEpoch returns current epoch of a given block height
+// GetEpoch returns current epoch of given block height
 func GetEpoch(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
@@ -106,16 +106,16 @@ func GetEpoch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with consensus client
+	// Attempt to load connection with consensus client
 	connection, co := loadConsensusClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if co == nil {
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
@@ -132,7 +132,7 @@ func GetEpoch(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(responses.EpochResponse{Ep: epoch})
 }
 
-// PingNode returns a consensus block at a specific height thus signifying that it was pinged.
+// PingNode returns consensus block at specific height thus signifying that it was pinged.
 func PingNode(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
@@ -151,34 +151,34 @@ func PingNode(w http.ResponseWriter, r *http.Request) {
 	// Setting height to latest
 	height := consensus.HeightLatest
 
-	// Attempt to load a connection with consensus client
+	// Attempt to load connection with consensus client
 	connection, co := loadConsensusClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if co == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
 	// Making sure that error being retrieved is nill meaning that api is pingable
 	_, err := co.GetBlock(context.Background(), height)
 	if err != nil {
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to ping a node by retrieving heighest block height!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to ping node by retrieving heighest block height!"})
 		lgr.Error.Println("Request at /api/pingnode/ Failed to ping node : ", err)
 		return
 	}
 
-	// Responding with a Pong Response
+	// Responding with Pong Response
 	lgr.Info.Println("Request at /api/pingnode/ responding with Pong!")
 	json.NewEncoder(w).Encode(responses.SuccessResponsed)
 }
 
-// GetBlock returns a consensus block at a specific height.
+// GetBlock returns consensus block at specific height.
 func GetBlock(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
@@ -204,17 +204,17 @@ func GetBlock(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with consensus client
+	// Attempt to load connection with consensus client
 	connection, co := loadConsensusClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if co == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
@@ -222,16 +222,16 @@ func GetBlock(w http.ResponseWriter, r *http.Request) {
 	blk, err := co.GetBlock(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to retrieve Block!"})
-		lgr.Error.Println("Request at /api/consensus/block/ Failed to retrieve a Block : ", err)
+		lgr.Error.Println("Request at /api/consensus/block/ Failed to retrieve Block : ", err)
 		return
 	}
 
 	// Responding with retrieved block
-	lgr.Info.Println("Request at /api/consensus/block/ responding with a Block!")
+	lgr.Info.Println("Request at /api/consensus/block/ responding with Block!")
 	json.NewEncoder(w).Encode(responses.BlockResponse{Blk: blk})
 }
 
-// GetBlockHeader returns a consensus block header at a specific height
+// GetBlockHeader returns consensus block header at specific height
 func GetBlockHeader(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
@@ -257,29 +257,29 @@ func GetBlockHeader(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with consensus client
+	// Attempt to load connection with consensus client
 	connection, co := loadConsensusClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if co == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
-	// Retriving Block at a specific height using Consensus client
+	// Retriving Block at specific height using Consensus client
 	blk, err := co.GetBlock(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to retrieve Block!"})
-		lgr.Error.Println("Request at /api/consensus/blockheader/ Failed to retrieve a Block : ", err)
+		lgr.Error.Println("Request at /api/consensus/blockheader/ Failed to retrieve Block : ", err)
 		return
 	}
 
-	// Creating a BlockMeta object
+	// Creating BlockMeta object
 	var meta mint_api.BlockMeta
 	if err := cbor.Unmarshal(blk.Meta, &meta); err != nil {
 		lgr.Error.Println("Request at /api/consensus/blockheader/ Failed to Unmarshal Block Metadata : ", err)
@@ -288,11 +288,11 @@ func GetBlockHeader(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Responds with block header retrieved above
-	lgr.Info.Println("Request at /api/consensus/blockheader/ responding with a Block Header!")
+	lgr.Info.Println("Request at /api/consensus/blockheader/ responding with Block Header!")
 	json.NewEncoder(w).Encode(responses.BlockHeaderResponse{BlkHeader: meta.Header})
 }
 
-// GetBlockLastCommit returns a consensus block last commit at a specific height
+// GetBlockLastCommit returns consensus block last commit at specific height
 func GetBlockLastCommit(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
@@ -318,25 +318,25 @@ func GetBlockLastCommit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with consensus client
+	// Attempt to load connection with consensus client
 	connection, co := loadConsensusClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if co == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
-	// Retrieve block at a specific height from consensus client
+	// Retrieve block at specific height from consensus client
 	blk, err := co.GetBlock(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to retrieve Block!"})
-		lgr.Error.Println("Request at /api/consensus/blocklastcommit/ Failed to retrieve a Block : ", err)
+		lgr.Error.Println("Request at /api/consensus/blocklastcommit/ Failed to retrieve Block : ", err)
 		return
 	}
 
@@ -349,11 +349,11 @@ func GetBlockLastCommit(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Responds with Block Last commit retrieved above
-	lgr.Info.Println("Request at /api/consensus/blocklastcommit/ responding with a Block Last Commit!")
+	lgr.Info.Println("Request at /api/consensus/blocklastcommit/ responding with Block Last Commit!")
 	json.NewEncoder(w).Encode(responses.BlockLastCommitResponse{BlkLastCommit: meta.LastCommit})
 }
 
-// GetTransactions returns a consensus block header at a specific height
+// GetTransactions returns consensus block header at specific height
 func GetTransactions(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
@@ -379,21 +379,21 @@ func GetTransactions(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with consensus client
+	// Attempt to load connection with consensus client
 	connection, co := loadConsensusClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if co == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
-	// Use consensus client to retrieve transactions at a specific block height
+	// Use consensus client to retrieve transactions at specific block height
 	transactions, err := co.GetTransactions(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to retrieve Transactions!"})

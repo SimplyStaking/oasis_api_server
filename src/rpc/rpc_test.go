@@ -38,7 +38,7 @@ func teardown() {
 func TestSchedulerClient_Success(t *testing.T) {
 	_, _, err := rpc.SchedulerClient(ws_url)
 	if err != nil {
-		t.Errorf("Failed to create a SchedulerClient for socket %v got %v", ws_url, err)
+		t.Errorf("Failed to create SchedulerClient for socket %v got %v", ws_url, err)
 	}
 }
 
@@ -46,7 +46,7 @@ func TestSchedulerClient_Success(t *testing.T) {
 func TestNodeControllerClient_Success(t *testing.T) {
 	_, _, err := rpc.NodeControllerClient(ws_url)
 	if err != nil {
-		t.Errorf("Failed to create a SchedulerClient for socket %v got %v", ws_url, err)
+		t.Errorf("Failed to create SchedulerClient for socket %v got %v", ws_url, err)
 	}
 }
 
@@ -54,7 +54,7 @@ func TestNodeControllerClient_Success(t *testing.T) {
 func TestRegistryClient_Success(t *testing.T) {
 	_, _, err := rpc.RegistryClient(ws_url)
 	if err != nil {
-		t.Errorf("Failed to create a RegistryClient for socket %v got %v", ws_url, err)
+		t.Errorf("Failed to create RegistryClient for socket %v got %v", ws_url, err)
 	}
 }
 
@@ -62,7 +62,7 @@ func TestRegistryClient_Success(t *testing.T) {
 func TestStakingClient_Success(t *testing.T) {
 	_, _, err := rpc.StakingClient(ws_url)
 	if err != nil {
-		t.Errorf("Failed to create a StakingClient for socket %v got %v", ws_url, err)
+		t.Errorf("Failed to create StakingClient for socket %v got %v", ws_url, err)
 	}
 }
 
@@ -70,7 +70,7 @@ func TestStakingClient_Success(t *testing.T) {
 func TestConsensusClient_Success(t *testing.T) {
 	_, _, err := rpc.ConsensusClient(ws_url)
 	if err != nil {
-		t.Errorf("Failed to create a ConsensusClient for socket %v got %v", ws_url, err)
+		t.Errorf("Failed to create ConsensusClient for socket %v got %v", ws_url, err)
 	}
 }
 
@@ -78,6 +78,6 @@ func TestConsensusClient_Success(t *testing.T) {
 func TestConnect_Success(t *testing.T) {
 	_, err := rpc.Connect(ws_url)
 	if err != nil {
-		t.Errorf("Failed to create a connection for socket %v got %v", ws_url, err)
+		t.Errorf("Failed to create connection for socket %v got %v", ws_url, err)
 	}
 }

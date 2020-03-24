@@ -27,7 +27,7 @@ func checkNodeName(nodeName string) (bool, string) {
 	return false, ""
 }
 
-// Function to check if node name has a prometheus configuration for it
+// Function to check if node name has prometheus configuration for it
 func checkNodeNamePrometheus(nodeName string) (bool, string) {
 
 	// Check if nodeName is in configuration
@@ -58,11 +58,11 @@ func checkHeight(recvHeight string) int64 {
 		lgr.Info.Println("No height specified getting latest height!")
 	} else {
 
-		// If height isn't empty attempt to parse it into a int64
+		// If height isn't empty attempt to parse it into int64
 		_, err := (strconv.ParseInt(recvHeight, 10, 64))
 		if err != nil {
 
-			// If it fails it means that string given wasn't a number and return result for
+			// If it fails it means that string given wasn't number and return result for
 			lgr.Error.Println("Unexpected value found, required string of int but received ", recvHeight)
 			return -1
 		}
@@ -85,11 +85,11 @@ func checkKind(recvKind string) int64 {
 		lgr.Info.Println("No Kind is specified setting kind to 0!")
 	} else {
 
-		// If kind isn't empty attempt to parse it into a int64
+		// If kind isn't empty attempt to parse it into int64
 		_, err := (strconv.ParseInt(recvKind, 10, 64))
 		if err != nil {
 
-			// If it fails it means that string given wasn't a number and return result for
+			// If it fails it means that string given wasn't number and return result for
 			lgr.Error.Println("Unexpected value found, required string of int but received ", recvKind)
 			return -1
 		}
@@ -113,11 +113,11 @@ func checkAmount(recvAmount string) int64 {
 		lgr.Info.Println("No amount is specified setting amount to 0!")
 	} else {
 
-		// If amount isn't empty attempt to parse it into a int64
+		// If amount isn't empty attempt to parse it into int64
 		amount, err = (strconv.ParseInt(recvAmount, 10, 64))
 		if err != nil {
 
-			// If it fails it means that string given wasn't a number and return result for
+			// If it fails it means that string given wasn't number and return result for
 			lgr.Error.Println("Unexpected value found, required string of int but received ", recvAmount)
 			return -1
 		}

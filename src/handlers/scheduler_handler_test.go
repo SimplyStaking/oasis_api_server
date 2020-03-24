@@ -77,7 +77,7 @@ func Test_GetValidators_Height3(t *testing.T) {
 	// Expecting 52 Validators at Block Height 3
 	expected := 52
 
-	// Responding with a Genesis File
+	// Responding with Genesis File
 	validators := &responses.ValidatorsResponse{
 		Validators: []*scheduler_api.Validator{},
 	}
@@ -204,7 +204,7 @@ func Test_GetSchedulerStateToGenesis_Height3(t *testing.T) {
 	// Expecting 10 Minimum Validators at Block Height 3
 	expected := 10
 
-	// Responding with a Genesis File
+	// Responding with Genesis File
 	schedulerGenesis := &responses.SchedulerGenesisState{
 		SchedulerGenesisState: &scheduler_api.Genesis{},
 	}

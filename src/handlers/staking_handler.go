@@ -17,7 +17,7 @@ import (
 // loadStakingClient loads staking client and returns it
 func loadStakingClient(socket string) (*grpc.ClientConn, staking.Backend) {
 
-	// Attempt to load a connection with staking client
+	// Attempt to load connection with staking client
 	connection, stakingClient, err := rpc.StakingClient(socket)
 	if err != nil {
 		lgr.Error.Println("Failed to establish connection to staking client : ", err)
@@ -26,7 +26,7 @@ func loadStakingClient(socket string) (*grpc.ClientConn, staking.Backend) {
 	return connection, stakingClient
 }
 
-// GetTotalSupply returns total supply at a block height
+// GetTotalSupply returns total supply at block height
 func GetTotalSupply(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
@@ -50,21 +50,21 @@ func GetTotalSupply(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with staking client
+	// Attempt to load connection with staking client
 	connection, so := loadStakingClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if so == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
-	// Using Oasis API to return total supply of tokens at a specific block height
+	// Using Oasis API to return total supply of tokens at specific block height
 	totalSupply, err := so.TotalSupply(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get TotalSupply!"})
@@ -76,7 +76,7 @@ func GetTotalSupply(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(responses.QuantityResponse{Quantity: totalSupply})
 }
 
-// GetCommonPool returns common pool balance at a block height
+// GetCommonPool returns common pool balance at block height
 func GetCommonPool(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
@@ -102,21 +102,21 @@ func GetCommonPool(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with staking client
+	// Attempt to load connection with staking client
 	connection, so := loadStakingClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if so == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
-	// Return common pool at a specific block height
+	// Return common pool at specific block height
 	commonPool, err := so.CommonPool(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Common Pool!"})
@@ -154,21 +154,21 @@ func GetStakingStateToGenesis(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with staking client
+	// Attempt to load connection with staking client
 	connection, so := loadStakingClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if so == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
-	// Returning state to genesis at a specific height
+	// Returning state to genesis at specific height
 	genesisStaking, err := so.StateToGenesis(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Staking Genesis State!"})
@@ -216,17 +216,17 @@ func GetThreshold(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with staking client
+	// Attempt to load connection with staking client
 	connection, so := loadStakingClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if so == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
@@ -246,7 +246,7 @@ func GetThreshold(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(responses.QuantityResponse{Quantity: threshold})
 }
 
-// GetAccounts returns IDs of all accounts with a non-zero general balance
+// GetAccounts returns IDs of all accounts with non-zero general balance
 func GetAccounts(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
@@ -272,17 +272,17 @@ func GetAccounts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with staking client
+	// Attempt to load connection with staking client
 	connection, so := loadStakingClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if so == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
@@ -299,7 +299,7 @@ func GetAccounts(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(responses.AllAccountsResponse{AllAccounts: accounts})
 }
 
-// GetAccountInfo returns IDs of all accounts with a non-zero general.
+// GetAccountInfo returns IDs of all accounts with non-zero general.
 func GetAccountInfo(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
@@ -337,7 +337,7 @@ func GetAccountInfo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Unmarshall text into a public key object
+	// Unmarshall text into public key object
 	err := pubKey.UnmarshalText([]byte(ownerKey))
 	if err != nil {
 		lgr.Error.Println("Failed to UnmarshalText into Public Key", err)
@@ -345,17 +345,17 @@ func GetAccountInfo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with staking client
+	// Attempt to load connection with staking client
 	connection, so := loadStakingClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if so == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
@@ -413,7 +413,7 @@ func GetDelegations(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Unmarshal text into a public key object
+	// Unmarshal text into public key object
 	err := pubKey.UnmarshalText([]byte(ownerKey))
 	if err != nil {
 		lgr.Error.Println("Failed to UnmarshalText into Public Key", err)
@@ -421,24 +421,24 @@ func GetDelegations(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with staking client
+	// Attempt to load connection with staking client
 	connection, so := loadStakingClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if so == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
 	// Create an owner query to be able to retrieve data with regards to account
 	query := staking.OwnerQuery{Height: height, Owner: pubKey}
 
-	// Return delegations for a given account query
+	// Return delegations for given account query
 	delegations, err := so.Delegations(context.Background(), &query)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Delegations!"})
@@ -446,7 +446,7 @@ func GetDelegations(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Respond with delegations for a given account query
+	// Respond with delegations for given account query
 	lgr.Info.Println("Request at /api/staking/delegations/ responding with delegations!")
 	json.NewEncoder(w).Encode(responses.DelegationsResponse{Delegations: delegations})
 }
@@ -488,7 +488,7 @@ func GetDebondingDelegations(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Unmarshal text into a public key object
+	// Unmarshal text into public key object
 	err := pubKey.UnmarshalText([]byte(ownerKey))
 	if err != nil {
 		lgr.Error.Println("Failed to UnmarshalText into Public Key", err)
@@ -496,17 +496,17 @@ func GetDebondingDelegations(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with staking client
+	// Attempt to load connection with staking client
 	connection, so := loadStakingClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if so == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
@@ -521,7 +521,7 @@ func GetDebondingDelegations(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Responding with debonding delegations for a given accounts
+	// Responding with debonding delegations for given accounts
 	lgr.Info.Println("Request at /api/staking/debondingdelegations/ responding with Debonding Delegations!")
 	json.NewEncoder(w).Encode(responses.DebondingDelegationsResponse{DebondingDelegations: debondingDelegations})
 }

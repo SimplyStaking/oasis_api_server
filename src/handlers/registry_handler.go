@@ -18,7 +18,7 @@ import (
 // loadRegistryClient loads registry client and returns it
 func loadRegistryClient(socket string) (*grpc.ClientConn, registry.Backend) {
 
-	// Attempt to load a connection with registry client
+	// Attempt to load connection with registry client
 	connection, registryClient, err := rpc.RegistryClient(socket)
 	if err != nil {
 		lgr.Error.Println("Failed to establish connection to registry client : ", err)
@@ -53,21 +53,21 @@ func GetEntities(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with registry client
+	// Attempt to load connection with registry client
 	connection, ro := loadRegistryClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if ro == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
-	// Retrieve entities at a specific block height
+	// Retrieve entities at specific block height
 	entities, err := ro.GetEntities(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Entities!"})
@@ -76,11 +76,11 @@ func GetEntities(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Responding with retrieved entities
-	lgr.Info.Println("Request at /api/registry/entities/ responding with a Entities!")
+	lgr.Info.Println("Request at /api/registry/entities/ responding with Entities!")
 	json.NewEncoder(w).Encode(responses.EntitiesResponse{Entities: entities})
 }
 
-// GetNodes returns all registered nodes at a specific block height
+// GetNodes returns all registered nodes at specific block height
 func GetNodes(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
@@ -106,21 +106,21 @@ func GetNodes(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with registry client
+	// Attempt to load connection with registry client
 	connection, ro := loadRegistryClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if ro == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
-	// Retrieve nodes from Registry object at a specific height
+	// Retrieve nodes from Registry object at specific height
 	nodes, err := ro.GetNodes(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Nodes!"})
@@ -129,11 +129,11 @@ func GetNodes(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Respond with all nodes retrieved above
-	lgr.Info.Println("Request at /api/registry/nodes/ responding with a Nodes!")
+	lgr.Info.Println("Request at /api/registry/nodes/ responding with Nodes!")
 	json.NewEncoder(w).Encode(responses.NodesResponse{Nodes: nodes})
 }
 
-// GetRuntimes returns all runtimes at a specific block height
+// GetRuntimes returns all runtimes at specific block height
 func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
@@ -159,21 +159,21 @@ func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with registry client
+	// Attempt to load connection with registry client
 	connection, ro := loadRegistryClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if ro == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
-	// Retrieving runtimes at a specific block height from registry client
+	// Retrieving runtimes at specific block height from registry client
 	runtimes, err := ro.GetRuntimes(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Runtimes!"})
@@ -182,7 +182,7 @@ func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Responding with runtimes returned above
-	lgr.Info.Println("Request at /api/registry/runtimes/ responding with a Runtimes!")
+	lgr.Info.Println("Request at /api/registry/runtimes/ responding with Runtimes!")
 	json.NewEncoder(w).Encode(responses.RuntimesResponse{Runtimes: runtimes})
 }
 
@@ -212,17 +212,17 @@ func GetRegistryStateToGenesis(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with registry client
+	// Attempt to load connection with registry client
 	connection, ro := loadRegistryClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if ro == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
@@ -235,11 +235,11 @@ func GetRegistryStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Responding with genesis state retrieved above
-	lgr.Info.Println("Request at /api/registry/genesis/ responding with a Registry Genesis!")
+	lgr.Info.Println("Request at /api/registry/genesis/ responding with Registry Genesis!")
 	json.NewEncoder(w).Encode(responses.RegistryGenesisResponse{GenesisRegistry: genesisRegistry})
 }
 
-// GetEntity returns information with regards to a single entity
+// GetEntity returns information with regards to single entity
 func GetEntity(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
@@ -265,7 +265,7 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Create a public key object and retrieve entity from query
+	// Create public key object and retrieve entity from query
 	var pubKey common_signature.PublicKey
 	entityID := r.URL.Query().Get("entity")
 	if len(entityID) == 0 {
@@ -276,7 +276,7 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Unmarshal text into a public key
+	// Unmarshal text into public key
 	err := pubKey.UnmarshalText([]byte(entityID))
 	if err != nil {
 		lgr.Error.Println("Failed to UnmarshalText into Public Key", err)
@@ -284,21 +284,21 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with registry client
+	// Attempt to load connection with registry client
 	connection, ro := loadRegistryClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if ro == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
-	// Creating a query to be used to retrieve Entity Information
+	// Creating query to be used to retrieve Entity Information
 	query := registry.IDQuery{Height: height, ID: pubKey}
 
 	// Retrive Entity and it's information from Registry client using above query.
@@ -310,11 +310,11 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Responding with Entity object retrieved above
-	lgr.Info.Println("Request at /api/registry/entity/ responding with a Registry Entity!")
+	lgr.Info.Println("Request at /api/registry/entity/ responding with Registry Entity!")
 	json.NewEncoder(w).Encode(responses.RegistryEntityResponse{Entity: registryEntity})
 }
 
-// GetNode returns information with regards to a single entity
+// GetNode returns information with regards to single entity
 func GetNode(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
@@ -352,7 +352,7 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Unmarshal recieved text into a public key object
+	// Unmarshal recieved text into public key object
 	err := pubKey.UnmarshalText([]byte(nodeID))
 	if err != nil {
 		lgr.Error.Println("Failed to UnmarshalText into Public Key", err)
@@ -360,21 +360,21 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with registry client
+	// Attempt to load connection with registry client
 	connection, ro := loadRegistryClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if ro == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
-	// Creating a query that will be used to retrieved a Node by it's ID
+	// Creating query that will be used to retrieved Node by it's ID
 	query := registry.IDQuery{Height: height, ID: pubKey}
 
 	// Retriveing node object using above query
@@ -386,11 +386,11 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Responding with retrieved node object
-	lgr.Info.Println("Request at /api/registry/node/ responding with a Registry Node!")
+	lgr.Info.Println("Request at /api/registry/node/ responding with Registry Node!")
 	json.NewEncoder(w).Encode(responses.RegistryNodeResponse{Node: registryNode})
 }
 
-// GetRuntime returns information with regards to a single entity
+// GetRuntime returns information with regards to single entity
 func GetRuntime(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
@@ -427,7 +427,7 @@ func GetRuntime(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Unmarshal received text into a namespace object
+	// Unmarshal received text into namespace object
 	err := nameSpace.UnmarshalText([]byte(nmspace))
 	if err != nil {
 		lgr.Error.Println("Failed to UnmarshalText into Namespace", err)
@@ -435,21 +435,21 @@ func GetRuntime(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with registry client
+	// Attempt to load connection with registry client
 	connection, ro := loadRegistryClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if ro == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
-	// Creating a query that will be used to return a runtime by it's namespace
+	// Creating query that will be used to return runtime by it's namespace
 	query := registry.NamespaceQuery{Height: height, ID: nameSpace}
 
 	// Retrieving runtime object using above query
@@ -461,6 +461,6 @@ func GetRuntime(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Responding with runtime object retrieved above
-	lgr.Info.Println("Request at /api/registry/runtime/ responding with a Registry Runtime!")
+	lgr.Info.Println("Request at /api/registry/runtime/ responding with Registry Runtime!")
 	json.NewEncoder(w).Encode(responses.RuntimeResponse{Runtime: registryRuntime})
 }

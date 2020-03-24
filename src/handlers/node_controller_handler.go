@@ -16,7 +16,7 @@ import (
 // loadNodeControllerClient loads node controller client and returns it
 func loadNodeControllerClient(socket string) (*grpc.ClientConn, control.NodeController) {
 
-	// Attempt to load a connection with staking client
+	// Attempt to load connection with staking client
 	connection, nodeControllerClient, err := rpc.NodeControllerClient(socket)
 	if err != nil {
 		lgr.Error.Println("Failed to establish connection to NodeController client : ", err)
@@ -41,17 +41,17 @@ func GetIsSynced(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with staking client
+	// Attempt to load connection with staking client
 	connection, nc := loadNodeControllerClient(socket)
 
 	// Close connection once code underneath executes
 	defer connection.Close()
 
-	// If a null object was retrieved send response
+	// If null object was retrieved send response
 	if nc == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 

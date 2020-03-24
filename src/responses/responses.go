@@ -53,17 +53,17 @@ type ValidatorsResponse struct {
 	Validators []*scheduler_api.Validator `json:"result"`
 }
 
-// IsSyncedResponse responds with a boolean signifying synchronisation state of a node
+// IsSyncedResponse responds with boolean signifying synchronisation state of node
 type IsSyncedResponse struct {
 	Synced bool `json:"result"`
 }
 
-// DebondingDelegationsResponse responds with debonding delegations for a specified public key
+// DebondingDelegationsResponse responds with debonding delegations for specified public key
 type DebondingDelegationsResponse struct {
 	DebondingDelegations map[common_signature.PublicKey][]*staking_api.DebondingDelegation `json:"result"`
 }
 
-// DelegationsResponse responds with delegations for a public key
+// DelegationsResponse responds with delegations for public key
 type DelegationsResponse struct {
 	Delegations map[common_signature.PublicKey]*staking_api.Delegation `json:"result"`
 }
@@ -73,27 +73,27 @@ type AccountResponse struct {
 	AccountInfo *staking_api.Account `json:"result"`
 }
 
-// AllAccountsResponse responds with a list of Accounts
+// AllAccountsResponse responds with list of Accounts
 type AllAccountsResponse struct {
 	AllAccounts []common_signature.PublicKey `json:"result"`
 }
 
-// StakingGenesisResponse responds with a Staking Genesis File
+// StakingGenesisResponse responds with Staking Genesis File
 type StakingGenesisResponse struct {
 	GenesisStaking *staking_api.Genesis `json:"result"`
 }
 
-// QuantityResponse responds with a quantity
+// QuantityResponse responds with quantity
 type QuantityResponse struct {
 	Quantity *common_quantity.Quantity `json:"result"`
 }
 
-// RegistryEntityResponse responds with details of a single Entity
+// RegistryEntityResponse responds with details of single Entity
 type RegistryEntityResponse struct {
 	Entity *common_entity.Entity `json:"result"`
 }
 
-// RegistryNodeResponse responds with details of a single Node
+// RegistryNodeResponse responds with details of single Node
 type RegistryNodeResponse struct {
 	Node *common_node.Node `json:"result"`
 }
@@ -103,12 +103,12 @@ type RegistryGenesisResponse struct {
 	GenesisRegistry *registry_api.Genesis `json:"result"`
 }
 
-// NodelistResponse responds with a NodeList
+// NodelistResponse responds with NodeList
 type NodelistResponse struct {
 	NodeList *registry_api.NodeList `json:"result"`
 }
 
-// RuntimeResponse responds with a single Runtime
+// RuntimeResponse responds with single Runtime
 type RuntimeResponse struct {
 	Runtime *registry_api.Runtime `json:"result"`
 }
@@ -128,22 +128,22 @@ type EntitiesResponse struct {
 	Entities []*common_entity.Entity `json:"result"`
 }
 
-// TransactionsResponse responds with all transactions in a block
+// TransactionsResponse responds with all transactions in block
 type TransactionsResponse struct {
 	Transactions [][]byte `json:"result"`
 }
 
-// BlockHeaderResponse responds with a Tendermint Header Type
+// BlockHeaderResponse responds with Tendermint Header Type
 type BlockHeaderResponse struct {
 	BlkHeader *mint_types.Header `json:"result"`
 }
 
-// BlockLastCommitResponse responds with a Tendermint Last Commit Type
+// BlockLastCommitResponse responds with Tendermint Last Commit Type
 type BlockLastCommitResponse struct {
 	BlkLastCommit *mint_types.Commit `json:"result"`
 }
 
-// BlockResponse responds with a custom Block Response with an unmarshalled message
+// BlockResponse responds with custom Block Response with an unmarshalled message
 type BlockResponse struct {
 	Blk *consensus_api.Block `json:"result"`
 }
@@ -158,7 +158,7 @@ type ConsensusGenesisResponse struct {
 	GenJSON *gen_api.Document `json:"result"`
 }
 
-// SuccessResponse with a succeful result
+// SuccessResponse with succeful result
 type SuccessResponse struct {
 	Result string `json:"result"`
 }
