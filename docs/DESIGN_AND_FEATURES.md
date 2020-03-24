@@ -10,7 +10,7 @@ This page will present the inner workings of the API Server as well as the featu
 
 The components involved in the API Server are the following:
 - The **Oasis Nodes** from which the API retrieves information
-- This **API Server** uses the multiple Oasis API Clients to retrieve data from the Oasis Nodes. 
+- This **API Server** uses Multiple Oasis API clients to retrieve data from the Oasis nodes.
 - The **User/Program** which sends `GET Requests` to the `API Server` as per the defined Endpoints, and receives JSON formatted responses from the `API Server`
 
 The diagram below gives an idea of the various components at play when the API Server is running, and how they interact with each other and the user/program:
