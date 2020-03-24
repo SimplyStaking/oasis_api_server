@@ -1,7 +1,6 @@
 package main
 
 import (
-	"io/ioutil"
 	"os"
 
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
@@ -12,7 +11,7 @@ import (
 func main() {
 
 	// Set Logger that will be used by API through all packages
-	lgr.SetLogger(ioutil.Discard, os.Stdout, os.Stdout, os.Stderr)
+	lgr.SetLogger(os.Stdout, os.Stdout, os.Stderr)
 
 	// Start server
 	err := router.StartServer()

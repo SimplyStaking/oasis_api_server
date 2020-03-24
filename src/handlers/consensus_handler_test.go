@@ -2,7 +2,6 @@ package handlers_test
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -35,7 +34,7 @@ func setup() {
 	// Set Logger that will be used by API through all packages
 	// And Load all configuration that need to be used by router
 	os.Chdir("../")
-	lgr.SetLogger(ioutil.Discard, os.Stdout, os.Stdout, os.Stderr)
+	lgr.SetLogger(os.Stdout, os.Stdout, os.Stderr)
 	conf.LoadPortConfiguration()
 	conf.LoadSocketConfiguration()
 	conf.LoadPrometheusConfiguration()

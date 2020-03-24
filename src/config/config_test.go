@@ -2,7 +2,6 @@ package config_test
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"testing"
 
@@ -28,7 +27,7 @@ func setup() {
 	os.Chdir("../")
 
 	// Set Logger that will be used by API through all packages
-	lgr.SetLogger(ioutil.Discard, os.Stdout, os.Stdout, os.Stderr)
+	lgr.SetLogger(os.Stdout, os.Stdout, os.Stderr)
 	fmt.Printf("\033[1;36m%s\033[0m", "> Setup completed\n")
 }
 
