@@ -60,7 +60,7 @@ func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
 	output := parsed[gaugeName].GetMetric()[0].GetGauge().GetValue()
 	s := fmt.Sprintf("%f", output)
 
-	json.NewEncoder(w).Encode(responses.PrometheusResponse{Result: s})
+	json.NewEncoder(w).Encode(responses.SuccessResponse{Result: s})
 	lgr.Info.Println("Received request for /api/prometheus/gauge responding with : ", s)
 }
 
@@ -110,6 +110,6 @@ func PrometheusQueryCounter(w http.ResponseWriter, r *http.Request) {
 	output := parsed[counterName].GetMetric()[0].GetCounter().GetValue()
 	s := fmt.Sprintf("%f", output)
 
-	json.NewEncoder(w).Encode(responses.PrometheusResponse{Result: s})
+	json.NewEncoder(w).Encode(responses.SuccessResponse{Result: s})
 	lgr.Info.Println("Received request for /api/prometheus/counter responding with : ", s)
 }

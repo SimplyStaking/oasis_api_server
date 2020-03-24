@@ -14,7 +14,7 @@ func Pong(w http.ResponseWriter, r *http.Request) {
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 	lgr.Info.Println("Received request for /api/pingapi")
-	json.NewEncoder(w).Encode(responses.PongResponsed)
+	json.NewEncoder(w).Encode(responses.SuccessResponsed)
 }
 
 // GetConnections retrieves all the possible connections that have been loaded in the configuration file

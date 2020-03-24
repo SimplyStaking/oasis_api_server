@@ -164,7 +164,7 @@ func PingNode(w http.ResponseWriter, r *http.Request) {
 
 	// Responding with a Pong Response
 	lgr.Info.Println("Request at /api/pingnode/ responding with Pong!")
-	json.NewEncoder(w).Encode(responses.PongResponsed)
+	json.NewEncoder(w).Encode(responses.SuccessResponsed)
 }
 
 // GetBlock returns a consensus block at a specific height.
