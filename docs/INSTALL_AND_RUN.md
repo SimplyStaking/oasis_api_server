@@ -48,20 +48,8 @@ This affects what dependencies you will need to install.
 Running the API from source only requires you to install Golang.
 
 #### Install Golang
-##### On Ubuntu
-
-[Link To Installation](https://github.com/golang/go/wiki/Ubuntu)
-
-```bash
-sudo add-apt-repository ppa:longsleep/golang-backports
-sudo apt update
-sudo apt install golang-go
-```
-
-###### On Windows
-[Link To Windows Installation](https://golang.org/doc/install)
-
-The Go project provides two installation options for Windows users (besides [installing from source](https://golang.org/doc/install/source)): a zip archive that requires you to set some environment variables and an MSI installer that configures your installation automatically.
+It is assumed that since this API needs to be run on the same machine as the Oasis node then Golang is already installed,
+therefore no documentation is provided for it's installation,
 
 #### Running the API
 After having installed golang you can now run the API as follows from the project directory:
