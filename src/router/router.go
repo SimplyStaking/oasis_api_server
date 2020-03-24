@@ -23,7 +23,7 @@ func StartServer() error {
 	}
 
 	// Load port configurations
-	portConf := conf.LoadPortConfiguration()
+	portConf := conf.LoadMainConfiguration()
 	if portConf == nil {
 		lgr.Error.Println("Loading of Port configuration has Failed!")
 		// Abort Program no Port configured to run API on

@@ -35,7 +35,7 @@ func setup() {
 	// And Load all configuration that need to be used by router
 	os.Chdir("../")
 	lgr.SetLogger(os.Stdout, os.Stdout, os.Stderr)
-	conf.LoadPortConfiguration()
+	conf.LoadMainConfiguration()
 	conf.LoadSocketConfiguration()
 	conf.LoadPrometheusConfiguration()
 }

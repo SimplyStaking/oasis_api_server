@@ -11,7 +11,7 @@ import (
 
 // Setting data to test with, valid and invalid path locations
 const (
-	portFile       = "config/test_user_config_main.ini"
+	mainConfigFile = "config/test_user_config_main.ini"
 	socketFile     = "config/test_config_nodes.ini"
 	portFileFail   = "config/test_config_main_fail.ini"
 	socketFileFail = "config/test_config_nodes_fail.ini"
@@ -37,8 +37,8 @@ func teardown() {
 }
 
 // Testing loading of default port configuration file
-func TestLoadPortConfig_Success_1(t *testing.T) {
-	portConf := config.LoadPortConfiguration()
+func TestLoadMainConfiguration_Success_1(t *testing.T) {
+	portConf := config.LoadMainConfiguration()
 	if portConf == nil {
 		t.Errorf("Failed to load port file from path.")
 	}
@@ -53,7 +53,7 @@ func TestLoadSocketConfig_Success_1(t *testing.T) {
 }
 
 // Testing successful retrieval of ports once configuration is loaded
-func TestLoadPortConfig_Success_2(t *testing.T) {
+func TestLoadMainConfiguration_Success_2(t *testing.T) {
 	portConf := config.LoadSocketConfiguration()
 	if portConf == nil {
 		t.Errorf("Failed to load port file from path.")
@@ -77,9 +77,9 @@ func TestLoadSocketConfig_Success_2(t *testing.T) {
 }
 
 // Testing failed loading of another port configuration file
-func TestLoadPortConfig_Failure_1(t *testing.T) {
+func TestLoadMainConfiguration_Failure_1(t *testing.T) {
 	config.SetPortFile(portFileFail)
-	portConf := config.LoadPortConfiguration()
+	portConf := config.LoadMainConfiguration()
 	if portConf != nil {
 		t.Errorf("Failed to not load port file from path.")
 	}

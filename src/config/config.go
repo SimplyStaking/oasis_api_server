@@ -8,17 +8,17 @@ import (
 
 // Variables to be exported and used by application, set with default values
 var (
-	confPort       ini.Config
+	confMain       ini.Config
 	confSockets    ini.Config
 	confPrometheus ini.Config
-	portFile       = "../config/user_config_main.ini"
+	mainConfigFile = "../config/user_config_main.ini"
 	socketFile     = "../config/user_config_nodes.ini"
 	prometheusFile = "../config/prometheus_config_main.ini"
 )
 
 // SetPortFile sets file location containing Port
 func SetPortFile(newFile string) {
-	portFile = newFile
+	mainConfigFile = newFile
 }
 
 // SetSocketFile sets file location containing Sockets
@@ -33,7 +33,7 @@ func SetPrometheusFile(newFile string) {
 
 // GetPort returns Port configuration
 func GetPort() map[string]map[string]string {
-	return confPort
+	return confMain
 }
 
 // GetSockets returns Socket configuration
@@ -46,15 +46,15 @@ func GetPrometheusFile() map[string]map[string]string {
 	return confPrometheus
 }
 
-// LoadPortConfiguration loads port configuration file from config folder
-func LoadPortConfiguration() map[string]map[string]string {
+// LoadMainConfiguration loads port configuration file from config folder
+func LoadMainConfiguration() map[string]map[string]string {
 
 	// Decode and read file containing port information
-	if err := ini.DecodeFile(portFile, &confPort); err != nil {
+	if err := ini.DecodeFile(mainConfigFile, &confMain); err != nil {
 		lgr.Error.Println(err)
 		return nil
 	}
-	return confPort
+	return confMain
 }
 
 // LoadSocketConfiguration loads socket configuration file from config folder
