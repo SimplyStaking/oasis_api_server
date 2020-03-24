@@ -18,7 +18,7 @@ func GetMemory(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 
 	// Returning the memory currently being used by the system
-	memory, err := memory.Get()
+	mem, err := memory.Get()
 	if err != nil {
 		lgr.Error.Println("Error while attempting to get memory of the system ", err)
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Error while attempting to get memory of the system."})
@@ -26,8 +26,8 @@ func GetMemory(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Responding with the retrieved memory statistics
-	lgr.Info.Println("Request at /api/GetMemory/ responding with Memory Statistics")
-	json.NewEncoder(w).Encode(responses.MemoryResponse{Memory: memory})
+	lgr.Info.Println("Request at /api/system/memory/ responding with Memory Statistics")
+	json.NewEncoder(w).Encode(responses.MemoryResponse{Memory: mem})
 }
 
 // GetDisk returns the memory statistics of the current system
@@ -36,7 +36,7 @@ func GetDisk(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 
 	// Returning the disk information currently being used by the system
-	disk, err := disk.Get()
+	dsk, err := disk.Get()
 	if err != nil {
 		lgr.Error.Println("Error while attempting to get disk information of the system ", err)
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Error while attempting to get disk information of the system."})
@@ -44,8 +44,8 @@ func GetDisk(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Responding with the retrieved memory statistics
-	lgr.Info.Println("Request at /api/GetDisk/ responding with Disk Statistics")
-	json.NewEncoder(w).Encode(responses.DiskResponse{Disk: disk})
+	lgr.Info.Println("Request at /api/system/disk/ responding with Disk Statistics")
+	json.NewEncoder(w).Encode(responses.DiskResponse{Disk: dsk})
 }
 
 // GetCPU returns the CPU statistics of the current system
@@ -54,7 +54,7 @@ func GetCPU(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 
 	// Returning the CPU currently being used by the system
-	cpu, err := cpu.Get()
+	cpuinfo, err := cpu.Get()
 	if err != nil {
 		lgr.Error.Println("Error while attempting to get CPU information of the system ", err)
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Error while attempting to get CPU information of the system."})
@@ -62,8 +62,8 @@ func GetCPU(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Responding with the retrieved CPU statistics
-	lgr.Info.Println("Request at /api/GetCPU/ responding with CPU Statistics")
-	json.NewEncoder(w).Encode(responses.CPUResponse{CPU: cpu})
+	lgr.Info.Println("Request at /api/system/cpu/ responding with CPU Statistics")
+	json.NewEncoder(w).Encode(responses.CPUResponse{CPU: cpuinfo})
 }
 
 // GetNetwork returns the network statistics of the current system
@@ -72,7 +72,7 @@ func GetNetwork(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 
 	// Returning the network statistics currently being used by the system
-	network, err := network.Get()
+	netwrk, err := network.Get()
 	if err != nil {
 		lgr.Error.Println("Error while attempting to get Network information of the system ", err)
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Error while attempting to get Network information of the system."})
@@ -80,6 +80,6 @@ func GetNetwork(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Responding with the network memory statistics
-	lgr.Info.Println("Request at /api/GetNetwork/ responding with Network Statistics")
-	json.NewEncoder(w).Encode(responses.NetworkResponse{Network: network})
+	lgr.Info.Println("Request at /api/system/network/ responding with Network Statistics")
+	json.NewEncoder(w).Encode(responses.NetworkResponse{Network: netwrk})
 }
