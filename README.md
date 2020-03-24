@@ -2,7 +2,7 @@
 
 <img src="./docs/OASIS.png" alt="design" />
 
-The Oasis API Server is a wrap-around of the [Oasis Protocol Golang API](https://github.com/oasislabs/oasis-core). This makes it easier to use the protocol's API with any programming language in order to query data from the Oasis nodes.
+The Oasis API Server is a wrap-around of the [Oasis Protocol Golang API](https://github.com/oasislabs/oasis-core). This makes it easier to use the protocol's API with any programming language in order to query data from the Oasis nodes. This server is also able to query data from the Oasis nodes' exposed Prometheus endpoint.
 
 The API Server was specifically built as a way for PANIC to be able to retrieve data from the Oasis nodes that it will be monitoring. Apart from retrieving data from the protocol's API, this server can retrieve data from the exposed Prometheus endpoint.
 
