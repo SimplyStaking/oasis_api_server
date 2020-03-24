@@ -1,4 +1,4 @@
-module github.com/SimplyVC/oasis_api_server/src
+module github.com/SimplyVC/oasis_api_server
 
 go 1.13
 
