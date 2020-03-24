@@ -1,7 +1,7 @@
 from configparser import ConfigParser
 from typing import Optional, List
 
-from setup.utils.config_parsers.user import NodeConfig
+from setup.utils.config_parsers.node import NodeConfig
 from setup.utils.user_input import yn_prompt
 
 
@@ -15,11 +15,12 @@ def get_node(nodes_so_far: List[NodeConfig]) -> Optional[NodeConfig]:
         else:
             break
 
-    # Get node's WS url
-    ws_url = input('Node\'s Internal WS url (typically unix:/home/vvol/serverdir/nodes/internal.sock):\n')
+    # Get node's internal socket
+    is_path = input('Node\'s internal socket file path which was setup during the Oasis node '
+                    ' installation (typically unix:/serverdir/nodes/internal.sock):\n')
 
     # Return node
-    return NodeConfig(node_name, ws_url)
+    return NodeConfig(node_name, is_path)
 
 
 def setup_nodes(cp: ConfigParser) -> None:
