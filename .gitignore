@@ -2,6 +2,7 @@
 __pycache__/
 
 src/src
+oasis_api_server
 config/user_config_main.ini
 config/user_config_nodes.ini
 config/prometheus_config_main.ini
