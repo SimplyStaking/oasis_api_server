@@ -18,32 +18,32 @@ import (
 	mint_types "github.com/tendermint/tendermint/types"
 )
 
-// NetworkResponse responds with the network statistics of the system
+// NetworkResponse responds with network statistics of system
 type NetworkResponse struct {
 	Network []network.Stats `json:"result"`
 }
 
-// CPUResponse responds with the CPU statistics of the system
+// CPUResponse responds with CPU statistics of system
 type CPUResponse struct {
 	CPU *cpu.Stats `json:"result"`
 }
 
-// DiskResponse responds with the memory statistics of the system
+// DiskResponse responds with memory statistics of system
 type DiskResponse struct {
 	Disk []disk.Stats `json:"result"`
 }
 
-// MemoryResponse responds with the memory statistics of the system
+// MemoryResponse responds with memory statistics of system
 type MemoryResponse struct {
 	Memory *memory.Stats `json:"result"`
 }
 
-// SchedulerGenesisState responds with the scheduler genesis state
+// SchedulerGenesisState responds with scheduler genesis state
 type SchedulerGenesisState struct {
 	SchedulerGenesisState *scheduler_api.Genesis `json:"result"`
 }
 
-// CommitteesResponse responds with the Committees
+// CommitteesResponse responds with Committees
 type CommitteesResponse struct {
 	Committee []*scheduler_api.Committee `json:"result"`
 }
@@ -53,7 +53,7 @@ type ValidatorsResponse struct {
 	Validators []*scheduler_api.Validator `json:"result"`
 }
 
-// IsSyncedResponse responds with a boolean signifying the synchronisation state of a node
+// IsSyncedResponse responds with a boolean signifying synchronisation state of a node
 type IsSyncedResponse struct {
 	Synced bool `json:"result"`
 }
@@ -88,17 +88,17 @@ type QuantityResponse struct {
 	Quantity *common_quantity.Quantity `json:"result"`
 }
 
-// RegistryEntityResponse responds with the details of a single Entity
+// RegistryEntityResponse responds with details of a single Entity
 type RegistryEntityResponse struct {
 	Entity *common_entity.Entity `json:"result"`
 }
 
-// RegistryNodeResponse responds with the details of a single Node
+// RegistryNodeResponse responds with details of a single Node
 type RegistryNodeResponse struct {
 	Node *common_node.Node `json:"result"`
 }
 
-// RegistryGenesisResponse responds with the genesis state of the registry
+// RegistryGenesisResponse responds with genesis state of registry
 type RegistryGenesisResponse struct {
 	GenesisRegistry *registry_api.Genesis `json:"result"`
 }
@@ -128,7 +128,7 @@ type EntitiesResponse struct {
 	Entities []*common_entity.Entity `json:"result"`
 }
 
-// TransactionsResponse responds with all the transactions in a block
+// TransactionsResponse responds with all transactions in a block
 type TransactionsResponse struct {
 	Transactions [][]byte `json:"result"`
 }
@@ -153,7 +153,7 @@ type EpochResponse struct {
 	Ep epoch_api.EpochTime `json:"result"`
 }
 
-// ConsensusGenesisResponse with the consensus Genesis Document
+// ConsensusGenesisResponse with consensus Genesis Document
 type ConsensusGenesisResponse struct {
 	GenJSON *gen_api.Document `json:"result"`
 }
@@ -168,7 +168,7 @@ type ErrorResponse struct {
 	Error string `json:"error"`
 }
 
-// ConnectionsResponse responds with all the connections configured
+// ConnectionsResponse responds with all connections configured
 type ConnectionsResponse struct {
 	Results []string `json:"result"`
 }

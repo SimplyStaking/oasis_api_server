@@ -241,7 +241,7 @@ func Test_GetRuntimes_Height3(t *testing.T) {
 	// Expecting 0 Runtimes to be found at Height 3
 	expected := 0
 
-	// Responding with all the Runtimes
+	// Responding with all Runtimes
 	allRuntimes := &responses.RuntimesResponse{
 		Runtimes: []*registry_api.Runtime{},
 	}
@@ -322,7 +322,7 @@ func Test_GetRegistryStateToGenesis_Height3(t *testing.T) {
 	// Expecting 87 Entities to be found at Height 3 in Genesis State
 	expected := 87
 
-	// Responding with all the Runtimes
+	// Responding with all Runtimes
 	registryGenesis := &responses.RegistryGenesisResponse{
 		GenesisRegistry: &registry_api.Genesis{},
 	}
@@ -401,10 +401,10 @@ func Test_GetEntity_Height3(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	// Expecting the same entity ID to be retrieved
+	// Expecting same entity ID to be retrieved
 	expected := "CVzqFIADD2Ed0khGBNf4Rvh7vSNtrL1ULTkWYQszDpc="
 
-	// Responding with all the Runtimes
+	// Responding with all Runtimes
 	registryEntity := &responses.RegistryEntityResponse{
 		Entity: &common_entity.Entity{},
 	}
@@ -483,7 +483,7 @@ func Test_GetNode_Height3(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	// Expecting the same entity ID to be retrieved
+	// Expecting same entity ID to be retrieved
 	expected := "A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU+h+blS9pto="
 
 	registryNode := &responses.RegistryNodeResponse{

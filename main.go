@@ -8,13 +8,13 @@ import (
 	"github.com/SimplyVC/oasis_api_server/src/router"
 )
 
-// Main Function handles all the possible API routes.
+// Main Function handles all possible API routes.
 func main() {
 
-	// Set the Logger that will be used by the API through all the packages
+	// Set Logger that will be used by API through all packages
 	lgr.SetLogger(ioutil.Discard, os.Stdout, os.Stdout, os.Stderr)
 
-	// Start the server
+	// Start server
 	err := router.StartServer()
 	if err != nil {
 		lgr.Info.Println("Server Stopped")

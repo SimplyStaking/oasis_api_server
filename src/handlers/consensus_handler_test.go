@@ -32,8 +32,8 @@ func TestMain(m *testing.M) {
 
 func setup() {
 
-	// Set the Logger that will be used by the API through all the packages
-	// And Load all the configuration that need to be used by the router
+	// Set Logger that will be used by API through all packages
+	// And Load all configuration that need to be used by router
 	os.Chdir("../")
 	lgr.SetLogger(ioutil.Discard, os.Stdout, os.Stdout, os.Stderr)
 	conf.LoadPortConfiguration()
@@ -105,7 +105,6 @@ func Test_GetConsensusStateToGenesis_Height3(t *testing.T) {
 
 	expected := "questnet-2020-03-05-1583427600"
 
-	// Responding with a Genesis File
 	geneisState := &responses.ConsensusGenesisResponse{
 		GenJSON: &gen_api.Document{},
 	}
@@ -121,7 +120,6 @@ func Test_GetConsensusStateToGenesis_Height3(t *testing.T) {
 	}
 }
 
-// By Sending a negative 2 value I'm making sure that the client can't retrieve a state
 func Test_GetConsensusStateToGenesis_Heightn2(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/consensus/genesis", nil)
 	q := req.URL.Query()

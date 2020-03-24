@@ -74,7 +74,7 @@ func TestConsensusClient_Success(t *testing.T) {
 	}
 }
 
-// Testing the connection function
+// Testing connection function
 func TestConnect_Success(t *testing.T) {
 	_, err := rpc.Connect(ws_url)
 	if err != nil {

@@ -15,218 +15,218 @@ import (
 	registry "github.com/oasislabs/oasis-core/go/registry/api"
 )
 
-// loadRegistryClient loads the registry client and returns it
+// loadRegistryClient loads registry client and returns it
 func loadRegistryClient(socket string) (*grpc.ClientConn, registry.Backend) {
 
-	// Attempt to load a connection with the registry client
+	// Attempt to load a connection with registry client
 	connection, registryClient, err := rpc.RegistryClient(socket)
 	if err != nil {
-		lgr.Error.Println("Failed to establish connection to the registry client : ", err)
+		lgr.Error.Println("Failed to establish connection to registry client : ", err)
 		return nil, nil
 	}
 	return connection, registryClient
 }
 
-// GetEntities returns all the registered entities
+// GetEntities returns all registered entities
 func GetEntities(w http.ResponseWriter, r *http.Request) {
 
-	// Adding a header so that the receiver knows they are receiving a JSON structure
+	// Add header so that received knows they're receiving JSON
 	w.Header().Add("Content-Type", "application/json")
 
-	// Retrieving the name of the node from the query request
+	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
 
-		// Stop the code here no need to establish connection and reply
+		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
 	}
 
-	// Retrieving the height from the query request
+	// Retrieving height from query request
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
 
-		// Stop the code here no need to establish connection and reply
+		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
-	// Attempt to load a connection with the registry client
+	// Attempt to load a connection with registry client
 	connection, ro := loadRegistryClient(socket)
 
-	// Wait for the code underneath it to execute and then close the connection
+	// Close connection once code underneath executes
 	defer connection.Close()
 
 	// If a null object was retrieved send response
 	if ro == nil {
 
-		// Stop the code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
+		// Stop code here faild to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
 		return
 	}
 
-	// Retrieve the entities at a specific block height
+	// Retrieve entities at a specific block height
 	entities, err := ro.GetEntities(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Entities!"})
-		lgr.Error.Println("Request at /api/registry/entities/ Failed to retrieve the entities : ", err)
+		lgr.Error.Println("Request at /api/registry/entities/ Failed to retrieve entities : ", err)
 		return
 	}
 
-	// Responding with the retrieved entities
+	// Responding with retrieved entities
 	lgr.Info.Println("Request at /api/registry/entities/ responding with a Entities!")
 	json.NewEncoder(w).Encode(responses.EntitiesResponse{Entities: entities})
 }
 
-// GetNodes returns all the registered nodes at a specific block height
+// GetNodes returns all registered nodes at a specific block height
 func GetNodes(w http.ResponseWriter, r *http.Request) {
 
-	// Adding a header so that the receiver knows they are receiving a JSON structure
+	// Add header so that received knows they're receiving JSON
 	w.Header().Add("Content-Type", "application/json")
 
-	// Retrieving the name of the node from the query request
+	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
 
-		// Stop the code here no need to establish connection and reply
+		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
 	}
 
-	// Retrieving the height from the query
+	// Retrieving height from query
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
 
-		// Stop the code here no need to establish connection and reply
+		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
-	// Attempt to load a connection with the registry client
+	// Attempt to load a connection with registry client
 	connection, ro := loadRegistryClient(socket)
 
-	// Wait for the code underneath it to execute and then close the connection
+	// Close connection once code underneath executes
 	defer connection.Close()
 
 	// If a null object was retrieved send response
 	if ro == nil {
 
-		// Stop the code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
+		// Stop code here faild to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
 		return
 	}
 
-	// Retrieve the nodes from the Registry object at a specific height
+	// Retrieve nodes from Registry object at a specific height
 	nodes, err := ro.GetNodes(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Nodes!"})
-		lgr.Error.Println("Request at /api/registry/nodes/ Failed to retrieve the nodes : ", err)
+		lgr.Error.Println("Request at /api/registry/nodes/ Failed to retrieve nodes : ", err)
 		return
 	}
 
-	// Respond with all the nodes retrieved above
+	// Respond with all nodes retrieved above
 	lgr.Info.Println("Request at /api/registry/nodes/ responding with a Nodes!")
 	json.NewEncoder(w).Encode(responses.NodesResponse{Nodes: nodes})
 }
 
-// GetRuntimes returns all the runtimes at a specific block height
+// GetRuntimes returns all runtimes at a specific block height
 func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 
-	// Adding a header so that the receiver knows they are receiving a JSON structure
+	// Add header so that received knows they're receiving JSON
 	w.Header().Add("Content-Type", "application/json")
 
-	// Retrieving the name of the node from the query request
+	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
 
-		// Stop the code here no need to establish connection and reply
+		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
 	}
 
-	// Retrieving the height from the query
+	// Retrieving height from query
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
 
-		// Stop the code here no need to establish connection and reply
+		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
-	// Attempt to load a connection with the registry client
+	// Attempt to load a connection with registry client
 	connection, ro := loadRegistryClient(socket)
 
-	// Wait for the code underneath it to execute and then close the connection
+	// Close connection once code underneath executes
 	defer connection.Close()
 
 	// If a null object was retrieved send response
 	if ro == nil {
 
-		// Stop the code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
+		// Stop code here faild to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
 		return
 	}
 
-	// Retrieving the runtimes at a specific block height from the registry client
+	// Retrieving runtimes at a specific block height from registry client
 	runtimes, err := ro.GetRuntimes(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Runtimes!"})
-		lgr.Error.Println("Request at /api/registry/runtimes/ Failed to retrieve the runtimes : ", err)
+		lgr.Error.Println("Request at /api/registry/runtimes/ Failed to retrieve runtimes : ", err)
 		return
 	}
 
-	// Responding with the runtimes returned above
+	// Responding with runtimes returned above
 	lgr.Info.Println("Request at /api/registry/runtimes/ responding with a Runtimes!")
 	json.NewEncoder(w).Encode(responses.RuntimesResponse{Runtimes: runtimes})
 }
 
-// GetRegistryStateToGenesis returns the StateToGenesis at the specified block height for Registry.
+// GetRegistryStateToGenesis returns StateToGenesis at specified block height for Registry.
 func GetRegistryStateToGenesis(w http.ResponseWriter, r *http.Request) {
 
-	// Adding a header so that the receiver knows they are receiving a JSON structure
+	// Add header so that received knows they're receiving JSON
 	w.Header().Add("Content-Type", "application/json")
 
-	// Retrieving the name of the node from the query request
+	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
 
-		// Stop the code here no need to establish connection and reply
+		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
 	}
 
-	// Retrieving the height from the query request
+	// Retrieving height from query request
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
 
-		// Stop the code here no need to establish connection and reply
+		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
-	// Attempt to load a connection with the registry client
+	// Attempt to load a connection with registry client
 	connection, ro := loadRegistryClient(socket)
 
-	// Wait for the code underneath it to execute and then close the connection
+	// Close connection once code underneath executes
 	defer connection.Close()
 
 	// If a null object was retrieved send response
 	if ro == nil {
 
-		// Stop the code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
+		// Stop code here faild to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
 		return
 	}
 
-	// Retrieving the genesis state of the registry object
+	// Retrieving genesis state of registry object
 	genesisRegistry, err := ro.StateToGenesis(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Registry Genesis!"})
@@ -234,49 +234,49 @@ func GetRegistryStateToGenesis(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Responding with the genesis state retrieved above
+	// Responding with genesis state retrieved above
 	lgr.Info.Println("Request at /api/registry/genesis/ responding with a Registry Genesis!")
 	json.NewEncoder(w).Encode(responses.RegistryGenesisResponse{GenesisRegistry: genesisRegistry})
 }
 
-// GetEntity returns the information with regards to a single entity
+// GetEntity returns information with regards to a single entity
 func GetEntity(w http.ResponseWriter, r *http.Request) {
 
-	// Adding a header so that the receiver knows they are receiving a JSON structure
+	// Add header so that received knows they're receiving JSON
 	w.Header().Add("Content-Type", "application/json")
 
-	// Retrieving the name of the node from the query request
+	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
 
-		// Stop the code here no need to establish connection and reply
+		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
 	}
 
-	// Retrieving the height from the query request
+	// Retrieving height from query request
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
 
-		// Stop the code here no need to establish connection and reply
+		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
-	// Create a public key object and retrieve the entity from the query
+	// Create a public key object and retrieve entity from query
 	var pubKey common_signature.PublicKey
 	entityID := r.URL.Query().Get("entity")
 	if len(entityID) == 0 {
 
-		// Stop the code here no need to establish connection and reply
+		// Stop code here no need to establish connection and reply
 		lgr.Warning.Println("Request at /api/registry/entity/ failed, EntityID can't be empty!")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "EntityID can't be empty!"})
 		return
 	}
 
-	// Unmarshal the text into a public key
+	// Unmarshal text into a public key
 	err := pubKey.UnmarshalText([]byte(entityID))
 	if err != nil {
 		lgr.Error.Println("Failed to UnmarshalText into Public Key", err)
@@ -284,24 +284,24 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with the registry client
+	// Attempt to load a connection with registry client
 	connection, ro := loadRegistryClient(socket)
 
-	// Wait for the code underneath it to execute and then close the connection
+	// Close connection once code underneath executes
 	defer connection.Close()
 
 	// If a null object was retrieved send response
 	if ro == nil {
 
-		// Stop the code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
+		// Stop code here faild to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
 		return
 	}
 
 	// Creating a query to be used to retrieve Entity Information
 	query := registry.IDQuery{Height: height, ID: pubKey}
 
-	// Retrive the Entity and it's information from the Registry client using the above query.
+	// Retrive Entity and it's information from Registry client using above query.
 	registryEntity, err := ro.GetEntity(context.Background(), &query)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Registry Entity!"})
@@ -309,50 +309,50 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Responding with the Entity object retrieved above
+	// Responding with Entity object retrieved above
 	lgr.Info.Println("Request at /api/registry/entity/ responding with a Registry Entity!")
 	json.NewEncoder(w).Encode(responses.RegistryEntityResponse{Entity: registryEntity})
 }
 
-// GetNode returns the information with regards to a single entity
+// GetNode returns information with regards to a single entity
 func GetNode(w http.ResponseWriter, r *http.Request) {
 
-	// Adding a header so that the receiver knows they are receiving a JSON structure
+	// Add header so that received knows they're receiving JSON
 	w.Header().Add("Content-Type", "application/json")
 
-	// Retrieving the name of the node from the query request
+	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
 
-		// Stop the code here no need to establish connection and reply
+		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
 	}
 
-	// Retrieving the height from the query
+	// Retrieving height from query
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
 
-		// Stop the code here no need to establish connection and reply
+		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
-	// Note Make sure that the private key that is being sent is coded properly
+	// Note Make sure that private key that is being sent is coded properly
 	// Example A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU+h+blS9pto= should be A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU%2Bh%2BblS9pto=
 	var pubKey common_signature.PublicKey
 	nodeID := r.URL.Query().Get("nodeID")
 	if len(nodeID) == 0 {
 
-		// Stop the code here no need to establish connection and reply
+		// Stop code here no need to establish connection and reply
 		lgr.Warning.Println("Request at /api/registry/node/ failed, NodeID can't be empty!")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "NodeID can't be empty!"})
 		return
 	}
 
-	// Unmarshal the recieved text into a public key object
+	// Unmarshal recieved text into a public key object
 	err := pubKey.UnmarshalText([]byte(nodeID))
 	if err != nil {
 		lgr.Error.Println("Failed to UnmarshalText into Public Key", err)
@@ -360,24 +360,24 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with the registry client
+	// Attempt to load a connection with registry client
 	connection, ro := loadRegistryClient(socket)
 
-	// Wait for the code underneath it to execute and then close the connection
+	// Close connection once code underneath executes
 	defer connection.Close()
 
 	// If a null object was retrieved send response
 	if ro == nil {
 
-		// Stop the code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
+		// Stop code here faild to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
 		return
 	}
 
 	// Creating a query that will be used to retrieved a Node by it's ID
 	query := registry.IDQuery{Height: height, ID: pubKey}
 
-	// Retriveing the node object using the above query
+	// Retriveing node object using above query
 	registryNode, err := ro.GetNode(context.Background(), &query)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Registry Node!"})
@@ -385,49 +385,49 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Responding with the retrieved node object
+	// Responding with retrieved node object
 	lgr.Info.Println("Request at /api/registry/node/ responding with a Registry Node!")
 	json.NewEncoder(w).Encode(responses.RegistryNodeResponse{Node: registryNode})
 }
 
-// GetRuntime returns the information with regards to a single entity
+// GetRuntime returns information with regards to a single entity
 func GetRuntime(w http.ResponseWriter, r *http.Request) {
 
-	// Adding a header so that the receiver knows they are receiving a JSON structure
+	// Add header so that received knows they're receiving JSON
 	w.Header().Add("Content-Type", "application/json")
 
-	// Retrieving the name of the node from the query request
+	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
 
-		// Stop the code here no need to establish connection and reply
+		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
 	}
 
-	// Retrieve the height from the query
+	// Retrieve height from query
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
 
-		// Stop the code here no need to establish connection and reply
+		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
-	// Note Make sure that the private key that is being sent is coded properly
+	// Note Make sure that private key that is being sent is coded properly
 	// Example A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU+h+blS9pto= should be A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU%2Bh%2BblS9pto=
 	var nameSpace common_namespace.Namespace
 	nmspace := r.URL.Query().Get("namespace")
 	if len(nmspace) == 0 {
-		// Stop the code here no need to establish connection and reply
+		// Stop code here no need to establish connection and reply
 		lgr.Warning.Println("Request at /api/registry/runtime/ failed, namespace can't be empty!")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "namespace can't be empty!"})
 		return
 	}
 
-	// Unmarshal the received text into a namespace object
+	// Unmarshal received text into a namespace object
 	err := nameSpace.UnmarshalText([]byte(nmspace))
 	if err != nil {
 		lgr.Error.Println("Failed to UnmarshalText into Namespace", err)
@@ -435,24 +435,24 @@ func GetRuntime(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Attempt to load a connection with the registry client
+	// Attempt to load a connection with registry client
 	connection, ro := loadRegistryClient(socket)
 
-	// Wait for the code underneath it to execute and then close the connection
+	// Close connection once code underneath executes
 	defer connection.Close()
 
 	// If a null object was retrieved send response
 	if ro == nil {
 
-		// Stop the code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
+		// Stop code here faild to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
 		return
 	}
 
 	// Creating a query that will be used to return a runtime by it's namespace
 	query := registry.NamespaceQuery{Height: height, ID: nameSpace}
 
-	// Retrieving the runtime object using the above query
+	// Retrieving runtime object using above query
 	registryRuntime, err := ro.GetRuntime(context.Background(), &query)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Registry Runtime!"})
@@ -460,7 +460,7 @@ func GetRuntime(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Responding with the runtime object retrieved above
+	// Responding with runtime object retrieved above
 	lgr.Info.Println("Request at /api/registry/runtime/ responding with a Registry Runtime!")
 	json.NewEncoder(w).Encode(responses.RuntimeResponse{Runtime: registryRuntime})
 }

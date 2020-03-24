@@ -9,23 +9,23 @@ import (
 	"github.com/SimplyVC/oasis_api_server/src/responses"
 )
 
-// Pong responds with a ping if the entire API is online
+// Pong responds with a ping if entire API is online
 func Pong(w http.ResponseWriter, r *http.Request) {
 
-	// Adding a header so that the receiver knows they are receiving a JSON structure
+	// Add header so that received knows they're receiving JSON
 	w.Header().Add("Content-Type", "application/json")
 	lgr.Info.Println("Received request for /api/pingapi")
 	json.NewEncoder(w).Encode(responses.SuccessResponsed)
 }
 
-// GetConnections retrieves all the possible connections that have been loaded in the configuration file
+// GetConnections retrieves all possible connections that have been loaded in configuration file
 func GetConnections(w http.ResponseWriter, r *http.Request) {
 
-	// Adding a header so that the receiver knows they are receiving a JSON structure
+	// Add header so that received knows they're receiving JSON
 	w.Header().Add("Content-Type", "application/json")
 	lgr.Info.Println("Received request for /api/getconnectionslist")
 
-	// Create new empty Slice of strings where the connections will be stored
+	// Create new empty Slice of strings where connections will be stored
 	connectionsResponse := []string{}
 	allSockets := config.GetSockets()
 
@@ -34,6 +34,6 @@ func GetConnections(w http.ResponseWriter, r *http.Request) {
 		lgr.Info.Println("Node : ", socket["node_name"], " has socket at : ", socket["ws_url"])
 		connectionsResponse = append(connectionsResponse, socket["ws_url"])
 	}
-	// Encode the object and send it using a predefind response
+	// Encode object and send it using a predefind response
 	json.NewEncoder(w).Encode(responses.ConnectionsResponse{Results: connectionsResponse})
 }

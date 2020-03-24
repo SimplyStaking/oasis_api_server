@@ -13,57 +13,57 @@ import (
 	control "github.com/oasislabs/oasis-core/go/control/api"
 )
 
-// loadNodeControllerClient loads the node controller client and returns it
+// loadNodeControllerClient loads node controller client and returns it
 func loadNodeControllerClient(socket string) (*grpc.ClientConn, control.NodeController) {
 
-	// Attempt to load a connection with the staking client
+	// Attempt to load a connection with staking client
 	connection, nodeControllerClient, err := rpc.NodeControllerClient(socket)
 	if err != nil {
-		lgr.Error.Println("Failed to establish connection to the NodeController client : ", err)
+		lgr.Error.Println("Failed to establish connection to NodeController client : ", err)
 		return nil, nil
 	}
 	return connection, nodeControllerClient
 }
 
-// GetIsSynced checks whether the node has finished syncing.
+// GetIsSynced checks whether node has finished syncing.
 func GetIsSynced(w http.ResponseWriter, r *http.Request) {
 
-	// Adding a header so that the receiver knows they are receiving a JSON structure
+	// Add header so that received knows they're receiving JSON
 	w.Header().Add("Content-Type", "application/json")
 
-	// Retrieving the name of the node from the query request
+	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
 
-		// Stop the code here no need to establish connection and reply
+		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
 	}
 
-	// Attempt to load a connection with the staking client
+	// Attempt to load a connection with staking client
 	connection, nc := loadNodeControllerClient(socket)
 
-	// Wait for the code underneath it to execute and then close the connection
+	// Close connection once code underneath executes
 	defer connection.Close()
 
 	// If a null object was retrieved send response
 	if nc == nil {
 
-		// Stop the code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
+		// Stop code here faild to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using socket : " + socket})
 		return
 	}
 
-	// Retrieving the synchronized state from the node controller client
+	// Retrieving synchronized state from node controller client
 	synced, err := nc.IsSynced(context.Background())
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get IsSynced!"})
-		lgr.Error.Println("Request at /api/nodecontroller/synced/ Failed to retrieve the IsSynced : ", err)
+		lgr.Error.Println("Request at /api/nodecontroller/synced/ Failed to retrieve IsSynced : ", err)
 		return
 	}
 
-	// Responding with the retrieved synchronizatio state above
-	lgr.Info.Println("Request at /api/nodecontroller/synced/ responding with the IsSynced State!")
+	// Responding with retrieved synchronizatio state above
+	lgr.Info.Println("Request at /api/nodecontroller/synced/ responding with IsSynced State!")
 	json.NewEncoder(w).Encode(responses.IsSyncedResponse{Synced: synced})
 }

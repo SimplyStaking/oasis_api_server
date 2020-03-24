@@ -6,7 +6,7 @@ import (
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
 )
 
-// Variables to be exported and used by the application, set with default values
+// Variables to be exported and used by application, set with default values
 var (
 	confPort       ini.Config
 	confSockets    ini.Config
@@ -16,27 +16,27 @@ var (
 	prometheusFile = "../config/prometheus_config_main.ini"
 )
 
-// SetPortFile sets the file location containing the Port
+// SetPortFile sets file location containing Port
 func SetPortFile(newFile string) {
 	portFile = newFile
 }
 
-// SetSocketFile sets the file location containing the Sockets
+// SetSocketFile sets file location containing Sockets
 func SetSocketFile(newFile string) {
 	socketFile = newFile
 }
 
-// SetPrometheusFile containing the prometheus configuration
+// SetPrometheusFile sets file location containing Prometheus Config
 func SetPrometheusFile(newFile string) {
 	prometheusFile = newFile
 }
 
-// GetPort returns the Port configuration
+// GetPort returns Port configuration
 func GetPort() map[string]map[string]string {
 	return confPort
 }
 
-// GetSockets returns the Socket configuration
+// GetSockets returns Socket configuration
 func GetSockets() map[string]map[string]string {
 	return confSockets
 }
@@ -46,10 +46,10 @@ func GetPrometheusFile() map[string]map[string]string {
 	return confPrometheus
 }
 
-// LoadPortConfiguration loads the port configuration file from the config folder
+// LoadPortConfiguration loads port configuration file from config folder
 func LoadPortConfiguration() map[string]map[string]string {
 
-	// Decode and read the file containing the port information
+	// Decode and read file containing port information
 	if err := ini.DecodeFile(portFile, &confPort); err != nil {
 		lgr.Error.Println(err)
 		return nil
@@ -57,10 +57,10 @@ func LoadPortConfiguration() map[string]map[string]string {
 	return confPort
 }
 
-// LoadSocketConfiguration loads the socket configuration file from the config folder
+// LoadSocketConfiguration loads socket configuration file from config folder
 func LoadSocketConfiguration() map[string]map[string]string {
 
-	// Decode and read the file containing the port information
+	// Decode and read file containing port information
 	if err := ini.DecodeFile(socketFile, &confSockets); err != nil {
 		lgr.Error.Println(err)
 		return nil
@@ -68,10 +68,10 @@ func LoadSocketConfiguration() map[string]map[string]string {
 	return confSockets
 }
 
-// LoadPrometheusConfiguration loads the prometheus configuration so that it can be queried
+// LoadPrometheusConfiguration loads prometheus configuration
 func LoadPrometheusConfiguration() map[string]map[string]string {
 
-	// Decode and read the file containing the port information
+	// Decode and read file containing port information
 	if err := ini.DecodeFile(prometheusFile, &confPrometheus); err != nil {
 		lgr.Error.Println(err)
 		return nil
