@@ -31,6 +31,7 @@ func TestMain(m *testing.M) {
 }
 
 func setup() {
+
 	// Set the Logger that will be used by the API through all the packages
 	// And Load all the configuration that need to be used by the router
 	os.Chdir("../")

@@ -26,6 +26,7 @@ func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
 	nodeName := r.URL.Query().Get("name")
 	confirmation, prometheusConfig := checkNodeNamePrometheus(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -76,6 +77,7 @@ func PrometheusQueryCounter(w http.ResponseWriter, r *http.Request) {
 	nodeName := r.URL.Query().Get("name")
 	confirmation, prometheusConfig := checkNodeNamePrometheus(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return

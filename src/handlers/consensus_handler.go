@@ -17,6 +17,7 @@ import (
 
 // loadConsensusClient loads the consensus client and returns it
 func loadConsensusClient(socket string) (*grpc.ClientConn, consensus.ClientBackend) {
+
 	// Attempt to load a connection with the consensus client
 	connection, consensusClient, err := rpc.ConsensusClient(socket)
 	if err != nil {
@@ -28,6 +29,7 @@ func loadConsensusClient(socket string) (*grpc.ClientConn, consensus.ClientBacke
 
 // GetConsensusStateToGenesis returns the genesis state at the specified block height for Consensus.
 func GetConsensusStateToGenesis(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -35,6 +37,7 @@ func GetConsensusStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -44,6 +47,7 @@ func GetConsensusStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -57,6 +61,7 @@ func GetConsensusStateToGenesis(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if co == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return
@@ -77,6 +82,7 @@ func GetConsensusStateToGenesis(w http.ResponseWriter, r *http.Request) {
 
 // GetEpoch returns the current epoch of a given block height
 func GetEpoch(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -84,6 +90,7 @@ func GetEpoch(w http.ResponseWriter, r *http.Request) {
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -93,6 +100,7 @@ func GetEpoch(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -126,6 +134,7 @@ func GetEpoch(w http.ResponseWriter, r *http.Request) {
 
 // PingNode returns a consensus block at a specific height thus signifying that it was pinged.
 func PingNode(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -133,6 +142,7 @@ func PingNode(w http.ResponseWriter, r *http.Request) {
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -149,6 +159,7 @@ func PingNode(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if co == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return
@@ -169,6 +180,7 @@ func PingNode(w http.ResponseWriter, r *http.Request) {
 
 // GetBlock returns a consensus block at a specific height.
 func GetBlock(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -176,6 +188,7 @@ func GetBlock(w http.ResponseWriter, r *http.Request) {
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -185,6 +198,7 @@ func GetBlock(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -198,6 +212,7 @@ func GetBlock(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if co == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return
@@ -218,6 +233,7 @@ func GetBlock(w http.ResponseWriter, r *http.Request) {
 
 // GetBlockHeader returns a consensus block header at a specific height
 func GetBlockHeader(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -225,6 +241,7 @@ func GetBlockHeader(w http.ResponseWriter, r *http.Request) {
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -234,6 +251,7 @@ func GetBlockHeader(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -247,6 +265,7 @@ func GetBlockHeader(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if co == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return
@@ -275,6 +294,7 @@ func GetBlockHeader(w http.ResponseWriter, r *http.Request) {
 
 // GetBlockLastCommit returns a consensus block last commit at a specific height
 func GetBlockLastCommit(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -282,6 +302,7 @@ func GetBlockLastCommit(w http.ResponseWriter, r *http.Request) {
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -291,6 +312,7 @@ func GetBlockLastCommit(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -304,6 +326,7 @@ func GetBlockLastCommit(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if co == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return
@@ -332,6 +355,7 @@ func GetBlockLastCommit(w http.ResponseWriter, r *http.Request) {
 
 // GetTransactions returns a consensus block header at a specific height
 func GetTransactions(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -339,6 +363,7 @@ func GetTransactions(w http.ResponseWriter, r *http.Request) {
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -348,6 +373,7 @@ func GetTransactions(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -361,6 +387,7 @@ func GetTransactions(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if co == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return

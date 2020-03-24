@@ -26,6 +26,7 @@ func TestMain(m *testing.M) {
 
 func setup() {
 	os.Chdir("../")
+
 	// Set the Logger that will be used by the API through all the packages
 	lgr.SetLogger(ioutil.Discard, os.Stdout, os.Stdout, os.Stderr)
 	fmt.Printf("\033[1;36m%s\033[0m", "> Setup completed\n")

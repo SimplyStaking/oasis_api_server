@@ -16,6 +16,7 @@ import (
 
 // loadStakingClient loads the staking client and returns it
 func loadStakingClient(socket string) (*grpc.ClientConn, staking.Backend) {
+
 	// Attempt to load a connection with the staking client
 	connection, stakingClient, err := rpc.StakingClient(socket)
 	if err != nil {
@@ -27,8 +28,10 @@ func loadStakingClient(socket string) (*grpc.ClientConn, staking.Backend) {
 
 // GetTotalSupply returns the total supply at a block height
 func GetTotalSupply(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
+
 	// Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
@@ -41,6 +44,7 @@ func GetTotalSupply(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -54,6 +58,7 @@ func GetTotalSupply(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if so == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return
@@ -73,6 +78,7 @@ func GetTotalSupply(w http.ResponseWriter, r *http.Request) {
 
 // GetCommonPool returns the common pool balance at a block height
 func GetCommonPool(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -80,6 +86,7 @@ func GetCommonPool(w http.ResponseWriter, r *http.Request) {
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -89,6 +96,7 @@ func GetCommonPool(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -102,6 +110,7 @@ func GetCommonPool(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if so == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return
@@ -121,12 +130,15 @@ func GetCommonPool(w http.ResponseWriter, r *http.Request) {
 
 // GetStakingStateToGenesis returns the state of the genesis file of the staking client
 func GetStakingStateToGenesis(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
+
 	// Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -136,6 +148,7 @@ func GetStakingStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -149,6 +162,7 @@ func GetStakingStateToGenesis(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if so == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return
@@ -168,12 +182,15 @@ func GetStakingStateToGenesis(w http.ResponseWriter, r *http.Request) {
 
 // GetThreshold returns the specific staking threshold by kind.
 func GetThreshold(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
+
 	// Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -183,6 +200,7 @@ func GetThreshold(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -192,6 +210,7 @@ func GetThreshold(w http.ResponseWriter, r *http.Request) {
 	recvKind := r.URL.Query().Get("kind")
 	kind := checkKind(recvKind)
 	if kind == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, kind needs to be string of int!"})
 		return
@@ -205,6 +224,7 @@ func GetThreshold(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if so == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return
@@ -228,6 +248,7 @@ func GetThreshold(w http.ResponseWriter, r *http.Request) {
 
 // GetAccounts returns the IDs of all accounts with a non-zero general balance
 func GetAccounts(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -235,6 +256,7 @@ func GetAccounts(w http.ResponseWriter, r *http.Request) {
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -244,6 +266,7 @@ func GetAccounts(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -257,6 +280,7 @@ func GetAccounts(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if so == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return
@@ -277,6 +301,7 @@ func GetAccounts(w http.ResponseWriter, r *http.Request) {
 
 // GetAccountInfo returns the IDs of all accounts with a non-zero general.
 func GetAccountInfo(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -284,6 +309,7 @@ func GetAccountInfo(w http.ResponseWriter, r *http.Request) {
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -293,6 +319,7 @@ func GetAccountInfo(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -303,6 +330,7 @@ func GetAccountInfo(w http.ResponseWriter, r *http.Request) {
 	var pubKey common_signature.PublicKey
 	ownerKey := r.URL.Query().Get("ownerKey")
 	if len(ownerKey) == 0 {
+
 		// Stop the code here no need to establish connection and reply
 		lgr.Warning.Println("Request at /api/staking/accountinfo/ failed, ownerKey can't be empty!")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "ownerKey can't be empty!"})
@@ -325,6 +353,7 @@ func GetAccountInfo(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if so == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return
@@ -348,6 +377,7 @@ func GetAccountInfo(w http.ResponseWriter, r *http.Request) {
 
 // GetDelegations returns the list of delegations for the given owner
 func GetDelegations(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -355,6 +385,7 @@ func GetDelegations(w http.ResponseWriter, r *http.Request) {
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -364,6 +395,7 @@ func GetDelegations(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -374,6 +406,7 @@ func GetDelegations(w http.ResponseWriter, r *http.Request) {
 	var pubKey common_signature.PublicKey
 	ownerKey := r.URL.Query().Get("ownerKey")
 	if len(ownerKey) == 0 {
+
 		// Stop the code here no need to establish connection and reply
 		lgr.Warning.Println("Request at /api/staking/delegations/ failed, ownerKey can't be empty!")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "ownerKey can't be empty!"})
@@ -396,6 +429,7 @@ func GetDelegations(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if so == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return
@@ -419,6 +453,7 @@ func GetDelegations(w http.ResponseWriter, r *http.Request) {
 
 // GetDebondingDelegations returns the list of debonding delegations for the given owner (delegator).
 func GetDebondingDelegations(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -435,6 +470,7 @@ func GetDebondingDelegations(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -445,6 +481,7 @@ func GetDebondingDelegations(w http.ResponseWriter, r *http.Request) {
 	var pubKey common_signature.PublicKey
 	ownerKey := r.URL.Query().Get("ownerKey")
 	if len(ownerKey) == 0 {
+
 		// Stop the code here no need to establish connection and reply
 		lgr.Warning.Println("Request at /api/staking/accountinfo/ failed, ownerKey can't be empty!")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "ownerKey can't be empty!"})
@@ -467,6 +504,7 @@ func GetDebondingDelegations(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if so == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return

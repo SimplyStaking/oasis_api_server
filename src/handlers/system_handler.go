@@ -14,6 +14,7 @@ import (
 
 // GetMemory returns the memory statistics of the current system
 func GetMemory(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -32,6 +33,7 @@ func GetMemory(w http.ResponseWriter, r *http.Request) {
 
 // GetDisk returns the memory statistics of the current system
 func GetDisk(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -50,6 +52,7 @@ func GetDisk(w http.ResponseWriter, r *http.Request) {
 
 // GetCPU returns the CPU statistics of the current system
 func GetCPU(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -68,6 +71,7 @@ func GetCPU(w http.ResponseWriter, r *http.Request) {
 
 // GetNetwork returns the network statistics of the current system
 func GetNetwork(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 

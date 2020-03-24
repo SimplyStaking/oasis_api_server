@@ -15,6 +15,7 @@ import (
 
 // loadNodeControllerClient loads the node controller client and returns it
 func loadNodeControllerClient(socket string) (*grpc.ClientConn, control.NodeController) {
+
 	// Attempt to load a connection with the staking client
 	connection, nodeControllerClient, err := rpc.NodeControllerClient(socket)
 	if err != nil {
@@ -26,6 +27,7 @@ func loadNodeControllerClient(socket string) (*grpc.ClientConn, control.NodeCont
 
 // GetIsSynced checks whether the node has finished syncing.
 func GetIsSynced(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -33,6 +35,7 @@ func GetIsSynced(w http.ResponseWriter, r *http.Request) {
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -46,6 +49,7 @@ func GetIsSynced(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if nc == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return

@@ -17,6 +17,7 @@ import (
 
 // loadRegistryClient loads the registry client and returns it
 func loadRegistryClient(socket string) (*grpc.ClientConn, registry.Backend) {
+
 	// Attempt to load a connection with the registry client
 	connection, registryClient, err := rpc.RegistryClient(socket)
 	if err != nil {
@@ -28,6 +29,7 @@ func loadRegistryClient(socket string) (*grpc.ClientConn, registry.Backend) {
 
 // GetEntities returns all the registered entities
 func GetEntities(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -35,6 +37,7 @@ func GetEntities(w http.ResponseWriter, r *http.Request) {
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -44,6 +47,7 @@ func GetEntities(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -57,6 +61,7 @@ func GetEntities(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if ro == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return
@@ -77,6 +82,7 @@ func GetEntities(w http.ResponseWriter, r *http.Request) {
 
 // GetNodes returns all the registered nodes at a specific block height
 func GetNodes(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -84,6 +90,7 @@ func GetNodes(w http.ResponseWriter, r *http.Request) {
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -93,6 +100,7 @@ func GetNodes(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -106,6 +114,7 @@ func GetNodes(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if ro == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return
@@ -126,6 +135,7 @@ func GetNodes(w http.ResponseWriter, r *http.Request) {
 
 // GetRuntimes returns all the runtimes at a specific block height
 func GetRuntimes(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -133,6 +143,7 @@ func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -142,6 +153,7 @@ func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -155,6 +167,7 @@ func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if ro == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return
@@ -175,6 +188,7 @@ func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 
 // GetRegistryStateToGenesis returns the StateToGenesis at the specified block height for Registry.
 func GetRegistryStateToGenesis(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -182,6 +196,7 @@ func GetRegistryStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -191,6 +206,7 @@ func GetRegistryStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -204,6 +220,7 @@ func GetRegistryStateToGenesis(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if ro == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return
@@ -224,6 +241,7 @@ func GetRegistryStateToGenesis(w http.ResponseWriter, r *http.Request) {
 
 // GetEntity returns the information with regards to a single entity
 func GetEntity(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -231,6 +249,7 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -240,6 +259,7 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -249,6 +269,7 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 	var pubKey common_signature.PublicKey
 	entityID := r.URL.Query().Get("entity")
 	if len(entityID) == 0 {
+
 		// Stop the code here no need to establish connection and reply
 		lgr.Warning.Println("Request at /api/registry/entity/ failed, EntityID can't be empty!")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "EntityID can't be empty!"})
@@ -271,6 +292,7 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if ro == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return
@@ -294,12 +316,15 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 
 // GetNode returns the information with regards to a single entity
 func GetNode(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
+
 	// Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -309,6 +334,7 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -319,6 +345,7 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 	var pubKey common_signature.PublicKey
 	nodeID := r.URL.Query().Get("nodeID")
 	if len(nodeID) == 0 {
+
 		// Stop the code here no need to establish connection and reply
 		lgr.Warning.Println("Request at /api/registry/node/ failed, NodeID can't be empty!")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "NodeID can't be empty!"})
@@ -341,6 +368,7 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if ro == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return
@@ -364,6 +392,7 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 
 // GetRuntime returns the information with regards to a single entity
 func GetRuntime(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -371,6 +400,7 @@ func GetRuntime(w http.ResponseWriter, r *http.Request) {
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -380,6 +410,7 @@ func GetRuntime(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -412,6 +443,7 @@ func GetRuntime(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if ro == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return

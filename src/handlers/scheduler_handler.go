@@ -16,6 +16,7 @@ import (
 
 // loadSchedulerClient loads the scheduler client and returns it
 func loadSchedulerClient(socket string) (*grpc.ClientConn, scheduler.Backend) {
+
 	// Attempt to load a connection with the scheduler client
 	connection, schedulerClient, err := rpc.SchedulerClient(socket)
 	if err != nil {
@@ -27,6 +28,7 @@ func loadSchedulerClient(socket string) (*grpc.ClientConn, scheduler.Backend) {
 
 // GetValidators returns the vector of consensus validators for a given epoch.
 func GetValidators(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -34,6 +36,7 @@ func GetValidators(w http.ResponseWriter, r *http.Request) {
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -43,6 +46,7 @@ func GetValidators(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -56,6 +60,7 @@ func GetValidators(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if sc == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return
@@ -78,6 +83,7 @@ func GetValidators(w http.ResponseWriter, r *http.Request) {
 // runtime ID, at the specified block height, and optional callback
 // for querying the beacon for a given epoch/block height.
 func GetCommittees(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -104,6 +110,7 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 	var nameSpace common_namespace.Namespace
 	nmspace := r.URL.Query().Get("namespace")
 	if len(nmspace) == 0 {
+
 		// Stop the code here no need to establish connection and reply
 		lgr.Warning.Println("Request at /api/registry/runtime/ failed, namespace can't be empty!")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "namespace can't be empty!"})
@@ -126,6 +133,7 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if sc == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return
@@ -149,6 +157,7 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 
 // GetSchedulerStateToGenesis returns the genesis state of the scheduler at specified block height.
 func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
+
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
@@ -156,6 +165,7 @@ func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
 		return
@@ -165,6 +175,7 @@ func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	recvHeight := r.URL.Query().Get("height")
 	height := checkHeight(recvHeight)
 	if height == -1 {
+
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
 		return
@@ -178,6 +189,7 @@ func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
 
 	// If a null object was retrieved send response
 	if sc == nil {
+
 		// Stop the code here faild to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish a connection using the socket : " + socket})
 		return

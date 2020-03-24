@@ -59,6 +59,7 @@ func LoadPortConfiguration() map[string]map[string]string {
 
 // LoadSocketConfiguration loads the socket configuration file from the config folder
 func LoadSocketConfiguration() map[string]map[string]string {
+
 	// Decode and read the file containing the port information
 	if err := ini.DecodeFile(socketFile, &confSockets); err != nil {
 		lgr.Error.Println(err)
@@ -69,6 +70,7 @@ func LoadSocketConfiguration() map[string]map[string]string {
 
 // LoadPrometheusConfiguration loads the prometheus configuration so that it can be queried
 func LoadPrometheusConfiguration() map[string]map[string]string {
+
 	// Decode and read the file containing the port information
 	if err := ini.DecodeFile(prometheusFile, &confPrometheus); err != nil {
 		lgr.Error.Println(err)
