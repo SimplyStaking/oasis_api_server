@@ -8,8 +8,8 @@ import (
 	"google.golang.org/grpc"
 
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
-	responses "github.com/SimplyVC/oasis_api_server/src/responses"
-	rpc "github.com/SimplyVC/oasis_api_server/src/rpc"
+	"github.com/SimplyVC/oasis_api_server/src/responses"
+	"github.com/SimplyVC/oasis_api_server/src/rpc"
 	common_namespace "github.com/oasislabs/oasis-core/go/common"
 	common_signature "github.com/oasislabs/oasis-core/go/common/crypto/signature"
 	registry "github.com/oasislabs/oasis-core/go/registry/api"

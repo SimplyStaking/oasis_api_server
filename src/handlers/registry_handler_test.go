@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	hdl "github.com/SimplyVC/oasis_api_server/src/handlers"
-	responses "github.com/SimplyVC/oasis_api_server/src/responses"
+	"github.com/SimplyVC/oasis_api_server/src/responses"
 	common_entity "github.com/oasislabs/oasis-core/go/common/entity"
 	common_node "github.com/oasislabs/oasis-core/go/common/node"
 	registry_api "github.com/oasislabs/oasis-core/go/registry/api"

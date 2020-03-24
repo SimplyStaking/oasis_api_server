@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
-	config "github.com/SimplyVC/oasis_api_server/src/config"
+	"github.com/SimplyVC/oasis_api_server/src/config"
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
-	responses "github.com/SimplyVC/oasis_api_server/src/responses"
+	"github.com/SimplyVC/oasis_api_server/src/responses"
 )
 
 // Pong responds with a ping if the entire API is online

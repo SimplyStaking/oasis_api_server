@@ -12,7 +12,7 @@ import (
 	conf "github.com/SimplyVC/oasis_api_server/src/config"
 	hdl "github.com/SimplyVC/oasis_api_server/src/handlers"
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
-	responses "github.com/SimplyVC/oasis_api_server/src/responses"
+	"github.com/SimplyVC/oasis_api_server/src/responses"
 	consensus_api "github.com/oasislabs/oasis-core/go/consensus/api"
 	epoch_api "github.com/oasislabs/oasis-core/go/epochtime/api"
 	gen_api "github.com/oasislabs/oasis-core/go/genesis/api"

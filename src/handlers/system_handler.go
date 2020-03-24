@@ -5,11 +5,11 @@ import (
 	"net/http"
 
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
-	responses "github.com/SimplyVC/oasis_api_server/src/responses"
-	cpu "github.com/mackerelio/go-osstat/cpu"
-	disk "github.com/mackerelio/go-osstat/disk"
-	memory "github.com/mackerelio/go-osstat/memory"
-	network "github.com/mackerelio/go-osstat/network"
+	"github.com/SimplyVC/oasis_api_server/src/responses"
+	"github.com/mackerelio/go-osstat/cpu"
+	"github.com/mackerelio/go-osstat/disk"
+	"github.com/mackerelio/go-osstat/memory"
+	"github.com/mackerelio/go-osstat/network"
 )
 
 // GetMemory returns the memory statistics of the current system

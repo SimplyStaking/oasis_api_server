@@ -3,7 +3,7 @@ package handlers
 import (
 	"strconv"
 
-	config "github.com/SimplyVC/oasis_api_server/src/config"
+	"github.com/SimplyVC/oasis_api_server/src/config"
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
 	consensus "github.com/oasislabs/oasis-core/go/consensus/api"
 )

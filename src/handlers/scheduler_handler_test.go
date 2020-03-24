@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	hdl "github.com/SimplyVC/oasis_api_server/src/handlers"
-	responses "github.com/SimplyVC/oasis_api_server/src/responses"
+	"github.com/SimplyVC/oasis_api_server/src/responses"
 	scheduler_api "github.com/oasislabs/oasis-core/go/scheduler/api"
 )
 

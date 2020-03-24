@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	hdl "github.com/SimplyVC/oasis_api_server/src/handlers"
-	responses "github.com/SimplyVC/oasis_api_server/src/responses"
+	"github.com/SimplyVC/oasis_api_server/src/responses"
 	common_signature "github.com/oasislabs/oasis-core/go/common/crypto/signature"
 	common_quantity "github.com/oasislabs/oasis-core/go/common/quantity"
 	staking_api "github.com/oasislabs/oasis-core/go/staking/api"

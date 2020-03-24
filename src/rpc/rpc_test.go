@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	rpc "github.com/SimplyVC/oasis_api_server/src/rpc"
+	"github.com/SimplyVC/oasis_api_server/src/rpc"
 )
 
 var (

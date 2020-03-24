@@ -1,10 +1,10 @@
 package responses
 
 import (
-	cpu "github.com/mackerelio/go-osstat/cpu"
-	disk "github.com/mackerelio/go-osstat/disk"
-	memory "github.com/mackerelio/go-osstat/memory"
-	network "github.com/mackerelio/go-osstat/network"
+	"github.com/mackerelio/go-osstat/cpu"
+	"github.com/mackerelio/go-osstat/disk"
+	"github.com/mackerelio/go-osstat/memory"
+	"github.com/mackerelio/go-osstat/network"
 	common_signature "github.com/oasislabs/oasis-core/go/common/crypto/signature"
 	common_entity "github.com/oasislabs/oasis-core/go/common/entity"
 	common_node "github.com/oasislabs/oasis-core/go/common/node"

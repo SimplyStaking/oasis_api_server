@@ -8,8 +8,8 @@ import (
 	"net/http"
 
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
-	responses "github.com/SimplyVC/oasis_api_server/src/responses"
-	expfmt "github.com/prometheus/common/expfmt"
+	"github.com/SimplyVC/oasis_api_server/src/responses"
+	"github.com/prometheus/common/expfmt"
 )
 
 var parser expfmt.TextParser

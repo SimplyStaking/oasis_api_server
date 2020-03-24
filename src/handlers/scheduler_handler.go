@@ -8,8 +8,8 @@ import (
 	"google.golang.org/grpc"
 
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
-	responses "github.com/SimplyVC/oasis_api_server/src/responses"
-	rpc "github.com/SimplyVC/oasis_api_server/src/rpc"
+	"github.com/SimplyVC/oasis_api_server/src/responses"
+	"github.com/SimplyVC/oasis_api_server/src/rpc"
 	common_namespace "github.com/oasislabs/oasis-core/go/common"
 	scheduler "github.com/oasislabs/oasis-core/go/scheduler/api"
 )

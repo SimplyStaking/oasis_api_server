@@ -8,9 +8,9 @@ import (
 	"google.golang.org/grpc"
 
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
-	responses "github.com/SimplyVC/oasis_api_server/src/responses"
-	rpc "github.com/SimplyVC/oasis_api_server/src/rpc"
-	cbor "github.com/oasislabs/oasis-core/go/common/cbor"
+	"github.com/SimplyVC/oasis_api_server/src/responses"
+	"github.com/SimplyVC/oasis_api_server/src/rpc"
+	"github.com/oasislabs/oasis-core/go/common/cbor"
 	consensus "github.com/oasislabs/oasis-core/go/consensus/api"
 	mint_api "github.com/oasislabs/oasis-core/go/consensus/tendermint/api"
 )

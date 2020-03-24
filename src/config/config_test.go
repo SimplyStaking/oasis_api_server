@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	config "github.com/SimplyVC/oasis_api_server/src/config"
+	"github.com/SimplyVC/oasis_api_server/src/config"
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
 )
 

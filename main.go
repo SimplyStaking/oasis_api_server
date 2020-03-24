@@ -5,7 +5,7 @@ import (
 	"os"
 
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
-	router "github.com/SimplyVC/oasis_api_server/src/router"
+	"github.com/SimplyVC/oasis_api_server/src/router"
 )
 
 // Main Function handles all the possible API routes.
