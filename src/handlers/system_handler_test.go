@@ -10,7 +10,7 @@ import (
 )
 
 func Test_GetMemory(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/system/GetMemory", nil)
+	req, _ := http.NewRequest("GET", "/api/system/memory", nil)
 	q := req.URL.Query()
 	req.URL.RawQuery = q.Encode()
 
@@ -22,7 +22,7 @@ func Test_GetMemory(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := "memory"
+	expected := "result"
 	if strings.Contains(strings.TrimSpace(rr.Body.String()), expected) != true {
 		t.Errorf("handler returned unexpected body: got %v want %v",
 			rr.Body.String(), expected)
@@ -30,7 +30,7 @@ func Test_GetMemory(t *testing.T) {
 }
 
 func Test_GetDisk(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/system/GetDisk", nil)
+	req, _ := http.NewRequest("GET", "/api/system/disk", nil)
 	q := req.URL.Query()
 	req.URL.RawQuery = q.Encode()
 
@@ -42,7 +42,7 @@ func Test_GetDisk(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := "disk"
+	expected := "result"
 	if strings.Contains(strings.TrimSpace(rr.Body.String()), expected) != true {
 		t.Errorf("handler returned unexpected body: got %v want %v",
 			rr.Body.String(), expected)
@@ -50,7 +50,7 @@ func Test_GetDisk(t *testing.T) {
 }
 
 func Test_GetCPU(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/system/GetCPU", nil)
+	req, _ := http.NewRequest("GET", "/api/system/cpu", nil)
 	q := req.URL.Query()
 	req.URL.RawQuery = q.Encode()
 
@@ -62,7 +62,7 @@ func Test_GetCPU(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := "cpu"
+	expected := "result"
 	if strings.Contains(strings.TrimSpace(rr.Body.String()), expected) != true {
 		t.Errorf("handler returned unexpected body: got %v want %v",
 			rr.Body.String(), expected)
@@ -70,7 +70,7 @@ func Test_GetCPU(t *testing.T) {
 }
 
 func Test_GetNetwork(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/system/GetNetwork", nil)
+	req, _ := http.NewRequest("GET", "/api/system/network", nil)
 	q := req.URL.Query()
 	req.URL.RawQuery = q.Encode()
 
@@ -82,7 +82,7 @@ func Test_GetNetwork(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := "network"
+	expected := "result"
 	if strings.Contains(strings.TrimSpace(rr.Body.String()), expected) != true {
 		t.Errorf("handler returned unexpected body: got %v want %v",
 			rr.Body.String(), expected)

@@ -37,7 +37,8 @@ func GetTotalSupply(w http.ResponseWriter, r *http.Request) {
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
 		return
 	}
 
@@ -46,7 +47,8 @@ func GetTotalSupply(w http.ResponseWriter, r *http.Request) {
 	if height == -1 {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
@@ -60,15 +62,18 @@ func GetTotalSupply(w http.ResponseWriter, r *http.Request) {
 	if so == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
 	// Using Oasis API to return total supply of tokens at specific block height
 	totalSupply, err := so.TotalSupply(context.Background(), height)
 	if err != nil {
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get TotalSupply!"})
-		lgr.Error.Println("Request at /api/staking/totalsupply/ Failed to retrieve totalsupply : ", err)
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to get TotalSupply!"})
+		lgr.Error.Println(
+			"Request at /api/staking/totalsupply/ Failed to retrieve totalsupply : ", err)
 		return
 	}
 
@@ -88,7 +93,8 @@ func GetCommonPool(w http.ResponseWriter, r *http.Request) {
 	if confirmation == false {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
 		return
 	}
 
@@ -98,7 +104,8 @@ func GetCommonPool(w http.ResponseWriter, r *http.Request) {
 	if height == -1 {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
@@ -112,15 +119,19 @@ func GetCommonPool(w http.ResponseWriter, r *http.Request) {
 	if so == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
 	// Return common pool at specific block height
 	commonPool, err := so.CommonPool(context.Background(), height)
 	if err != nil {
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Common Pool!"})
-		lgr.Error.Println("Request at /api/staking/commonpool/ Failed to retrieve common pool : ", err)
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to get Common Pool!"})
+
+		lgr.Error.Println(
+			"Request at /api/staking/commonpool/ Failed to retrieve common pool : ", err)
 		return
 	}
 
@@ -140,7 +151,8 @@ func GetStakingStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	if confirmation == false {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
 		return
 	}
 
@@ -150,7 +162,8 @@ func GetStakingStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	if height == -1 {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
@@ -164,20 +177,25 @@ func GetStakingStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	if so == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
 	// Returning state to genesis at specific height
 	genesisStaking, err := so.StateToGenesis(context.Background(), height)
 	if err != nil {
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Staking Genesis State!"})
-		lgr.Error.Println("Request at /api/staking/genesis/ Failed to retrieve Staking Genesis State : ", err)
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to get Staking Genesis State!"})
+		lgr.Error.Println(
+			"Request at /api/staking/genesis/ Failed to retrieve Staking Genesis State : ", err)
 		return
 	}
 
-	lgr.Info.Println("Request at /api/staking/genesis/ responding with Staking Genesis State!")
-	json.NewEncoder(w).Encode(responses.StakingGenesisResponse{GenesisStaking: genesisStaking})
+	lgr.Info.Println(
+		"Request at /api/staking/genesis/ responding with Staking Genesis State!")
+	json.NewEncoder(w).Encode(responses.StakingGenesisResponse{
+		GenesisStaking: genesisStaking})
 }
 
 // GetThreshold returns specific staking threshold by kind.
@@ -192,7 +210,8 @@ func GetThreshold(w http.ResponseWriter, r *http.Request) {
 	if confirmation == false {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
 		return
 	}
 
@@ -202,7 +221,8 @@ func GetThreshold(w http.ResponseWriter, r *http.Request) {
 	if height == -1 {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
@@ -212,7 +232,8 @@ func GetThreshold(w http.ResponseWriter, r *http.Request) {
 	if kind == -1 {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, kind needs to be string of int!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Unexepcted value found, kind needs to be string of int!"})
 		return
 	}
 
@@ -226,7 +247,8 @@ func GetThreshold(w http.ResponseWriter, r *http.Request) {
 	if so == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
@@ -236,13 +258,16 @@ func GetThreshold(w http.ResponseWriter, r *http.Request) {
 	// Return threshold from staking client using created query
 	threshold, err := so.Threshold(context.Background(), &query)
 	if err != nil {
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Threshold!"})
-		lgr.Error.Println("Request at /api/staking/threshold/ Failed to retrieve Threshold : ", err)
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to get Threshold!"})
+		lgr.Error.Println(
+			"Request at /api/staking/threshold/ Failed to retrieve Threshold : ", err)
 		return
 	}
 
 	// Responding with threshold quantity retrieved
-	lgr.Info.Println("Request at /api/staking/threshold/ responding with Threshold!")
+	lgr.Info.Println(
+		"Request at /api/staking/threshold/ responding with Threshold!")
 	json.NewEncoder(w).Encode(responses.QuantityResponse{Quantity: threshold})
 }
 
@@ -258,7 +283,8 @@ func GetAccounts(w http.ResponseWriter, r *http.Request) {
 	if confirmation == false {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
 		return
 	}
 
@@ -268,7 +294,8 @@ func GetAccounts(w http.ResponseWriter, r *http.Request) {
 	if height == -1 {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
@@ -282,15 +309,18 @@ func GetAccounts(w http.ResponseWriter, r *http.Request) {
 	if so == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
 	// Return accounts from staking client
 	accounts, err := so.Accounts(context.Background(), height)
 	if err != nil {
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Accounts!"})
-		lgr.Error.Println("Request at /api/staking/accounts/ Failed to retrieve Accounts : ", err)
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to get Accounts!"})
+		lgr.Error.Println(
+			"Request at /api/staking/accounts/ Failed to retrieve Accounts : ", err)
 		return
 	}
 
@@ -311,7 +341,8 @@ func GetAccountInfo(w http.ResponseWriter, r *http.Request) {
 	if confirmation == false {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
 		return
 	}
 
@@ -321,19 +352,23 @@ func GetAccountInfo(w http.ResponseWriter, r *http.Request) {
 	if height == -1 {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
 	// Note Make sure that public key that is being sent is coded properly
-	// Example A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU+h+blS9pto= should be A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU%2Bh%2BblS9pto=
+	// Example A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU+h+blS9pto= should be
+	// A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU%2Bh%2BblS9pto=
 	var pubKey common_signature.PublicKey
 	ownerKey := r.URL.Query().Get("ownerKey")
 	if len(ownerKey) == 0 {
 
 		// Stop code here no need to establish connection and reply
-		lgr.Warning.Println("Request at /api/staking/accountinfo/ failed, ownerKey can't be empty!")
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "ownerKey can't be empty!"})
+		lgr.Warning.Println(
+			"Request at /api/staking/accountinfo/ failed, ownerKey can't be empty!")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "ownerKey can't be empty!"})
 		return
 	}
 
@@ -341,7 +376,8 @@ func GetAccountInfo(w http.ResponseWriter, r *http.Request) {
 	err := pubKey.UnmarshalText([]byte(ownerKey))
 	if err != nil {
 		lgr.Error.Println("Failed to UnmarshalText into Public Key", err)
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to UnmarshalText into Public Key."})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to UnmarshalText into Public Key."})
 		return
 	}
 
@@ -355,7 +391,8 @@ func GetAccountInfo(w http.ResponseWriter, r *http.Request) {
 	if so == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
@@ -365,8 +402,10 @@ func GetAccountInfo(w http.ResponseWriter, r *http.Request) {
 	// Retrieve account information using created query
 	account, err := so.AccountInfo(context.Background(), &query)
 	if err != nil {
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Account!"})
-		lgr.Error.Println("Request at /api/staking/accountinfo/ Failed to retrieve Account Info : ", err)
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to get Account!"})
+		lgr.Error.Println(
+			"Request at /api/staking/accountinfo/ Failed to retrieve Account Info : ", err)
 		return
 	}
 
@@ -387,7 +426,8 @@ func GetDelegations(w http.ResponseWriter, r *http.Request) {
 	if confirmation == false {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
 		return
 	}
 
@@ -397,19 +437,23 @@ func GetDelegations(w http.ResponseWriter, r *http.Request) {
 	if height == -1 {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
 	// Note Make sure that public key that is being sent is coded properly
-	// Example A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU+h+blS9pto= should be A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU%2Bh%2BblS9pto=
+	// Example A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU+h+blS9pto= should be
+	// A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU%2Bh%2BblS9pto=
 	var pubKey common_signature.PublicKey
 	ownerKey := r.URL.Query().Get("ownerKey")
 	if len(ownerKey) == 0 {
 
 		// Stop code here no need to establish connection and reply
-		lgr.Warning.Println("Request at /api/staking/delegations/ failed, ownerKey can't be empty!")
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "ownerKey can't be empty!"})
+		lgr.Warning.Println(
+			"Request at /api/staking/delegations/ failed, ownerKey can't be empty!")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "ownerKey can't be empty!"})
 		return
 	}
 
@@ -417,7 +461,8 @@ func GetDelegations(w http.ResponseWriter, r *http.Request) {
 	err := pubKey.UnmarshalText([]byte(ownerKey))
 	if err != nil {
 		lgr.Error.Println("Failed to UnmarshalText into Public Key", err)
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to UnmarshalText into Public Key."})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to UnmarshalText into Public Key."})
 		return
 	}
 
@@ -431,7 +476,8 @@ func GetDelegations(w http.ResponseWriter, r *http.Request) {
 	if so == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
@@ -441,8 +487,11 @@ func GetDelegations(w http.ResponseWriter, r *http.Request) {
 	// Return delegations for given account query
 	delegations, err := so.Delegations(context.Background(), &query)
 	if err != nil {
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Delegations!"})
-		lgr.Error.Println("Request at /api/staking/delegations/ Failed to retrieve Delegations : ", err)
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to get Delegations!"})
+
+		lgr.Error.Println(
+			"Request at /api/staking/delegations/ Failed to retrieve Delegations : ", err)
 		return
 	}
 
@@ -462,7 +511,8 @@ func GetDebondingDelegations(w http.ResponseWriter, r *http.Request) {
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
 		return
 	}
 
@@ -472,19 +522,24 @@ func GetDebondingDelegations(w http.ResponseWriter, r *http.Request) {
 	if height == -1 {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
 	// Note Make sure that public key that is being sent is coded properly
-	// Example A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU+h+blS9pto= should be A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU%2Bh%2BblS9pto=
+	// Example A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU+h+blS9pto= should be
+	// A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU%2Bh%2BblS9pto=
 	var pubKey common_signature.PublicKey
 	ownerKey := r.URL.Query().Get("ownerKey")
 	if len(ownerKey) == 0 {
 
 		// Stop code here no need to establish connection and reply
-		lgr.Warning.Println("Request at /api/staking/accountinfo/ failed, ownerKey can't be empty!")
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "ownerKey can't be empty!"})
+		lgr.Warning.Println(
+			"Request at /api/staking/accountinfo/ failed, ownerKey can't be empty!")
+
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "ownerKey can't be empty!"})
 		return
 	}
 
@@ -492,7 +547,8 @@ func GetDebondingDelegations(w http.ResponseWriter, r *http.Request) {
 	err := pubKey.UnmarshalText([]byte(ownerKey))
 	if err != nil {
 		lgr.Error.Println("Failed to UnmarshalText into Public Key", err)
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to UnmarshalText into Public Key."})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to UnmarshalText into Public Key."})
 		return
 	}
 
@@ -506,7 +562,8 @@ func GetDebondingDelegations(w http.ResponseWriter, r *http.Request) {
 	if so == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
@@ -516,12 +573,16 @@ func GetDebondingDelegations(w http.ResponseWriter, r *http.Request) {
 	// Retrieving debonding delegations for an account using above query
 	debondingDelegations, err := so.DebondingDelegations(context.Background(), &query)
 	if err != nil {
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Debonding Delegations!"})
-		lgr.Error.Println("Request at /api/staking/debondingdelegations/ Failed to retrieve Debonding Delegations : ", err)
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to get Debonding Delegations!"})
+		lgr.Error.Println(
+			"Request at /api/staking/debondingdelegations/ Failed to retrieve Debonding Delegations : ", err)
 		return
 	}
 
 	// Responding with debonding delegations for given accounts
-	lgr.Info.Println("Request at /api/staking/debondingdelegations/ responding with Debonding Delegations!")
-	json.NewEncoder(w).Encode(responses.DebondingDelegationsResponse{DebondingDelegations: debondingDelegations})
+	lgr.Info.Println(
+		"Request at /api/staking/debondingdelegations/ responding with Debonding Delegations!")
+	json.NewEncoder(w).Encode(responses.DebondingDelegationsResponse{
+		DebondingDelegations: debondingDelegations})
 }

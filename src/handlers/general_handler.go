@@ -35,5 +35,6 @@ func GetConnections(w http.ResponseWriter, r *http.Request) {
 		connectionsResponse = append(connectionsResponse, socket["ws_url"])
 	}
 	// Encode object and send it using predefind response
-	json.NewEncoder(w).Encode(responses.ConnectionsResponse{Results: connectionsResponse})
+	json.NewEncoder(w).Encode(responses.ConnectionsResponse{
+		Results: connectionsResponse})
 }

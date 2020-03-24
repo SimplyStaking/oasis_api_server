@@ -28,14 +28,16 @@ func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
 	if confirmation == false {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
 		return
 	}
 
 	// Setting gauge query
 	gaugeName := r.URL.Query().Get("gauge")
 	if gaugeName == "" {
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to retrieve gauge name, please specify!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to retrieve gauge name, please specify!"})
 		lgr.Error.Println("Failed to retrieve gauge name, not specified!")
 		return
 	}
@@ -62,7 +64,8 @@ func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
 	s := fmt.Sprintf("%f", output)
 
 	json.NewEncoder(w).Encode(responses.SuccessResponse{Result: s})
-	lgr.Info.Println("Received request for /api/prometheus/gauge responding with : ", s)
+	lgr.Info.Println(
+		"Received request for /api/prometheus/gauge responding with : ", s)
 }
 
 // PrometheusQueryCounter to retreive prometheus data.
@@ -79,14 +82,16 @@ func PrometheusQueryCounter(w http.ResponseWriter, r *http.Request) {
 	if confirmation == false {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
 		return
 	}
 
 	// Setting counter query
 	counterName := r.URL.Query().Get("counter")
 	if counterName == "" {
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to retrieve counter name, please specify!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to retrieve counter name, please specify!"})
 		lgr.Error.Println("Failed to retrieve counter name, not specified!")
 		return
 	}
@@ -113,5 +118,6 @@ func PrometheusQueryCounter(w http.ResponseWriter, r *http.Request) {
 	s := fmt.Sprintf("%f", output)
 
 	json.NewEncoder(w).Encode(responses.SuccessResponse{Result: s})
-	lgr.Info.Println("Received request for /api/prometheus/counter responding with : ", s)
+	lgr.Info.Println(
+		"Received request for /api/prometheus/counter responding with : ", s)
 }

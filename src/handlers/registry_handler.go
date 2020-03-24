@@ -39,7 +39,8 @@ func GetEntities(w http.ResponseWriter, r *http.Request) {
 	if confirmation == false {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
 		return
 	}
 
@@ -49,7 +50,8 @@ func GetEntities(w http.ResponseWriter, r *http.Request) {
 	if height == -1 {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
@@ -63,15 +65,18 @@ func GetEntities(w http.ResponseWriter, r *http.Request) {
 	if ro == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
 	// Retrieve entities at specific block height
 	entities, err := ro.GetEntities(context.Background(), height)
 	if err != nil {
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Entities!"})
-		lgr.Error.Println("Request at /api/registry/entities/ Failed to retrieve entities : ", err)
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to get Entities!"})
+		lgr.Error.Println(
+			"Request at /api/registry/entities/ Failed to retrieve entities : ", err)
 		return
 	}
 
@@ -92,7 +97,8 @@ func GetNodes(w http.ResponseWriter, r *http.Request) {
 	if confirmation == false {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
 		return
 	}
 
@@ -102,7 +108,8 @@ func GetNodes(w http.ResponseWriter, r *http.Request) {
 	if height == -1 {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
@@ -116,15 +123,18 @@ func GetNodes(w http.ResponseWriter, r *http.Request) {
 	if ro == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
 	// Retrieve nodes from Registry object at specific height
 	nodes, err := ro.GetNodes(context.Background(), height)
 	if err != nil {
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Nodes!"})
-		lgr.Error.Println("Request at /api/registry/nodes/ Failed to retrieve nodes : ", err)
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to get Nodes!"})
+		lgr.Error.Println(
+			"Request at /api/registry/nodes/ Failed to retrieve nodes : ", err)
 		return
 	}
 
@@ -145,7 +155,8 @@ func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 	if confirmation == false {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
 		return
 	}
 
@@ -155,7 +166,8 @@ func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 	if height == -1 {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
@@ -169,15 +181,18 @@ func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 	if ro == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
 	// Retrieving runtimes at specific block height from registry client
 	runtimes, err := ro.GetRuntimes(context.Background(), height)
 	if err != nil {
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Runtimes!"})
-		lgr.Error.Println("Request at /api/registry/runtimes/ Failed to retrieve runtimes : ", err)
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to get Runtimes!"})
+		lgr.Error.Println(
+			"Request at /api/registry/runtimes/ Failed to retrieve runtimes : ", err)
 		return
 	}
 
@@ -198,7 +213,8 @@ func GetRegistryStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	if confirmation == false {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
 		return
 	}
 
@@ -208,7 +224,8 @@ func GetRegistryStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	if height == -1 {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
@@ -222,21 +239,26 @@ func GetRegistryStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	if ro == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
 	// Retrieving genesis state of registry object
 	genesisRegistry, err := ro.StateToGenesis(context.Background(), height)
 	if err != nil {
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Registry Genesis!"})
-		lgr.Error.Println("Request at /api/registry/genesis/ Failed to retrieve Registry Genesis : ", err)
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to get Registry Genesis!"})
+		lgr.Error.Println(
+			"Request at /api/registry/genesis/ Failed to retrieve Registry Genesis : ", err)
 		return
 	}
 
 	// Responding with genesis state retrieved above
-	lgr.Info.Println("Request at /api/registry/genesis/ responding with Registry Genesis!")
-	json.NewEncoder(w).Encode(responses.RegistryGenesisResponse{GenesisRegistry: genesisRegistry})
+	lgr.Info.Println(
+		"Request at /api/registry/genesis/ responding with Registry Genesis!")
+	json.NewEncoder(w).Encode(responses.RegistryGenesisResponse{
+		GenesisRegistry: genesisRegistry})
 }
 
 // GetEntity returns information with regards to single entity
@@ -251,7 +273,8 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 	if confirmation == false {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
 		return
 	}
 
@@ -261,7 +284,8 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 	if height == -1 {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
@@ -271,8 +295,10 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 	if len(entityID) == 0 {
 
 		// Stop code here no need to establish connection and reply
-		lgr.Warning.Println("Request at /api/registry/entity/ failed, EntityID can't be empty!")
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "EntityID can't be empty!"})
+		lgr.Warning.Println(
+			"Request at /api/registry/entity/ failed, EntityID can't be empty!")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "EntityID can't be empty!"})
 		return
 	}
 
@@ -280,7 +306,8 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 	err := pubKey.UnmarshalText([]byte(entityID))
 	if err != nil {
 		lgr.Error.Println("Failed to UnmarshalText into Public Key", err)
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to UnmarshalText into Public Key."})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to UnmarshalText into Public Key."})
 		return
 	}
 
@@ -294,7 +321,8 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 	if ro == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
@@ -304,8 +332,10 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 	// Retrive Entity and it's information from Registry client using above query.
 	registryEntity, err := ro.GetEntity(context.Background(), &query)
 	if err != nil {
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Registry Entity!"})
-		lgr.Error.Println("Request at /api/registry/entity/ Failed to retrieve Registry Entity : ", err)
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to get Registry Entity!"})
+		lgr.Error.Println(
+			"Request at /api/registry/entity/ Failed to retrieve Registry Entity : ", err)
 		return
 	}
 
@@ -326,7 +356,8 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 	if confirmation == false {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
 		return
 	}
 
@@ -336,19 +367,23 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 	if height == -1 {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
 	// Note Make sure that private key that is being sent is coded properly
-	// Example A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU+h+blS9pto= should be A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU%2Bh%2BblS9pto=
+	// Example A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU+h+blS9pto= should be
+	// A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU%2Bh%2BblS9pto=
 	var pubKey common_signature.PublicKey
 	nodeID := r.URL.Query().Get("nodeID")
 	if len(nodeID) == 0 {
 
 		// Stop code here no need to establish connection and reply
-		lgr.Warning.Println("Request at /api/registry/node/ failed, NodeID can't be empty!")
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "NodeID can't be empty!"})
+		lgr.Warning.Println(
+			"Request at /api/registry/node/ failed, NodeID can't be empty!")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "NodeID can't be empty!"})
 		return
 	}
 
@@ -356,7 +391,8 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 	err := pubKey.UnmarshalText([]byte(nodeID))
 	if err != nil {
 		lgr.Error.Println("Failed to UnmarshalText into Public Key", err)
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to UnmarshalText into Public Key."})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to UnmarshalText into Public Key."})
 		return
 	}
 
@@ -370,7 +406,8 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 	if ro == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
@@ -380,8 +417,10 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 	// Retriveing node object using above query
 	registryNode, err := ro.GetNode(context.Background(), &query)
 	if err != nil {
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Registry Node!"})
-		lgr.Error.Println("Request at /api/registry/node/ Failed to retrieve Registry Node : ", err)
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to get Registry Node!"})
+		lgr.Error.Println(
+			"Request at /api/registry/node/ Failed to retrieve Registry Node : ", err)
 		return
 	}
 
@@ -402,7 +441,8 @@ func GetRuntime(w http.ResponseWriter, r *http.Request) {
 	if confirmation == false {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
 		return
 	}
 
@@ -412,18 +452,22 @@ func GetRuntime(w http.ResponseWriter, r *http.Request) {
 	if height == -1 {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
 	// Note Make sure that private key that is being sent is coded properly
-	// Example A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU+h+blS9pto= should be A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU%2Bh%2BblS9pto=
+	// Example A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU+h+blS9pto= should be
+	// A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU%2Bh%2BblS9pto=
 	var nameSpace common_namespace.Namespace
 	nmspace := r.URL.Query().Get("namespace")
 	if len(nmspace) == 0 {
 		// Stop code here no need to establish connection and reply
-		lgr.Warning.Println("Request at /api/registry/runtime/ failed, namespace can't be empty!")
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "namespace can't be empty!"})
+		lgr.Warning.Println(
+			"Request at /api/registry/runtime/ failed, namespace can't be empty!")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "namespace can't be empty!"})
 		return
 	}
 
@@ -431,7 +475,8 @@ func GetRuntime(w http.ResponseWriter, r *http.Request) {
 	err := nameSpace.UnmarshalText([]byte(nmspace))
 	if err != nil {
 		lgr.Error.Println("Failed to UnmarshalText into Namespace", err)
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to UnmarshalText into Namespace."})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to UnmarshalText into Namespace."})
 		return
 	}
 
@@ -445,7 +490,8 @@ func GetRuntime(w http.ResponseWriter, r *http.Request) {
 	if ro == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
@@ -455,12 +501,15 @@ func GetRuntime(w http.ResponseWriter, r *http.Request) {
 	// Retrieving runtime object using above query
 	registryRuntime, err := ro.GetRuntime(context.Background(), &query)
 	if err != nil {
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Registry Runtime!"})
-		lgr.Error.Println("Request at /api/registry/runtime/ Failed to retrieve Registry Runtime : ", err)
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to get Registry Runtime!"})
+		lgr.Error.Println(
+			"Request at /api/registry/runtime/ Failed to retrieve Registry Runtime : ", err)
 		return
 	}
 
 	// Responding with runtime object retrieved above
-	lgr.Info.Println("Request at /api/registry/runtime/ responding with Registry Runtime!")
+	lgr.Info.Println(
+		"Request at /api/registry/runtime/ responding with Registry Runtime!")
 	json.NewEncoder(w).Encode(responses.RuntimeResponse{Runtime: registryRuntime})
 }

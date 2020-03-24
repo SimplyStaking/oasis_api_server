@@ -69,7 +69,8 @@ func StakingClient(address string) (*grpc.ClientConn, staking.Backend, error) {
 }
 
 // Connect - connect to grpc
-// Add grpc.WithBlock() and grpc.WithTimeout() to have dial to constantly try and establish connection
+// Add grpc.WithBlock() and grpc.WithTimeout()
+// to have dial to constantly try and establish connection
 func Connect(address string) (*grpc.ClientConn, error) {
 	opts := []grpc.DialOption{grpc.WithInsecure()}
 	opts = append(opts, grpc.WithDefaultCallOptions(grpc.WaitForReady(false)))

@@ -23,7 +23,8 @@ func checkNodeName(nodeName string) (bool, string) {
 	}
 
 	// If nodeName isn't in configuration produce Log and Reply with False
-	lgr.Error.Println("Requested node ", nodeName, "was not found, check if configured!")
+	lgr.Error.Println(
+		"Requested node ", nodeName, "was not found, check if configured!")
 	return false, ""
 }
 
@@ -63,7 +64,8 @@ func checkHeight(recvHeight string) int64 {
 		if err != nil {
 
 			// If it fails it means that string given wasn't number and return result for
-			lgr.Error.Println("Unexpected value found, required string of int but received ", recvHeight)
+			lgr.Error.Println(
+				"Unexpected value found, required string of int but received ", recvHeight)
 			return -1
 		}
 
@@ -90,7 +92,8 @@ func checkKind(recvKind string) int64 {
 		if err != nil {
 
 			// If it fails it means that string given wasn't number and return result for
-			lgr.Error.Println("Unexpected value found, required string of int but received ", recvKind)
+			lgr.Error.Println(
+				"Unexpected value found, required string of int but received ", recvKind)
 			return -1
 		}
 
@@ -118,7 +121,8 @@ func checkAmount(recvAmount string) int64 {
 		if err != nil {
 
 			// If it fails it means that string given wasn't number and return result for
-			lgr.Error.Println("Unexpected value found, required string of int but received ", recvAmount)
+			lgr.Error.Println(
+				"Unexpected value found, required string of int but received ", recvAmount)
 			return -1
 		}
 	}

@@ -47,10 +47,11 @@ func Test_GetIsSynced_Height3(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expectedTrue := `{"issynced":true}`
-	expectedFalse := `{"issynced":false}`
+	expectedTrue := `{"result":true}`
+	expectedFalse := `{"result":false}`
 
-	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expectedTrue) && strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expectedFalse) {
+	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expectedTrue) &&
+		strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expectedFalse) {
 		t.Errorf("handler returned unexpected body: got %v",
 			rr.Body.String())
 	}

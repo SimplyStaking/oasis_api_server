@@ -21,8 +21,11 @@ func GetMemory(w http.ResponseWriter, r *http.Request) {
 	// Returning memory currently being used by system
 	mem, err := memory.Get()
 	if err != nil {
-		lgr.Error.Println("Error while attempting to get memory of system ", err)
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Error while attempting to get memory of system."})
+		lgr.Error.Println(
+			"Error while attempting to get memory of system ", err)
+
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Error while attempting to get memory of system."})
 		return
 	}
 
@@ -40,8 +43,10 @@ func GetDisk(w http.ResponseWriter, r *http.Request) {
 	// Returning disk information currently being used by system
 	dsk, err := disk.Get()
 	if err != nil {
-		lgr.Error.Println("Error while attempting to get disk information of system ", err)
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Error while attempting to get disk information of system."})
+		lgr.Error.Println(
+			"Error while attempting to get disk information of system ", err)
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Error while attempting to get disk information of system."})
 		return
 	}
 
@@ -59,8 +64,11 @@ func GetCPU(w http.ResponseWriter, r *http.Request) {
 	// Returning CPU currently being used by system
 	cpuinfo, err := cpu.Get()
 	if err != nil {
-		lgr.Error.Println("Error while attempting to get CPU information of system ", err)
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Error while attempting to get CPU information of system."})
+		lgr.Error.Println(
+			"Error while attempting to get CPU information of system ", err)
+
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Error while attempting to get CPU information of system."})
 		return
 	}
 
@@ -78,8 +86,10 @@ func GetNetwork(w http.ResponseWriter, r *http.Request) {
 	// Returning network statistics currently being used by system
 	netwrk, err := network.Get()
 	if err != nil {
-		lgr.Error.Println("Error while attempting to get Network information of system ", err)
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Error while attempting to get Network information of system."})
+		lgr.Error.Println(
+			"Error while attempting to get Network information of system ", err)
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Error while attempting to get Network information of system."})
 		return
 	}
 

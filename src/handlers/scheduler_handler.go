@@ -20,7 +20,8 @@ func loadSchedulerClient(socket string) (*grpc.ClientConn, scheduler.Backend) {
 	// Attempt to load connection with scheduler client
 	connection, schedulerClient, err := rpc.SchedulerClient(socket)
 	if err != nil {
-		lgr.Error.Println("Failed to establish connection to scheduler client : ", err)
+		lgr.Error.Println(
+			"Failed to establish connection to scheduler client : ", err)
 		return nil, nil
 	}
 	return connection, schedulerClient
@@ -38,7 +39,8 @@ func GetValidators(w http.ResponseWriter, r *http.Request) {
 	if confirmation == false {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
 		return
 	}
 
@@ -48,7 +50,8 @@ func GetValidators(w http.ResponseWriter, r *http.Request) {
 	if height == -1 {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
@@ -62,21 +65,26 @@ func GetValidators(w http.ResponseWriter, r *http.Request) {
 	if sc == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
 	// Retrieve validators at given block height
 	validators, err := sc.GetValidators(context.Background(), height)
 	if err != nil {
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Validators!"})
-		lgr.Error.Println("Request at /api/scheduler/validators/ Failed to retrieve validators : ", err)
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to get Validators!"})
+		lgr.Error.Println(
+			"Request at /api/scheduler/validators/ Failed to retrieve validators : ", err)
 		return
 	}
 
 	// Responding with Validators retrieved from scheduler client
-	lgr.Info.Println("Request at /api/scheduler/validators/ responding with Validators!")
-	json.NewEncoder(w).Encode(responses.ValidatorsResponse{Validators: validators})
+	lgr.Info.Println(
+		"Request at /api/scheduler/validators/ responding with Validators!")
+	json.NewEncoder(w).Encode(responses.ValidatorsResponse{
+		Validators: validators})
 }
 
 // GetCommittees returns vector of committees for given
@@ -92,7 +100,8 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
 		return
 	}
 
@@ -101,19 +110,23 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 	height := checkHeight(recvHeight)
 	if height == -1 {
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
 	// Note Make sure that private key that is being sent is coded properly
-	// Example A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU+h+blS9pto= should be A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU%2Bh%2BblS9pto=
+	// Example A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU+h+blS9pto= should be
+	// A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU%2Bh%2BblS9pto=
 	var nameSpace common_namespace.Namespace
 	nmspace := r.URL.Query().Get("namespace")
 	if len(nmspace) == 0 {
 
 		// Stop code here no need to establish connection and reply
-		lgr.Warning.Println("Request at /api/registry/runtime/ failed, namespace can't be empty!")
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "namespace can't be empty!"})
+		lgr.Warning.Println(
+			"Request at /api/registry/runtime/ failed, namespace can't be empty!")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "namespace can't be empty!"})
 		return
 	}
 
@@ -121,7 +134,8 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 	err := nameSpace.UnmarshalText([]byte(nmspace))
 	if err != nil {
 		lgr.Error.Println("Failed to UnmarshalText into Namespace", err)
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to UnmarshalText into Namespace."})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to UnmarshalText into Namespace."})
 		return
 	}
 
@@ -135,7 +149,8 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 	if sc == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
@@ -145,8 +160,10 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 	// Retrieving Committees using query above
 	committees, err := sc.GetCommittees(context.Background(), &query)
 	if err != nil {
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Committees!"})
-		lgr.Error.Println("Request at /api/scheduler/committees/ Failed to retrieve committees : ", err)
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to get Committees!"})
+		lgr.Error.Println(
+			"Request at /api/scheduler/committees/ Failed to retrieve committees : ", err)
 		return
 	}
 
@@ -167,7 +184,8 @@ func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	if confirmation == false {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Node name requested doesn't exist"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
 		return
 	}
 
@@ -177,7 +195,8 @@ func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	if height == -1 {
 
 		// Stop code here no need to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Unexepcted value found, height needs to be string of int!"})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Unexepcted value found, height needs to be string of int!"})
 		return
 	}
 
@@ -191,19 +210,24 @@ func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	if sc == nil {
 
 		// Stop code here faild to establish connection and reply
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to establish connection using socket : " + socket})
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
 
 	// Retrieve genesis state of scheduler at specific block height
 	gensis, err := sc.StateToGenesis(context.Background(), height)
 	if err != nil {
-		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Scheduler Genesis State!"})
-		lgr.Error.Println("Request at /api/scheduler/genesis/ Failed to retrieve Scheduler Genesis State : ", err)
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to get Scheduler Genesis State!"})
+		lgr.Error.Println(
+			"Request at /api/scheduler/genesis/ Failed to retrieve Scheduler Genesis State : ", err)
 		return
 	}
 
 	// Responding with genesis state retrieved above
-	lgr.Info.Println("Request at /api/scheduler/genesis/ responding with scheduler genesis state!")
-	json.NewEncoder(w).Encode(responses.SchedulerGenesisState{SchedulerGenesisState: gensis})
+	lgr.Info.Println(
+		"Request at /api/scheduler/genesis/ responding with scheduler genesis state!")
+	json.NewEncoder(w).Encode(responses.SchedulerGenesisState{
+		SchedulerGenesisState: gensis})
 }
