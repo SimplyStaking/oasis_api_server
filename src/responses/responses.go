@@ -153,7 +153,7 @@ type EpochResponse struct {
 	Ep epoch_api.EpochTime `json:"epoch"`
 }
 
-// ConsensusGenesisResponse  with the consensus Genesis Document
+// ConsensusGenesisResponse with the consensus Genesis Document
 type ConsensusGenesisResponse struct {
 	GenJSON *gen_api.Document `json:"genesis"`
 }

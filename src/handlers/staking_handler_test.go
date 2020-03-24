@@ -15,7 +15,7 @@ import (
 )
 
 func Test_GetTotalSupply_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetTotalSupply", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/totalsupply", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -37,7 +37,7 @@ func Test_GetTotalSupply_BadNode(t *testing.T) {
 }
 
 func Test_GetTotalSupply_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetTotalSupply", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/totalsupply", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -61,7 +61,7 @@ func Test_GetTotalSupply_InvalidHeight(t *testing.T) {
 }
 
 func Test_GetTotalSupply_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetTotalSupply", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/totalsupply", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
@@ -95,7 +95,7 @@ func Test_GetTotalSupply_Height3(t *testing.T) {
 }
 
 func Test_GetCommonPool_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetCommonPool", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/commonpool", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -117,7 +117,7 @@ func Test_GetCommonPool_BadNode(t *testing.T) {
 }
 
 func Test_GetCommonPool_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetCommonPool", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/commonpool", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -141,7 +141,7 @@ func Test_GetCommonPool_InvalidHeight(t *testing.T) {
 }
 
 func Test_GetCommonPool_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetCommonPool", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/commonpool", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
@@ -174,7 +174,7 @@ func Test_GetCommonPool_Height3(t *testing.T) {
 }
 
 func Test_GetStakingStateToGenesis_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetStakingStateToGenesis", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/genesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -196,7 +196,7 @@ func Test_GetStakingStateToGenesis_BadNode(t *testing.T) {
 }
 
 func Test_GetStakingStateToGenesis_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetStakingStateToGenesis", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/genesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -220,7 +220,7 @@ func Test_GetStakingStateToGenesis_InvalidHeight(t *testing.T) {
 }
 
 func Test_GetStakingStateToGenesis_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetStakingStateToGenesis", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/genesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
@@ -253,7 +253,7 @@ func Test_GetStakingStateToGenesis_Height3(t *testing.T) {
 }
 
 func Test_GetThreshold_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetThreshold", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/threshold", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -275,7 +275,7 @@ func Test_GetThreshold_BadNode(t *testing.T) {
 }
 
 func Test_GetThreshold_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetThreshold", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/threshold", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -299,7 +299,7 @@ func Test_GetThreshold_InvalidHeight(t *testing.T) {
 }
 
 func Test_GetThreshold_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetThreshold", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/threshold", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
@@ -333,7 +333,7 @@ func Test_GetThreshold_Height3(t *testing.T) {
 }
 
 func Test_GetAccounts_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetAccounts", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/accounts", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -355,7 +355,7 @@ func Test_GetAccounts_BadNode(t *testing.T) {
 }
 
 func Test_GetAccounts_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetAccounts", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/accounts", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -379,7 +379,7 @@ func Test_GetAccounts_InvalidHeight(t *testing.T) {
 }
 
 func Test_GetAccounts_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetAccounts", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/accounts", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
@@ -412,7 +412,7 @@ func Test_GetAccounts_Height3(t *testing.T) {
 }
 
 func Test_GetAccountInfo_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetAccountInfo", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/accountinfo", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -434,7 +434,7 @@ func Test_GetAccountInfo_BadNode(t *testing.T) {
 }
 
 func Test_GetAccountInfo_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetAccountInfo", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/accountinfo", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -458,7 +458,7 @@ func Test_GetAccountInfo_InvalidHeight(t *testing.T) {
 }
 
 func Test_GetAccountInfo_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetAccountInfo", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/accountinfo", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
@@ -492,7 +492,7 @@ func Test_GetAccountInfo_Height3(t *testing.T) {
 }
 
 func Test_GetDelegations_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetDelegations", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/delegations", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -514,7 +514,7 @@ func Test_GetDelegations_BadNode(t *testing.T) {
 }
 
 func Test_GetDelegations_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetDelegations", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/delegations", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -538,7 +538,7 @@ func Test_GetDelegations_InvalidHeight(t *testing.T) {
 }
 
 func Test_GetDelegations_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetDelegations", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/delegations", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
@@ -572,7 +572,7 @@ func Test_GetDelegations_Height3(t *testing.T) {
 }
 
 func Test_GetDebondingDelegations_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetDebondingDelegations", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/debondingdelegations", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -594,7 +594,7 @@ func Test_GetDebondingDelegations_BadNode(t *testing.T) {
 }
 
 func Test_GetDebondingDelegations_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetDebondingDelegations", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/debondingdelegations", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -618,7 +618,7 @@ func Test_GetDebondingDelegations_InvalidHeight(t *testing.T) {
 }
 
 func Test_GetDebondingDelegations_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetDebondingDelegations", nil)
+	req, _ := http.NewRequest("GET", "/api/staking/debondingdelegations", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")

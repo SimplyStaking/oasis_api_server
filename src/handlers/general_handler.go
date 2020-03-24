@@ -13,7 +13,7 @@ import (
 func Pong(w http.ResponseWriter, r *http.Request) {
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
-	lgr.Info.Println("Received request for /api/pingApi")
+	lgr.Info.Println("Received request for /api/pingapi")
 	json.NewEncoder(w).Encode(responses.PongResponsed)
 }
 
@@ -21,7 +21,7 @@ func Pong(w http.ResponseWriter, r *http.Request) {
 func GetConnections(w http.ResponseWriter, r *http.Request) {
 	// Adding a header so that the receiver knows they are receiving a JSON structure
 	w.Header().Add("Content-Type", "application/json")
-	lgr.Info.Println("Received request for /api/getConnectionsList")
+	lgr.Info.Println("Received request for /api/getconnectionslist")
 
 	// Create new empty Slice of strings where the connections will be stored
 	connectionsResponse := []string{}

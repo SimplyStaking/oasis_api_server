@@ -65,12 +65,12 @@ func GetValidators(w http.ResponseWriter, r *http.Request) {
 	validators, err := sc.GetValidators(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Validators!"})
-		lgr.Error.Println("Request at /api/GetValidators/ Failed to retrieve the validators : ", err)
+		lgr.Error.Println("Request at /api/scheduler/validators/ Failed to retrieve the validators : ", err)
 		return
 	}
 
 	// Responding with Validators retrieved from the scheduler client
-	lgr.Info.Println("Request at /api/GetValidators/ responding with Validators!")
+	lgr.Info.Println("Request at /api/scheduler/validators/ responding with Validators!")
 	json.NewEncoder(w).Encode(responses.ValidatorsResponse{Validators: validators})
 }
 
@@ -105,7 +105,7 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 	nmspace := r.URL.Query().Get("namespace")
 	if len(nmspace) == 0 {
 		// Stop the code here no need to establish connection and reply
-		lgr.Warning.Println("Request at /api/GetRuntime/ failed, namespace can't be empty!")
+		lgr.Warning.Println("Request at /api/registry/runtime/ failed, namespace can't be empty!")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "namespace can't be empty!"})
 		return
 	}
@@ -138,12 +138,12 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 	committees, err := sc.GetCommittees(context.Background(), &query)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Committees!"})
-		lgr.Error.Println("Request at /api/GetCommittees/ Failed to retrieve the committees : ", err)
+		lgr.Error.Println("Request at /api/scheduler/committees/ Failed to retrieve the committees : ", err)
 		return
 	}
 
 	// Responding with committees that were retrieved from the scheduler client
-	lgr.Info.Println("Request at /api/GetCommittees/ responding with Committees!")
+	lgr.Info.Println("Request at /api/scheduler/committees/ responding with Committees!")
 	json.NewEncoder(w).Encode(responses.CommitteesResponse{Committee: committees})
 }
 
@@ -187,11 +187,11 @@ func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	gensis, err := sc.StateToGenesis(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Scheduler Genesis State!"})
-		lgr.Error.Println("Request at /api/GetSchedulerStateToGenesis/ Failed to retrieve the Scheduler Genesis State : ", err)
+		lgr.Error.Println("Request at /api/scheduler/genesis/ Failed to retrieve the Scheduler Genesis State : ", err)
 		return
 	}
 
 	// Responding with the genesis state retrieved above
-	lgr.Info.Println("Request at /api/GetSchedulerStateToGenesis/ responding with scheduler genesis state!")
+	lgr.Info.Println("Request at /api/scheduler/genesis/ responding with scheduler genesis state!")
 	json.NewEncoder(w).Encode(responses.SchedulerGenesisState{SchedulerGenesisState: gensis})
 }

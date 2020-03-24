@@ -33,42 +33,42 @@ The API Server works as follows:
 | API Endpoint                     | Required Inputs                 | Optional Inputs | Output                    | Description                                                                         |
 |----------------------------------|---------------------------------|-----------------|---------------------------|-------------------------------------------------------------------------------------|
 | /api/ping/                       | none                            | none            | Pong                      | Returns Pong if the API is online.                                                  |
-| /api/getConnectionsList          | none                            | none            | List of Connections       | Returns a list of connections specified in the configuration files.                |
-| /api/GetConsensusStateToGenesis/ | Node Name                       | Height          | Consensus Genesis State   | Returns the Genesis State of Consensus at a specific block height for a given node. |
-| /api/GetEpoch/                   | Node Name                       | Height          | Epoch                     | Returns Epoch at a given block height                                               |
-| /api/GetBlock/                   | Node Name                       | Height          | Block Object              | Returns Block object containing height and meta data.                               |
-| /api/GetBlockHeader/             | Node Name                       | Height          | Block Header Object       | Returns the Block Header and all of it's data.                                      |
-| /api/GetBlockLastCommit/         | Node Name                       | Height          | Block Last Commit Object  | Returns the Block Last Commit and all of it's data.                                 |
-| /api/GetTransactions/            | Node Name                       | Height          | List of Transactions      | Returns the list of all transactions in a given block.                              |
-| /api/pingNode/                   | Node Name                       | None            | Pong                      | Returns Pong is a connection with a given node can be established.                  |
-| /api/GetEntities/                | Node Name                       | Height          | List of Entities          | Returns a list of entities at a given block height and their data.                  |
-| /api/GetNodes/                   | Node Name                       | Height          | List of Nodes             | Returns a list of nodes at a given block height.                                    |
-| /api/GetRuntimes/                | Node Name                       | Height          | List of RunTimes          | Returns a list of runtimes at a given block height.                                 |
-| /api/GetRegistryStateToGenesis/  | Node Name                       | Height          | Genesis State of Registry | Returns the genesis state of the registry at a given block height.                  |
-| /api/GetEntity/                  | Node Name, Entity Public Key    | Height          | Entity                    | Returns an Entity Object by it's public key a given block height.                   |
-| /api/GetNode/                    |  Node Name, Node Public Key     | Height          | Node                      | Returns a Node Object by it's public key at a given block height.                   |
-| /api/GetRuntime/                 |  Node Name, Runtime Namespace   | Height          | Runtime                   | Returns a Runtime object by it's namespace at a given block height.                 |
-| /api/GetTotalSupply/             | Node Name                       | Height          | Total Supply              | Returns the total supply of tokens at a given block height.                         |
-| /api/GetCommonPool/              | Node Name                       | Height          | Common Pool               | Returns the common pool of tokens at  a given block height.                         |
-| /api/GetStakingStateToGenesis/   | Node Name                       | Height          | Staking Genesis State     | Returns the Staking Genesis state at a given block height.                          |
-| /api/GetThreshold/               |  Node Name, kind                | Height          | Threshold                 |  Returns the Threshold of a specific kind at a given block height.                  |
-| /api/GetAccounts/                | Node Name                       | Height          | List of accounts          | Returns the list of accounts and all their details.                                 |
-| /api/GetAccountInfo/             |  Node Name, Account Public Key  | Height          | Account information       | Returns the account details using it's public key.                                  |
-| /api/GetDelegations/             |  Node Name, Account Public Key  | Height          | Delegations               | Returns the delegations of a given account at a specific block height.              |
-| /api/GetDebondingDelegations/    |  Node Name, Account Public Key  | Height          | DebondingDelegations      | Returns the debonding delegations of an account at a given block height.            |
-| /api/GetIsSynced/                | Node Name                       | None            | Synchronized State        | Returns True/False depending on if the node is synchronized or not.                 |
-| /api/GetValidators/              | Node Name                       | Height          | List of Validators        | Returns a list of validators and their voting power a specific block height.        |
-| /api/GetCommittees/              | Node Name, Namespace            | Height          | Committees                | Returns committees under a namespace at a given block height.                       |
-| /api/GetSchedulerStateToGenesis/ | Node Name                       | Height          | Scheduler Genesis State   | Returns a scheduler genesis state at a given block height.                          |
+| /api/getconnectionslist/          | none                            | none            | List of Connections       | Returns a list of connections specified in the configuration files.                |
+| /api/consensus/genesis/ | Node Name                       | Height          | Consensus Genesis State   | Returns the Genesis State of Consensus at a specific block height for a given node. |
+| /api/consensus/epoch/                   | Node Name                       | Height          | Epoch                     | Returns Epoch at a given block height                                               |
+| /api/consensus/block/                   | Node Name                       | Height          | Block Object              | Returns Block object containing height and meta data.                               |
+| /api/consensus/blockheader/             | Node Name                       | Height          | Block Header Object       | Returns the Block Header and all of it's data.                                      |
+| /api/consensus/blocklastcommit/         | Node Name                       | Height          | Block Last Commit Object  | Returns the Block Last Commit and all of it's data.                                 |
+| /api/consensus/transactions/            | Node Name                       | Height          | List of Transactions      | Returns the list of all transactions in a given block.                              |
+| /api/pingnode/                   | Node Name                       | None            | Pong                      | Returns Pong is a connection with a given node can be established.                  |
+| /api/registry/entities/                | Node Name                       | Height          | List of Entities          | Returns a list of entities at a given block height and their data.                  |
+| /api/registry/nodes/                   | Node Name                       | Height          | List of Nodes             | Returns a list of nodes at a given block height.                                    |
+| /api/registry/runtimes/                | Node Name                       | Height          | List of RunTimes          | Returns a list of runtimes at a given block height.                                 |
+| /api/registry/genesis/  | Node Name                       | Height          | Genesis State of Registry | Returns the genesis state of the registry at a given block height.                  |
+| /api/registry/entity/                  | Node Name, Entity Public Key    | Height          | Entity                    | Returns an Entity Object by it's public key a given block height.                   |
+| /api/registry/node/                    |  Node Name, Node Public Key     | Height          | Node                      | Returns a Node Object by it's public key at a given block height.                   |
+| /api/registry/runtime/                 |  Node Name, Runtime Namespace   | Height          | Runtime                   | Returns a Runtime object by it's namespace at a given block height.                 |
+| /api/staking/totalsupply/             | Node Name                       | Height          | Total Supply              | Returns the total supply of tokens at a given block height.                         |
+| /api/staking/commonpool/              | Node Name                       | Height          | Common Pool               | Returns the common pool of tokens at  a given block height.                         |
+| /api/staking/genesis/   | Node Name                       | Height          | Staking Genesis State     | Returns the Staking Genesis state at a given block height.                          |
+| /api/staking/threshold/               |  Node Name, kind                | Height          | Threshold                 |  Returns the Threshold of a specific kind at a given block height.                  |
+| /api/staking/accounts/                | Node Name                       | Height          | List of accounts          | Returns the list of accounts and all their details.                                 |
+| /api/staking/accountinfo/             |  Node Name, Account Public Key  | Height          | Account information       | Returns the account details using it's public key.                                  |
+| /api/staking/delegations/             |  Node Name, Account Public Key  | Height          | Delegations               | Returns the delegations of a given account at a specific block height.              |
+| /api/staking/debondingdelegations/    |  Node Name, Account Public Key  | Height          | DebondingDelegations      | Returns the debonding delegations of an account at a given block height.            |
+| /api/nodecontroller/synced/                | Node Name                       | None            | Synchronized State        | Returns True/False depending on if the node is synchronized or not.                 |
+|/api/scheduler/validators/              | Node Name                       | Height          | List of Validators        | Returns a list of validators and their voting power a specific block height.        |
+|  /api/scheduler/committees/               | Node Name, Namespace            | Height          | Committees                | Returns committees under a namespace at a given block height.                       |
+|  /api/scheduler/genesis/  | Node Name                       | Height          | Scheduler Genesis State   | Returns a scheduler genesis state at a given block height.                          |
 | /api/prometheus/gauge/           |  Node Name, gauge name          | none            | Gauge Value               | Returns a gauge value for a given gauge name.                                       |
 | /api/prometheus/counter/         |  Node Name, counter name        | none            | Counter Value             | Returns a counter value for a given counter name.                                   |
-| /api/system/GetMemory/         |  none      | none            | Memory Stats             | Returns the memory stats of the system                                   |
-| /api/system/GetCPU/         |  none        | none            | CPU Stats             | Returns the CPU stats of the system (Linux Only)                                   |
-| /api/system/GetDisk/         |  node       | none            | Disk Stats             | Returns the DISK stats of the system (Linux Only)                                   |
-| /api/system/GetNetwork/         |  node        | none            | Network Stats             | Returns the Network Stats of the system (Linux Only)                                  |
+| /api/system/memory/         |  none      | none            | Memory Stats             | Returns the memory stats of the system                                   |
+| /api/system/cpu/         |  none        | none            | CPU Stats             | Returns the CPU stats of the system (Linux Only)                                   |
+| /api/system/disk/         |  node       | none            | Disk Stats             | Returns the DISK stats of the system (Linux Only)                                   |
+| /api/system/network/         |  node        | none            | Network Stats             | Returns the Network Stats of the system (Linux Only)                                  |
 ## Using the API
 
-For example, the endpoint `/api/GetIsSynced` can be called as follows: `http://localhost:8880/api/GetIsSynced?name=Oasis_Local`.
+For example, the endpoint `/api/staking/synced` can be called as follows: `http://localhost:8880/api/staking/synced?name=Oasis_Local`.
 If successful, this will return:
 ```json
 {

@@ -41,7 +41,7 @@ func setup() {
 }
 
 func Test_GetConsensusStateToGenesis_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetConsensusStateToGenesis", nil)
+	req, _ := http.NewRequest("GET", "/api/consensus/genesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -63,7 +63,7 @@ func Test_GetConsensusStateToGenesis_BadNode(t *testing.T) {
 }
 
 func Test_GetConsensusStateToGenesis_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetConsensusStateToGenesis", nil)
+	req, _ := http.NewRequest("GET", "/api/consensus/genesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -87,7 +87,7 @@ func Test_GetConsensusStateToGenesis_InvalidHeight(t *testing.T) {
 }
 
 func Test_GetConsensusStateToGenesis_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetConsensusStateToGenesis", nil)
+	req, _ := http.NewRequest("GET", "/api/consensus/genesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
@@ -122,7 +122,7 @@ func Test_GetConsensusStateToGenesis_Height3(t *testing.T) {
 
 // By Sending a negative 2 value I'm making sure that the client can't retrieve a state
 func Test_GetConsensusStateToGenesis_Heightn2(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetConsensusStateToGenesis", nil)
+	req, _ := http.NewRequest("GET", "/api/consensus/genesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "-2")
@@ -146,7 +146,7 @@ func Test_GetConsensusStateToGenesis_Heightn2(t *testing.T) {
 }
 
 func Test_GetEpoch_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetEpoch", nil)
+	req, _ := http.NewRequest("GET", "/api/consensus/epoch", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -168,7 +168,7 @@ func Test_GetEpoch_BadNode(t *testing.T) {
 }
 
 func Test_GetEpoch_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetEpoch", nil)
+	req, _ := http.NewRequest("GET", "/api/consensus/epoch", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -192,7 +192,7 @@ func Test_GetEpoch_InvalidHeight(t *testing.T) {
 }
 
 func Test_GetEpoch_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetEpoch", nil)
+	req, _ := http.NewRequest("GET", "/api/consensus/epoch", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
@@ -223,7 +223,7 @@ func Test_GetEpoch_Height3(t *testing.T) {
 }
 
 func Test_GetBlock_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetBlock", nil)
+	req, _ := http.NewRequest("GET", "/api/consensus/block", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -245,7 +245,7 @@ func Test_GetBlock_BadNode(t *testing.T) {
 }
 
 func Test_GetBlock_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetBlock", nil)
+	req, _ := http.NewRequest("GET", "/api/consensus/block", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -269,7 +269,7 @@ func Test_GetBlock_InvalidHeight(t *testing.T) {
 }
 
 func Test_GetBlock_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetBlock", nil)
+	req, _ := http.NewRequest("GET", "/api/consensus/block", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
@@ -303,7 +303,7 @@ func Test_GetBlock_Height3(t *testing.T) {
 }
 
 func Test_GetBlockHeader_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetBlockHeader", nil)
+	req, _ := http.NewRequest("GET", "/api/consensus/blockheader", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -325,7 +325,7 @@ func Test_GetBlockHeader_BadNode(t *testing.T) {
 }
 
 func Test_GetBlockHeader_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetBlockHeader", nil)
+	req, _ := http.NewRequest("GET", "/api/consensus/blockheader", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -349,7 +349,7 @@ func Test_GetBlockHeader_InvalidHeight(t *testing.T) {
 }
 
 func Test_GetBlockHeader_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetBlockHeader", nil)
+	req, _ := http.NewRequest("GET", "/api/consensus/blockheader", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
@@ -383,7 +383,7 @@ func Test_GetBlockHeader_Height3(t *testing.T) {
 }
 
 func Test_GetBlockLastCommit_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetBlockLastCommit", nil)
+	req, _ := http.NewRequest("GET", "/api/consensus/blocklastcommit", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -405,7 +405,7 @@ func Test_GetBlockLastCommit_BadNode(t *testing.T) {
 }
 
 func Test_GetBlockLastCommit_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetBlockLastCommit", nil)
+	req, _ := http.NewRequest("GET", "/api/consensus/blocklastcommit", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -429,7 +429,7 @@ func Test_GetBlockLastCommit_InvalidHeight(t *testing.T) {
 }
 
 func Test_GetBlockLastCommit_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetBlockLastCommit", nil)
+	req, _ := http.NewRequest("GET", "/api/consensus/blocklastcommit", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
@@ -464,7 +464,7 @@ func Test_GetBlockLastCommit_Height3(t *testing.T) {
 }
 
 func Test_GetTransactions_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetTransactions", nil)
+	req, _ := http.NewRequest("GET", "/api/consensus/transactions", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -486,7 +486,7 @@ func Test_GetTransactions_BadNode(t *testing.T) {
 }
 
 func Test_GetTransactions_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetTransactions", nil)
+	req, _ := http.NewRequest("GET", "/api/consensus/transactions", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")

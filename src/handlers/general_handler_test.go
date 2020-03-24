@@ -31,7 +31,7 @@ func Test_Pong(t *testing.T) {
 }
 
 func Test_GetConnections(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/getConnectionsList", nil)
+	req, _ := http.NewRequest("GET", "/api/getconnectionslist", nil)
 	q := req.URL.Query()
 	req.URL.RawQuery = q.Encode()
 

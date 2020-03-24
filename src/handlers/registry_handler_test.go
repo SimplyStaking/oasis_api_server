@@ -15,7 +15,7 @@ import (
 )
 
 func Test_GetEntities_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetEntities", nil)
+	req, _ := http.NewRequest("GET", "/api/registry/entities", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -37,7 +37,7 @@ func Test_GetEntities_BadNode(t *testing.T) {
 }
 
 func Test_GetEntities_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetEntities", nil)
+	req, _ := http.NewRequest("GET", "/api/registry/entities", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -61,7 +61,7 @@ func Test_GetEntities_InvalidHeight(t *testing.T) {
 }
 
 func Test_GetEntities_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetEntities", nil)
+	req, _ := http.NewRequest("GET", "/api/registry/entities", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
@@ -96,7 +96,7 @@ func Test_GetEntities_Height3(t *testing.T) {
 }
 
 func Test_GetNodes_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetNodes", nil)
+	req, _ := http.NewRequest("GET", "/api/registry/nodes", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -118,7 +118,7 @@ func Test_GetNodes_BadNode(t *testing.T) {
 }
 
 func Test_GetNodes_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetNodes", nil)
+	req, _ := http.NewRequest("GET", "/api/registry/nodes", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -142,7 +142,7 @@ func Test_GetNodes_InvalidHeight(t *testing.T) {
 }
 
 func Test_GetNodes_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetNodes", nil)
+	req, _ := http.NewRequest("GET", "/api/registry/nodes", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
@@ -177,7 +177,7 @@ func Test_GetNodes_Height3(t *testing.T) {
 }
 
 func Test_GetRuntimes_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetRuntimes", nil)
+	req, _ := http.NewRequest("GET", "/api/registry/runtimes", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -199,7 +199,7 @@ func Test_GetRuntimes_BadNode(t *testing.T) {
 }
 
 func Test_GetRuntimes_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetRuntimes", nil)
+	req, _ := http.NewRequest("GET", "/api/registry/runtimes", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -223,7 +223,7 @@ func Test_GetRuntimes_InvalidHeight(t *testing.T) {
 }
 
 func Test_GetRuntimes_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetRuntimes", nil)
+	req, _ := http.NewRequest("GET", "/api/registry/runtimes", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
@@ -258,7 +258,7 @@ func Test_GetRuntimes_Height3(t *testing.T) {
 }
 
 func Test_GetRegistryStateToGenesis_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetRegistryStateToGenesis", nil)
+	req, _ := http.NewRequest("GET", "/api/registry/genesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -280,7 +280,7 @@ func Test_GetRegistryStateToGenesis_BadNode(t *testing.T) {
 }
 
 func Test_GetRegistryStateToGenesis_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetRegistryStateToGenesis", nil)
+	req, _ := http.NewRequest("GET", "/api/registry/genesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -304,7 +304,7 @@ func Test_GetRegistryStateToGenesis_InvalidHeight(t *testing.T) {
 }
 
 func Test_GetRegistryStateToGenesis_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetRegistryStateToGenesis", nil)
+	req, _ := http.NewRequest("GET", "/api/registry/genesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
@@ -339,7 +339,7 @@ func Test_GetRegistryStateToGenesis_Height3(t *testing.T) {
 }
 
 func Test_GetEntity_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetEntity", nil)
+	req, _ := http.NewRequest("GET", "/api/registry/entity", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -361,7 +361,7 @@ func Test_GetEntity_BadNode(t *testing.T) {
 }
 
 func Test_GetEntity_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetEntity", nil)
+	req, _ := http.NewRequest("GET", "/api/registry/entity", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -385,7 +385,7 @@ func Test_GetEntity_InvalidHeight(t *testing.T) {
 }
 
 func Test_GetEntity_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetEntity", nil)
+	req, _ := http.NewRequest("GET", "/api/registry/entity", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
@@ -421,7 +421,7 @@ func Test_GetEntity_Height3(t *testing.T) {
 }
 
 func Test_GetNode_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetNode", nil)
+	req, _ := http.NewRequest("GET", "/api/registry/node", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -443,7 +443,7 @@ func Test_GetNode_BadNode(t *testing.T) {
 }
 
 func Test_GetNode_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetNode", nil)
+	req, _ := http.NewRequest("GET", "/api/registry/node", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -467,7 +467,7 @@ func Test_GetNode_InvalidHeight(t *testing.T) {
 }
 
 func Test_GetNode_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetNode", nil)
+	req, _ := http.NewRequest("GET", "/api/registry/node", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
@@ -502,7 +502,7 @@ func Test_GetNode_Height3(t *testing.T) {
 }
 
 func Test_GetRuntime_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetRuntime", nil)
+	req, _ := http.NewRequest("GET", "/api/registry/runtime", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -524,7 +524,7 @@ func Test_GetRuntime_BadNode(t *testing.T) {
 }
 
 func Test_GetRuntime_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetRuntime", nil)
+	req, _ := http.NewRequest("GET", "/api/registry/runtime", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")

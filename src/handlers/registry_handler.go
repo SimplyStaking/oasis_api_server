@@ -66,12 +66,12 @@ func GetEntities(w http.ResponseWriter, r *http.Request) {
 	entities, err := ro.GetEntities(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Entities!"})
-		lgr.Error.Println("Request at /api/GetEntities/ Failed to retrieve the entities : ", err)
+		lgr.Error.Println("Request at /api/registry/entities/ Failed to retrieve the entities : ", err)
 		return
 	}
 
 	// Responding with the retrieved entities
-	lgr.Info.Println("Request at /api/GetEntities/ responding with a Entities!")
+	lgr.Info.Println("Request at /api/registry/entities/ responding with a Entities!")
 	json.NewEncoder(w).Encode(responses.EntitiesResponse{Entities: entities})
 }
 
@@ -115,12 +115,12 @@ func GetNodes(w http.ResponseWriter, r *http.Request) {
 	nodes, err := ro.GetNodes(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Nodes!"})
-		lgr.Error.Println("Request at /api/GetNodes/ Failed to retrieve the nodes : ", err)
+		lgr.Error.Println("Request at /api/registry/nodes/ Failed to retrieve the nodes : ", err)
 		return
 	}
 
 	// Respond with all the nodes retrieved above
-	lgr.Info.Println("Request at /api/GetNodes/ responding with a Nodes!")
+	lgr.Info.Println("Request at /api/registry/nodes/ responding with a Nodes!")
 	json.NewEncoder(w).Encode(responses.NodesResponse{Nodes: nodes})
 }
 
@@ -164,12 +164,12 @@ func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 	runtimes, err := ro.GetRuntimes(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Runtimes!"})
-		lgr.Error.Println("Request at /api/GetRuntimes/ Failed to retrieve the runtimes : ", err)
+		lgr.Error.Println("Request at /api/registry/runtimes/ Failed to retrieve the runtimes : ", err)
 		return
 	}
 
 	// Responding with the runtimes returned above
-	lgr.Info.Println("Request at /api/GetRuntimes/ responding with a Runtimes!")
+	lgr.Info.Println("Request at /api/registry/runtimes/ responding with a Runtimes!")
 	json.NewEncoder(w).Encode(responses.RuntimesResponse{Runtimes: runtimes})
 }
 
@@ -213,12 +213,12 @@ func GetRegistryStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	genesisRegistry, err := ro.StateToGenesis(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Registry Genesis!"})
-		lgr.Error.Println("Request at /api/GetRegistryStateToGenesis/ Failed to retrieve Registry Genesis : ", err)
+		lgr.Error.Println("Request at /api/registry/genesis/ Failed to retrieve Registry Genesis : ", err)
 		return
 	}
 
 	// Responding with the genesis state retrieved above
-	lgr.Info.Println("Request at /api/GetRegistryStateToGenesis/ responding with a Registry Genesis!")
+	lgr.Info.Println("Request at /api/registry/genesis/ responding with a Registry Genesis!")
 	json.NewEncoder(w).Encode(responses.RegistryGenesisResponse{GenesisRegistry: genesisRegistry})
 }
 
@@ -250,7 +250,7 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 	entityID := r.URL.Query().Get("entity")
 	if len(entityID) == 0 {
 		// Stop the code here no need to establish connection and reply
-		lgr.Warning.Println("Request at /api/GetEntity/ failed, EntityID can't be empty!")
+		lgr.Warning.Println("Request at /api/registry/entity/ failed, EntityID can't be empty!")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "EntityID can't be empty!"})
 		return
 	}
@@ -283,12 +283,12 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 	registryEntity, err := ro.GetEntity(context.Background(), &query)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Registry Entity!"})
-		lgr.Error.Println("Request at /api/GetEntity/ Failed to retrieve Registry Entity : ", err)
+		lgr.Error.Println("Request at /api/registry/entity/ Failed to retrieve Registry Entity : ", err)
 		return
 	}
 
 	// Responding with the Entity object retrieved above
-	lgr.Info.Println("Request at /api/GetEntity/ responding with a Registry Entity!")
+	lgr.Info.Println("Request at /api/registry/entity/ responding with a Registry Entity!")
 	json.NewEncoder(w).Encode(responses.RegistryEntityResponse{Entity: registryEntity})
 }
 
@@ -320,7 +320,7 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 	nodeID := r.URL.Query().Get("nodeID")
 	if len(nodeID) == 0 {
 		// Stop the code here no need to establish connection and reply
-		lgr.Warning.Println("Request at /api/GetNode/ failed, NodeID can't be empty!")
+		lgr.Warning.Println("Request at /api/registry/node/ failed, NodeID can't be empty!")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "NodeID can't be empty!"})
 		return
 	}
@@ -353,12 +353,12 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 	registryNode, err := ro.GetNode(context.Background(), &query)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Registry Node!"})
-		lgr.Error.Println("Request at /api/GetNode/ Failed to retrieve Registry Node : ", err)
+		lgr.Error.Println("Request at /api/registry/node/ Failed to retrieve Registry Node : ", err)
 		return
 	}
 
 	// Responding with the retrieved node object
-	lgr.Info.Println("Request at /api/GetNode/ responding with a Registry Node!")
+	lgr.Info.Println("Request at /api/registry/node/ responding with a Registry Node!")
 	json.NewEncoder(w).Encode(responses.RegistryNodeResponse{Node: registryNode})
 }
 
@@ -391,7 +391,7 @@ func GetRuntime(w http.ResponseWriter, r *http.Request) {
 	nmspace := r.URL.Query().Get("namespace")
 	if len(nmspace) == 0 {
 		// Stop the code here no need to establish connection and reply
-		lgr.Warning.Println("Request at /api/GetRuntime/ failed, namespace can't be empty!")
+		lgr.Warning.Println("Request at /api/registry/runtime/ failed, namespace can't be empty!")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "namespace can't be empty!"})
 		return
 	}
@@ -424,11 +424,11 @@ func GetRuntime(w http.ResponseWriter, r *http.Request) {
 	registryRuntime, err := ro.GetRuntime(context.Background(), &query)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Registry Runtime!"})
-		lgr.Error.Println("Request at /api/GetRuntime/ Failed to retrieve Registry Runtime : ", err)
+		lgr.Error.Println("Request at /api/registry/runtime/ Failed to retrieve Registry Runtime : ", err)
 		return
 	}
 
 	// Responding with the runtime object retrieved above
-	lgr.Info.Println("Request at /api/GetRuntime/ responding with a Registry Runtime!")
+	lgr.Info.Println("Request at /api/registry/runtime/ responding with a Registry Runtime!")
 	json.NewEncoder(w).Encode(responses.RuntimeResponse{Runtime: registryRuntime})
 }

@@ -63,11 +63,11 @@ func GetTotalSupply(w http.ResponseWriter, r *http.Request) {
 	totalSupply, err := so.TotalSupply(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get TotalSupply!"})
-		lgr.Error.Println("Request at /api/GetTotalSupply/ Failed to retrieve the totalsupply : ", err)
+		lgr.Error.Println("Request at /api/staking/totalsupply/ Failed to retrieve the totalsupply : ", err)
 		return
 	}
 
-	lgr.Info.Println("Request at /api/GetTotalSupply/ responding with the TotalSupply!")
+	lgr.Info.Println("Request at /api/staking/totalsupply/ responding with the TotalSupply!")
 	json.NewEncoder(w).Encode(responses.QuantityResponse{Quantity: totalSupply})
 }
 
@@ -111,11 +111,11 @@ func GetCommonPool(w http.ResponseWriter, r *http.Request) {
 	commonPool, err := so.CommonPool(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Common Pool!"})
-		lgr.Error.Println("Request at /api/GetCommonPool/ Failed to retrieve the common pool : ", err)
+		lgr.Error.Println("Request at /api/staking/commonpool/ Failed to retrieve the common pool : ", err)
 		return
 	}
 
-	lgr.Info.Println("Request at /api/GetCommonPool/ responding with the Common Pool!")
+	lgr.Info.Println("Request at /api/staking/commonpool/ responding with the Common Pool!")
 	json.NewEncoder(w).Encode(responses.QuantityResponse{Quantity: commonPool})
 }
 
@@ -158,11 +158,11 @@ func GetStakingStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	genesisStaking, err := so.StateToGenesis(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Staking Genesis State!"})
-		lgr.Error.Println("Request at /api/GetStakingStateToGenesis/ Failed to retrieve the Staking Genesis State : ", err)
+		lgr.Error.Println("Request at /api/staking/genesis/ Failed to retrieve the Staking Genesis State : ", err)
 		return
 	}
 
-	lgr.Info.Println("Request at /api/GetStakingStateToGenesis/ responding with the Staking Genesis State!")
+	lgr.Info.Println("Request at /api/staking/genesis/ responding with the Staking Genesis State!")
 	json.NewEncoder(w).Encode(responses.StakingGenesisResponse{GenesisStaking: genesisStaking})
 }
 
@@ -217,12 +217,12 @@ func GetThreshold(w http.ResponseWriter, r *http.Request) {
 	threshold, err := so.Threshold(context.Background(), &query)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Threshold!"})
-		lgr.Error.Println("Request at /api/GetThreshold/ Failed to retrieve the Threshold : ", err)
+		lgr.Error.Println("Request at /api/staking/threshold/ Failed to retrieve the Threshold : ", err)
 		return
 	}
 
 	// Responding with the threshold quantity retrieved
-	lgr.Info.Println("Request at /api/GetThreshold/ responding with the Threshold!")
+	lgr.Info.Println("Request at /api/staking/threshold/ responding with the Threshold!")
 	json.NewEncoder(w).Encode(responses.QuantityResponse{Quantity: threshold})
 }
 
@@ -266,12 +266,12 @@ func GetAccounts(w http.ResponseWriter, r *http.Request) {
 	accounts, err := so.Accounts(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Accounts!"})
-		lgr.Error.Println("Request at /api/GetAccounts/ Failed to retrieve Accounts : ", err)
+		lgr.Error.Println("Request at /api/staking/accounts/ Failed to retrieve Accounts : ", err)
 		return
 	}
 
 	// Respond with the array of all the accounts
-	lgr.Info.Println("Request at /api/GetAccounts/ responding with Accounts!")
+	lgr.Info.Println("Request at /api/staking/accounts/ responding with Accounts!")
 	json.NewEncoder(w).Encode(responses.AllAccountsResponse{AllAccounts: accounts})
 }
 
@@ -304,7 +304,7 @@ func GetAccountInfo(w http.ResponseWriter, r *http.Request) {
 	ownerKey := r.URL.Query().Get("ownerKey")
 	if len(ownerKey) == 0 {
 		// Stop the code here no need to establish connection and reply
-		lgr.Warning.Println("Request at /api/GetAccountInfo/ failed, ownerKey can't be empty!")
+		lgr.Warning.Println("Request at /api/staking/accountinfo/ failed, ownerKey can't be empty!")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "ownerKey can't be empty!"})
 		return
 	}
@@ -337,12 +337,12 @@ func GetAccountInfo(w http.ResponseWriter, r *http.Request) {
 	account, err := so.AccountInfo(context.Background(), &query)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Account!"})
-		lgr.Error.Println("Request at /api/GetAccountInfo/ Failed to retrieve Account Info : ", err)
+		lgr.Error.Println("Request at /api/staking/accountinfo/ Failed to retrieve Account Info : ", err)
 		return
 	}
 
 	// Return the account information for the created query
-	lgr.Info.Println("Request at /api/GetAccountInfo/ responding with Account!")
+	lgr.Info.Println("Request at /api/staking/accountinfo/ responding with Account!")
 	json.NewEncoder(w).Encode(responses.AccountResponse{AccountInfo: account})
 }
 
@@ -375,7 +375,7 @@ func GetDelegations(w http.ResponseWriter, r *http.Request) {
 	ownerKey := r.URL.Query().Get("ownerKey")
 	if len(ownerKey) == 0 {
 		// Stop the code here no need to establish connection and reply
-		lgr.Warning.Println("Request at /api/GetDelegations/ failed, ownerKey can't be empty!")
+		lgr.Warning.Println("Request at /api/staking/delegations/ failed, ownerKey can't be empty!")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "ownerKey can't be empty!"})
 		return
 	}
@@ -408,12 +408,12 @@ func GetDelegations(w http.ResponseWriter, r *http.Request) {
 	delegations, err := so.Delegations(context.Background(), &query)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Delegations!"})
-		lgr.Error.Println("Request at /api/GetDelegations/ Failed to retrieve Delegations : ", err)
+		lgr.Error.Println("Request at /api/staking/delegations/ Failed to retrieve Delegations : ", err)
 		return
 	}
 
 	// Respond with the delegations for a given account query
-	lgr.Info.Println("Request at /api/GetDelegations/ responding with delegations!")
+	lgr.Info.Println("Request at /api/staking/delegations/ responding with delegations!")
 	json.NewEncoder(w).Encode(responses.DelegationsResponse{Delegations: delegations})
 }
 
@@ -446,7 +446,7 @@ func GetDebondingDelegations(w http.ResponseWriter, r *http.Request) {
 	ownerKey := r.URL.Query().Get("ownerKey")
 	if len(ownerKey) == 0 {
 		// Stop the code here no need to establish connection and reply
-		lgr.Warning.Println("Request at /api/GetAccountInfo/ failed, ownerKey can't be empty!")
+		lgr.Warning.Println("Request at /api/staking/accountinfo/ failed, ownerKey can't be empty!")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "ownerKey can't be empty!"})
 		return
 	}
@@ -479,11 +479,11 @@ func GetDebondingDelegations(w http.ResponseWriter, r *http.Request) {
 	debondingDelegations, err := so.DebondingDelegations(context.Background(), &query)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to get Debonding Delegations!"})
-		lgr.Error.Println("Request at /api/GetDebondingDelegations/ Failed to retrieve Debonding Delegations : ", err)
+		lgr.Error.Println("Request at /api/staking/debondingdelegations/ Failed to retrieve Debonding Delegations : ", err)
 		return
 	}
 
 	// Responding with the debonding delegations for a given accounts
-	lgr.Info.Println("Request at /api/GetDebondingDelegations/ responding with Debonding Delegations!")
+	lgr.Info.Println("Request at /api/staking/debondingdelegations/ responding with Debonding Delegations!")
 	json.NewEncoder(w).Encode(responses.DebondingDelegationsResponse{DebondingDelegations: debondingDelegations})
 }
