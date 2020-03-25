@@ -18,12 +18,12 @@ var (
 	extractorFile  = "../config/extractor_config_main.ini"
 )
 
-// SetMainFile sets file location containing Port
+// SetMainFile sets file location containing API configuration
 func SetMainFile(newFile string) {
 	mainConfigFile = newFile
 }
 
-// SetNodesFile sets file location containing Sockets
+// SetNodesFile sets file location containing Node configuration
 func SetNodesFile(newFile string) {
 	nodesFile = newFile
 }
@@ -33,35 +33,35 @@ func SetPrometheusFile(newFile string) {
 	prometheusFile = newFile
 }
 
-// SetExtractorFile containing the prometheus configuration
+// SetExtractorFile containing the Node_Extractor configuration
 func SetExtractorFile(newFile string) {
 	extractorFile = newFile
 }
 
-// GetMain returns Port configuration
+// GetMain returns Main API configuration
 func GetMain() map[string]map[string]string {
 	return confMain
 }
 
-// GetNodes returns Socket configuration
+// GetNodes returns Nodes configuration
 func GetNodes() map[string]map[string]string {
 	return confNodes
 }
 
-// GetPrometheusFile File Configuration Details
+// GetPrometheusFile returns Prometheus configuration
 func GetPrometheusFile() map[string]map[string]string {
 	return confPrometheus
 }
 
-// GetExtractorFile returns the node extractor File Configuration Details
+// GetExtractorFile returns Node_Extrasctor configuration
 func GetExtractorFile() map[string]map[string]string {
 	return confExtractor
 }
 
-// LoadMainConfiguration loads port configuration file from config folder
+// LoadMainConfiguration loads main configuration file from config folder
 func LoadMainConfiguration() map[string]map[string]string {
 
-	// Decode and read file containing port information
+	// Decode and read file containing Main API information
 	if err := ini.DecodeFile(mainConfigFile, &confMain); err != nil {
 		lgr.Error.Println(err)
 		return nil
@@ -69,10 +69,10 @@ func LoadMainConfiguration() map[string]map[string]string {
 	return confMain
 }
 
-// LoadNodesConfiguration loads socket configuration file from config folder
+// LoadNodesConfiguration loads node configuration file from config folder
 func LoadNodesConfiguration() map[string]map[string]string {
 
-	// Decode and read file containing port information
+	// Decode and read file containing Node information
 	if err := ini.DecodeFile(nodesFile, &confNodes); err != nil {
 		lgr.Error.Println(err)
 		return nil
@@ -80,10 +80,10 @@ func LoadNodesConfiguration() map[string]map[string]string {
 	return confNodes
 }
 
-// LoadPrometheusConfiguration loads prometheus configuration so that it can be queried
+// LoadPrometheusConfiguration loads prometheus configuration
 func LoadPrometheusConfiguration() map[string]map[string]string {
 
-	// Decode and read file containing port information
+	// Decode and read file containing prometheus information
 	if err := ini.DecodeFile(prometheusFile, &confPrometheus); err != nil {
 		lgr.Error.Println(err)
 		return nil
@@ -91,9 +91,10 @@ func LoadPrometheusConfiguration() map[string]map[string]string {
 	return confPrometheus
 }
 
-// LoadExtractorConfiguration loads the node extractor configuration so that it can be queried
+// LoadExtractorConfiguration loads Node_Extractor configuration
 func LoadExtractorConfiguration() map[string]map[string]string {
-	// Decode and read the file containing the port information
+
+	// Decode and read the file containing the Node_Extractor information
 	if err := ini.DecodeFile(extractorFile, &confExtractor); err != nil {
 		lgr.Error.Println(err)
 		return nil
