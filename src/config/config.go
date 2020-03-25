@@ -9,21 +9,23 @@ import (
 // Variables to be exported and used by application, set with default values
 var (
 	confMain       ini.Config
-	confSockets    ini.Config
+	confNodes      ini.Config
 	confPrometheus ini.Config
+	confExtractor  ini.Config
 	mainConfigFile = "../config/user_config_main.ini"
-	socketFile     = "../config/user_config_nodes.ini"
+	nodesFile      = "../config/user_config_nodes.ini"
 	prometheusFile = "../config/prometheus_config_main.ini"
+	extractorFile  = "../config/extractor_config_main.ini"
 )
 
-// SetPortFile sets file location containing Port
-func SetPortFile(newFile string) {
+// SetMainFile sets file location containing Port
+func SetMainFile(newFile string) {
 	mainConfigFile = newFile
 }
 
-// SetSocketFile sets file location containing Sockets
-func SetSocketFile(newFile string) {
-	socketFile = newFile
+// SetNodesFile sets file location containing Sockets
+func SetNodesFile(newFile string) {
+	nodesFile = newFile
 }
 
 // SetPrometheusFile containing prometheus configuration
@@ -31,19 +33,29 @@ func SetPrometheusFile(newFile string) {
 	prometheusFile = newFile
 }
 
-// GetPort returns Port configuration
-func GetPort() map[string]map[string]string {
+// SetExtractorFile containing the prometheus configuration
+func SetExtractorFile(newFile string) {
+	extractorFile = newFile
+}
+
+// GetMain returns Port configuration
+func GetMain() map[string]map[string]string {
 	return confMain
 }
 
-// GetSockets returns Socket configuration
-func GetSockets() map[string]map[string]string {
-	return confSockets
+// GetNodes returns Socket configuration
+func GetNodes() map[string]map[string]string {
+	return confNodes
 }
 
 // GetPrometheusFile File Configuration Details
 func GetPrometheusFile() map[string]map[string]string {
 	return confPrometheus
+}
+
+// GetExtractorFile returns the node extractor File Configuration Details
+func GetExtractorFile() map[string]map[string]string {
+	return confExtractor
 }
 
 // LoadMainConfiguration loads port configuration file from config folder
@@ -57,15 +69,15 @@ func LoadMainConfiguration() map[string]map[string]string {
 	return confMain
 }
 
-// LoadSocketConfiguration loads socket configuration file from config folder
-func LoadSocketConfiguration() map[string]map[string]string {
+// LoadNodesConfiguration loads socket configuration file from config folder
+func LoadNodesConfiguration() map[string]map[string]string {
 
 	// Decode and read file containing port information
-	if err := ini.DecodeFile(socketFile, &confSockets); err != nil {
+	if err := ini.DecodeFile(nodesFile, &confNodes); err != nil {
 		lgr.Error.Println(err)
 		return nil
 	}
-	return confSockets
+	return confNodes
 }
 
 // LoadPrometheusConfiguration loads prometheus configuration so that it can be queried
@@ -77,4 +89,14 @@ func LoadPrometheusConfiguration() map[string]map[string]string {
 		return nil
 	}
 	return confPrometheus
+}
+
+// LoadExtractorConfiguration loads the node extractor configuration so that it can be queried
+func LoadExtractorConfiguration() map[string]map[string]string {
+	// Decode and read the file containing the port information
+	if err := ini.DecodeFile(extractorFile, &confExtractor); err != nil {
+		lgr.Error.Println(err)
+		return nil
+	}
+	return confExtractor
 }

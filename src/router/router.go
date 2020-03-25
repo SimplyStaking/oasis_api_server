@@ -23,21 +23,21 @@ func StartServer() error {
 	}
 
 	// Load port configurations
-	portConf := conf.LoadMainConfiguration()
-	if portConf == nil {
+	mainConf := conf.LoadMainConfiguration()
+	if mainConf == nil {
 		lgr.Error.Println("Loading of Port configuration has Failed!")
 		// Abort Program no Port configured to run API on
 		os.Exit(0)
 	}
 	// Load socket configuration but do not use them
-	socketConf := conf.LoadSocketConfiguration()
-	if socketConf == nil {
+	nodesConf := conf.LoadNodesConfiguration()
+	if nodesConf == nil {
 		lgr.Error.Println("Loading of Socket configuration has Failed!")
 		// Abort Program no Sockets configured to run API on
 		os.Exit(0)
 	}
 
-	apiPort := portConf["api_server"]["port"]
+	apiPort := mainConf["api_server"]["port"]
 	lgr.Info.Println("Loaded port : ", apiPort)
 
 	// Router object to handle requests

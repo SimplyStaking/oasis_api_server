@@ -6,3 +6,5 @@ oasis_api_server
 config/user_config_main.ini
 config/user_config_nodes.ini
 config/prometheus_config_main.ini
+config/extractor_config_main.ini
+.vscode/

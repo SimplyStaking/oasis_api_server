@@ -27,7 +27,7 @@ func GetConnections(w http.ResponseWriter, r *http.Request) {
 
 	// Create new empty Slice of strings where connections will be stored
 	connectionsResponse := []string{}
-	allSockets := config.GetSockets()
+	allSockets := config.GetNodes()
 
 	lgr.Info.Println("Iterating through all socket connections.")
 	for _, socket := range allSockets {

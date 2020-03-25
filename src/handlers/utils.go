@@ -12,7 +12,7 @@ import (
 func checkNodeName(nodeName string) (bool, string) {
 
 	// Check if nodeName is in configuration
-	allSockets := config.GetSockets()
+	allSockets := config.GetNodes()
 	for _, socket := range allSockets {
 
 		// If nodeName is in configuration reply with it's websocket
