@@ -27,7 +27,7 @@ def get_node(nodes_so_far: List[NodeConfig]) -> Optional[NodeConfig]:
 def setup_nodes(cp: ConfigParser) -> None:
 
     print('==== Node_Extractor')
-    print('To retrieve data from the Node Extractor,'
+    print('To retrieve data from the Node_Extractor,'
         ' the API needs to know where to find '
         'the Node_Extractor endpoints! The list of endpoints the '
         'API will connect to will now be set up. '

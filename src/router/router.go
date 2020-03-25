@@ -87,7 +87,7 @@ func StartServer() error {
 	router.HandleFunc("/api/prometheus/gauge/", handler.PrometheusQueryGauge).Methods("Get")
 	router.HandleFunc("/api/prometheus/counter/", handler.PrometheusQueryCounter).Methods("Get")
 
-	// Router Handlers to handle the Node Extractor API Calls
+	// Router Handlers to handle the Node_Extractor API Calls
 	router.HandleFunc("/api/extractor/gauge/", handler.NodeExtractorQueryGauge).Methods("Get")
 	router.HandleFunc("/api/extractor/counter/", handler.NodeExtractorQueryCounter).Methods("Get")
 

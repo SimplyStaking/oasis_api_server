@@ -43,21 +43,21 @@ func NodeExtractorQueryGauge(w http.ResponseWriter, r *http.Request) {
 	resp, err := http.Get(extractorConfig)
 	if err != nil {
 		lgr.Error.Println(
-			"Failed to retrieve Prometheus Data from Node Extractor Response")
+			"Failed to retrieve Prometheus Data from Node_Extractor Response")
 	}
 
 	defer resp.Body.Close()
 
-	// Read the body response from the Node Extractor
+	// Read the body response from the Node_Extractor
 	body, err1 := ioutil.ReadAll(resp.Body)
 	if err1 != nil {
 		lgr.Error.Println(
-			"Failed to read the Node Extractor Response")
+			"Failed to read the Node_Extractor Response")
 	}
 
 	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
 	if err2 != nil {
-		lgr.Error.Println("Failed to Parse the Node Extractor Response")
+		lgr.Error.Println("Failed to Parse the Node_Extractor Response")
 	}
 
 	output := parsed[gaugeName].GetMetric()[0].GetGauge().GetValue()
@@ -99,20 +99,20 @@ func NodeExtractorQueryCounter(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := http.Get(extractorConfig)
 	if err != nil {
-		lgr.Error.Println("Failed to retrieve Node Extractor Data")
+		lgr.Error.Println("Failed to retrieve Node_Extractor Data")
 	}
 
 	defer resp.Body.Close()
 
-	// Read the body response of the Node Extractor
+	// Read the body response of the Node_Extractor
 	body, err1 := ioutil.ReadAll(resp.Body)
 	if err1 != nil {
-		lgr.Error.Println("Failed to read the Node Extractor Response")
+		lgr.Error.Println("Failed to read the Node_Extractor Response")
 	}
 
 	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
 	if err2 != nil {
-		lgr.Error.Println("Failed to Parse the Node Extractor Response")
+		lgr.Error.Println("Failed to Parse the Node_Extractor Response")
 	}
 
 	output := parsed[counterName].GetMetric()[0].GetCounter().GetValue()
