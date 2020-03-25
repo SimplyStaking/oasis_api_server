@@ -29,7 +29,7 @@ def setup_nodes(cp: ConfigParser) -> None:
     print('==== Node_Extractor')
     print('To retrieve data from the Node Extractor,'
         ' the API needs to know where to find '
-        'the Node Extractor endpoints! The list of endpoints the '
+        'the Node_Extractor endpoints! The list of endpoints the '
         'API will connect to will now be set up. '
         'Node names must be equivalent to those set before hand!')
 
@@ -37,14 +37,14 @@ def setup_nodes(cp: ConfigParser) -> None:
     already_set_up = len(cp.sections()) > 0
     if already_set_up:
         if not yn_prompt(
-                'The list of node extractor endpoints is already set up.'
+                'The list of Node_Extractor endpoints is already set up.'
                 ' Do you wish to replace this list with a new one? (Y/n)\n'):
             return
 
     # Otherwise ask if they want to set it up
     if not already_set_up and \
             not yn_prompt('Do you wish to set up the list of '
-            'node extractor endpoints? (Y/n)\n'):
+            'Node_Extractor endpoints? (Y/n)\n'):
         return
 
     # Clear config and initialise new list
@@ -59,7 +59,7 @@ def setup_nodes(cp: ConfigParser) -> None:
             print('Successfully added node.')
 
         if not yn_prompt('Do you want to add another '
-            'Node Extractor Endpoint? (Y/n)\n'):
+            'Node_Extractor Endpoint? (Y/n)\n'):
             break
 
     # Add nodes to config
