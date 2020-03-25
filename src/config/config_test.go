@@ -36,60 +36,53 @@ func teardown() {
 	fmt.Printf("\n")
 }
 
-// Testing loading of default port configuration file
 func TestLoadMainConfiguration_Success_1(t *testing.T) {
 	mainConf := config.LoadMainConfiguration()
 	if mainConf == nil {
-		t.Errorf("Failed to load port file from path.")
+		t.Errorf("Failed to load main config file from path.")
 	}
 }
 
-// Testing loading of default socket configuration file
 func TestLoadNodesConfig_Success_1(t *testing.T) {
 	nodesConf := config.LoadNodesConfiguration()
 	if nodesConf == nil {
-		t.Errorf("Failed to load socket file from path.")
+		t.Errorf("Failed to load node config file from path.")
 	}
 }
-
-// Testing successful retrieval of ports once configuration is loaded
 func TestLoadMainConfiguration_Success_2(t *testing.T) {
 	mainConf := config.LoadNodesConfiguration()
 	if mainConf == nil {
-		t.Errorf("Failed to load port file from path.")
+		t.Errorf("Failed to load main config file from path.")
 	}
 	mainConf_1 := config.GetMain()
 	if mainConf_1 == nil {
-		t.Errorf("Failed to load port file from path.")
+		t.Errorf("Failed to load main config file from path.")
 	}
 }
 
-// Testing successful retrieval of sockets once configuration is loaded
 func TestLoadNodesConfig_Success_2(t *testing.T) {
 	nodesConf := config.LoadNodesConfiguration()
 	if nodesConf == nil {
-		t.Errorf("Failed to load socket file from path.")
+		t.Errorf("Failed to load node config file from path.")
 	}
 	nodesConf_1 := config.GetNodes()
 	if nodesConf_1 == nil {
-		t.Errorf("Failed to load socket file from path.")
+		t.Errorf("Failed to load node config file from path.")
 	}
 }
 
-// Testing failed loading of another port configuration file
 func TestLoadMainConfiguration_Failure_1(t *testing.T) {
 	config.SetMainFile(mainFileFail)
 	mainConf := config.LoadMainConfiguration()
 	if mainConf != nil {
-		t.Errorf("Failed to not load port file from path.")
+		t.Errorf("Failed to not load main config file from path.")
 	}
 }
 
-// Testing failed loading of another socket configuration file
 func TestLoadNodesConfig_Failure_1(t *testing.T) {
 	config.SetNodesFile(nodesFileFail)
 	nodesConf := config.LoadNodesConfiguration()
 	if nodesConf != nil {
-		t.Errorf("Failed to not load socket file from path.")
+		t.Errorf("Failed to not load nodes file from path.")
 	}
 }
