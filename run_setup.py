@@ -1,6 +1,6 @@
 from configparser import ConfigParser
 
-from setup import setup_user_config_main, setup_user_config_nodes, setup_prometheus_config_main, setup_extractor_config_main
+from setup import setup_user_config_main, setup_user_config_nodes, setup_prometheus_config_main, setup_node_exporter_nodes
 
 
 def run() -> None:
@@ -15,7 +15,7 @@ def run() -> None:
     cp_prometheus.read('config/prometheus_config_main.ini')
     
     cp_extractor = ConfigParser()
-    cp_extractor.read('config/extractor_config_main.ini')
+    cp_extractor.read('config/node_exporter_nodes.ini')
     
     # Start setup
     print('Welcome to the Oasis API Server setup script!')
@@ -35,10 +35,10 @@ def run() -> None:
             cp_prometheus.write(f)
         print('Saved config/prometheus_config_main.ini\n')
 
-        setup_extractor_config_main.setup_nodes(cp_extractor)
-        with open('config/extractor_config_main.ini', 'w') as f:
+        setup_node_exporter_nodes.setup_nodes(cp_extractor)
+        with open('config/node_exporter_nodes.ini', 'w') as f:
             cp_extractor.write(f)
-        print('Saved config/extractor_config_main.ini\n')
+        print('Saved config/node_exporter_nodes.ini\n')
         
         print('Setup completed!')
     except KeyboardInterrupt:

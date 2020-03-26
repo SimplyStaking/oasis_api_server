@@ -15,7 +15,7 @@ var (
 	mainConfigFile = "../config/user_config_main.ini"
 	nodesFile      = "../config/user_config_nodes.ini"
 	prometheusFile = "../config/prometheus_config_main.ini"
-	extractorFile  = "../config/extractor_config_main.ini"
+	extractorFile  = "../config/node_exporter_nodes.ini"
 )
 
 // SetMainFile sets file location containing API configuration
