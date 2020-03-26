@@ -1,12 +1,12 @@
-# Installing Node_Exporter (for port 9100) (LINUX)
+# Installing Node Exporter (for port 9100) (LINUX)
 
-### Installing Node_Exporter on the nodes is done as follows:
+### Installing Node Exporter on the nodes is done as follows:
 
-##### Create a Node_Exporter user for running the exporter:
+##### Create a Node Exporter user for running the exporter:
 ```
     sudo useradd --no-create-home --shell /bin/false node_exporter
 ```
-##### Download and extract the latest version of Node_Exporter:
+##### Download and extract the latest version of Node Exporter:
 ```
 wget https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz
 tar -xzvf node_exporter-0.18.1.linux-amd64.tar.gz
@@ -15,18 +15,18 @@ tar -xzvf node_exporter-0.18.1.linux-amd64.tar.gz
 ```
 sudo cp node_exporter-0.18.1.linux-amd64/node_exporter /usr/local/bin/
 ```
-##### Give the Node_Exporter user ownership of the executable:
+##### Give the Node Exporter user ownership of the executable:
 ```
 sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
 ```
-##### Perform some cleanup and create and save a Node_Exporter service with the below contents:
+##### Perform some cleanup and create and save a Node Exporter service with the below contents:
 ```
 sudo rm node_exporter-0.18.1.linux-amd64 -rf
 sudo nano /etc/systemd/system/node_exporter.service
 ```
 ```
 [Unit]
-Description=Node_Exporter
+Description=Node Exporter
 Wants=network-online.target
 After=network-online.target
 

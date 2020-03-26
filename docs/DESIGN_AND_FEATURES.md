@@ -19,7 +19,7 @@ The diagram below gives an idea of the various components at play when the API S
 
 The API Server works as follows:
 - The API Server loads the configuration containing the internal socket information for each node from the `config/user_config_nodes.ini` file together with the port at which the API will expose its endpoints taken from the `config/user_config_main.ini` file.
-- The API Server also loads the information containing Prometheus endpoints from the `config/prometheus_config_main.ini` file together with Node_Exporter endpoints from the `config/exporter_config_main.ini` file.
+- The API Server also loads the information containing Prometheus endpoints from the `config/prometheus_config_main.ini` file together with Node Exporter endpoints from the `config/node_exporter_nodes.ini` file.
 - By communicating through this port, the API Server receives the endpoints specified in the `Complete List of Endpoints` section below, and requests information from the nodes it is connected to accordingly.
 - Once a request is received for an endpoint the server will read the query which should contain the name of the node that will be queried, it then attempts to establish a connection to the node and request data from it. This data is then foramtted into JSON and returned.
 - The server interacts with the protocol API through these clients :
