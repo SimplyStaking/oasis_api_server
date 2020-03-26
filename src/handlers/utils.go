@@ -140,7 +140,7 @@ func checkNodeNameExporter(nodeName string) (bool, string) {
 		// If the nodeName is in the configuration reply with it's websocket
 		if conf["node_name"] == nodeName {
 			lgr.Info.Println("Requested node ", nodeName, "was found!")
-			return true, conf["ws_url"]
+			return true, conf["metrics_url"]
 		}
 	}
 	// If the nodeName isn't in the configuration

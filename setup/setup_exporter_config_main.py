@@ -16,12 +16,12 @@ def get_node(nodes_so_far: List[NodeConfig]) -> Optional[NodeConfig]:
             break
 
     # Get node's local host url
-    lh_url = input('Node Exporter\'s localhost url'
+    metrics_url = input('Node Exporter\'s localhost url'
     ' is needed which was exposed during the Node_Extracto setup'
     ' (typically 127.0.0.1:9100/metrics):\n')
 
     # Return node
-    return NodeConfig(node_name, lh_url)
+    return NodeConfig(node_name, metrics_url)
 
 
 def setup_nodes(cp: ConfigParser) -> None:
@@ -67,4 +67,4 @@ def setup_nodes(cp: ConfigParser) -> None:
         section = 'node_' + str(i)
         cp.add_section(section)
         cp[section]['node_name'] = node.node_name
-        cp[section]['ws_url'] = node.ws_url
+        cp[section]['metrics_url'] = node.metrics_url

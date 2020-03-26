@@ -18,8 +18,12 @@ func StartServer() error {
 	prometheusConf := conf.LoadPrometheusConfiguration()
 	if prometheusConf == nil {
 		lgr.Error.Println("Loading of Prometheus configuration has Failed!")
-		// Abort Program no Port configured to run API on
-		os.Exit(0)
+	}
+
+	// Load exporter configurations
+	exporterConf := conf.LoadExporterConfiguration()
+	if exporterConf == nil {
+		lgr.Error.Println("Loading of Node Exporter configuration has Failed!")
 	}
 
 	// Load port configurations
