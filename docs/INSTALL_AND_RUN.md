@@ -22,6 +22,10 @@ cd oasis_api_server
 
 The API can be configured in either of two ways, by [using the setup script](#using-the-setup-script), or [manually](#manually).
 
+## Installing the Node Exporter
+
+Please follow the [installation guide](INSTALL_NODE_EXPORTER.md) to install Node Exporter that will be running along side your node.
+
 ### Using the Setup Script
 
 Please note that you will need to have installed Python before using this script.

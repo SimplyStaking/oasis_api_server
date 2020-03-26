@@ -18,26 +18,31 @@ func StartServer() error {
 	prometheusConf := conf.LoadPrometheusConfiguration()
 	if prometheusConf == nil {
 		lgr.Error.Println("Loading of Prometheus configuration has Failed!")
-		// Abort Program no Port configured to run API on
-		os.Exit(0)
+	}
+
+	// Load exporter configurations
+	exporterConf := conf.LoadExporterConfiguration()
+	if exporterConf == nil {
+		lgr.Error.Println("Loading of Node Exporter configuration has Failed!")
 	}
 
 	// Load port configurations
-	portConf := conf.LoadMainConfiguration()
-	if portConf == nil {
+	mainConf := conf.LoadMainConfiguration()
+	if mainConf == nil {
 		lgr.Error.Println("Loading of Port configuration has Failed!")
 		// Abort Program no Port configured to run API on
 		os.Exit(0)
 	}
+
 	// Load socket configuration but do not use them
-	socketConf := conf.LoadSocketConfiguration()
-	if socketConf == nil {
+	nodesConf := conf.LoadNodesConfiguration()
+	if nodesConf == nil {
 		lgr.Error.Println("Loading of Socket configuration has Failed!")
 		// Abort Program no Sockets configured to run API on
 		os.Exit(0)
 	}
 
-	apiPort := portConf["api_server"]["port"]
+	apiPort := mainConf["api_server"]["port"]
 	lgr.Info.Println("Loaded port : ", apiPort)
 
 	// Router object to handle requests
@@ -86,6 +91,10 @@ func StartServer() error {
 	// Router Handlers to handle Prometheus API Calls
 	router.HandleFunc("/api/prometheus/gauge/", handler.PrometheusQueryGauge).Methods("Get")
 	router.HandleFunc("/api/prometheus/counter/", handler.PrometheusQueryCounter).Methods("Get")
+
+	// Router Handlers to handle the Node Exporter API Calls
+	router.HandleFunc("/api/exporter/gauge/", handler.NodeExporterQueryGauge).Methods("Get")
+	router.HandleFunc("/api/exporter/counter/", handler.NodeExporterQueryCounter).Methods("Get")
 
 	// Router Handlers to handle System API Calls
 	router.HandleFunc("/api/system/memory/", handler.GetMemory).Methods("Get")

@@ -12,7 +12,7 @@ import (
 func checkNodeName(nodeName string) (bool, string) {
 
 	// Check if nodeName is in configuration
-	allSockets := config.GetSockets()
+	allSockets := config.GetNodes()
 	for _, socket := range allSockets {
 
 		// If nodeName is in configuration reply with it's websocket
@@ -81,7 +81,8 @@ func checkKind(recvKind string) int64 {
 	// Declare kind here so that it can be set inside if statement
 	var kind int64
 
-	// If string is empty meaning no optional parameter was passed use latest kind therefore set kind to 0
+	// If string is empty meaning no optional parameter
+	// was passed use latest kind therefore set kind to 0
 	if len(recvKind) == 0 {
 		kind = 0
 		lgr.Info.Println("No Kind is specified setting kind to 0!")
@@ -91,7 +92,8 @@ func checkKind(recvKind string) int64 {
 		_, err := (strconv.ParseInt(recvKind, 10, 64))
 		if err != nil {
 
-			// If it fails it means that string given wasn't number and return result for
+			// If it fails it means that string
+			// given wasn't number and return result for
 			lgr.Error.Println(
 				"Unexpected value found, required string of int but received ", recvKind)
 			return -1
@@ -110,7 +112,8 @@ func checkAmount(recvAmount string) int64 {
 	var amount int64
 	var err error
 
-	// If string is empty meaning no optional parameter was passed use latest amount therefore set amount to 0
+	// If string is empty meaning no optional parameter
+	// was passed use latest amount therefore set amount to 0
 	if len(recvAmount) == 0 {
 		amount = 0
 		lgr.Info.Println("No amount is specified setting amount to 0!")
@@ -119,12 +122,30 @@ func checkAmount(recvAmount string) int64 {
 		// If amount isn't empty attempt to parse it into int64
 		amount, err = (strconv.ParseInt(recvAmount, 10, 64))
 		if err != nil {
-
-			// If it fails it means that string given wasn't number and return result for
+			// If it fails it means that string
+			// given wasn't number and return result for
 			lgr.Error.Println(
-				"Unexpected value found, required string of int but received ", recvAmount)
+				"Unexpected value found, required string of int but received", recvAmount)
 			return -1
 		}
 	}
 	return amount
+}
+
+// Function to check if node name has a node exporter configuration for it
+func checkNodeNameExporter(nodeName string) (bool, string) {
+	// Check if nodeName is in the configuration
+	exporter := config.GetExporterFile()
+	for _, conf := range exporter {
+		// If the nodeName is in the configuration reply with it's websocket
+		if conf["node_name"] == nodeName {
+			lgr.Info.Println("Requested node ", nodeName, "was found!")
+			return true, conf["metrics_url"]
+		}
+	}
+	// If the nodeName isn't in the configuration
+	// produce Log and Reply with False
+	lgr.Error.Println(
+		"Requested node ", nodeName, "was not found, check if configured!")
+	return false, ""
 }

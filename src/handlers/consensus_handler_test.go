@@ -20,7 +20,7 @@ import (
 
 // Setting data to test with, valid and invalid path locations
 const (
-	socketFileFail = "testdata/user_config_nodes_test_fail.ini"
+	nodesFileFail = "testdata/user_config_nodes_test_fail.ini"
 )
 
 func TestMain(m *testing.M) {
@@ -36,8 +36,9 @@ func setup() {
 	os.Chdir("../")
 	lgr.SetLogger(os.Stdout, os.Stdout, os.Stderr)
 	conf.LoadMainConfiguration()
-	conf.LoadSocketConfiguration()
+	conf.LoadNodesConfiguration()
 	conf.LoadPrometheusConfiguration()
+	conf.LoadExporterConfiguration()
 }
 
 func Test_GetConsensusStateToGenesis_BadNode(t *testing.T) {
