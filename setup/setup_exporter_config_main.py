@@ -17,7 +17,7 @@ def get_node(nodes_so_far: List[NodeConfig]) -> Optional[NodeConfig]:
 
     # Get node's local host url
     metrics_url = input('Node Exporter\'s localhost url'
-    ' is needed which was exposed during the Node_Extracto setup'
+    ' is needed which was exposed during the Node Exporter setup'
     ' (typically 127.0.0.1:9100/metrics):\n')
 
     # Return node

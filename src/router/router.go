@@ -33,6 +33,7 @@ func StartServer() error {
 		// Abort Program no Port configured to run API on
 		os.Exit(0)
 	}
+
 	// Load socket configuration but do not use them
 	nodesConf := conf.LoadNodesConfiguration()
 	if nodesConf == nil {
