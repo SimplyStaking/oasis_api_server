@@ -11,17 +11,17 @@ import (
 	"github.com/SimplyVC/oasis_api_server/src/responses"
 )
 
-// NodeExtractorQueryGauge to retreive extractor data.
-func NodeExtractorQueryGauge(w http.ResponseWriter, r *http.Request) {
+// NodeExporterQueryGauge to retreive exporter data.
+func NodeExporterQueryGauge(w http.ResponseWriter, r *http.Request) {
 
-	lgr.Info.Println("Received request for /api/extractor/gauge")
+	lgr.Info.Println("Received request for /api/exporter/gauge")
 
 	// Adding header so that receiver knows they are receiving JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
 	// Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
-	confirmation, extractorConfig := checkNodeNameExtractor(nodeName)
+	confirmation, exporterConfig := checkNodeNameExporter(nodeName)
 	if confirmation == false {
 
 		// Stop the code here no need to establish connection and reply
@@ -40,24 +40,24 @@ func NodeExtractorQueryGauge(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp, err := http.Get(extractorConfig)
+	resp, err := http.Get(exporterConfig)
 	if err != nil {
 		lgr.Error.Println(
-			"Failed to retrieve Prometheus Data from Node_Extractor Response")
+			"Failed to retrieve Prometheus Data from Node Exporter Response")
 	}
 
 	defer resp.Body.Close()
 
-	// Read the body response from the Node_Extractor
+	// Read the body response from the Node Exporter
 	body, err1 := ioutil.ReadAll(resp.Body)
 	if err1 != nil {
 		lgr.Error.Println(
-			"Failed to read the Node_Extractor Response")
+			"Failed to read the Node Exporter Response")
 	}
 
 	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
 	if err2 != nil {
-		lgr.Error.Println("Failed to Parse the Node_Extractor Response")
+		lgr.Error.Println("Failed to Parse the Node Exporter Response")
 	}
 
 	output := parsed[gaugeName].GetMetric()[0].GetGauge().GetValue()
@@ -65,20 +65,20 @@ func NodeExtractorQueryGauge(w http.ResponseWriter, r *http.Request) {
 
 	json.NewEncoder(w).Encode(responses.SuccessResponse{Result: s})
 	lgr.Info.Println(
-		"Received request for /api/extractor/gauge responding with : ", s)
+		"Received request for /api/exporter/gauge responding with : ", s)
 }
 
-// NodeExtractorQueryCounter to retreive extractor data.
-func NodeExtractorQueryCounter(w http.ResponseWriter, r *http.Request) {
+// NodeExporterQueryCounter to retreive exporter data.
+func NodeExporterQueryCounter(w http.ResponseWriter, r *http.Request) {
 
-	lgr.Info.Println("Received request for /api/extractor/counter")
+	lgr.Info.Println("Received request for /api/exporter/counter")
 
 	// Adding header so that receiver knows they are receiving JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
 	// Retrieving the name of the node from the query request
 	nodeName := r.URL.Query().Get("name")
-	confirmation, extractorConfig := checkNodeNameExtractor(nodeName)
+	confirmation, exporterConfig := checkNodeNameExporter(nodeName)
 	if confirmation == false {
 
 		// Stop the code here no need to establish connection and reply
@@ -97,22 +97,22 @@ func NodeExtractorQueryCounter(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp, err := http.Get(extractorConfig)
+	resp, err := http.Get(exporterConfig)
 	if err != nil {
-		lgr.Error.Println("Failed to retrieve Node_Extractor Data")
+		lgr.Error.Println("Failed to retrieve Node Exporter Data")
 	}
 
 	defer resp.Body.Close()
 
-	// Read the body response of the Node_Extractor
+	// Read the body response of the Node Exporter
 	body, err1 := ioutil.ReadAll(resp.Body)
 	if err1 != nil {
-		lgr.Error.Println("Failed to read the Node_Extractor Response")
+		lgr.Error.Println("Failed to read the Node Exporter Response")
 	}
 
 	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
 	if err2 != nil {
-		lgr.Error.Println("Failed to Parse the Node_Extractor Response")
+		lgr.Error.Println("Failed to Parse the Node Exporter Response")
 	}
 
 	output := parsed[counterName].GetMetric()[0].GetCounter().GetValue()
@@ -120,5 +120,5 @@ func NodeExtractorQueryCounter(w http.ResponseWriter, r *http.Request) {
 
 	json.NewEncoder(w).Encode(responses.SuccessResponse{Result: s})
 	lgr.Info.Println(
-		"Received request for /api/extractor/counter responding with : ", s)
+		"Received request for /api/exporter/counter responding with : ", s)
 }

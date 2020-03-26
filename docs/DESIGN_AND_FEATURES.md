@@ -62,8 +62,8 @@ The API Server works as follows:
 | /api/scheduler/genesis/               | Node Name                       | Height          | Scheduler Genesis State   | 
 | /api/prometheus/gauge/                | Node Name, Gauge Name           | none            | Gauge Value               | 
 | /api/prometheus/counter/              | Node Name, Counter Name         | none            | Counter Value             | 
-| /api/extractor/gauge/                 | Node Name, Gauge Name           | none            | Gauge Value               | 
-| /api/extractor/counter/               | Node Name, Counter Name         | none            | Counter Value             | 
+| /api/exporter/gauge/                 | Node Name, Gauge Name           | none            | Gauge Value               | 
+| /api/exporter/counter/               | Node Name, Counter Name         | none            | Counter Value             | 
 | /api/system/memory/                   | none                            | none            | Memory Stats              | 
 | /api/system/cpu/                      | none                            | none            | CPU Stats                 |
 | /api/system/disk/                     | node                            | none            | Disk Stats                |

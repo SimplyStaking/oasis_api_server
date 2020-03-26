@@ -11,11 +11,11 @@ var (
 	confMain       ini.Config
 	confNodes      ini.Config
 	confPrometheus ini.Config
-	confExtractor  ini.Config
+	confExporter  ini.Config
 	mainConfigFile = "../config/user_config_main.ini"
 	nodesFile      = "../config/user_config_nodes.ini"
 	prometheusFile = "../config/prometheus_config_main.ini"
-	extractorFile  = "../config/node_exporter_nodes.ini"
+	exporterFile  = "../config/node_exporter_nodes.ini"
 )
 
 // SetMainFile sets file location containing API configuration
@@ -33,9 +33,9 @@ func SetPrometheusFile(newFile string) {
 	prometheusFile = newFile
 }
 
-// SetExtractorFile containing the Node_Extractor configuration
-func SetExtractorFile(newFile string) {
-	extractorFile = newFile
+// SetExporterFile containing the Node Exporter configuration
+func SetExporterFile(newFile string) {
+	exporterFile = newFile
 }
 
 // GetMain returns Main API configuration
@@ -53,9 +53,9 @@ func GetPrometheusFile() map[string]map[string]string {
 	return confPrometheus
 }
 
-// GetExtractorFile returns Node_Extrasctor configuration
-func GetExtractorFile() map[string]map[string]string {
-	return confExtractor
+// GetExporterFile returns Node_Extrasctor configuration
+func GetExporterFile() map[string]map[string]string {
+	return confExporter
 }
 
 // LoadMainConfiguration loads main configuration file from config folder
@@ -91,13 +91,13 @@ func LoadPrometheusConfiguration() map[string]map[string]string {
 	return confPrometheus
 }
 
-// LoadExtractorConfiguration loads Node_Extractor configuration
-func LoadExtractorConfiguration() map[string]map[string]string {
+// LoadExporterConfiguration loads Node Exporter configuration
+func LoadExporterConfiguration() map[string]map[string]string {
 
-	// Decode and read the file containing the Node_Extractor information
-	if err := ini.DecodeFile(extractorFile, &confExtractor); err != nil {
+	// Decode and read the file containing the Node Exporter information
+	if err := ini.DecodeFile(exporterFile, &confExporter); err != nil {
 		lgr.Error.Println(err)
 		return nil
 	}
-	return confExtractor
+	return confExporter
 }

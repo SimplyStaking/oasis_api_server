@@ -9,8 +9,8 @@ import (
 	hdl "github.com/SimplyVC/oasis_api_server/src/handlers"
 )
 
-func Test_NodeExtractorQueryGauge(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/extractor/gauge", nil)
+func Test_NodeExporterQueryGauge(t *testing.T) {
+	req, _ := http.NewRequest("GET", "/api/exporter/gauge", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("gauge", "node_nf_conntrack_entries")
@@ -18,7 +18,7 @@ func Test_NodeExtractorQueryGauge(t *testing.T) {
 	req.URL.RawQuery = q.Encode()
 
 	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(hdl.NodeExtractorQueryGauge)
+	handler := http.HandlerFunc(hdl.NodeExporterQueryGauge)
 	handler.ServeHTTP(rr, req)
 	if status := rr.Code; status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v",
@@ -32,8 +32,8 @@ func Test_NodeExtractorQueryGauge(t *testing.T) {
 	}
 }
 
-func Test_NodeExtractorQueryCounter(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/extractor/counter", nil)
+func Test_NodeExporterQueryCounter(t *testing.T) {
+	req, _ := http.NewRequest("GET", "/api/exporter/counter", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("counter", "node_timex_pps_calibration_total")
@@ -41,7 +41,7 @@ func Test_NodeExtractorQueryCounter(t *testing.T) {
 	req.URL.RawQuery = q.Encode()
 
 	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(hdl.NodeExtractorQueryCounter)
+	handler := http.HandlerFunc(hdl.NodeExporterQueryCounter)
 	handler.ServeHTTP(rr, req)
 	if status := rr.Code; status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v",

@@ -132,11 +132,11 @@ func checkAmount(recvAmount string) int64 {
 	return amount
 }
 
-// Function to check if node name has a node extractor configuration for it
-func checkNodeNameExtractor(nodeName string) (bool, string) {
+// Function to check if node name has a node exporter configuration for it
+func checkNodeNameExporter(nodeName string) (bool, string) {
 	// Check if nodeName is in the configuration
-	extractor := config.GetExtractorFile()
-	for _, conf := range extractor {
+	exporter := config.GetExporterFile()
+	for _, conf := range exporter {
 		// If the nodeName is in the configuration reply with it's websocket
 		if conf["node_name"] == nodeName {
 			lgr.Info.Println("Requested node ", nodeName, "was found!")
