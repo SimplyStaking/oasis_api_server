@@ -39,6 +39,7 @@ func setup() {
 	conf.LoadNodesConfiguration()
 	conf.LoadPrometheusConfiguration()
 	conf.LoadExporterConfiguration()
+	conf.LoadSentryConfiguration()
 }
 
 func Test_GetConsensusStateToGenesis_BadNode(t *testing.T) {

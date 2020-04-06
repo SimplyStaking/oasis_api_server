@@ -8,6 +8,25 @@ import (
 	consensus "github.com/oasislabs/oasis-core/go/consensus/api"
 )
 
+// Function to verify and retrieve sentry data
+func checkSentryData(nodeName string) (bool, string, string) {
+
+	// Get Sentry IP and localtion of TLS Cert
+	allSentries := config.GetSentryData()
+	for _, sentry := range allSentries {
+		// If nodeName is in configuration reply with it's websocket
+		if sentry["node_name"] == nodeName {
+			lgr.Info.Println("Requested sentry ", nodeName, "was found!")
+			return true, sentry["ext_url"], sentry["tls_path"]
+		}
+	}
+
+	// If nodeName isn't in configuration produce Log and Reply with False
+	lgr.Error.Println(
+		"Requested sentry ", nodeName, "was not found, check if configured!")
+	return false, "", ""
+}
+
 // Function to check if node name is in configuration and return socket for it
 func checkNodeName(nodeName string) (bool, string) {
 

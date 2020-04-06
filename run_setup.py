@@ -1,7 +1,8 @@
 from configparser import ConfigParser
 
-from setup import setup_user_config_main, setup_user_config_nodes
-from setup import setup_prometheus_config_main, setup_node_exporter_nodes
+from setup import setup_user_config_main, setup_user_config_nodes, \
+    setup_prometheus_config_main, setup_exporter_config_main, \
+    setup_sentry_config_main
 
 def run() -> None:
     # Initialise parsers
@@ -17,6 +18,9 @@ def run() -> None:
     cp_exporter = ConfigParser()
     cp_exporter.read('config/node_exporter_nodes.ini')
     
+    cp_sentry = ConfigParser()
+    cp_sentry.read('config/user_config_sentry.ini')
+
     # Start setup
     print('Welcome to the Oasis API Server setup script!')
     try:
@@ -35,11 +39,16 @@ def run() -> None:
             cp_prometheus.write(f)
         print('Saved config/prometheus_config_main.ini\n')
 
-        setup_node_exporter_nodes.setup_nodes(cp_exporter)
+        setup_exporter_config_main.setup_nodes(cp_exporter)
         with open('config/node_exporter_nodes.ini', 'w') as f:
             cp_exporter.write(f)
         print('Saved config/node_exporter_nodes.ini\n')
         
+        setup_sentry_config_main.setup_nodes(cp_sentry)
+        with open('config/user_config_sentry.ini', 'w') as f:
+            cp_sentry.write(f)
+        print('Saved config/user_config_sentry.ini\n')
+
         print('Setup completed!')
     except KeyboardInterrupt:
         print('Setup process stopped.')

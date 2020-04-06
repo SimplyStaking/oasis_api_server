@@ -42,6 +42,12 @@ func StartServer() error {
 		os.Exit(0)
 	}
 
+	// Load sentry configuration
+	sentryConf := conf.LoadSentryConfiguration()
+	if sentryConf == nil {
+		lgr.Error.Println("Loading of Sentry configuration has Failed!")
+	}
+
 	apiPort := mainConf["api_server"]["port"]
 	lgr.Info.Println("Loaded port : ", apiPort)
 
@@ -49,58 +55,93 @@ func StartServer() error {
 	router := mux.NewRouter().StrictSlash(true)
 
 	// Router Handlers to handle General API Calls
-	router.HandleFunc("/api/ping/", handler.Pong).Queries("name", "{name}").Methods("Get")
-	router.HandleFunc("/api/getconnectionslist", handler.GetConnections).Methods("Get")
+	router.HandleFunc("/api/ping/", handler.Pong).Methods("Get")
+	router.HandleFunc("/api/getconnectionslist",
+		handler.GetConnections).Methods("Get")
 
 	// Router Handlers to handle Consensus API Calls
-	router.HandleFunc("/api/consensus/genesis/", handler.GetConsensusStateToGenesis).Methods("Get")
-	router.HandleFunc("/api/consensus/epoch/", handler.GetEpoch).Methods("Get")
-	router.HandleFunc("/api/consensus/block/", handler.GetBlock).Methods("Get")
-	router.HandleFunc("/api/consensus/blockheader/", handler.GetBlockHeader).Methods("Get")
-	router.HandleFunc("/api/consensus/blocklastcommit/", handler.GetBlockLastCommit).Methods("Get")
-	router.HandleFunc("/api/consensus/transactions/", handler.GetTransactions).Methods("Get")
-	router.HandleFunc("/api/pingnode/", handler.PingNode).Queries("name", "{name}").Methods("Get")
+	router.HandleFunc("/api/consensus/genesis/",
+		handler.GetConsensusStateToGenesis).Methods("Get")
+	router.HandleFunc("/api/consensus/epoch/",
+		handler.GetEpoch).Methods("Get")
+	router.HandleFunc("/api/consensus/block/",
+		handler.GetBlock).Methods("Get")
+	router.HandleFunc("/api/consensus/blockheader/",
+		handler.GetBlockHeader).Methods("Get")
+	router.HandleFunc("/api/consensus/blocklastcommit/",
+		handler.GetBlockLastCommit).Methods("Get")
+	router.HandleFunc("/api/consensus/transactions/",
+		handler.GetTransactions).Methods("Get")
+	router.HandleFunc("/api/pingnode/",
+		handler.PingNode).Queries("name", "{name}").Methods("Get")
 
 	// Router Handlers to handle Registry API Calls
-	router.HandleFunc("/api/registry/entities/", handler.GetEntities).Methods("Get")
-	router.HandleFunc("/api/registry/nodes/", handler.GetNodes).Methods("Get")
-	router.HandleFunc("/api/registry/runtimes/", handler.GetRuntimes).Methods("Get")
-	router.HandleFunc("/api/registry/genesis/", handler.GetRegistryStateToGenesis).Methods("Get")
-	router.HandleFunc("/api/registry/entity/", handler.GetEntity).Methods("Get")
-	router.HandleFunc("/api/registry/node/", handler.GetNode).Methods("Get")
-	router.HandleFunc("/api/registry/runtime/", handler.GetRuntime).Methods("Get")
+	router.HandleFunc("/api/registry/entities/",
+		handler.GetEntities).Methods("Get")
+	router.HandleFunc("/api/registry/nodes/",
+		handler.GetNodes).Methods("Get")
+	router.HandleFunc("/api/registry/runtimes/",
+		handler.GetRuntimes).Methods("Get")
+	router.HandleFunc("/api/registry/genesis/",
+		handler.GetRegistryStateToGenesis).Methods("Get")
+	router.HandleFunc("/api/registry/entity/",
+		handler.GetEntity).Methods("Get")
+	router.HandleFunc("/api/registry/node/",
+		handler.GetNode).Methods("Get")
+	router.HandleFunc("/api/registry/runtime/",
+		handler.GetRuntime).Methods("Get")
 
 	// Router Handlers to handle Staking API Calls
-	router.HandleFunc("/api/staking/totalsupply/", handler.GetTotalSupply).Methods("Get")
-	router.HandleFunc("/api/staking/commonpool/", handler.GetCommonPool).Methods("Get")
-	router.HandleFunc("/api/staking/genesis/", handler.GetStakingStateToGenesis).Methods("Get")
-	router.HandleFunc("/api/staking/threshold/", handler.GetThreshold).Methods("Get")
-	router.HandleFunc("/api/staking/accounts/", handler.GetAccounts).Methods("Get")
-	router.HandleFunc("/api/staking/accountinfo/", handler.GetAccountInfo).Methods("Get")
-	router.HandleFunc("/api/staking/delegations/", handler.GetDelegations).Methods("Get")
-	router.HandleFunc("/api/staking/debondingdelegations/", handler.GetDebondingDelegations).Methods("Get")
+	router.HandleFunc("/api/staking/totalsupply/",
+		handler.GetTotalSupply).Methods("Get")
+	router.HandleFunc("/api/staking/commonpool/",
+		handler.GetCommonPool).Methods("Get")
+	router.HandleFunc("/api/staking/genesis/",
+		handler.GetStakingStateToGenesis).Methods("Get")
+	router.HandleFunc("/api/staking/threshold/",
+		handler.GetThreshold).Methods("Get")
+	router.HandleFunc("/api/staking/accounts/",
+		handler.GetAccounts).Methods("Get")
+	router.HandleFunc("/api/staking/accountinfo/",
+		handler.GetAccountInfo).Methods("Get")
+	router.HandleFunc("/api/staking/delegations/",
+		handler.GetDelegations).Methods("Get")
+	router.HandleFunc("/api/staking/debondingdelegations/",
+		handler.GetDebondingDelegations).Methods("Get")
 
 	// Router Handlers to handle NodeController API Calls
-	router.HandleFunc("/api/nodecontroller/synced/", handler.GetIsSynced).Methods("Get")
+	router.HandleFunc("/api/nodecontroller/synced/",
+		handler.GetIsSynced).Methods("Get")
 
 	// Router Handlers to handle Scheduler API Calls
-	router.HandleFunc("/api/scheduler/validators/", handler.GetValidators).Methods("Get")
-	router.HandleFunc("/api/scheduler/committees/", handler.GetCommittees).Methods("Get")
-	router.HandleFunc("/api/scheduler/genesis/", handler.GetSchedulerStateToGenesis).Methods("Get")
+	router.HandleFunc("/api/scheduler/validators/",
+		handler.GetValidators).Methods("Get")
+	router.HandleFunc("/api/scheduler/committees/",
+		handler.GetCommittees).Methods("Get")
+	router.HandleFunc("/api/scheduler/genesis/",
+		handler.GetSchedulerStateToGenesis).Methods("Get")
 
 	// Router Handlers to handle Prometheus API Calls
-	router.HandleFunc("/api/prometheus/gauge/", handler.PrometheusQueryGauge).Methods("Get")
-	router.HandleFunc("/api/prometheus/counter/", handler.PrometheusQueryCounter).Methods("Get")
+	router.HandleFunc("/api/prometheus/gauge/",
+		handler.PrometheusQueryGauge).Methods("Get")
+	router.HandleFunc("/api/prometheus/counter/",
+		handler.PrometheusQueryCounter).Methods("Get")
 
 	// Router Handlers to handle the Node Exporter API Calls
-	router.HandleFunc("/api/exporter/gauge/", handler.NodeExporterQueryGauge).Methods("Get")
-	router.HandleFunc("/api/exporter/counter/", handler.NodeExporterQueryCounter).Methods("Get")
+	router.HandleFunc("/api/exporter/gauge/",
+		handler.NodeExporterQueryGauge).Methods("Get")
+	router.HandleFunc("/api/exporter/counter/",
+		handler.NodeExporterQueryCounter).Methods("Get")
 
 	// Router Handlers to handle System API Calls
 	router.HandleFunc("/api/system/memory/", handler.GetMemory).Methods("Get")
 	router.HandleFunc("/api/system/disk/", handler.GetDisk).Methods("Get")
 	router.HandleFunc("/api/system/cpu/", handler.GetCPU).Methods("Get")
 	router.HandleFunc("/api/system/network/", handler.GetNetwork).Methods("Get")
+
+	// Router Handlers to handle Sentry API Calls
+	router.HandleFunc("/api/sentry/addresses/",
+		handler.GetSentryAddresses).Methods("Get")
 
 	log.Fatal(http.ListenAndServe(":"+apiPort, router))
 	return nil

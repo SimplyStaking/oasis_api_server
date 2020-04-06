@@ -11,12 +11,19 @@ var (
 	confMain       ini.Config
 	confNodes      ini.Config
 	confPrometheus ini.Config
-	confExporter  ini.Config
+	confExporter   ini.Config
+	confSentry     ini.Config
 	mainConfigFile = "../config/user_config_main.ini"
 	nodesFile      = "../config/user_config_nodes.ini"
 	prometheusFile = "../config/prometheus_config_main.ini"
-	exporterFile  = "../config/node_exporter_nodes.ini"
+	exporterFile   = "../config/node_exporter_nodes.ini"
+	sentryFile     = "../config/user_config_sentry.ini"
 )
+
+// SetSentryFile sets file location containing sentry data
+func SetSentryFile(newFile string) {
+	sentryFile = newFile
+}
 
 // SetMainFile sets file location containing API configuration
 func SetMainFile(newFile string) {
@@ -36,6 +43,11 @@ func SetPrometheusFile(newFile string) {
 // SetExporterFile containing the Node Exporter configuration
 func SetExporterFile(newFile string) {
 	exporterFile = newFile
+}
+
+// GetSentryData returns Sentry configuration
+func GetSentryData() map[string]map[string]string {
+	return confSentry
 }
 
 // GetMain returns Main API configuration
@@ -100,4 +112,15 @@ func LoadExporterConfiguration() map[string]map[string]string {
 		return nil
 	}
 	return confExporter
+}
+
+// LoadSentryConfiguration loads sentry configuration details
+func LoadSentryConfiguration() map[string]map[string]string {
+
+	// Decode and read file containing sentry information
+	if err := ini.DecodeFile(sentryFile, &confSentry); err != nil {
+		lgr.Error.Println(err)
+		return nil
+	}
+	return confSentry
 }

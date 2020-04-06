@@ -14,9 +14,15 @@ import (
 	gen_api "github.com/oasislabs/oasis-core/go/genesis/api"
 	registry_api "github.com/oasislabs/oasis-core/go/registry/api"
 	scheduler_api "github.com/oasislabs/oasis-core/go/scheduler/api"
+	sentry_api "github.com/oasislabs/oasis-core/go/sentry/api"
 	staking_api "github.com/oasislabs/oasis-core/go/staking/api"
 	mint_types "github.com/tendermint/tendermint/types"
 )
+
+// SentryResponse responds with network statistics of system
+type SentryResponse struct {
+	SentryAddresses *sentry_api.SentryAddresses `json:"result"`
+}
 
 // NetworkResponse responds with network statistics of system
 type NetworkResponse struct {
