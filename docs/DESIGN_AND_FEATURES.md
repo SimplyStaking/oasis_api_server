@@ -19,6 +19,7 @@ The diagram below gives an idea of the various components at play when the API S
 
 The API Server works as follows:
 - The API Server loads the configuration containing the internal socket information for each node from the `config/user_config_nodes.ini` file together with the port at which the API will expose its endpoints taken from the `config/user_config_main.ini` file.
+- The API Server has an option to also retrieve the data of Sentries connected to this node through the External URl and tls certificate data. This data is set up in the `config/user_config_sentry` file.
 - The API Server loads the information containing Prometheus endpoints from the `config/prometheus_config_main.ini` file which will be used to query blockchain data.
 - The API Server loads the Node Exporter endpoint from the `config/node_exporter_nodes.ini` file which will be used to query machine data running the nodes.
 - By communicating through this port, the API Server receives the endpoints specified in the `Complete List of Endpoints` section below, and requests information from the nodes it is connected to accordingly.
@@ -29,6 +30,7 @@ The API Server works as follows:
 3 : [Staking Backend](https://godoc.org/github.com/oasislabs/oasis-core/go/staking/api#Backend)
 4 : [Scheduler Backend](https://godoc.org/github.com/oasislabs/oasis-core/go/scheduler/api#Backend)
 5 : [NodeController](https://godoc.org/github.com/oasislabs/oasis-core/go/control/api#NodeController)
+6 : [Sentry](https://godoc.org/github.com/oasislabs/oasis-core/go/sentry/api#Backend)
 
 ## Complete List of Endpoints
 | API Endpoint                     | Required Inputs                 | Optional Inputs | Output                    | Description                                                                         |
@@ -63,12 +65,13 @@ The API Server works as follows:
 | /api/scheduler/genesis/               | Node Name                       | Height          | Scheduler Genesis State   | 
 | /api/prometheus/gauge/                | Node Name, Gauge Name           | none            | Gauge Value               | 
 | /api/prometheus/counter/              | Node Name, Counter Name         | none            | Counter Value             | 
-| /api/exporter/gauge/                 | Node Name, Gauge Name           | none            | Gauge Value               | 
-| /api/exporter/counter/               | Node Name, Counter Name         | none            | Counter Value             | 
+| /api/exporter/gauge/                  | Node Name, Gauge Name           | none            | Gauge Value               | 
+| /api/exporter/counter/                | Node Name, Counter Name         | none            | Counter Value             | 
 | /api/system/memory/                   | none                            | none            | Memory Stats              | 
 | /api/system/cpu/                      | none                            | none            | CPU Stats                 |
 | /api/system/disk/                     | node                            | none            | Disk Stats                |
 | /api/system/network/                  | node                            | none            | Network Stats             |
+| /api/sentry/addresses/                | Node Name,                      | none            | Nodes Connected to Sentry |
 
 ## Using the API
 
