@@ -17,7 +17,7 @@ def get_node(nodes_so_far: List[SentryConfig]) -> Optional[SentryConfig]:
 
     # Get sentry url
     ext_url = input('Sentry Node\'s external url '
-                '(typically <IP ADDRESS>::9009):\n')
+                '(typically <IP ADDRESS>:9009):\n')
 
     # Get tls certificate path
     tls_path = input('Sentry Node\'s tls_identity_cert.pem file location '
@@ -31,8 +31,8 @@ def setup_nodes(cp: ConfigParser) -> None:
 
     print('==== Sentry')
     print('To retrieve data from Sentry, the API needs'
-        'to know where to find the Sentry endpoints! '
-        'The list of endpoints the API will connect to will now be '
+        'to know the sentry endpoints! The list of '
+        'endpoints the API will connect to will now be '
         'set up. Node names must be unique!')
 
     # Check if list already set up
