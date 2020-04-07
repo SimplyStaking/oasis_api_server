@@ -11,10 +11,10 @@ import (
 
 // Setting data to test with, valid and invalid path locations
 const (
-	mainConfigFile = "testdata/test_user_config_main.ini"
-	nodesFile      = "testdata/test_config_nodes.ini"
-	mainFileFail   = "testdata/test_config_main_fail.ini"
-	nodesFileFail  = "testdata/test_config_nodes_fail.ini"
+	mainConfigFile = "config/user_config_main.ini"
+	nodesFile      = "config/user_config_nodes.ini"
+	mainFileFail   = "test_config_main_fail.ini"
+	nodesFileFail  = "test_config_nodes_fail.ini"
 )
 
 func TestMain(m *testing.M) {
@@ -24,7 +24,7 @@ func TestMain(m *testing.M) {
 }
 
 func setup() {
-	os.Chdir("../")
+	os.Chdir("../../")
 
 	// Set Logger that will be used by API through all packages
 	lgr.SetLogger(os.Stdout, os.Stdout, os.Stderr)

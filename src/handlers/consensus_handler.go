@@ -3,7 +3,10 @@ package handlers
 import (
 	"context"
 	"encoding/json"
+	"fmt"
+	"log"
 	"net/http"
+	"os"
 
 	"google.golang.org/grpc"
 
@@ -29,6 +32,12 @@ func loadConsensusClient(socket string) (*grpc.ClientConn, consensus.ClientBacke
 
 // GetConsensusStateToGenesis returns genesis state at specified block height for Consensus.
 func GetConsensusStateToGenesis(w http.ResponseWriter, r *http.Request) {
+
+	path, err := os.Getwd()
+	if err != nil {
+		log.Println(err)
+	}
+	fmt.Println(path)
 
 	// Add header so that received knows they're receiving JSON
 	w.Header().Add("Content-Type", "application/json")

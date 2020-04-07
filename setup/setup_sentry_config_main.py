@@ -61,7 +61,7 @@ def setup_nodes(cp: ConfigParser) -> None:
             print('Successfully added node.')
 
         if not yn_prompt('Do you want to add another'
-            'Sentry Endpoint? (Y/n)\n'):
+            'sentry endpoint? (Y/n)\n'):
             break
 
     # Add nodes to config

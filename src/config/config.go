@@ -13,11 +13,11 @@ var (
 	confPrometheus ini.Config
 	confExporter   ini.Config
 	confSentry     ini.Config
-	mainConfigFile = "../config/user_config_main.ini"
-	nodesFile      = "../config/user_config_nodes.ini"
-	prometheusFile = "../config/prometheus_config_main.ini"
-	exporterFile   = "../config/node_exporter_nodes.ini"
-	sentryFile     = "../config/user_config_sentry.ini"
+	mainConfigFile = "config/user_config_main.ini"
+	nodesFile      = "config/user_config_nodes.ini"
+	prometheusFile = "config/prometheus_config_main.ini"
+	exporterFile   = "config/node_exporter_nodes.ini"
+	sentryFile     = "config/user_config_sentry.ini"
 )
 
 // SetSentryFile sets file location containing sentry data

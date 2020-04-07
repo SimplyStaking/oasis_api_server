@@ -1,2 +1,1 @@
-cd src/
-go test ./handlers ./config ./rpc -v
+go test ./src/handlers ./src/config ./src/rpc -v
