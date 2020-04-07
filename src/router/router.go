@@ -15,36 +15,36 @@ import (
 // StartServer starts server by setting router and all endpoints
 func StartServer() error {
 	// Load prometheus configurations
-	prometheusConf := conf.LoadPrometheusConfiguration()
-	if prometheusConf == nil {
+	_, err := conf.LoadPrometheusConfiguration()
+	if err != nil {
 		lgr.Error.Println("Loading of Prometheus configuration has Failed!")
 	}
 
 	// Load exporter configurations
-	exporterConf := conf.LoadExporterConfiguration()
-	if exporterConf == nil {
+	_, err1 := conf.LoadExporterConfiguration()
+	if err1 != nil {
 		lgr.Error.Println("Loading of Node Exporter configuration has Failed!")
 	}
 
 	// Load port configurations
-	mainConf := conf.LoadMainConfiguration()
-	if mainConf == nil {
+	mainConf, err2 := conf.LoadMainConfiguration()
+	if err2 != nil {
 		lgr.Error.Println("Loading of Port configuration has Failed!")
 		// Abort Program no Port configured to run API on
 		os.Exit(0)
 	}
 
 	// Load socket configuration but do not use them
-	nodesConf := conf.LoadNodesConfiguration()
-	if nodesConf == nil {
+	_, err3 := conf.LoadNodesConfiguration()
+	if err3 != nil {
 		lgr.Error.Println("Loading of Socket configuration has Failed!")
 		// Abort Program no Sockets configured to run API on
 		os.Exit(0)
 	}
 
 	// Load sentry configuration
-	sentryConf := conf.LoadSentryConfiguration()
-	if sentryConf == nil {
+	_, err4 := conf.LoadSentryConfiguration()
+	if err4 != nil {
 		lgr.Error.Println("Loading of Sentry configuration has Failed!")
 	}
 

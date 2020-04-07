@@ -71,56 +71,56 @@ func GetExporterFile() map[string]map[string]string {
 }
 
 // LoadMainConfiguration loads main configuration file from config folder
-func LoadMainConfiguration() map[string]map[string]string {
+func LoadMainConfiguration() (map[string]map[string]string, error) {
 
 	// Decode and read file containing Main API information
 	if err := ini.DecodeFile(mainConfigFile, &confMain); err != nil {
 		lgr.Error.Println(err)
-		return nil
+		return nil, err
 	}
-	return confMain
+	return confMain, nil
 }
 
 // LoadNodesConfiguration loads node configuration file from config folder
-func LoadNodesConfiguration() map[string]map[string]string {
+func LoadNodesConfiguration() (map[string]map[string]string, error) {
 
 	// Decode and read file containing Node information
 	if err := ini.DecodeFile(nodesFile, &confNodes); err != nil {
 		lgr.Error.Println(err)
-		return nil
+		return nil, err
 	}
-	return confNodes
+	return confNodes, nil
 }
 
 // LoadPrometheusConfiguration loads prometheus configuration
-func LoadPrometheusConfiguration() map[string]map[string]string {
+func LoadPrometheusConfiguration() (map[string]map[string]string, error) {
 
 	// Decode and read file containing prometheus information
 	if err := ini.DecodeFile(prometheusFile, &confPrometheus); err != nil {
 		lgr.Error.Println(err)
-		return nil
+		return nil, err
 	}
-	return confPrometheus
+	return confPrometheus, nil
 }
 
 // LoadExporterConfiguration loads Node Exporter configuration
-func LoadExporterConfiguration() map[string]map[string]string {
+func LoadExporterConfiguration() (map[string]map[string]string, error) {
 
 	// Decode and read the file containing the Node Exporter information
 	if err := ini.DecodeFile(exporterFile, &confExporter); err != nil {
 		lgr.Error.Println(err)
-		return nil
+		return nil, err
 	}
-	return confExporter
+	return confExporter, nil
 }
 
 // LoadSentryConfiguration loads sentry configuration details
-func LoadSentryConfiguration() map[string]map[string]string {
+func LoadSentryConfiguration() (map[string]map[string]string, error) {
 
 	// Decode and read file containing sentry information
 	if err := ini.DecodeFile(sentryFile, &confSentry); err != nil {
 		lgr.Error.Println(err)
-		return nil
+		return nil, err
 	}
-	return confSentry
+	return confSentry, nil
 }
