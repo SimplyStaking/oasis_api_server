@@ -24,7 +24,7 @@ func TestMain(m *testing.M) {
 }
 
 func setup() {
-	os.Chdir("../../")
+	os.Chdir("../")
 
 	// Set Logger that will be used by API through all packages
 	lgr.SetLogger(os.Stdout, os.Stdout, os.Stderr)

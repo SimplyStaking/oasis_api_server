@@ -11,9 +11,9 @@ var (
 	confMain       ini.Config
 	confNodes      ini.Config
 	confSentry     ini.Config
-	mainConfigFile = "config/user_config_main.ini"
-	nodesFile      = "config/user_config_nodes.ini"
-	sentryFile     = "config/user_config_sentry.ini"
+	mainConfigFile = "../config/user_config_main.ini"
+	nodesFile      = "../config/user_config_nodes.ini"
+	sentryFile     = "../config/user_config_sentry.ini"
 )
 
 // SetSentryFile sets file location containing sentry data
