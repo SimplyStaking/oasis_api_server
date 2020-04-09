@@ -6,8 +6,5 @@ oasis_api_server
 config/user_config_main.ini
 config/user_config_nodes.ini
 config/user_config_sentry.ini
-config/prometheus_config_main.ini
-config/node_exporter_nodes.ini
 config/tls_identity_cert.pem
 .vscode/
-Dockerfile
