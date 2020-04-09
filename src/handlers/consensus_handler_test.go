@@ -37,8 +37,6 @@ func setup() {
 	lgr.SetLogger(os.Stdout, os.Stdout, os.Stderr)
 	conf.LoadMainConfiguration()
 	conf.LoadNodesConfiguration()
-	conf.LoadPrometheusConfiguration()
-	conf.LoadExporterConfiguration()
 	conf.LoadSentryConfiguration()
 }
 

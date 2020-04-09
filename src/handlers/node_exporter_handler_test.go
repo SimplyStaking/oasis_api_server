@@ -12,7 +12,6 @@ import (
 func Test_NodeExporterQueryGauge(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/exporter/gauge", nil)
 	q := req.URL.Query()
-	q.Add("name", "Oasis_Local")
 	q.Add("gauge", "node_nf_conntrack_entries")
 
 	req.URL.RawQuery = q.Encode()
@@ -35,7 +34,6 @@ func Test_NodeExporterQueryGauge(t *testing.T) {
 func Test_NodeExporterQueryCounter(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/exporter/counter", nil)
 	q := req.URL.Query()
-	q.Add("name", "Oasis_Local")
 	q.Add("counter", "node_timex_pps_calibration_total")
 
 	req.URL.RawQuery = q.Encode()
