@@ -1,5 +1,6 @@
 class NodeConfig:
 
-    def __init__(self, node_name: str, ws_url: str) -> None:
+    def __init__(self, node_name: str, is_path: str, p_url : str) -> None:
         self.node_name = node_name
-        self.ws_url = ws_url
+        self.is_path = is_path
+        self.p_url = p_url
