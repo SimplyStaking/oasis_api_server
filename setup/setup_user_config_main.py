@@ -58,7 +58,7 @@ def setup_api_server(cp: ConfigParser) -> None:
       # Get node's local host url
     metrics_url = input('Node Exporter\'s localhost url'
     ' is needed which was exposed during the Node Exporter setup'
-    ' (typically 127.0.0.1:9100/metrics):\n')
+    ' (typically http://127.0.0.1:9100/metrics):\n')
 
 
     cp['api_server']['port'] = port

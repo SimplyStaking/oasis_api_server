@@ -152,7 +152,7 @@ sudo chown -R <USER>:<USER> <CONFIG_DIR>
 No further steps are required.
 
 #### Running the Docker Image
-Now that the Docker image is on your machine, and you have written configurations for it, you can run it as follows, where `<CONFIG_DIR>` is the **full path** to the folder containing the previously created config files. The `<INTERNAL_SOCK_DIR>` is the location on your machine where internal socket file can be found for the Oasis Node e.g : `serverdir/node/` while `<PATH_IN_CONFIG>` is the specified location in the API setup where it will look for the internal socket e.g : `serverdir/node/`.
+Now that the Docker image is on your machine, and you have written configurations for it, you can run it as follows, where `<CONFIG_DIR>` is the **full path** to the folder containing the previously created config files. The `<INTERNAL_SOCK_DIR>` is the **full path** on your machine where the internal socket file can be found for the Oasis Node e.g : `serverdir/node/` while `<PATH_IN_CONFIG>` is the specified location in the API setup where it will look for the internal socket e.g : `serverdir/node/`.
 ```bash
 docker run -p 8080:8080 \
     -v <CONFIG_DIR>:/app/config/ \

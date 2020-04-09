@@ -27,7 +27,7 @@ def get_node(nodes_so_far: List[NodeConfig]) -> Optional[NodeConfig]:
 
     # Get Prometheus's URL of the Node
     p_url = input('Prometheus Node\'s localhost url '
-                '(typically 127.0.0.1:3000):\n')
+                '(typically http://127.0.0.1:3000):\n')
 
     # Return node
     return NodeConfig(node_name, is_path, p_url)
