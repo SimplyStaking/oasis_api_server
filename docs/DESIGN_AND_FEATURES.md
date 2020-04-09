@@ -18,10 +18,9 @@ The diagram below gives an idea of the various components at play when the API S
 <img src="SERVER.png" alt="design"/>
 
 The API Server works as follows:
-- The API Server loads the configuration containing the internal socket information for each node from the `config/user_config_nodes.ini` file together with the port at which the API will expose its endpoints taken from the `config/user_config_main.ini` file.
+- The API Server loads the configuration containing the internal socket information for each node from the `config/user_config_nodes.ini` together with Prometheus endpoint URLs that are used to query blockchain data.
+- The API Server loads the API server configuration from the `config/user_config_main.ini` file together with the Node Exporter endpoint which will be used to query machine data running the nodes.
 - The API Server has an option to also retrieve the data of Sentries connected to the node through the External URl and tls certificate data of the Sentry. This data is set up in the `config/user_config_sentry` file.
-- The API Server loads the information containing Prometheus endpoints from the `config/prometheus_config_main.ini` file which will be used to query blockchain data.
-- The API Server loads the Node Exporter endpoint from the `config/node_exporter_nodes.ini` file which will be used to query machine data running the nodes.
 - By communicating through this port, the API Server receives the endpoints specified in the `Complete List of Endpoints` section below, and requests information from the nodes it is connected to accordingly.
 - Once a request is received for an endpoint the server will read the query which should contain the name of the node that will be queried, it then attempts to establish a connection to the node and request data from it. This data is then foramtted into JSON and returned.
 - The server interacts with the protocol API through these clients :
@@ -65,8 +64,8 @@ The API Server works as follows:
 | /api/scheduler/genesis/               | Node Name                       | Height          | Scheduler Genesis State   | 
 | /api/prometheus/gauge/                | Node Name, Gauge Name           | none            | Gauge Value               | 
 | /api/prometheus/counter/              | Node Name, Counter Name         | none            | Counter Value             | 
-| /api/exporter/gauge/                  | Node Name, Gauge Name           | none            | Gauge Value               | 
-| /api/exporter/counter/                | Node Name, Counter Name         | none            | Counter Value             | 
+| /api/exporter/gauge/                  | Gauge Name                      | none            | Gauge Value               | 
+| /api/exporter/counter/                | Counter Name                    | none            | Counter Value             | 
 | /api/system/memory/                   | none                            | none            | Memory Stats              | 
 | /api/system/cpu/                      | none                            | none            | CPU Stats                 |
 | /api/system/disk/                     | node                            | none            | Disk Stats                |
