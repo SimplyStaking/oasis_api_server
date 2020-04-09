@@ -37,7 +37,7 @@ func checkNodeName(nodeName string) (bool, string) {
 		// If nodeName is in configuration reply with it's websocket
 		if socket["node_name"] == nodeName {
 			lgr.Info.Println("Requested node ", nodeName, "was found!")
-			return true, socket["ws_url"]
+			return true, socket["is_path"]
 		}
 	}
 
@@ -51,18 +51,19 @@ func checkNodeName(nodeName string) (bool, string) {
 func checkNodeNamePrometheus(nodeName string) (bool, string) {
 
 	// Check if nodeName is in configuration
-	prometheus := config.GetPrometheusFile()
-	for _, conf := range prometheus {
+	nodeData := config.GetNodes()
+	for _, node := range nodeData {
 
-		// If nodeName is in configuration reply with it's websocket
-		if conf["node_name"] == nodeName {
+		// If nodeName is in configuration reply with it's prometheus url
+		if node["node_name"] == nodeName {
 			lgr.Info.Println("Requested node ", nodeName, "was found!")
-			return true, conf["ws_url"]
+			return true, node["p_url"]
 		}
 	}
 
 	// If nodeName isn't in configuration produce Log and Reply with False
-	lgr.Error.Println("Requested node ", nodeName, "was not found, check if configured!")
+	lgr.Error.Println(
+		"Requested node ", nodeName, "was not found, check if configured!")
 	return false, ""
 }
 
@@ -151,20 +152,19 @@ func checkAmount(recvAmount string) int64 {
 	return amount
 }
 
-// Function to check if node name has a node exporter configuration for it
-func checkNodeNameExporter(nodeName string) (bool, string) {
+// Function to check if a Node Exporter URL exists
+func getNodeExporter() (bool, string) {
+
 	// Check if nodeName is in the configuration
-	exporter := config.GetExporterFile()
-	for _, conf := range exporter {
-		// If the nodeName is in the configuration reply with it's websocket
-		if conf["node_name"] == nodeName {
-			lgr.Info.Println("Requested node ", nodeName, "was found!")
-			return true, conf["metrics_url"]
-		}
+	mainInfo := config.GetMain()
+	
+	if mainInfo["api_server"]["metrics_url"] != "" {
+		lgr.Info.Println("Requested node Node Exporter was found!")
+		return true, mainInfo["api_server"]["metrics_url"]
 	}
-	// If the nodeName isn't in the configuration
-	// produce Log and Reply with False
+
+	// If the Node Exporter was not configured then reply with False
 	lgr.Error.Println(
-		"Requested node ", nodeName, "was not found, check if configured!")
+		"Requested node was not found, check if configured!")
 	return false, ""
 }

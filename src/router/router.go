@@ -14,18 +14,7 @@ import (
 
 // StartServer starts server by setting router and all endpoints
 func StartServer() error {
-	// Load prometheus configurations
-	_, err := conf.LoadPrometheusConfiguration()
-	if err != nil {
-		lgr.Error.Println("Loading of Prometheus configuration has Failed!")
-	}
-
-	// Load exporter configurations
-	_, err1 := conf.LoadExporterConfiguration()
-	if err1 != nil {
-		lgr.Error.Println("Loading of Node Exporter configuration has Failed!")
-	}
-
+	
 	// Load port configurations
 	mainConf, err2 := conf.LoadMainConfiguration()
 	if err2 != nil {
