@@ -11,10 +11,10 @@ import (
 
 // Setting data to test with, valid and invalid path locations
 const (
-	mainConfigFile = "testdata/test_user_config_main.ini"
-	nodesFile      = "testdata/test_config_nodes.ini"
-	mainFileFail   = "testdata/test_config_main_fail.ini"
-	nodesFileFail  = "testdata/test_config_nodes_fail.ini"
+	mainConfigFile = "config/user_config_main.ini"
+	nodesFile      = "config/user_config_nodes.ini"
+	mainFileFail   = "test_config_main_fail.ini"
+	nodesFileFail  = "test_config_nodes_fail.ini"
 )
 
 func TestMain(m *testing.M) {
@@ -24,7 +24,7 @@ func TestMain(m *testing.M) {
 }
 
 func setup() {
-	os.Chdir("../")
+	os.Chdir("../../")
 
 	// Set Logger that will be used by API through all packages
 	lgr.SetLogger(os.Stdout, os.Stdout, os.Stderr)
@@ -37,20 +37,20 @@ func teardown() {
 }
 
 func TestLoadMainConfiguration_Success_1(t *testing.T) {
-	mainConf := config.LoadMainConfiguration()
+	mainConf, _ := config.LoadMainConfiguration()
 	if mainConf == nil {
 		t.Errorf("Failed to load main config file from path.")
 	}
 }
 
 func TestLoadNodesConfig_Success_1(t *testing.T) {
-	nodesConf := config.LoadNodesConfiguration()
+	nodesConf, _ := config.LoadNodesConfiguration()
 	if nodesConf == nil {
 		t.Errorf("Failed to load node config file from path.")
 	}
 }
 func TestLoadMainConfiguration_Success_2(t *testing.T) {
-	mainConf := config.LoadNodesConfiguration()
+	mainConf, _ := config.LoadNodesConfiguration()
 	if mainConf == nil {
 		t.Errorf("Failed to load main config file from path.")
 	}
@@ -61,7 +61,7 @@ func TestLoadMainConfiguration_Success_2(t *testing.T) {
 }
 
 func TestLoadNodesConfig_Success_2(t *testing.T) {
-	nodesConf := config.LoadNodesConfiguration()
+	nodesConf, _ := config.LoadNodesConfiguration()
 	if nodesConf == nil {
 		t.Errorf("Failed to load node config file from path.")
 	}
@@ -73,7 +73,7 @@ func TestLoadNodesConfig_Success_2(t *testing.T) {
 
 func TestLoadMainConfiguration_Failure_1(t *testing.T) {
 	config.SetMainFile(mainFileFail)
-	mainConf := config.LoadMainConfiguration()
+	mainConf, _ := config.LoadMainConfiguration()
 	if mainConf != nil {
 		t.Errorf("Failed to not load main config file from path.")
 	}
@@ -81,7 +81,7 @@ func TestLoadMainConfiguration_Failure_1(t *testing.T) {
 
 func TestLoadNodesConfig_Failure_1(t *testing.T) {
 	config.SetNodesFile(nodesFileFail)
-	nodesConf := config.LoadNodesConfiguration()
+	nodesConf, _ := config.LoadNodesConfiguration()
 	if nodesConf != nil {
 		t.Errorf("Failed to not load nodes file from path.")
 	}

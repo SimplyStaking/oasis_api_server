@@ -11,12 +11,19 @@ var (
 	confMain       ini.Config
 	confNodes      ini.Config
 	confPrometheus ini.Config
-	confExporter  ini.Config
-	mainConfigFile = "../config/user_config_main.ini"
-	nodesFile      = "../config/user_config_nodes.ini"
-	prometheusFile = "../config/prometheus_config_main.ini"
-	exporterFile  = "../config/node_exporter_nodes.ini"
+	confExporter   ini.Config
+	confSentry     ini.Config
+	mainConfigFile = "config/user_config_main.ini"
+	nodesFile      = "config/user_config_nodes.ini"
+	prometheusFile = "config/prometheus_config_main.ini"
+	exporterFile   = "config/node_exporter_nodes.ini"
+	sentryFile     = "config/user_config_sentry.ini"
 )
+
+// SetSentryFile sets file location containing sentry data
+func SetSentryFile(newFile string) {
+	sentryFile = newFile
+}
 
 // SetMainFile sets file location containing API configuration
 func SetMainFile(newFile string) {
@@ -36,6 +43,11 @@ func SetPrometheusFile(newFile string) {
 // SetExporterFile containing the Node Exporter configuration
 func SetExporterFile(newFile string) {
 	exporterFile = newFile
+}
+
+// GetSentryData returns Sentry configuration
+func GetSentryData() map[string]map[string]string {
+	return confSentry
 }
 
 // GetMain returns Main API configuration
@@ -59,45 +71,56 @@ func GetExporterFile() map[string]map[string]string {
 }
 
 // LoadMainConfiguration loads main configuration file from config folder
-func LoadMainConfiguration() map[string]map[string]string {
+func LoadMainConfiguration() (map[string]map[string]string, error) {
 
 	// Decode and read file containing Main API information
 	if err := ini.DecodeFile(mainConfigFile, &confMain); err != nil {
 		lgr.Error.Println(err)
-		return nil
+		return nil, err
 	}
-	return confMain
+	return confMain, nil
 }
 
 // LoadNodesConfiguration loads node configuration file from config folder
-func LoadNodesConfiguration() map[string]map[string]string {
+func LoadNodesConfiguration() (map[string]map[string]string, error) {
 
 	// Decode and read file containing Node information
 	if err := ini.DecodeFile(nodesFile, &confNodes); err != nil {
 		lgr.Error.Println(err)
-		return nil
+		return nil, err
 	}
-	return confNodes
+	return confNodes, nil
 }
 
 // LoadPrometheusConfiguration loads prometheus configuration
-func LoadPrometheusConfiguration() map[string]map[string]string {
+func LoadPrometheusConfiguration() (map[string]map[string]string, error) {
 
 	// Decode and read file containing prometheus information
 	if err := ini.DecodeFile(prometheusFile, &confPrometheus); err != nil {
 		lgr.Error.Println(err)
-		return nil
+		return nil, err
 	}
-	return confPrometheus
+	return confPrometheus, nil
 }
 
 // LoadExporterConfiguration loads Node Exporter configuration
-func LoadExporterConfiguration() map[string]map[string]string {
+func LoadExporterConfiguration() (map[string]map[string]string, error) {
 
 	// Decode and read the file containing the Node Exporter information
 	if err := ini.DecodeFile(exporterFile, &confExporter); err != nil {
 		lgr.Error.Println(err)
-		return nil
+		return nil, err
 	}
-	return confExporter
+	return confExporter, nil
+}
+
+// LoadSentryConfiguration loads sentry configuration details
+func LoadSentryConfiguration() (map[string]map[string]string, error) {
+
+	// Decode and read file containing sentry information
+	if err := ini.DecodeFile(sentryFile, &confSentry); err != nil {
+		lgr.Error.Println(err)
+		return nil, err
+	}
+	return confSentry, nil
 }

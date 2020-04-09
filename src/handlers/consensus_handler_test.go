@@ -33,12 +33,13 @@ func setup() {
 
 	// Set Logger that will be used by API through all packages
 	// And Load all configuration that need to be used by router
-	os.Chdir("../")
+	os.Chdir("../../")
 	lgr.SetLogger(os.Stdout, os.Stdout, os.Stderr)
 	conf.LoadMainConfiguration()
 	conf.LoadNodesConfiguration()
 	conf.LoadPrometheusConfiguration()
 	conf.LoadExporterConfiguration()
+	conf.LoadSentryConfiguration()
 }
 
 func Test_GetConsensusStateToGenesis_BadNode(t *testing.T) {

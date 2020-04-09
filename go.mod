@@ -45,6 +45,7 @@ require (
 	github.com/tendermint/tendermint v0.32.8
 	github.com/tendermint/tm-db v0.2.0
 	github.com/thepudds/fzgo v0.2.2
+	github.com/therecipe/qt v0.0.0-20200126204426-5074eb6d8c41 // indirect
 	github.com/uber/jaeger-client-go v2.16.0+incompatible
 	github.com/whyrusleeping/go-logging v0.0.0-20170515211332-0457bb6b88fc
 	github.com/zondax/ledger-oasis-go v0.3.0
