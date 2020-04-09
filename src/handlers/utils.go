@@ -23,7 +23,7 @@ func checkSentryData(nodeName string) (bool, string, string) {
 
 	// If nodeName isn't in configuration produce Log and Reply with False
 	lgr.Error.Println(
-		"Requested sentry ", nodeName, "was not found, check if configured!")
+		"Requested sentry ", nodeName, " was not found, check if configured!")
 	return false, "", ""
 }
 
