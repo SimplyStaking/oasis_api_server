@@ -1,4 +1,4 @@
-FROM golang:latest
+FROM golang:1.14.2
 
 # Add Maintainer Info
 LABEL maintainer="Vitaly Volozhinov <vitaly@simply-vc.com.mt>"
