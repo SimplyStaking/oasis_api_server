@@ -43,7 +43,7 @@ func checkNodeName(nodeName string) (bool, string) {
 
 	// If nodeName isn't in configuration produce Log and Reply with False
 	lgr.Error.Println(
-		"Requested node ", nodeName, "was not found, check if configured!")
+		"Requested node ", nodeName, " was not found, check if configured!")
 	return false, ""
 }
 
@@ -63,7 +63,7 @@ func checkNodeNamePrometheus(nodeName string) (bool, string) {
 
 	// If nodeName isn't in configuration produce Log and Reply with False
 	lgr.Error.Println(
-		"Requested node ", nodeName, "was not found, check if configured!")
+		"Requested node ", nodeName, " was not found, check if configured!")
 	return false, ""
 }
 
@@ -73,7 +73,8 @@ func checkHeight(recvHeight string) int64 {
 	// Declare height here so that it can be set inside if statement
 	var height int64
 
-	// If string is empty meaning no optional parameter was passed use latest height
+	// If string is empty meaning no optional
+	//  parameter was passed use latest height
 	if len(recvHeight) == 0 {
 		height = consensus.HeightLatest
 		lgr.Info.Println("No height specified getting latest height!")
@@ -83,9 +84,11 @@ func checkHeight(recvHeight string) int64 {
 		_, err := (strconv.ParseInt(recvHeight, 10, 64))
 		if err != nil {
 
-			// If it fails it means that string given wasn't number and return result for
+			// If it fails it means that string given 
+			// wasn't number and return result for
 			lgr.Error.Println(
-				"Unexpected value found, required string of int but received ", recvHeight)
+				"Unexpected value found, required string of int but received ",
+				 recvHeight)
 			return -1
 		}
 
@@ -115,7 +118,8 @@ func checkKind(recvKind string) int64 {
 			// If it fails it means that string
 			// given wasn't number and return result for
 			lgr.Error.Println(
-				"Unexpected value found, required string of int but received ", recvKind)
+				"Unexpected value found, required string of int but received ",
+				 recvKind)
 			return -1
 		}
 
@@ -145,7 +149,8 @@ func checkAmount(recvAmount string) int64 {
 			// If it fails it means that string
 			// given wasn't number and return result for
 			lgr.Error.Println(
-				"Unexpected value found, required string of int but received", recvAmount)
+				"Unexpected value found, required string of int but received ",
+				 recvAmount)
 			return -1
 		}
 	}

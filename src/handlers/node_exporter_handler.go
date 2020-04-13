@@ -25,7 +25,7 @@ func NodeExporterQueryGauge(w http.ResponseWriter, r *http.Request) {
 
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Node Exporter not configured!"})
+			Error: "Node Exporter is not configured!"})
 		return
 	}
 
@@ -81,7 +81,7 @@ func NodeExporterQueryCounter(w http.ResponseWriter, r *http.Request) {
 
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Node Exporter not configured!"})
+			Error: "Node Exporter is not configured!"})
 		return
 	}
 
