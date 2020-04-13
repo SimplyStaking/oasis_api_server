@@ -17,13 +17,13 @@ def get_node(nodes_so_far: List[NodeConfig]) -> Optional[NodeConfig]:
             break
 
     # Get node's internal socket path way
-    isocket_path = input('Node\'s internal socket file path which was setup during '
-                    'the Oasis node installation (typically '
-                    'unix:/serverdir/nodes/internal.sock):\n')
+    isocket_path = input('Node\'s internal socket file path which '
+                    'was setup during the node\'s installation '
+                    '(typically unix:/serverdir/nodes/internal.sock):\n')
 
     print('==== Prometheus')
     print('To retrieve data from Prometheus, the API needs'
-        'to know where to find the Prometheus endpoints! ')
+          'to have the Prometheus endpoints! ')
 
     # Get Prometheus's URL of the Node
     prometheus_url = input('Prometheus Node\'s localhost url '
@@ -40,8 +40,8 @@ def setup_nodes(cp: ConfigParser) -> None:
           'the nodes! The list of nodes the API will connect to will now be '
           'set up. This includes validators, sentries, and any full nodes that '
           'can be used as a data source to retrieve data from the network\'s '
-          'perspective. Node names must be unique! The list of API Nodes will '
-          'also include their Prometheus Endpoints.')
+          'perspective. Node names must be unique! The list of API nodes must '
+          'also include their Prometheus endpoints.')
 
     # Check if list already set up
     already_set_up = len(cp.sections()) > 0
