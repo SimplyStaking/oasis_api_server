@@ -6,6 +6,7 @@ from setup.utils.user_input import yn_prompt
 
 
 def get_node(nodes_so_far: List[NodeConfig]) -> Optional[NodeConfig]:
+    
     # Get node's name
     node_names_so_far = [n.node_name for n in nodes_so_far]
     while True:
@@ -15,12 +16,21 @@ def get_node(nodes_so_far: List[NodeConfig]) -> Optional[NodeConfig]:
         else:
             break
 
-    # Get node's internal socket
-    is_path = input('Node\'s internal socket file path which was setup during the Oasis node '
-                    ' installation (typically unix:/serverdir/nodes/internal.sock):\n')
+    # Get node's internal socket path way
+    isocket_path = input('Node\'s internal socket file path which '
+                    'was setup during the node\'s installation '
+                    '(typically unix:/serverdir/nodes/internal.sock):\n')
+
+    print('==== Prometheus')
+    print('To retrieve data from Prometheus, the API needs'
+          'to have the Prometheus endpoints! ')
+
+    # Get Prometheus's URL of the Node
+    prometheus_url = input('Prometheus Node\'s localhost url '
+                '(typically http://127.0.0.1:3000):\n')
 
     # Return node
-    return NodeConfig(node_name, is_path)
+    return NodeConfig(node_name, isocket_path, prometheus_url)
 
 
 def setup_nodes(cp: ConfigParser) -> None:
@@ -30,7 +40,8 @@ def setup_nodes(cp: ConfigParser) -> None:
           'the nodes! The list of nodes the API will connect to will now be '
           'set up. This includes validators, sentries, and any full nodes that '
           'can be used as a data source to retrieve data from the network\'s '
-          'perspective. Node names must be unique!')
+          'perspective. Node names must be unique! The list of API nodes must '
+          'also include their Prometheus endpoints.')
 
     # Check if list already set up
     already_set_up = len(cp.sections()) > 0
@@ -64,4 +75,5 @@ def setup_nodes(cp: ConfigParser) -> None:
         section = 'node_' + str(i)
         cp.add_section(section)
         cp[section]['node_name'] = node.node_name
-        cp[section]['ws_url'] = node.ws_url
+        cp[section]['isocket_path'] = node.isocket_path
+        cp[section]['prometheus_url'] = node.prometheus_url

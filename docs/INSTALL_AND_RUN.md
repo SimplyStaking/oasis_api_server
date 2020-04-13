@@ -152,10 +152,11 @@ sudo chown -R <USER>:<USER> <CONFIG_DIR>
 No further steps are required.
 
 #### Running the Docker Image
-Now that the Docker image is on your machine, and you have written configurations for it, you can run it as follows, where `<CONFIG_DIR>` is the **full path** to the folder containing the previously created config files:
+Now that the Docker image is on your machine, and you have written configurations for it, you can run it as follows, where `<CONFIG_DIR>` is the **full path** to the folder containing the previously created config files. Suppose that <CONFIG_DIR> is the **full path** to the folder containing the previously created config files, <INTERNAL_SOCK_DIR> is the **full path** on your machine where the internal socket file can be found for the Oasis node (e.g: serverdir/node/), and <PATH_IN_CONFIG> is the specified location in the API setup where the API will look for the internal socket (e.g: serverdir/node/). Now that the Docker image is on your machine and you have written configuration for it, you can run it as follows:
 ```bash
-docker run -p 3000:3000 \
-    -v <CONFIG_DIR>:/opt/oasis_api_server/config:ro \
+docker run -p 8686:8686 \
+    -v <CONFIG_DIR>:/app/config/ \
+    -v <INTERNAL_SOCK_DIR>:<PATH_IN_CONFIG>
     -d simplyvc/oasis_api_server:1.0.0
 ```
 

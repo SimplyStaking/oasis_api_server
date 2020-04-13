@@ -1,5 +1,6 @@
 class NodeConfig:
 
-    def __init__(self, node_name: str, ws_url: str) -> None:
+    def __init__(self, node_name: str, isocket_path: str, prometheus_url : str) -> None:
         self.node_name = node_name
-        self.ws_url = ws_url
+        self.isocket_path = isocket_path
+        self.prometheus_url = prometheus_url

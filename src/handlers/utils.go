@@ -37,13 +37,13 @@ func checkNodeName(nodeName string) (bool, string) {
 		// If nodeName is in configuration reply with it's websocket
 		if socket["node_name"] == nodeName {
 			lgr.Info.Println("Requested node ", nodeName, "was found!")
-			return true, socket["ws_url"]
+			return true, socket["isocket_path"]
 		}
 	}
 
 	// If nodeName isn't in configuration produce Log and Reply with False
 	lgr.Error.Println(
-		"Requested node ", nodeName, "was not found, check if configured!")
+		"Requested node ", nodeName, " was not found, check if configured!")
 	return false, ""
 }
 
@@ -51,18 +51,19 @@ func checkNodeName(nodeName string) (bool, string) {
 func checkNodeNamePrometheus(nodeName string) (bool, string) {
 
 	// Check if nodeName is in configuration
-	prometheus := config.GetPrometheusFile()
-	for _, conf := range prometheus {
+	nodeData := config.GetNodes()
+	for _, node := range nodeData {
 
-		// If nodeName is in configuration reply with it's websocket
-		if conf["node_name"] == nodeName {
+		// If nodeName is in configuration reply with it's prometheus url
+		if node["node_name"] == nodeName {
 			lgr.Info.Println("Requested node ", nodeName, "was found!")
-			return true, conf["ws_url"]
+			return true, node["prometheus_url"]
 		}
 	}
 
 	// If nodeName isn't in configuration produce Log and Reply with False
-	lgr.Error.Println("Requested node ", nodeName, "was not found, check if configured!")
+	lgr.Error.Println(
+		"Requested node ", nodeName, " was not found, check if configured!")
 	return false, ""
 }
 
@@ -72,7 +73,8 @@ func checkHeight(recvHeight string) int64 {
 	// Declare height here so that it can be set inside if statement
 	var height int64
 
-	// If string is empty meaning no optional parameter was passed use latest height
+	// If string is empty meaning no optional
+	//  parameter was passed use latest height
 	if len(recvHeight) == 0 {
 		height = consensus.HeightLatest
 		lgr.Info.Println("No height specified getting latest height!")
@@ -82,9 +84,11 @@ func checkHeight(recvHeight string) int64 {
 		_, err := (strconv.ParseInt(recvHeight, 10, 64))
 		if err != nil {
 
-			// If it fails it means that string given wasn't number and return result for
+			// If it fails it means that string given 
+			// wasn't number and return result for
 			lgr.Error.Println(
-				"Unexpected value found, required string of int but received ", recvHeight)
+				"Unexpected value found, required string of int but received ",
+				 recvHeight)
 			return -1
 		}
 
@@ -114,7 +118,8 @@ func checkKind(recvKind string) int64 {
 			// If it fails it means that string
 			// given wasn't number and return result for
 			lgr.Error.Println(
-				"Unexpected value found, required string of int but received ", recvKind)
+				"Unexpected value found, required string of int but received ",
+				 recvKind)
 			return -1
 		}
 
@@ -144,27 +149,27 @@ func checkAmount(recvAmount string) int64 {
 			// If it fails it means that string
 			// given wasn't number and return result for
 			lgr.Error.Println(
-				"Unexpected value found, required string of int but received", recvAmount)
+				"Unexpected value found, required string of int but received ",
+				 recvAmount)
 			return -1
 		}
 	}
 	return amount
 }
 
-// Function to check if node name has a node exporter configuration for it
-func checkNodeNameExporter(nodeName string) (bool, string) {
+// Function to check if a Node Exporter URL exists
+func getNodeExporter() (bool, string) {
+
 	// Check if nodeName is in the configuration
-	exporter := config.GetExporterFile()
-	for _, conf := range exporter {
-		// If the nodeName is in the configuration reply with it's websocket
-		if conf["node_name"] == nodeName {
-			lgr.Info.Println("Requested node ", nodeName, "was found!")
-			return true, conf["metrics_url"]
-		}
+	mainInfo := config.GetMain()
+	
+	if mainInfo["api_server"]["metrics_url"] != "" {
+		lgr.Info.Println("Requested node Node Exporter was found!")
+		return true, mainInfo["api_server"]["metrics_url"]
 	}
-	// If the nodeName isn't in the configuration
-	// produce Log and Reply with False
+
+	// If the Node Exporter was not configured then reply with False
 	lgr.Error.Println(
-		"Requested node ", nodeName, "was not found, check if configured!")
+		"Requested node was not found, check if configured!")
 	return false, ""
 }

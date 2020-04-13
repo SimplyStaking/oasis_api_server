@@ -19,14 +19,13 @@ func NodeExporterQueryGauge(w http.ResponseWriter, r *http.Request) {
 	// Adding header so that receiver knows they are receiving JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
-	// Retrieving the name of the node from the query request
-	nodeName := r.URL.Query().Get("name")
-	confirmation, exporterConfig := checkNodeNameExporter(nodeName)
+	//Get Node Exporter Metrics URl
+	confirmation, exporterConfig := getNodeExporter()
 	if confirmation == false {
 
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Node name requested doesn't exist"})
+			Error: "Node Exporter is not configured!"})
 		return
 	}
 
@@ -76,14 +75,13 @@ func NodeExporterQueryCounter(w http.ResponseWriter, r *http.Request) {
 	// Adding header so that receiver knows they are receiving JSON structure
 	w.Header().Add("Content-Type", "application/json")
 
-	// Retrieving the name of the node from the query request
-	nodeName := r.URL.Query().Get("name")
-	confirmation, exporterConfig := checkNodeNameExporter(nodeName)
+	//Get Node Exporter Metrics URl
+	confirmation, exporterConfig := getNodeExporter()
 	if confirmation == false {
 
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Node name requested doesn't exist"})
+			Error: "Node Exporter is not configured!"})
 		return
 	}
 

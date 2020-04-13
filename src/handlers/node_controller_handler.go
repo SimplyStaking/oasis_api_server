@@ -14,7 +14,8 @@ import (
 )
 
 // loadNodeControllerClient loads node controller client and returns it
-func loadNodeControllerClient(socket string) (*grpc.ClientConn, control.NodeController) {
+func loadNodeControllerClient(socket string) (*grpc.ClientConn,
+	control.NodeController) {
 
 	// Attempt to load connection with staking client
 	connection, nodeControllerClient, err := rpc.NodeControllerClient(socket)
@@ -64,12 +65,13 @@ func GetIsSynced(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get IsSynced!"})
 		lgr.Error.Println(
-			"Request at /api/nodecontroller/synced/ Failed to retrieve IsSynced : ", err)
+			"Request at /api/nodecontroller/synced/ Failed to get IsSynced : ",
+			 err)
 		return
 	}
 
 	// Responding with retrieved synchronizatio state above
 	lgr.Info.Println(
-		"Request at /api/nodecontroller/synced/ responding with IsSynced State!")
+		"Request at /api/nodecontroller/synced/ sending with IsSynced State!")
 	json.NewEncoder(w).Encode(responses.IsSyncedResponse{Synced: synced})
 }
