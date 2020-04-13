@@ -21,7 +21,7 @@ def get_node(nodes_so_far: List[SentryConfig]) -> Optional[SentryConfig]:
 
     # Get tls certificate path
     tls_path = input('Sentry Node\'s tls_identity_cert.pem file location '
-                '(typically /serverdir/node/tls_identity.pem):\n')
+                '(typically /serverdir/etc/tls_identity_cert.pem):\n')
                 
     # Return node
     return SentryConfig(node_name, ext_url, tls_path)

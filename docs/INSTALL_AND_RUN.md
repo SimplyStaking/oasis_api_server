@@ -152,11 +152,12 @@ sudo chown -R <USER>:<USER> <CONFIG_DIR>
 No further steps are required.
 
 #### Running the Docker Image
-Now that the Docker image is on your machine, and you have written configurations for it, you can run it as follows, where `<CONFIG_DIR>` is the **full path** to the folder containing the previously created config files. Suppose that <CONFIG_DIR> is the **full path** to the folder containing the previously created config files, <INTERNAL_SOCK_DIR> is the **full path** on your machine where the internal socket file can be found for the Oasis node (e.g: serverdir/node/), and <PATH_IN_CONFIG> is the specified location in the API setup where the API will look for the internal socket (e.g: serverdir/node/). Now that the Docker image is on your machine and you have written configuration for it, you can run it as follows:
+Now that the Docker image is on your machine, and you have written configurations for it, you can run it as follows, where `<CONFIG_DIR>` is the **full path** to the folder containing the previously created config files. Suppose that <CONFIG_DIR> is the **full path** to the folder containing the previously created config files, <INTERNAL_SOCK_DIR> is the **full path** on your machine where the internal socket file can be found for the Oasis node (e.g: serverdir/node/), and <PATH_IN_NODE_CONFIG> is the specified location in the API setup where the API will look for the internal socket (e.g: serverdir/node/). The API Server must also be able to find the **full path** of the Sentry `tls_identity_cert.pem` files. Therefore the path <INTERNAL_TLS_DIR> is the **full path** on your machine where the `tls_identity_cert.pem` file can be found, and <PATH_IN_SENTRY_CONFIG> is the specified location in the API setup where the API will look for the `tls_identity_cert.pem` file (e.g: serverdir/etc/). Now that the Docker image is on your machine and you have written configuration for it, you can run it as follows:
 ```bash
 docker run --network="host" -p 127.0.0.1:8686:8686 \
     -v <CONFIG_DIR>:/app/config/ \
-    -v <INTERNAL_SOCK_DIR>:<PATH_IN_CONFIG>
+    -v <INTERNAL_SOCK_DIR>:<PATH_IN_NODE_CONFIG> \
+    -v <INTERNAL_TLS_DIR>:<PATH_IN_SENTRY_CONFIG> \
     -d simplyvc/oasis_api_server:1.0.0
 ```
 
