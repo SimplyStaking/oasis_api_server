@@ -17,7 +17,7 @@ def get_node(nodes_so_far: List[NodeConfig]) -> Optional[NodeConfig]:
             break
 
     # Get node's internal socket path way
-    is_path = input('Node\'s internal socket file path which was setup during '
+    isocket_path = input('Node\'s internal socket file path which was setup during '
                     'the Oasis node installation (typically '
                     'unix:/serverdir/nodes/internal.sock):\n')
 
@@ -26,11 +26,11 @@ def get_node(nodes_so_far: List[NodeConfig]) -> Optional[NodeConfig]:
         'to know where to find the Prometheus endpoints! ')
 
     # Get Prometheus's URL of the Node
-    p_url = input('Prometheus Node\'s localhost url '
+    prometheus_url = input('Prometheus Node\'s localhost url '
                 '(typically http://127.0.0.1:3000):\n')
 
     # Return node
-    return NodeConfig(node_name, is_path, p_url)
+    return NodeConfig(node_name, isocket_path, prometheus_url)
 
 
 def setup_nodes(cp: ConfigParser) -> None:
@@ -75,5 +75,5 @@ def setup_nodes(cp: ConfigParser) -> None:
         section = 'node_' + str(i)
         cp.add_section(section)
         cp[section]['node_name'] = node.node_name
-        cp[section]['is_path'] = node.is_path
-        cp[section]['p_url'] = node.p_url
+        cp[section]['isocket_path'] = node.isocket_path
+        cp[section]['prometheus_url'] = node.prometheus_url

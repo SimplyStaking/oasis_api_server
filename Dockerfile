@@ -14,6 +14,6 @@ WORKDIR ./src
 
 RUN go build -o main .
 
-EXPOSE 8080
+EXPOSE 8686
 
 CMD ["./main"]

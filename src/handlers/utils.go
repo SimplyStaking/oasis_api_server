@@ -37,7 +37,7 @@ func checkNodeName(nodeName string) (bool, string) {
 		// If nodeName is in configuration reply with it's websocket
 		if socket["node_name"] == nodeName {
 			lgr.Info.Println("Requested node ", nodeName, "was found!")
-			return true, socket["is_path"]
+			return true, socket["isocket_path"]
 		}
 	}
 
@@ -57,7 +57,7 @@ func checkNodeNamePrometheus(nodeName string) (bool, string) {
 		// If nodeName is in configuration reply with it's prometheus url
 		if node["node_name"] == nodeName {
 			lgr.Info.Println("Requested node ", nodeName, "was found!")
-			return true, node["p_url"]
+			return true, node["prometheus_url"]
 		}
 	}
 

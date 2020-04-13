@@ -11,8 +11,8 @@ import (
 
 var (
 	ctx            context.Context
-	is_path         = "unix:/home/vvol/serverdir/node/internal.sock"
-	is_path_Invalid = "unix:/home/vvol/serverdir/nodes/internal.sock"
+	isocket_path         = "unix:/home/vvol/serverdir/node/internal.sock"
+	isocket_path_Invalid = "unix:/home/vvol/serverdir/nodes/internal.sock"
 )
 
 func TestMain(m *testing.M) {
@@ -36,48 +36,48 @@ func teardown() {
 
 // Testing if Scheduler Client Connects
 func TestSchedulerClient_Success(t *testing.T) {
-	_, _, err := rpc.SchedulerClient(is_path)
+	_, _, err := rpc.SchedulerClient(isocket_path)
 	if err != nil {
-		t.Errorf("Failed to create SchedulerClient for socket %v got %v", is_path, err)
+		t.Errorf("Failed to create SchedulerClient for socket %v got %v", isocket_path, err)
 	}
 }
 
 // Testing if Node Controller Client Connects
 func TestNodeControllerClient_Success(t *testing.T) {
-	_, _, err := rpc.NodeControllerClient(is_path)
+	_, _, err := rpc.NodeControllerClient(isocket_path)
 	if err != nil {
-		t.Errorf("Failed to create SchedulerClient for socket %v got %v", is_path, err)
+		t.Errorf("Failed to create SchedulerClient for socket %v got %v", isocket_path, err)
 	}
 }
 
 // Testing if Registry Client Connects
 func TestRegistryClient_Success(t *testing.T) {
-	_, _, err := rpc.RegistryClient(is_path)
+	_, _, err := rpc.RegistryClient(isocket_path)
 	if err != nil {
-		t.Errorf("Failed to create RegistryClient for socket %v got %v", is_path, err)
+		t.Errorf("Failed to create RegistryClient for socket %v got %v", isocket_path, err)
 	}
 }
 
 // Testing if Registry Client Connects
 func TestStakingClient_Success(t *testing.T) {
-	_, _, err := rpc.StakingClient(is_path)
+	_, _, err := rpc.StakingClient(isocket_path)
 	if err != nil {
-		t.Errorf("Failed to create StakingClient for socket %v got %v", is_path, err)
+		t.Errorf("Failed to create StakingClient for socket %v got %v", isocket_path, err)
 	}
 }
 
 // Testing if Registry Client Connects
 func TestConsensusClient_Success(t *testing.T) {
-	_, _, err := rpc.ConsensusClient(is_path)
+	_, _, err := rpc.ConsensusClient(isocket_path)
 	if err != nil {
-		t.Errorf("Failed to create ConsensusClient for socket %v got %v", is_path, err)
+		t.Errorf("Failed to create ConsensusClient for socket %v got %v", isocket_path, err)
 	}
 }
 
 // Testing connection function
 func TestConnect_Success(t *testing.T) {
-	_, err := rpc.Connect(is_path)
+	_, err := rpc.Connect(isocket_path)
 	if err != nil {
-		t.Errorf("Failed to create connection for socket %v got %v", is_path, err)
+		t.Errorf("Failed to create connection for socket %v got %v", isocket_path, err)
 	}
 }
