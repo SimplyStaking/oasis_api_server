@@ -18,7 +18,7 @@ func Pong(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(responses.SuccessResponsed)
 }
 
-// GetConnections retrieves all possible connections that have been loaded in configuration file
+// GetConnections retrieves the node names that are configured in the API
 func GetConnections(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
@@ -31,8 +31,9 @@ func GetConnections(w http.ResponseWriter, r *http.Request) {
 
 	lgr.Info.Println("Iterating through all socket connections.")
 	for _, socket := range allSockets {
-		lgr.Info.Println("Node : ", socket["node_name"], " has socket at : ", socket["isocket_path"])
-		connectionsResponse = append(connectionsResponse, socket["isocket_path"])
+		lgr.Info.Println("Node : ", socket["node_name"], " has socket at : ",
+		 socket["isocket_path"])
+		connectionsResponse = append(connectionsResponse, socket["node_name"])
 	}
 	// Encode object and send it using predefind response
 	json.NewEncoder(w).Encode(responses.ConnectionsResponse{
