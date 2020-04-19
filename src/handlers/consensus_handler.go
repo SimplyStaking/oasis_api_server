@@ -438,13 +438,13 @@ func PublicKeyToAddress(w http.ResponseWriter, r *http.Request){
 	}
 	// Convert the consensusKey into a signature PublicKey
 	tendermintKey := crypto.PublicKeyToTendermint(consensusPublicKey)
-	print(tendermintKey.Address())
+	cryptoAddress := tendermintKey.Address()
 	// Responds with transactions retrieved above
 	lgr.Info.Println(
-		"Request at /api/consensus/transactions/ ",
-		"responding with all transactions in specified Block!")
-	json.NewEncoder(w).Encode(responses.TendermintKeyResponse{
-		TendermintKey: &tendermintKey})
+		"Request at /api/consensus/pubkeyaddress/ ",
+		"responding with Tendermint Public Key Address!")
+	json.NewEncoder(w).Encode(responses.TendermintAddress{
+		TendermintAddress: &cryptoAddress})
 }
 
 // GetTransactions returns consensus block header at specific height

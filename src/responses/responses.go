@@ -17,12 +17,12 @@ import (
 	sentry_api "github.com/oasislabs/oasis-core/go/sentry/api"
 	staking_api "github.com/oasislabs/oasis-core/go/staking/api"
 	mint_types "github.com/tendermint/tendermint/types"
-	tmed "github.com/tendermint/tendermint/crypto/ed25519"
+	tmed "github.com/tendermint/tendermint/crypto"
 )
 
-// TendermintKeyResponse rresponds with a tendermint public key
-type TendermintKeyResponse struct {
-	TendermintKey *tmed.PubKeyEd25519 `json:"result"`
+// TendermintAddress rresponds with a tendermint public key address
+type TendermintAddress struct {
+	TendermintAddress *tmed.Address `json:"result"`
 }
 
 // SentryResponse responds with network statistics of system
