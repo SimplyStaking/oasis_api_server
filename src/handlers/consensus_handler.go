@@ -24,15 +24,15 @@ func loadConsensusClient(socket string) (*grpc.ClientConn,
 	// Attempt to load connection with consensus client
 	connection, consensusClient, err := rpc.ConsensusClient(socket)
 	if err != nil {
-		lgr.Error.Println("Failed to establish connection ",
-			"to consensus client : ", err)
+		lgr.Error.Println("Failed to establish connection to consensus" +
+			" client : ", err)
 		return nil, nil
 	}
 	return connection, consensusClient
 }
 
-// GetConsensusStateToGenesis returns genesis 
-// state at specified block height for Consensus.
+// GetConsensusStateToGenesis returns genesis state
+// at specified block height for Consensus.
 func GetConsensusStateToGenesis(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
@@ -81,15 +81,14 @@ func GetConsensusStateToGenesis(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Genesis file of Block!"})
 
-		lgr.Error.Println(
-			"Request at /api/GetStateToGenesis/ ",
-			"Failed to retrieve genesis file : ", err)
+		lgr.Error.Println("Request at /api/GetStateToGenesis/ Failed to"+
+			" retrieve genesis file : ", err)
 		return
 	}
 
 	// Responding with consensus genesis state object, retrieved above.
-	lgr.Info.Println(
-		"Request at /api/GetStateToGenesis/ responding with genesis file!")
+	lgr.Info.Println("Request at /api/GetStateToGenesis/ responding with" +
+		" genesis file!")
 	json.NewEncoder(w).Encode(responses.ConsensusGenesisResponse{
 		GenJSON: consensusGenesis})
 }
@@ -142,17 +141,19 @@ func GetEpoch(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to retrieve Epoch of Block!"})
 
-		lgr.Error.Println(
-			"Request at /api/consensus/epoch/ Failed to retrieve Epoch : ", err)
+		lgr.Error.Println("Request at /api/consensus/epoch/ Failed to retrieve"+
+		    " Epoch : ", err)
 		return
 	}
 
 	// Respond with retrieved epoch above
-	lgr.Info.Println("Request at /api/consensus/epoch/ responding with an Epoch!")
+	lgr.Info.Println("Request at /api/consensus/epoch/ responding" +
+	                 " with an Epoch!")
 	json.NewEncoder(w).Encode(responses.EpochResponse{Ep: epoch})
 }
 
-// PingNode returns consensus block at specific height thus signifying that it was pinged.
+// PingNode returns consensus block at specific height 
+// thus signifying that it was pinged.
 func PingNode(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
@@ -187,15 +188,15 @@ func PingNode(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Making sure that error being retrieved 
-	// is nill meaning that api is pingable
+	// Making sure that the error being retrieved is nill, meaning that API
+	// is pingable
 	_, err := co.GetBlock(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to ping node by retrieving heighest block height!"})
 
-		lgr.Error.Println(
-			"Request at /api/pingnode/ Failed to ping node : ", err)
+		lgr.Error.Println("Request at /api/pingnode/ Failed to ping" +
+			" node : ", err)
 		return
 	}
 
@@ -253,8 +254,8 @@ func GetBlock(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to retrieve Block!"})
 
-		lgr.Error.Println(
-			"Request at /api/consensus/block/ Failed to retrieve Block : ", err)
+		lgr.Error.Println("Request at /api/consensus/block/ Failed to retrieve"+
+			" Block : ", err)
 		return
 	}
 
@@ -312,18 +313,16 @@ func GetBlockHeader(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to retrieve Block!"})
 
-		lgr.Error.Println(
-			"Request at /api/consensus/blockheader/ ",
-			" Failed to retrieve Block : ", err)
+		lgr.Error.Println("Request at /api/consensus/blockheader/ Failed to" +
+		" retrieve Block : ", err)
 		return
 	}
 
 	// Creating BlockMeta object
 	var meta mint_api.BlockMeta
 	if err := cbor.Unmarshal(blk.Meta, &meta); err != nil {
-		lgr.Error.Println(
-			"Request at /api/consensus/blockheader/ ",
-			"Failed to Unmarshal Block Metadata : ", err)
+		lgr.Error.Println("Request at /api/consensus/blockheader/ Failed to "+
+			"Unmarshal Block Metadata : ", err)
 
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to Unmarshal Block Metadata!"})
@@ -331,8 +330,8 @@ func GetBlockHeader(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Responds with block header retrieved above
-	lgr.Info.Println(
-		"Request at /api/consensus/blockheader/ responding with Block Header!")
+	lgr.Info.Println("Request at /api/consensus/blockheader/ responding with"+
+		" Block Header!")
 	json.NewEncoder(w).Encode(responses.BlockHeaderResponse{
 		BlkHeader: meta.Header})
 }
@@ -386,26 +385,23 @@ func GetBlockLastCommit(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to retrieve Block!"})
 
-		lgr.Error.Println(
-			"Request at /api/consensus/blocklastcommit/ ",
-			"Failed to retrieve Block : ", err)
+		lgr.Error.Println("Request at /api/consensus/blocklastcommit/ Failed"+
+			" to retrieve Block : ", err)
 		return
 	}
 
 	// Creating BlockMeta object
 	var meta mint_api.BlockMeta
 	if err := cbor.Unmarshal(blk.Meta, &meta); err != nil {
-		lgr.Error.Println(
-			"Request at /api/consensus/blocklastcommit/ ",
-			"Failed to Unmarshal Block Metadata : ", err)
+		lgr.Error.Println("Request at /api/consensus/blocklastcommit/ Failed "+
+			" Unmarshal Block Metadata : ", err)
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to Unmarshal Block Metadata!"})
 		return
 	}
 	// Responds with Block Last commit retrieved above
-	lgr.Info.Println(
-		"Request at /api/consensus/blocklastcommit/ ",
-		"responding with Block Last Commit!")
+	lgr.Info.Println("Request at /api/consensus/blocklastcommit/ responding"+
+		"with Block Last Commit!")
 	json.NewEncoder(w).Encode(responses.BlockLastCommitResponse{
 		BlkLastCommit: meta.LastCommit})
 }
@@ -429,9 +425,8 @@ func PublicKeyToAddress(w http.ResponseWriter, r *http.Request){
 
 	err := consensusPublicKey.UnmarshalText([]byte(consensusKey))
 	if err != nil{
-		lgr.Error.Println(
-			"Request at /api/consensus/pubkeyaddress/ ",
-			"Failed to Unmarshal Consensus PublicKey : ", err)
+		lgr.Error.Println("Request at /api/consensus/pubkeyaddress/ Failed to"+
+			" Unmarshal Consensus PublicKey : ", err)
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to Unmarshal Public Key!"})
 		return
@@ -440,9 +435,8 @@ func PublicKeyToAddress(w http.ResponseWriter, r *http.Request){
 	tendermintKey := crypto.PublicKeyToTendermint(consensusPublicKey)
 	cryptoAddress := tendermintKey.Address()
 	// Responds with transactions retrieved above
-	lgr.Info.Println(
-		"Request at /api/consensus/pubkeyaddress/ ",
-		"responding with Tendermint Public Key Address!")
+	lgr.Info.Println("Request at /api/consensus/pubkeyaddress/ responding with"+
+		"Tendermint Public Key Address!")
 	json.NewEncoder(w).Encode(responses.TendermintAddress{
 		TendermintAddress: &cryptoAddress})
 }
@@ -496,16 +490,14 @@ func GetTransactions(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to retrieve Transactions!"})
 
-		lgr.Error.Println(
-			"Request at /api/consensus/transactions/ ",
-			"Failed to retrieve Transactions : ", err)
+		lgr.Error.Println("Request at /api/consensus/transactions/ Failed to" +
+			" retrieve Transactions : ", err)
 		return
 	}
 
 	// Responds with transactions retrieved above
-	lgr.Info.Println(
-		"Request at /api/consensus/transactions/ ",
-		"responding with all transactions in specified Block!")
+	lgr.Info.Println("Request at /api/consensus/transactions/ responding with"+
+		" all transactions in specified Block!")
 	json.NewEncoder(w).Encode(responses.TransactionsResponse{
 		Transactions: transactions})
 }
