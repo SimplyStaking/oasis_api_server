@@ -40,7 +40,8 @@ The API Server works as follows:
 | /api/consensus/epoch/                 | Node Name                       | Height          | Epoch                     | 
 | /api/consensus/block/                 | Node Name                       | Height          | Block Object              | 
 | /api/consensus/blockheader/           | Node Name                       | Height          | Block Header Object       | 
-| /api/consensus/blocklastcommit/       | Node Name                       | Height          | Block Last Commit Object  | 
+| /api/consensus/blocklastcommit/       | Node Name                       | Height          | Block Last Commit Object  |
+| /api/consensus/pubkeyaddress/         | Consensus Public Key            | none            | Tendermint Key Address    |
 | /api/consensus/transactions/          | Node Name                       | Height          | List of Transactions      | 
 | /api/pingnode/                        | Node Name                       | None            | Pong                      | 
 | /api/registry/entities/               | Node Name                       | Height          | List of Entities          | 

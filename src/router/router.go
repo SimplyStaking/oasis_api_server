@@ -59,10 +59,12 @@ func StartServer() error {
 		handler.GetBlockHeader).Methods("Get")
 	router.HandleFunc("/api/consensus/blocklastcommit/",
 		handler.GetBlockLastCommit).Methods("Get")
+	router.HandleFunc("/api/consensus/pubkeyaddress/",
+		handler.PublicKeyToAddress).Methods("Get")
 	router.HandleFunc("/api/consensus/transactions/",
 		handler.GetTransactions).Methods("Get")
 	router.HandleFunc("/api/pingnode/",
-		handler.PingNode).Queries("name", "{name}").Methods("Get")
+		handler.PingNode).Methods("Get")
 
 	// Router Handlers to handle Registry API Calls
 	router.HandleFunc("/api/registry/entities/",
