@@ -158,12 +158,13 @@ func PingNode(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
 	w.Header().Add("Content-Type", "application/json")
+	lgr.Info.Println("Received request for /api/pingnode/")
 
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
 	if confirmation == false {
-
+		lgr.Info.Println("Node name requested doesn't exist")
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Node name requested doesn't exist"})
