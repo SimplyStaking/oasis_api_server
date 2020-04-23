@@ -99,6 +99,8 @@ func StartServer() error {
 		handler.GetDelegations).Methods("Get")
 	router.HandleFunc("/api/staking/debondingdelegations/",
 		handler.GetDebondingDelegations).Methods("Get")
+	router.HandleFunc("/api/staking/events/",
+		handler.GetEvents).Methods("Get")
 
 	// Router Handlers to handle NodeController API Calls
 	router.HandleFunc("/api/nodecontroller/synced/",

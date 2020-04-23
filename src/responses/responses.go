@@ -20,7 +20,12 @@ import (
 	tmed "github.com/tendermint/tendermint/crypto"
 )
 
-// TendermintAddress rresponds with a tendermint public key address
+// StakingEvents responds with a list of events
+type StakingEvents struct {
+	StakingEvents []staking_api.Event `json:"result"`
+}
+
+// TendermintAddress responds with a tendermint public key address
 type TendermintAddress struct {
 	TendermintAddress *tmed.Address `json:"result"`
 }

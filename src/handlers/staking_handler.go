@@ -586,3 +586,63 @@ func GetDebondingDelegations(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(responses.DebondingDelegationsResponse{
 		DebondingDelegations: debondingDelegations})
 }
+
+// GetEvents 
+func GetEvents(w http.ResponseWriter, r *http.Request) {
+
+	// Add header so that received knows they're receiving JSON
+	w.Header().Add("Content-Type", "application/json")
+
+	// Retrieving name of node from query request
+	nodeName := r.URL.Query().Get("name")
+	confirmation, socket := checkNodeName(nodeName)
+	if confirmation == false {
+
+		// Stop code here no need to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
+		return
+	}
+
+	// Retrieving height from query request
+	recvHeight := r.URL.Query().Get("height")
+	height := checkHeight(recvHeight)
+	if height == -1 {
+
+		// Stop code here no need to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Unexepcted value found, height needs to be string of int!"})
+		return
+	}
+
+	// Attempt to load connection with staking client
+	connection, so := loadStakingClient(socket)
+
+	// Close connection once code underneath executes
+	defer connection.Close()
+
+	// If null object was retrieved send response
+	if so == nil {
+
+		// Stop code here faild to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket : " + socket})
+		return
+	}
+
+	// Return accounts from staking client
+	events, err := so.GetEvents(context.Background(), height)
+	if err != nil {
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to get Events!"})
+		lgr.Error.Println(
+			"Request at /api/staking/events/ Failed to retrieve Events : ", err)
+		return
+	}
+
+
+	// Respond with array of all accounts
+	lgr.Info.Println("Request at /api/staking/events/ responding with" +
+		"Events!")
+	json.NewEncoder(w).Encode(responses.StakingEvents{StakingEvents: events})
+}
