@@ -2,7 +2,6 @@ package router
 
 import (
 	"log"
-	"net/http"
 	"os"
 
 	"github.com/gorilla/mux"
@@ -10,6 +9,7 @@ import (
 	conf "github.com/SimplyVC/oasis_api_server/src/config"
 	handler "github.com/SimplyVC/oasis_api_server/src/handlers"
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
+	"github.com/zenazn/goji/graceful"
 )
 
 // StartServer starts server by setting router and all endpoints
@@ -130,6 +130,6 @@ func StartServer() error {
 	router.HandleFunc("/api/sentry/addresses/",
 		handler.GetSentryAddresses).Methods("Get")
 
-	log.Fatal(http.ListenAndServe(":"+apiPort, router))
+	log.Fatal(graceful.ListenAndServe(":"+apiPort, router))
 	return nil
 }

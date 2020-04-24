@@ -30,9 +30,6 @@ require (
 	github.com/multiformats/go-multiaddr-net v0.0.1
 	github.com/oasislabs/deoxysii v0.0.0-20190807103041-6159f99c2236
 	github.com/oasislabs/ed25519 v0.0.0-20191122104632-9d9ffc15f526
-	//github.com/oasislabs/oasis-core/go v0.0.0-20200416132811-09d08e7594b6
-	//github.com/oasislabs/oasis-core/go v0.0.0-20200422161403-1fcdd594a5b5
-	//github.com/oasislabs/oasis-core/go v0.0.0-20200416124945-21e9fc3d1e24
 	github.com/oasislabs/oasis-core/go v0.0.0-20200416125006-75b2bfa01f8d
 	github.com/opentracing/opentracing-go v1.1.0
 	github.com/pkg/errors v0.9.1
@@ -51,6 +48,7 @@ require (
 	github.com/thepudds/fzgo v0.2.2
 	github.com/uber/jaeger-client-go v2.16.0+incompatible
 	github.com/whyrusleeping/go-logging v0.0.0-20170515211332-0457bb6b88fc
+	github.com/zenazn/goji v0.9.0
 	github.com/zondax/ledger-oasis-go v0.3.0
 	gitlab.com/yawning/dynlib.git v0.0.0-20190911075527-1e6ab3739fd8
 	golang.org/x/crypto v0.0.0-20200406173513-056763e48d71
