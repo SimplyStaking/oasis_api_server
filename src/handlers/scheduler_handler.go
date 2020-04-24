@@ -76,7 +76,8 @@ func GetValidators(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Validators!"})
 		lgr.Error.Println(
-			"Request at /api/scheduler/validators/ Failed to retrieve validators : ", err)
+			"Request at /api/scheduler/validators/ Failed to retrieve "+
+			"validators : ", err)
 		return
 	}
 
@@ -124,7 +125,8 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		lgr.Warning.Println(
-			"Request at /api/registry/runtime/ failed, namespace can't be empty!")
+			"Request at /api/registry/runtime/ failed, namespace can't be " +
+			"empty!")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "namespace can't be empty!"})
 		return
@@ -155,7 +157,8 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Create query to be used to retrieve Committees
-	query := scheduler.GetCommitteesRequest{Height: height, RuntimeID: nameSpace}
+	query := scheduler.GetCommitteesRequest{Height: height, RuntimeID:
+		nameSpace}
 
 	// Retrieving Committees using query above
 	committees, err := sc.GetCommittees(context.Background(), &query)
@@ -163,16 +166,20 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Committees!"})
 		lgr.Error.Println(
-			"Request at /api/scheduler/committees/ Failed to retrieve committees : ", err)
+			"Request at /api/scheduler/committees/ Failed to retrieve "+
+			"committees : ", err)
 		return
 	}
 
 	// Responding with committees that were retrieved from scheduler client
-	lgr.Info.Println("Request at /api/scheduler/committees/ responding with Committees!")
-	json.NewEncoder(w).Encode(responses.CommitteesResponse{Committee: committees})
+	lgr.Info.Println("Request at /api/scheduler/committees/ responding with" +
+		" Committees!")
+	json.NewEncoder(w).Encode(responses.CommitteesResponse{Committee:
+		 committees})
 }
 
-// GetSchedulerStateToGenesis returns genesis state of scheduler at specified block height.
+// GetSchedulerStateToGenesis returns genesis state of scheduler at 
+// specified block height.
 func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
@@ -221,13 +228,15 @@ func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Scheduler Genesis State!"})
 		lgr.Error.Println(
-			"Request at /api/scheduler/genesis/ Failed to retrieve Scheduler Genesis State : ", err)
+			"Request at /api/scheduler/genesis/ Failed to retrieve Scheduler "+
+			"Genesis State : ", err)
 		return
 	}
 
 	// Responding with genesis state retrieved above
 	lgr.Info.Println(
-		"Request at /api/scheduler/genesis/ responding with scheduler genesis state!")
+		"Request at /api/scheduler/genesis/ responding with scheduler genesis" +
+		" state!")
 	json.NewEncoder(w).Encode(responses.SchedulerGenesisState{
 		SchedulerGenesisState: gensis})
 }

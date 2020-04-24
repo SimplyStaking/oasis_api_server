@@ -22,6 +22,7 @@ import (
 // SentryClient - initiate new sentry client
 func SentryClient(address string, tlsPath string) (*grpc.ClientConn,
 	sentry.Backend, error) {
+
 	conn, err := ConnectTLS(address, tlsPath)
 	if err != nil {
 		conn.Close()
@@ -34,10 +35,13 @@ func SentryClient(address string, tlsPath string) (*grpc.ClientConn,
 }
 
 // SchedulerClient - initiate new scheduler client
-func SchedulerClient(address string) (*grpc.ClientConn, scheduler.Backend, error) {
+func SchedulerClient(address string) (*grpc.ClientConn, scheduler.Backend, 
+		error) {
+
 	conn, err := Connect(address)
 	if err != nil {
-		return nil, nil, fmt.Errorf("Failed to establish Scheduler Client Connection with node %s", address)
+		return nil, nil, fmt.Errorf("Failed to establish Scheduler Client "+
+		"Connection with node %s", address)
 	}
 
 	client := scheduler.NewSchedulerClient(conn)
@@ -45,10 +49,13 @@ func SchedulerClient(address string) (*grpc.ClientConn, scheduler.Backend, error
 }
 
 // NodeControllerClient - initiate new registry client
-func NodeControllerClient(address string) (*grpc.ClientConn, control.NodeController, error) {
+func NodeControllerClient(address string) (*grpc.ClientConn, 
+		control.NodeController, error) {
+
 	conn, err := Connect(address)
 	if err != nil {
-		return nil, nil, fmt.Errorf("Failed to establish NodeController Client Connection with node %s", address)
+		return nil, nil, fmt.Errorf("Failed to establish NodeController Client"+
+		" Connection with node %s", address)
 	}
 
 	client := control.NewNodeControllerClient(conn)
@@ -56,10 +63,13 @@ func NodeControllerClient(address string) (*grpc.ClientConn, control.NodeControl
 }
 
 // RegistryClient - initiate new registry client
-func RegistryClient(address string) (*grpc.ClientConn, registry.Backend, error) {
+func RegistryClient(address string) (*grpc.ClientConn, 
+		registry.Backend, error) {
+
 	conn, err := Connect(address)
 	if err != nil {
-		return nil, nil, fmt.Errorf("Failed to establish Registry Client Connection with node %s", address)
+		return nil, nil, fmt.Errorf("Failed to establish Registry Client "+
+		"Connection with node %s", address)
 	}
 
 	client := registry.NewRegistryClient(conn)
@@ -67,10 +77,12 @@ func RegistryClient(address string) (*grpc.ClientConn, registry.Backend, error) 
 }
 
 // ConsensusClient - initiate new consensus client
-func ConsensusClient(address string) (*grpc.ClientConn, consensus.ClientBackend, error) {
+func ConsensusClient(address string) (*grpc.ClientConn, 
+		consensus.ClientBackend, error) {
 	conn, err := Connect(address)
 	if err != nil {
-		return nil, nil, fmt.Errorf("failed to establish connection with node %s", address)
+		return nil, nil, fmt.Errorf("failed to establish connection with "+
+		"node %s", address)
 	}
 
 	client := consensus.NewConsensusClient(conn)
@@ -81,7 +93,8 @@ func ConsensusClient(address string) (*grpc.ClientConn, consensus.ClientBackend,
 func StakingClient(address string) (*grpc.ClientConn, staking.Backend, error) {
 	conn, err := Connect(address)
 	if err != nil {
-		return nil, nil, fmt.Errorf("failed to establish connection with node %s", address)
+		return nil, nil, fmt.Errorf("failed to establish connection with " +
+		"node %s", address)
 	}
 
 	client := staking.NewStakingClient(conn)
