@@ -43,6 +43,9 @@ func NodeExporterQueryGauge(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		lgr.Error.Println(
 			"Failed to retrieve Prometheus Data from Node Exporter Response")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
+			" retrieve Prometheus Data check if Node Exporter is Enabled!"})
+		return
 	}
 
 	defer resp.Body.Close()
@@ -57,6 +60,18 @@ func NodeExporterQueryGauge(w http.ResponseWriter, r *http.Request) {
 	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
 	if err2 != nil {
 		lgr.Error.Println("Failed to Parse the Node Exporter Response")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
+			" read Node Exporter Response."})
+		return
+	}
+
+	if len(parsed[gaugeName].GetMetric()) <= 0 {
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Metric name"+
+		" doesn't exist!"})
+		lgr.Info.Println(
+			"Received request for /api/exporter/gauge but Metric name "+
+			"doesn't exit!")
+		return
 	}
 
 	output := parsed[gaugeName].GetMetric()[0].GetGauge().GetValue()
@@ -98,6 +113,9 @@ func NodeExporterQueryCounter(w http.ResponseWriter, r *http.Request) {
 	resp, err := http.Get(exporterConfig)
 	if err != nil {
 		lgr.Error.Println("Failed to retrieve Node Exporter Data")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
+			" retrieve Prometheus Data check if Node Exporter is Enabled!"})
+		return
 	}
 
 	defer resp.Body.Close()
@@ -106,11 +124,26 @@ func NodeExporterQueryCounter(w http.ResponseWriter, r *http.Request) {
 	body, err1 := ioutil.ReadAll(resp.Body)
 	if err1 != nil {
 		lgr.Error.Println("Failed to read the Node Exporter Response")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
+			" read Node Exporter Response."})
+		return
 	}
 
 	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
 	if err2 != nil {
 		lgr.Error.Println("Failed to Parse the Node Exporter Response")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
+			" Parse Node Exporter Response."})
+		return
+	}
+
+	if len(parsed[counterName].GetMetric()) <= 0 {
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Metric name"+
+		" doesn't exist!"})
+		lgr.Info.Println(
+			"Received request for /api/exporter/counter but Metric name "+
+			"doesn't exit!")
+		return
 	}
 
 	output := parsed[counterName].GetMetric()[0].GetCounter().GetValue()

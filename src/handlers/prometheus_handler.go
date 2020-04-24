@@ -45,6 +45,9 @@ func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
 	resp, err := http.Get(prometheusConfig)
 	if err != nil {
 		lgr.Error.Println("Failed to retrieve Prometheus Data")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
+			" retrieve Prometheus Data check if Prometheus is Enabled!"})
+		return
 	}
 
 	defer resp.Body.Close()
@@ -53,11 +56,28 @@ func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
 	body, err1 := ioutil.ReadAll(resp.Body)
 	if err1 != nil {
 		lgr.Error.Println("Failed to read Prometheus Response")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
+			" read Prometheus Response."})
+		return
 	}
 
 	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
 	if err2 != nil {
 		lgr.Error.Println("Failed to Parse Prometheus Response")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
+			" Parse Prometheus Response."})
+		return
+	}
+
+	// Check the length of the metric if it's less than 0 or equal to then
+	// it doesn't exist.
+	if len(parsed[gaugeName].GetMetric()) <= 0 {
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Metric name"+
+		" doesn't exist!"})
+		lgr.Info.Println(
+			"Received request for /api/prometheus/gauge but Metric name "+
+			"doesn't exit!")
+		return
 	}
 
 	output := parsed[gaugeName].GetMetric()[0].GetGauge().GetValue()
@@ -99,6 +119,9 @@ func PrometheusQueryCounter(w http.ResponseWriter, r *http.Request) {
 	resp, err := http.Get(prometheusConfig)
 	if err != nil {
 		lgr.Error.Println("Failed to retrieve Prometheus Data")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
+			" retrieve Prometheus Data check if Prometheus is Enabled!"})
+		return
 	}
 
 	defer resp.Body.Close()
@@ -107,11 +130,25 @@ func PrometheusQueryCounter(w http.ResponseWriter, r *http.Request) {
 	body, err1 := ioutil.ReadAll(resp.Body)
 	if err1 != nil {
 		lgr.Error.Println("Failed to read Prometheus Response")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
+			" read Prometheus Response."})
+		return
 	}
 
 	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
 	if err2 != nil {
 		lgr.Error.Println("Failed to Parse Prometheus Response")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
+			" Parse Prometheus Response."})
+	}
+
+	if len(parsed[counterName].GetMetric()) <= 0 {
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Metric name"+
+		" doesn't exist!"})
+		lgr.Info.Println(
+			"Received request for /api/prometheus/counter but Metric name "+
+			"doesn't exit!")
+		return
 	}
 
 	output := parsed[counterName].GetMetric()[0].GetCounter().GetValue()
