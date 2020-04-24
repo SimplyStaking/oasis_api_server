@@ -126,12 +126,6 @@ func StartServer() error {
 	router.HandleFunc("/api/exporter/counter/",
 		handler.NodeExporterQueryCounter).Methods("Get")
 
-	// Router Handlers to handle System API Calls
-	router.HandleFunc("/api/system/memory/", handler.GetMemory).Methods("Get")
-	router.HandleFunc("/api/system/disk/", handler.GetDisk).Methods("Get")
-	router.HandleFunc("/api/system/cpu/", handler.GetCPU).Methods("Get")
-	router.HandleFunc("/api/system/network/", handler.GetNetwork).Methods("Get")
-
 	// Router Handlers to handle Sentry API Calls
 	router.HandleFunc("/api/sentry/addresses/",
 		handler.GetSentryAddresses).Methods("Get")

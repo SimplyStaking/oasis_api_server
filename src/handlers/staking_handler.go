@@ -629,7 +629,7 @@ func GetEvents(w http.ResponseWriter, r *http.Request) {
 			Error: "Failed to establish connection using socket : " + socket})
 		return
 	}
-
+	
 	// Return accounts from staking client
 	events, err := so.GetEvents(context.Background(), height)
 	if err != nil {
@@ -640,9 +640,8 @@ func GetEvents(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-
 	// Respond with array of all accounts
 	lgr.Info.Println("Request at /api/staking/events/ responding with" +
-		"Events!")
+		" Events!")
 	json.NewEncoder(w).Encode(responses.StakingEvents{StakingEvents: events})
 }
