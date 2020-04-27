@@ -160,7 +160,7 @@ type BlockLastCommitResponse struct {
 	BlkLastCommit *mint_types.Commit `json:"result"`
 }
 
-// BlockResponse responds with custom Block Response with an unmarshalled message
+// BlockResponse responds with custom Block response with an unmarshalled message
 type BlockResponse struct {
 	Blk *consensus_api.Block `json:"result"`
 }

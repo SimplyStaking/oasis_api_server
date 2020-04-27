@@ -44,9 +44,9 @@ func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := http.Get(prometheusConfig)
 	if err != nil {
-		lgr.Error.Println("Failed to retrieve Prometheus Data")
+		lgr.Error.Println("Failed to retrieve Prometheus data")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
-			" retrieve Prometheus Data check if Prometheus is Enabled!"})
+			" retrieve Prometheus data check if Prometheus is enabled!"})
 		return
 	}
 
@@ -55,17 +55,17 @@ func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
 	// Read body response of Prometheus Configuration
 	body, err1 := ioutil.ReadAll(resp.Body)
 	if err1 != nil {
-		lgr.Error.Println("Failed to read Prometheus Response")
+		lgr.Error.Println("Failed to read Prometheus response")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
-			" read Prometheus Response."})
+			" read Prometheus response."})
 		return
 	}
 
 	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
 	if err2 != nil {
-		lgr.Error.Println("Failed to Parse Prometheus Response")
+		lgr.Error.Println("Failed to Parse Prometheus response")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
-			" Parse Prometheus Response."})
+			" Parse Prometheus response."})
 		return
 	}
 
@@ -118,9 +118,9 @@ func PrometheusQueryCounter(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := http.Get(prometheusConfig)
 	if err != nil {
-		lgr.Error.Println("Failed to retrieve Prometheus Data")
+		lgr.Error.Println("Failed to retrieve Prometheus data")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
-			" retrieve Prometheus Data check if Prometheus is Enabled!"})
+			" retrieve Prometheus data check if Prometheus is enabled!"})
 		return
 	}
 
@@ -129,17 +129,17 @@ func PrometheusQueryCounter(w http.ResponseWriter, r *http.Request) {
 	// Read body response of Prometheus Configuration
 	body, err1 := ioutil.ReadAll(resp.Body)
 	if err1 != nil {
-		lgr.Error.Println("Failed to read Prometheus Response")
+		lgr.Error.Println("Failed to read Prometheus response")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
-			" read Prometheus Response."})
+			" read Prometheus response."})
 		return
 	}
 
 	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
 	if err2 != nil {
-		lgr.Error.Println("Failed to Parse Prometheus Response")
+		lgr.Error.Println("Failed to Parse Prometheus response")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
-			" Parse Prometheus Response."})
+			" Parse Prometheus response."})
 	}
 
 	if len(parsed[counterName].GetMetric()) <= 0 {

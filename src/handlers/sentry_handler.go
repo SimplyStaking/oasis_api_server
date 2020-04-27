@@ -66,7 +66,7 @@ func GetSentryAddresses(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Sentry AddressesS!"})
 		lgr.Error.Println(
-			"Request at /api/sentry/addresses/ Failed to get addresses : ", err)
+			"Request at /api/sentry/addresses/ failed to get addresses : ", err)
 		return
 	}
 

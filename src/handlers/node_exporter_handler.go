@@ -42,9 +42,9 @@ func NodeExporterQueryGauge(w http.ResponseWriter, r *http.Request) {
 	resp, err := http.Get(exporterConfig)
 	if err != nil {
 		lgr.Error.Println(
-			"Failed to retrieve Prometheus Data from Node Exporter Response")
+			"Failed to retrieve Prometheus data from Node Exporter response")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
-			" retrieve Prometheus Data check if Node Exporter is Enabled!"})
+			" retrieve Prometheus data check if Node Exporter is enabled!"})
 		return
 	}
 
@@ -54,14 +54,14 @@ func NodeExporterQueryGauge(w http.ResponseWriter, r *http.Request) {
 	body, err1 := ioutil.ReadAll(resp.Body)
 	if err1 != nil {
 		lgr.Error.Println(
-			"Failed to read the Node Exporter Response")
+			"Failed to read the Node Exporter response")
 	}
 
 	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
 	if err2 != nil {
-		lgr.Error.Println("Failed to Parse the Node Exporter Response")
+		lgr.Error.Println("Failed to Parse the Node Exporter response")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
-			" read Node Exporter Response."})
+			" read Node Exporter response."})
 		return
 	}
 
@@ -112,9 +112,9 @@ func NodeExporterQueryCounter(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := http.Get(exporterConfig)
 	if err != nil {
-		lgr.Error.Println("Failed to retrieve Node Exporter Data")
+		lgr.Error.Println("Failed to retrieve Node Exporter data")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
-			" retrieve Prometheus Data check if Node Exporter is Enabled!"})
+			" retrieve Prometheus data check if Node Exporter is enabled!"})
 		return
 	}
 
@@ -123,17 +123,17 @@ func NodeExporterQueryCounter(w http.ResponseWriter, r *http.Request) {
 	// Read the body response of the Node Exporter
 	body, err1 := ioutil.ReadAll(resp.Body)
 	if err1 != nil {
-		lgr.Error.Println("Failed to read the Node Exporter Response")
+		lgr.Error.Println("Failed to read the Node Exporter response")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
-			" read Node Exporter Response."})
+			" read Node Exporter response."})
 		return
 	}
 
 	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
 	if err2 != nil {
-		lgr.Error.Println("Failed to Parse the Node Exporter Response")
+		lgr.Error.Println("Failed to Parse the Node Exporter response")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
-			" Parse Node Exporter Response."})
+			" Parse Node Exporter response."})
 		return
 	}
 

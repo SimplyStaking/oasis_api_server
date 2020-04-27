@@ -65,7 +65,7 @@ func GetIsSynced(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get IsSynced!"})
 		lgr.Error.Println(
-			"Request at /api/nodecontroller/synced/ Failed to get IsSynced : ",
+			"Request at /api/nodecontroller/synced/ failed to get IsSynced : ",
 			 err)
 		return
 	}

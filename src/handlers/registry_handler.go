@@ -77,7 +77,7 @@ func GetEntities(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Entities!"})
 		lgr.Error.Println(
-			"Request at /api/registry/entities/ Failed to retrieve entities : ",
+			"Request at /api/registry/entities/ failed to retrieve entities : ",
 			err)
 		return
 	}
@@ -137,7 +137,7 @@ func GetNodes(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Nodes!"})
 		lgr.Error.Println(
-			"Request at /api/registry/nodes/ Failed to retrieve nodes : ", err)
+			"Request at /api/registry/nodes/ failed to retrieve nodes : ", err)
 		return
 	}
 
@@ -195,7 +195,7 @@ func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Runtimes!"})
 		lgr.Error.Println(
-			"Request at /api/registry/runtimes/ Failed to retrieve runtimes : ",
+			"Request at /api/registry/runtimes/ failed to retrieve runtimes : ",
 			err)
 		return
 	}
@@ -256,7 +256,7 @@ func GetRegistryStateToGenesis(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Registry Genesis!"})
 		lgr.Error.Println(
-			"Request at /api/registry/genesis/ Failed to retrieve Registry "+
+			"Request at /api/registry/genesis/ failed to retrieve Registry "+
 			"Genesis : ", err)
 		return
 	}
@@ -343,7 +343,7 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Registry Entity!"})
 		lgr.Error.Println(
-			"Request at /api/registry/entity/ Failed to retrieve Registry "+
+			"Request at /api/registry/entity/ failed to retrieve Registry "+
 			"Entity : ", err)
 		return
 	}
@@ -431,7 +431,7 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Registry Node!"})
 		lgr.Error.Println(
-			"Request at /api/registry/node/ Failed to retrieve Registry" +
+			"Request at /api/registry/node/ failed to retrieve Registry" +
 			" Node : ", err)
 		return
 	}
@@ -519,7 +519,7 @@ func GetRuntime(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Registry Runtime!"})
 		lgr.Error.Println(
-			"Request at /api/registry/runtime/ Failed to retrieve Registry" +
+			"Request at /api/registry/runtime/ failed to retrieve Registry" +
 			" Runtime : ", err)
 		return
 	}

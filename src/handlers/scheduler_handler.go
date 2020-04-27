@@ -76,7 +76,7 @@ func GetValidators(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Validators!"})
 		lgr.Error.Println(
-			"Request at /api/scheduler/validators/ Failed to retrieve "+
+			"Request at /api/scheduler/validators/ failed to retrieve "+
 			"validators : ", err)
 		return
 	}
@@ -166,7 +166,7 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Committees!"})
 		lgr.Error.Println(
-			"Request at /api/scheduler/committees/ Failed to retrieve "+
+			"Request at /api/scheduler/committees/ failed to retrieve "+
 			"committees : ", err)
 		return
 	}
@@ -228,7 +228,7 @@ func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Scheduler Genesis State!"})
 		lgr.Error.Println(
-			"Request at /api/scheduler/genesis/ Failed to retrieve Scheduler "+
+			"Request at /api/scheduler/genesis/ failed to retrieve Scheduler "+
 			"Genesis State : ", err)
 		return
 	}

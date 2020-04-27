@@ -193,7 +193,7 @@ func GetStakingStateToGenesis(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Staking Genesis State!"})
 		lgr.Error.Println(
-			"Request at /api/staking/genesis/ Failed to retrieve Staking " +
+			"Request at /api/staking/genesis/ failed to retrieve Staking " +
 			"Genesis State : ", err)
 		return
 	}
@@ -269,7 +269,7 @@ func GetThreshold(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Threshold!"})
 		lgr.Error.Println(
-			"Request at /api/staking/threshold/ Failed to retrieve "+
+			"Request at /api/staking/threshold/ failed to retrieve "+
 			"Threshold : ", err)
 		return
 	}
@@ -329,7 +329,7 @@ func GetAccounts(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Accounts!"})
 		lgr.Error.Println(
-			"Request at /api/staking/accounts/ Failed to retrieve Accounts : ",
+			"Request at /api/staking/accounts/ failed to retrieve Accounts : ",
 			err)
 		return
 	}
@@ -418,7 +418,7 @@ func GetAccountInfo(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Account!"})
 		lgr.Error.Println(
-			"Request at /api/staking/accountinfo/ Failed to retrieve Account " +
+			"Request at /api/staking/accountinfo/ failed to retrieve Account " +
 			"Info : ", err)
 		return
 	}
@@ -507,7 +507,7 @@ func GetDelegations(w http.ResponseWriter, r *http.Request) {
 			Error: "Failed to get Delegations!"})
 
 		lgr.Error.Println(
-			"Request at /api/staking/delegations/ Failed to retrieve " +
+			"Request at /api/staking/delegations/ failed to retrieve " +
 			"Delegations : ", err)
 		return
 	}
@@ -597,7 +597,7 @@ func GetDebondingDelegations(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Debonding Delegations!"})
 		lgr.Error.Println(
-			"Request at /api/staking/debondingdelegations/ Failed to retrieve" +
+			"Request at /api/staking/debondingdelegations/ failed to retrieve" +
 			" Debonding Delegations : ", err)
 		return
 	}
@@ -659,7 +659,7 @@ func GetEvents(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Events!"})
 		lgr.Error.Println(
-			"Request at /api/staking/events/ Failed to retrieve Events : ", err)
+			"Request at /api/staking/events/ failed to retrieve Events : ", err)
 		return
 	}
 
