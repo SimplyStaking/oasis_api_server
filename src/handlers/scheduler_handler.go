@@ -178,7 +178,7 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 		 committees})
 }
 
-// GetSchedulerStateToGenesis returns genesis state of scheduler at 
+// GetSchedulerStateToGenesis returns genesis state of scheduler at the
 // specified block height.
 func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
 

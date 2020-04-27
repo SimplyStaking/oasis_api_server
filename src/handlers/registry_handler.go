@@ -206,7 +206,7 @@ func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(responses.RuntimesResponse{Runtimes: runtimes})
 }
 
-// GetRegistryStateToGenesis returns StateToGenesis at specified 
+// GetRegistryStateToGenesis returns StateToGenesis at the specified 
 // block height for Registry.
 func GetRegistryStateToGenesis(w http.ResponseWriter, r *http.Request) {
 
@@ -336,7 +336,7 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 	// Creating query to be used to retrieve Entity Information
 	query := registry.IDQuery{Height: height, ID: pubKey}
 
-	// Retrive Entity and it's information from Registry 
+	// Retrieve Entity and it's information from Registry 
 	// client using above query.
 	registryEntity, err := ro.GetEntity(context.Background(), &query)
 	if err != nil {
