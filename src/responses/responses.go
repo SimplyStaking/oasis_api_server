@@ -140,7 +140,7 @@ type NodesResponse struct {
 	Nodes []*common_node.Node `json:"result"`
 }
 
-// EntitiesResponse responding with Multiple Entities
+// EntitiesResponse responding with Multiple entities
 type EntitiesResponse struct {
 	Entities []*common_entity.Entity `json:"result"`
 }

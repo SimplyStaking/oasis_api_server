@@ -75,7 +75,7 @@ func GetEntities(w http.ResponseWriter, r *http.Request) {
 	entities, err := ro.GetEntities(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Failed to get Entities!"})
+			Error: "Failed to get entities!"})
 		lgr.Error.Println(
 			"Request at /api/registry/entities/ failed to retrieve entities : ",
 			err)
@@ -84,7 +84,7 @@ func GetEntities(w http.ResponseWriter, r *http.Request) {
 
 	// Responding with retrieved entities
 	lgr.Info.Println("Request at /api/registry/entities/ responding with" +
-		" Entities!")
+		" entities!")
 	json.NewEncoder(w).Encode(responses.EntitiesResponse{Entities: entities})
 }
 

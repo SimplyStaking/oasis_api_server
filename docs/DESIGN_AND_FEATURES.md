@@ -44,7 +44,7 @@ The API Server works as follows:
 | /api/consensus/pubkeyaddress/         | Consensus Public Key            | none            | Tendermint Key Address    |
 | /api/consensus/transactions/          | Node Name                       | Height          | List of Transactions      | 
 | /api/pingnode/                        | Node Name                       | None            | Pong                      | 
-| /api/registry/entities/               | Node Name                       | Height          | List of Entities          | 
+| /api/registry/entities/               | Node Name                       | Height          | List of entities          | 
 | /api/registry/nodes/                  | Node Name                       | Height          | List of Nodes             | 
 | /api/registry/runtimes/               | Node Name                       | Height          | List of RunTimes          | 
 | /api/registry/genesis/                | Node Name                       | Height          | Genesis State of Registry | 
