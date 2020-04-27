@@ -193,7 +193,7 @@ func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 	runtimes, err := ro.GetRuntimes(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Failed to get Runtimes!"})
+			Error: "Failed to get runtimes!"})
 		lgr.Error.Println(
 			"Request at /api/registry/runtimes/ failed to retrieve runtimes : ",
 			err)
@@ -202,7 +202,7 @@ func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 
 	// Responding with runtimes returned above
 	lgr.Info.Println("Request at /api/registry/runtimes/ responding " +
-		"with Runtimes!")
+		"with runtimes!")
 	json.NewEncoder(w).Encode(responses.RuntimesResponse{Runtimes: runtimes})
 }
 

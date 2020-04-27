@@ -238,7 +238,7 @@ func Test_GetRuntimes_Height3(t *testing.T) {
 
 	expected := "result"
 
-	// Responding with all Runtimes
+	// Responding with all runtimes
 	allRuntimes := &responses.RuntimesResponse{
 		Runtimes: []*registry_api.Runtime{},
 	}

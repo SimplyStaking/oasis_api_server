@@ -130,7 +130,7 @@ type RuntimeResponse struct {
 	Runtime *registry_api.Runtime `json:"result"`
 }
 
-// RuntimesResponse responds with Multiple Runtimes
+// RuntimesResponse responds with Multiple runtimes
 type RuntimesResponse struct {
 	Runtimes []*registry_api.Runtime `json:"result"`
 }
