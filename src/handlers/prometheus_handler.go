@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"sync"
 	"bytes"
 	"encoding/json"
 	"fmt"
@@ -60,7 +61,9 @@ func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
 			" read Prometheus response."})
 		return
 	}
-
+	mutex := &sync.Mutex{}
+	
+	mutex.Lock()
 	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
 	if err2 != nil {
 		lgr.Error.Println("Failed to Parse Prometheus response")
@@ -81,6 +84,7 @@ func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
 	}
 
 	output := parsed[gaugeName].GetMetric()[0].GetGauge().GetValue()
+	mutex.Unlock()
 	s := fmt.Sprintf("%f", output)
 
 	json.NewEncoder(w).Encode(responses.SuccessResponse{Result: s})
@@ -134,7 +138,9 @@ func PrometheusQueryCounter(w http.ResponseWriter, r *http.Request) {
 			" read Prometheus response."})
 		return
 	}
-
+	mutex := &sync.Mutex{}
+	
+	mutex.Lock()
 	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
 	if err2 != nil {
 		lgr.Error.Println("Failed to Parse Prometheus response")
@@ -152,6 +158,7 @@ func PrometheusQueryCounter(w http.ResponseWriter, r *http.Request) {
 	}
 
 	output := parsed[counterName].GetMetric()[0].GetCounter().GetValue()
+	mutex.Unlock()
 	s := fmt.Sprintf("%f", output)
 
 	json.NewEncoder(w).Encode(responses.SuccessResponse{Result: s})

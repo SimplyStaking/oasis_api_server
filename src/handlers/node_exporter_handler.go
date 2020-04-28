@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"sync"
 	"bytes"
 	"encoding/json"
 	"fmt"
@@ -57,6 +58,9 @@ func NodeExporterQueryGauge(w http.ResponseWriter, r *http.Request) {
 			"Failed to read the Node Exporter response")
 	}
 
+	mutex := &sync.Mutex{}
+
+	mutex.Lock()
 	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
 	if err2 != nil {
 		lgr.Error.Println("Failed to Parse the Node Exporter response")
@@ -75,6 +79,7 @@ func NodeExporterQueryGauge(w http.ResponseWriter, r *http.Request) {
 	}
 
 	output := parsed[gaugeName].GetMetric()[0].GetGauge().GetValue()
+	mutex.Unlock()
 	s := fmt.Sprintf("%f", output)
 
 	json.NewEncoder(w).Encode(responses.SuccessResponse{Result: s})
@@ -128,7 +133,9 @@ func NodeExporterQueryCounter(w http.ResponseWriter, r *http.Request) {
 			" read Node Exporter response."})
 		return
 	}
+	mutex := &sync.Mutex{}
 
+	mutex.Lock()
 	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
 	if err2 != nil {
 		lgr.Error.Println("Failed to Parse the Node Exporter response")
@@ -147,6 +154,7 @@ func NodeExporterQueryCounter(w http.ResponseWriter, r *http.Request) {
 	}
 
 	output := parsed[counterName].GetMetric()[0].GetCounter().GetValue()
+	mutex.Unlock()
 	s := fmt.Sprintf("%f", output)
 
 	json.NewEncoder(w).Encode(responses.SuccessResponse{Result: s})
