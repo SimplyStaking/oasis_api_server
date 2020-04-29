@@ -13,16 +13,13 @@ import (
 	"github.com/prometheus/common/expfmt"
 )
 
-var parser expfmt.TextParser
-
 // PrometheusQueryGauge to retreive prometheus data.
 func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
-
 	lgr.Info.Println("Received request for /api/prometheus/gauge")
 
 	// Add header so that received knows they're receiving JSON
 	w.Header().Add("Content-Type", "application/json")
-
+	
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, prometheusConfig := checkNodeNamePrometheus(nodeName)
@@ -61,12 +58,16 @@ func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
 			" read Prometheus response."})
 		return
 	}
-	mutex := &sync.Mutex{}
-	
+	//This Parser needs to be declared inside the function handler(Go Routine)
+	var parser expfmt.TextParser
+	mutex := &sync.RWMutex{}
+
 	mutex.Lock()
 	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
+	mutex.Unlock()
 	if err2 != nil {
-		lgr.Error.Println("Failed to Parse Prometheus response")
+		lgr.Error.Println("Failed to Parse Prometheus response for Gauge :" +
+			gaugeName)
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
 			" Parse Prometheus response."})
 		return
@@ -84,7 +85,6 @@ func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
 	}
 
 	output := parsed[gaugeName].GetMetric()[0].GetGauge().GetValue()
-	mutex.Unlock()
 	s := fmt.Sprintf("%f", output)
 
 	json.NewEncoder(w).Encode(responses.SuccessResponse{Result: s})
@@ -138,12 +138,17 @@ func PrometheusQueryCounter(w http.ResponseWriter, r *http.Request) {
 			" read Prometheus response."})
 		return
 	}
-	mutex := &sync.Mutex{}
-	
+
+	//This Parser needs to be declared inside the function handler(Go Routine)
+	var parser expfmt.TextParser
+	mutex := &sync.RWMutex{}
+
 	mutex.Lock()
 	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
+	mutex.Unlock()
 	if err2 != nil {
-		lgr.Error.Println("Failed to Parse Prometheus response")
+		lgr.Error.Println("Failed to Parse Prometheus response for Counter : "+
+			counterName)
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
 			" Parse Prometheus response."})
 	}
@@ -158,7 +163,6 @@ func PrometheusQueryCounter(w http.ResponseWriter, r *http.Request) {
 	}
 
 	output := parsed[counterName].GetMetric()[0].GetCounter().GetValue()
-	mutex.Unlock()
 	s := fmt.Sprintf("%f", output)
 
 	json.NewEncoder(w).Encode(responses.SuccessResponse{Result: s})

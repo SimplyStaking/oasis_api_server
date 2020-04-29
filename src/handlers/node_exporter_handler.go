@@ -10,6 +10,7 @@ import (
 
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
 	"github.com/SimplyVC/oasis_api_server/src/responses"
+	"github.com/prometheus/common/expfmt"
 )
 
 // NodeExporterQueryGauge to retreive exporter data.
@@ -57,11 +58,13 @@ func NodeExporterQueryGauge(w http.ResponseWriter, r *http.Request) {
 		lgr.Error.Println(
 			"Failed to read the Node Exporter response")
 	}
-
-	mutex := &sync.Mutex{}
-
+	//This Parser needs to be declared inside the function handler(Go Routine)
+	var parser expfmt.TextParser
+	mutex := &sync.RWMutex{}
+	
 	mutex.Lock()
 	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
+	mutex.Unlock()
 	if err2 != nil {
 		lgr.Error.Println("Failed to Parse the Node Exporter response")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
@@ -79,7 +82,6 @@ func NodeExporterQueryGauge(w http.ResponseWriter, r *http.Request) {
 	}
 
 	output := parsed[gaugeName].GetMetric()[0].GetGauge().GetValue()
-	mutex.Unlock()
 	s := fmt.Sprintf("%f", output)
 
 	json.NewEncoder(w).Encode(responses.SuccessResponse{Result: s})
@@ -133,10 +135,15 @@ func NodeExporterQueryCounter(w http.ResponseWriter, r *http.Request) {
 			" read Node Exporter response."})
 		return
 	}
-	mutex := &sync.Mutex{}
 
+	//This Parser needs to be declared inside the function handler(Go Routine)
+	var parser expfmt.TextParser
+	mutex := &sync.RWMutex{}
+	
 	mutex.Lock()
 	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
+	mutex.Unlock()
+
 	if err2 != nil {
 		lgr.Error.Println("Failed to Parse the Node Exporter response")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
@@ -154,7 +161,6 @@ func NodeExporterQueryCounter(w http.ResponseWriter, r *http.Request) {
 	}
 
 	output := parsed[counterName].GetMetric()[0].GetCounter().GetValue()
-	mutex.Unlock()
 	s := fmt.Sprintf("%f", output)
 
 	json.NewEncoder(w).Encode(responses.SuccessResponse{Result: s})

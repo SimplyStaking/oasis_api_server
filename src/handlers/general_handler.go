@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"sync"
 	"encoding/json"
 	"net/http"
 
@@ -25,6 +26,9 @@ func GetConnections(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 	lgr.Info.Println("Received request for /api/getconnectionslist")
 
+	mutex := &sync.RWMutex{}
+	mutex.Lock()
+
 	// Create new empty Slice of strings where connections will be stored
 	connectionsResponse := []string{}
 	allSockets := config.GetNodes()
@@ -38,4 +42,5 @@ func GetConnections(w http.ResponseWriter, r *http.Request) {
 	// Encode object and send it using predefind response
 	json.NewEncoder(w).Encode(responses.ConnectionsResponse{
 		Results: connectionsResponse})
+	mutex.Unlock()
 }
