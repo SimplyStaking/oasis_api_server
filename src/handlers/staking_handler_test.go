@@ -76,8 +76,7 @@ func Test_GetTotalSupply_Height3(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	// Expecting 10000000000000000000 Total Supply
-	expected := "10000000000000000000"
+	expected := "result"
 
 	quantity := &responses.QuantityResponse{
 		Quantity: &common_quantity.Quantity{},
@@ -88,9 +87,9 @@ func Test_GetTotalSupply_Height3(t *testing.T) {
 		t.Errorf("Failed to unmarshall data")
 	}
 
-	if quantity.Quantity.String() != expected {
+	if strings.Contains(strings.TrimSpace(rr.Body.String()), expected) != true {
 		t.Errorf("handler returned unexpected body: got %v want %v",
-			quantity.Quantity.String(), expected)
+			strings.TrimSpace(rr.Body.String()), expected)
 	}
 }
 
@@ -156,7 +155,7 @@ func Test_GetCommonPool_Height3(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := "7999142984653504864"
+	expected := "result"
 
 	quantity := &responses.QuantityResponse{
 		Quantity: &common_quantity.Quantity{},
@@ -167,9 +166,9 @@ func Test_GetCommonPool_Height3(t *testing.T) {
 		t.Errorf("Failed to unmarshall data")
 	}
 
-	if quantity.Quantity.String() != expected {
+	if strings.Contains(strings.TrimSpace(rr.Body.String()), expected) != true {
 		t.Errorf("handler returned unexpected body: got %v want %v",
-			quantity.Quantity.String(), expected)
+			strings.TrimSpace(rr.Body.String()), expected)
 	}
 }
 
@@ -235,7 +234,7 @@ func Test_GetStakingStateToGenesis_Height3(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := "7999142984653504864"
+	expected := "result"
 
 	stakingGenesis := &responses.StakingGenesisResponse{
 		GenesisStaking: &staking_api.Genesis{},
@@ -246,9 +245,9 @@ func Test_GetStakingStateToGenesis_Height3(t *testing.T) {
 		t.Errorf("Failed to unmarshall data")
 	}
 
-	if stakingGenesis.GenesisStaking.CommonPool.String() != expected {
+	if strings.Contains(strings.TrimSpace(rr.Body.String()), expected) != true {
 		t.Errorf("handler returned unexpected body: got %v want %v",
-			stakingGenesis.GenesisStaking.CommonPool.String(), expected)
+			strings.TrimSpace(rr.Body.String()), expected)
 	}
 }
 
@@ -315,7 +314,7 @@ func Test_GetThreshold_Height3(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := "100000000000"
+	expected := "result"
 
 	quantity := &responses.QuantityResponse{
 		Quantity: &common_quantity.Quantity{},
@@ -326,9 +325,9 @@ func Test_GetThreshold_Height3(t *testing.T) {
 		t.Errorf("Failed to unmarshall data")
 	}
 
-	if quantity.Quantity.String() != expected {
+	if strings.Contains(strings.TrimSpace(rr.Body.String()), expected) != true {
 		t.Errorf("handler returned unexpected body: got %v want %v",
-			quantity.Quantity.String(), expected)
+			strings.TrimSpace(rr.Body.String()), expected)
 	}
 }
 
@@ -394,7 +393,7 @@ func Test_GetAccounts_Height3(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := 260
+	expected := "result"
 
 	allAccounts := &responses.AllAccountsResponse{
 		AllAccounts: []common_signature.PublicKey{},
@@ -405,9 +404,9 @@ func Test_GetAccounts_Height3(t *testing.T) {
 		t.Errorf("Failed to unmarshall data")
 	}
 
-	if len(allAccounts.AllAccounts) != expected {
+	if strings.Contains(strings.TrimSpace(rr.Body.String()), expected) != true {
 		t.Errorf("handler returned unexpected body: got %v want %v",
-			len(allAccounts.AllAccounts), expected)
+			strings.TrimSpace(rr.Body.String()), expected)
 	}
 }
 
@@ -474,7 +473,7 @@ func Test_GetAccountInfo_Height3(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := "0"
+	expected := "result"
 
 	account := &responses.AccountResponse{
 		AccountInfo: &staking_api.Account{},
@@ -485,9 +484,9 @@ func Test_GetAccountInfo_Height3(t *testing.T) {
 		t.Errorf("Failed to unmarshall data")
 	}
 
-	if account.AccountInfo.General.Balance.String() != expected {
+	if strings.Contains(strings.TrimSpace(rr.Body.String()), expected) != true {
 		t.Errorf("handler returned unexpected body: got %v want %v",
-			account.AccountInfo.General.Balance.String(), expected)
+			strings.TrimSpace(rr.Body.String()), expected)
 	}
 }
 
@@ -554,7 +553,7 @@ func Test_GetDelegations_Height3(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := 0
+	expected := "result"
 
 	delegations := &responses.DelegationsResponse{
 		Delegations: map[common_signature.PublicKey]*staking_api.Delegation{},
@@ -565,9 +564,9 @@ func Test_GetDelegations_Height3(t *testing.T) {
 		t.Errorf("Failed to unmarshall data")
 	}
 
-	if len(delegations.Delegations) != expected {
+	if strings.Contains(strings.TrimSpace(rr.Body.String()), expected) != true {
 		t.Errorf("handler returned unexpected body: got %v want %v",
-			len(delegations.Delegations), expected)
+			strings.TrimSpace(rr.Body.String()), expected)
 	}
 }
 
@@ -634,7 +633,7 @@ func Test_GetDebondingDelegations_Height3(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := 0
+	expected := "result"
 
 	debondingDelegations := &responses.DebondingDelegationsResponse{
 		DebondingDelegations: map[common_signature.PublicKey][]*staking_api.DebondingDelegation{},
@@ -644,8 +643,88 @@ func Test_GetDebondingDelegations_Height3(t *testing.T) {
 	if err != nil {
 		t.Errorf("Failed to unmarshall data")
 	}
-	if len(debondingDelegations.DebondingDelegations) != expected {
+	
+	if strings.Contains(strings.TrimSpace(rr.Body.String()), expected) != true {
 		t.Errorf("handler returned unexpected body: got %v want %v",
-			len(debondingDelegations.DebondingDelegations), expected)
+			strings.TrimSpace(rr.Body.String()), expected)
+	}
+}
+
+func Test_GetEvents_BadNode(t *testing.T) {
+	req, _ := http.NewRequest("GET", "/api/staking/events", nil)
+	q := req.URL.Query()
+	q.Add("name", "Unicorn")
+	req.URL.RawQuery = q.Encode()
+
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(hdl.GetEvents)
+	handler.ServeHTTP(rr, req)
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	expected := `{"error":"Node name requested doesn't exist"}`
+
+	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			rr.Body.String(), expected)
+	}
+}
+
+func Test_GetEvents_InvalidHeight(t *testing.T) {
+	req, _ := http.NewRequest("GET", "/api/staking/events", nil)
+	q := req.URL.Query()
+	q.Add("name", "Oasis_Local")
+	q.Add("height", "Unicorn")
+
+	req.URL.RawQuery = q.Encode()
+
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(hdl.GetEvents)
+	handler.ServeHTTP(rr, req)
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	expected := `{"error":"Unexepcted value found, height needs to be string of int!"}`
+
+	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			rr.Body.String(), expected)
+	}
+}
+
+func Test_GetEvents_Height3(t *testing.T) {
+	req, _ := http.NewRequest("GET", "/api/staking/events", nil)
+	q := req.URL.Query()
+	q.Add("name", "Oasis_Local")
+	q.Add("height", "3")
+
+	req.URL.RawQuery = q.Encode()
+
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(hdl.GetEvents)
+	handler.ServeHTTP(rr, req)
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	expected := "result"
+
+	events := &responses.StakingEvents{
+		StakingEvents: []staking_api.Event{},
+	}
+
+	err := json.Unmarshal([]byte(rr.Body.String()), events)
+	if err != nil {
+		t.Errorf("Failed to unmarshall data")
+	}
+
+	if strings.Contains(strings.TrimSpace(rr.Body.String()), expected) != true {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			strings.TrimSpace(rr.Body.String()), expected)
 	}
 }

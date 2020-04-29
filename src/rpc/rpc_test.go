@@ -38,7 +38,8 @@ func teardown() {
 func TestSchedulerClient_Success(t *testing.T) {
 	_, _, err := rpc.SchedulerClient(isocket_path)
 	if err != nil {
-		t.Errorf("Failed to create SchedulerClient for socket %v got %v", isocket_path, err)
+		t.Errorf("Failed to create SchedulerClient for socket %v got %v", 
+		isocket_path, err)
 	}
 }
 
@@ -46,7 +47,8 @@ func TestSchedulerClient_Success(t *testing.T) {
 func TestNodeControllerClient_Success(t *testing.T) {
 	_, _, err := rpc.NodeControllerClient(isocket_path)
 	if err != nil {
-		t.Errorf("Failed to create SchedulerClient for socket %v got %v", isocket_path, err)
+		t.Errorf("Failed to create SchedulerClient for socket %v got %v", 
+		isocket_path, err)
 	}
 }
 
@@ -54,7 +56,8 @@ func TestNodeControllerClient_Success(t *testing.T) {
 func TestRegistryClient_Success(t *testing.T) {
 	_, _, err := rpc.RegistryClient(isocket_path)
 	if err != nil {
-		t.Errorf("Failed to create RegistryClient for socket %v got %v", isocket_path, err)
+		t.Errorf("Failed to create RegistryClient for socket %v got %v", 
+		isocket_path, err)
 	}
 }
 
@@ -62,7 +65,8 @@ func TestRegistryClient_Success(t *testing.T) {
 func TestStakingClient_Success(t *testing.T) {
 	_, _, err := rpc.StakingClient(isocket_path)
 	if err != nil {
-		t.Errorf("Failed to create StakingClient for socket %v got %v", isocket_path, err)
+		t.Errorf("Failed to create StakingClient for socket %v got %v", 
+		isocket_path, err)
 	}
 }
 
@@ -70,7 +74,8 @@ func TestStakingClient_Success(t *testing.T) {
 func TestConsensusClient_Success(t *testing.T) {
 	_, _, err := rpc.ConsensusClient(isocket_path)
 	if err != nil {
-		t.Errorf("Failed to create ConsensusClient for socket %v got %v", isocket_path, err)
+		t.Errorf("Failed to create ConsensusClient for socket %v got %v", 
+		isocket_path, err)
 	}
 }
 
@@ -78,6 +83,7 @@ func TestConsensusClient_Success(t *testing.T) {
 func TestConnect_Success(t *testing.T) {
 	_, err := rpc.Connect(isocket_path)
 	if err != nil {
-		t.Errorf("Failed to create connection for socket %v got %v", isocket_path, err)
+		t.Errorf("Failed to create connection for socket %v got %v",
+		 isocket_path, err)
 	}
 }

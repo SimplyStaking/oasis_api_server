@@ -2,7 +2,6 @@ package router
 
 import (
 	"log"
-	"net/http"
 	"os"
 
 	"github.com/gorilla/mux"
@@ -10,6 +9,7 @@ import (
 	conf "github.com/SimplyVC/oasis_api_server/src/config"
 	handler "github.com/SimplyVC/oasis_api_server/src/handlers"
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
+	"github.com/zenazn/goji/graceful"
 )
 
 // StartServer starts server by setting router and all endpoints
@@ -18,7 +18,7 @@ func StartServer() error {
 	// Load port configurations
 	mainConf, err2 := conf.LoadMainConfiguration()
 	if err2 != nil {
-		lgr.Error.Println("Loading of Port configuration has Failed!")
+		lgr.Error.Println("Loading of Port configuration has failed!")
 		// Abort Program no Port configured to run API on
 		os.Exit(0)
 	}
@@ -26,7 +26,7 @@ func StartServer() error {
 	// Load socket configuration but do not use them
 	_, err3 := conf.LoadNodesConfiguration()
 	if err3 != nil {
-		lgr.Error.Println("Loading of Socket configuration has Failed!")
+		lgr.Error.Println("Loading of Socket configuration has failed!")
 		// Abort Program no Sockets configured to run API on
 		os.Exit(0)
 	}
@@ -34,7 +34,7 @@ func StartServer() error {
 	// Load sentry configuration
 	_, err4 := conf.LoadSentryConfiguration()
 	if err4 != nil {
-		lgr.Error.Println("Loading of Sentry configuration has Failed!")
+		lgr.Error.Println("Loading of Sentry configuration has failed!")
 	}
 
 	apiPort := mainConf["api_server"]["port"]
@@ -99,6 +99,8 @@ func StartServer() error {
 		handler.GetDelegations).Methods("Get")
 	router.HandleFunc("/api/staking/debondingdelegations/",
 		handler.GetDebondingDelegations).Methods("Get")
+	router.HandleFunc("/api/staking/events/",
+		handler.GetEvents).Methods("Get")
 
 	// Router Handlers to handle NodeController API Calls
 	router.HandleFunc("/api/nodecontroller/synced/",
@@ -124,16 +126,10 @@ func StartServer() error {
 	router.HandleFunc("/api/exporter/counter/",
 		handler.NodeExporterQueryCounter).Methods("Get")
 
-	// Router Handlers to handle System API Calls
-	router.HandleFunc("/api/system/memory/", handler.GetMemory).Methods("Get")
-	router.HandleFunc("/api/system/disk/", handler.GetDisk).Methods("Get")
-	router.HandleFunc("/api/system/cpu/", handler.GetCPU).Methods("Get")
-	router.HandleFunc("/api/system/network/", handler.GetNetwork).Methods("Get")
-
 	// Router Handlers to handle Sentry API Calls
 	router.HandleFunc("/api/sentry/addresses/",
 		handler.GetSentryAddresses).Methods("Get")
 
-	log.Fatal(http.ListenAndServe(":"+apiPort, router))
+	log.Fatal(graceful.ListenAndServe(":"+apiPort, router))
 	return nil
 }

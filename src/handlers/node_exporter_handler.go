@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"sync"
 	"bytes"
 	"encoding/json"
 	"fmt"
@@ -9,6 +10,7 @@ import (
 
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
 	"github.com/SimplyVC/oasis_api_server/src/responses"
+	"github.com/prometheus/common/expfmt"
 )
 
 // NodeExporterQueryGauge to retreive exporter data.
@@ -42,7 +44,10 @@ func NodeExporterQueryGauge(w http.ResponseWriter, r *http.Request) {
 	resp, err := http.Get(exporterConfig)
 	if err != nil {
 		lgr.Error.Println(
-			"Failed to retrieve Prometheus Data from Node Exporter Response")
+			"Failed to retrieve Prometheus data from Node Exporter response")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
+			" retrieve Prometheus data check if Node Exporter is enabled!"})
+		return
 	}
 
 	defer resp.Body.Close()
@@ -51,12 +56,29 @@ func NodeExporterQueryGauge(w http.ResponseWriter, r *http.Request) {
 	body, err1 := ioutil.ReadAll(resp.Body)
 	if err1 != nil {
 		lgr.Error.Println(
-			"Failed to read the Node Exporter Response")
+			"Failed to read the Node Exporter response")
+	}
+	//This Parser needs to be declared inside the function handler(Go Routine)
+	var parser expfmt.TextParser
+	mutex := &sync.RWMutex{}
+	
+	mutex.Lock()
+	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
+	mutex.Unlock()
+	if err2 != nil {
+		lgr.Error.Println("Failed to Parse the Node Exporter response")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
+			" read Node Exporter response."})
+		return
 	}
 
-	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
-	if err2 != nil {
-		lgr.Error.Println("Failed to Parse the Node Exporter Response")
+	if len(parsed[gaugeName].GetMetric()) <= 0 {
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Metric name"+
+		" doesn't exist!"})
+		lgr.Info.Println(
+			"Received request for /api/exporter/gauge but Metric name "+
+			"doesn't exit!")
+		return
 	}
 
 	output := parsed[gaugeName].GetMetric()[0].GetGauge().GetValue()
@@ -97,7 +119,10 @@ func NodeExporterQueryCounter(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := http.Get(exporterConfig)
 	if err != nil {
-		lgr.Error.Println("Failed to retrieve Node Exporter Data")
+		lgr.Error.Println("Failed to retrieve Node Exporter data")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
+			" retrieve Prometheus data check if Node Exporter is enabled!"})
+		return
 	}
 
 	defer resp.Body.Close()
@@ -105,12 +130,34 @@ func NodeExporterQueryCounter(w http.ResponseWriter, r *http.Request) {
 	// Read the body response of the Node Exporter
 	body, err1 := ioutil.ReadAll(resp.Body)
 	if err1 != nil {
-		lgr.Error.Println("Failed to read the Node Exporter Response")
+		lgr.Error.Println("Failed to read the Node Exporter response")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
+			" read Node Exporter response."})
+		return
 	}
 
+	//This Parser needs to be declared inside the function handler(Go Routine)
+	var parser expfmt.TextParser
+	mutex := &sync.RWMutex{}
+	
+	mutex.Lock()
 	parsed, err2 := parser.TextToMetricFamilies(bytes.NewReader(body))
+	mutex.Unlock()
+
 	if err2 != nil {
-		lgr.Error.Println("Failed to Parse the Node Exporter Response")
+		lgr.Error.Println("Failed to Parse the Node Exporter response")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Failed to"+
+			" Parse Node Exporter response."})
+		return
+	}
+
+	if len(parsed[counterName].GetMetric()) <= 0 {
+		json.NewEncoder(w).Encode(responses.ErrorResponse{Error: "Metric name"+
+		" doesn't exist!"})
+		lgr.Info.Println(
+			"Received request for /api/exporter/counter but Metric name "+
+			"doesn't exit!")
+		return
 	}
 
 	output := parsed[counterName].GetMetric()[0].GetCounter().GetValue()

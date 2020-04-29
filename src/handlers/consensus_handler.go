@@ -81,7 +81,7 @@ func GetConsensusStateToGenesis(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Genesis file of Block!"})
 
-		lgr.Error.Println("Request at /api/GetStateToGenesis/ Failed to"+
+		lgr.Error.Println("Request at /api/GetStateToGenesis/ failed to"+
 			" retrieve genesis file : ", err)
 		return
 	}
@@ -141,7 +141,7 @@ func GetEpoch(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to retrieve Epoch of Block!"})
 
-		lgr.Error.Println("Request at /api/consensus/epoch/ Failed to retrieve"+
+		lgr.Error.Println("Request at /api/consensus/epoch/ failed to retrieve"+
 		    " Epoch : ", err)
 		return
 	}
@@ -196,12 +196,12 @@ func PingNode(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to ping node by retrieving heighest block height!"})
 
-		lgr.Error.Println("Request at /api/pingnode/ Failed to ping" +
+		lgr.Error.Println("Request at /api/pingnode/ failed to ping" +
 			" node : ", err)
 		return
 	}
 
-	// Responding with Pong Response
+	// Responding with Pong response
 	lgr.Info.Println("Request at /api/pingnode/ responding with Pong!")
 	json.NewEncoder(w).Encode(responses.SuccessResponsed)
 }
@@ -255,7 +255,7 @@ func GetBlock(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to retrieve Block!"})
 
-		lgr.Error.Println("Request at /api/consensus/block/ Failed to retrieve"+
+		lgr.Error.Println("Request at /api/consensus/block/ failed to retrieve"+
 			" Block : ", err)
 		return
 	}
@@ -314,7 +314,7 @@ func GetBlockHeader(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to retrieve Block!"})
 
-		lgr.Error.Println("Request at /api/consensus/blockheader/ Failed to" +
+		lgr.Error.Println("Request at /api/consensus/blockheader/ failed to" +
 		" retrieve Block : ", err)
 		return
 	}
@@ -322,7 +322,7 @@ func GetBlockHeader(w http.ResponseWriter, r *http.Request) {
 	// Creating BlockMeta object
 	var meta mint_api.BlockMeta
 	if err := cbor.Unmarshal(blk.Meta, &meta); err != nil {
-		lgr.Error.Println("Request at /api/consensus/blockheader/ Failed to "+
+		lgr.Error.Println("Request at /api/consensus/blockheader/ failed to "+
 			"Unmarshal Block Metadata : ", err)
 
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -386,7 +386,7 @@ func GetBlockLastCommit(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to retrieve Block!"})
 
-		lgr.Error.Println("Request at /api/consensus/blocklastcommit/ Failed"+
+		lgr.Error.Println("Request at /api/consensus/blocklastcommit/ failed"+
 			" to retrieve Block : ", err)
 		return
 	}
@@ -394,7 +394,7 @@ func GetBlockLastCommit(w http.ResponseWriter, r *http.Request) {
 	// Creating BlockMeta object
 	var meta mint_api.BlockMeta
 	if err := cbor.Unmarshal(blk.Meta, &meta); err != nil {
-		lgr.Error.Println("Request at /api/consensus/blocklastcommit/ Failed "+
+		lgr.Error.Println("Request at /api/consensus/blocklastcommit/ failed "+
 			" Unmarshal Block Metadata : ", err)
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to Unmarshal Block Metadata!"})
@@ -426,7 +426,7 @@ func PublicKeyToAddress(w http.ResponseWriter, r *http.Request){
 
 	err := consensusPublicKey.UnmarshalText([]byte(consensusKey))
 	if err != nil{
-		lgr.Error.Println("Request at /api/consensus/pubkeyaddress/ Failed to"+
+		lgr.Error.Println("Request at /api/consensus/pubkeyaddress/ failed to"+
 			" Unmarshal Consensus PublicKey : ", err)
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to Unmarshal Public Key!"})
@@ -491,7 +491,7 @@ func GetTransactions(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to retrieve Transactions!"})
 
-		lgr.Error.Println("Request at /api/consensus/transactions/ Failed to" +
+		lgr.Error.Println("Request at /api/consensus/transactions/ failed to" +
 			" retrieve Transactions : ", err)
 		return
 	}

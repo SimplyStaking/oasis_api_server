@@ -44,7 +44,7 @@ The API Server works as follows:
 | /api/consensus/pubkeyaddress/         | Consensus Public Key            | none            | Tendermint Key Address    |
 | /api/consensus/transactions/          | Node Name                       | Height          | List of Transactions      | 
 | /api/pingnode/                        | Node Name                       | None            | Pong                      | 
-| /api/registry/entities/               | Node Name                       | Height          | List of Entities          | 
+| /api/registry/entities/               | Node Name                       | Height          | List of entities          | 
 | /api/registry/nodes/                  | Node Name                       | Height          | List of Nodes             | 
 | /api/registry/runtimes/               | Node Name                       | Height          | List of RunTimes          | 
 | /api/registry/genesis/                | Node Name                       | Height          | Genesis State of Registry | 
@@ -58,7 +58,8 @@ The API Server works as follows:
 | /api/staking/accounts/                | Node Name                       | Height          | List of accounts          |
 | /api/staking/accountinfo/             | Node Name, Account Public Key   | Height          | Account information       | 
 | /api/staking/delegations/             | Node Name, Account Public Key   | Height          | Delegations               | 
-| /api/staking/debondingdelegations/    | Node Name, Account Public Key   | Height          | DebondingDelegations      | 
+| /api/staking/debondingdelegations/    | Node Name, Account Public Key   | Height          | DebondingDelegations      |
+| /api/staking/events/                  | Node Name                       | Height          | List of Events            |
 | /api/nodecontroller/synced/           | Node Name                       | None            | Synchronized State        | 
 | /api/scheduler/validators/            | Node Name                       | Height          | List of Validators        | 
 | /api/scheduler/committees/            | Node Name, Namespace            | Height          | Committees                | 
@@ -67,10 +68,6 @@ The API Server works as follows:
 | /api/prometheus/counter/              | Node Name, Counter Name         | none            | Counter Value             | 
 | /api/exporter/gauge/                  | Gauge Name                      | none            | Gauge Value               | 
 | /api/exporter/counter/                | Counter Name                    | none            | Counter Value             | 
-| /api/system/memory/                   | none                            | none            | Memory Stats              | 
-| /api/system/cpu/                      | none                            | none            | CPU Stats                 |
-| /api/system/disk/                     | node                            | none            | Disk Stats                |
-| /api/system/network/                  | node                            | none            | Network Stats             |
 | /api/sentry/addresses/                | Node Name                       | none            | Nodes Connected to Sentry |
 
 ## Using the API

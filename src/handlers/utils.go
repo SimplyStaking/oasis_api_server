@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"sync"
 	"strconv"
 
 	"github.com/SimplyVC/oasis_api_server/src/config"
@@ -10,7 +11,8 @@ import (
 
 // Function to verify and retrieve sentry data
 func checkSentryData(nodeName string) (bool, string, string) {
-
+	mutex := &sync.RWMutex{}
+	mutex.Lock()
 	// Get Sentry IP and localtion of TLS Cert
 	allSentries := config.GetSentryData()
 	for _, sentry := range allSentries {
@@ -24,12 +26,15 @@ func checkSentryData(nodeName string) (bool, string, string) {
 	// If nodeName isn't in configuration produce Log and Reply with False
 	lgr.Error.Println(
 		"Requested sentry ", nodeName, " was not found, check if configured!")
+	
+	mutex.Unlock()
 	return false, "", ""
 }
 
 // Function to check if node name is in configuration and return socket for it
 func checkNodeName(nodeName string) (bool, string) {
-
+	mutex := &sync.RWMutex{}
+	mutex.Lock()
 	// Check if nodeName is in configuration
 	allSockets := config.GetNodes()
 	for _, socket := range allSockets {
@@ -44,12 +49,15 @@ func checkNodeName(nodeName string) (bool, string) {
 	// If nodeName isn't in configuration produce Log and Reply with False
 	lgr.Error.Println(
 		"Requested node ", nodeName, " was not found, check if configured!")
+	
+	mutex.Unlock()
 	return false, ""
 }
 
 // Function to check if node name has prometheus configuration for it
 func checkNodeNamePrometheus(nodeName string) (bool, string) {
-
+	mutex := &sync.RWMutex{}
+	mutex.Lock()
 	// Check if nodeName is in configuration
 	nodeData := config.GetNodes()
 	for _, node := range nodeData {
@@ -64,12 +72,15 @@ func checkNodeNamePrometheus(nodeName string) (bool, string) {
 	// If nodeName isn't in configuration produce Log and Reply with False
 	lgr.Error.Println(
 		"Requested node ", nodeName, " was not found, check if configured!")
+	
+	mutex.Unlock()
 	return false, ""
 }
 
 // Function to check if height is valid or to set height to latest
 func checkHeight(recvHeight string) int64 {
-
+	mutex := &sync.RWMutex{}
+	mutex.Lock()
 	// Declare height here so that it can be set inside if statement
 	var height int64
 
@@ -95,11 +106,15 @@ func checkHeight(recvHeight string) int64 {
 		// If succeeded then parse it again and set height.
 		height, _ = (strconv.ParseInt(recvHeight, 10, 64))
 	}
+	mutex.Unlock()
 	return height
 }
 
 // Function to check if Kind is valid
 func checkKind(recvKind string) int64 {
+	
+	mutex := &sync.RWMutex{}
+	mutex.Lock()
 
 	// Declare kind here so that it can be set inside if statement
 	var kind int64
@@ -126,12 +141,14 @@ func checkKind(recvKind string) int64 {
 		// If succeeded then parse it again and set kind.
 		kind, _ = (strconv.ParseInt(recvKind, 10, 64))
 	}
+	mutex.Unlock()
 	return kind
 }
 
 // Function to check if amount is valid
 func checkAmount(recvAmount string) int64 {
-
+	mutex := &sync.RWMutex{}
+	mutex.Lock()
 	// Declare amount here so that it can be set inside if statement
 	var amount int64
 	var err error
@@ -154,12 +171,14 @@ func checkAmount(recvAmount string) int64 {
 			return -1
 		}
 	}
+	mutex.Unlock()
 	return amount
 }
 
 // Function to check if a Node Exporter URL exists
 func getNodeExporter() (bool, string) {
-
+	mutex := &sync.RWMutex{}
+	mutex.Lock()
 	// Check if nodeName is in the configuration
 	mainInfo := config.GetMain()
 	
@@ -171,5 +190,6 @@ func getNodeExporter() (bool, string) {
 	// If the Node Exporter was not configured then reply with False
 	lgr.Error.Println(
 		"Requested node was not found, check if configured!")
+	mutex.Unlock()
 	return false, ""
 }

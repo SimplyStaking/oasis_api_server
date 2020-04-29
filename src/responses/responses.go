@@ -20,7 +20,12 @@ import (
 	tmed "github.com/tendermint/tendermint/crypto"
 )
 
-// TendermintAddress rresponds with a tendermint public key address
+// StakingEvents responds with a list of events
+type StakingEvents struct {
+	StakingEvents []staking_api.Event `json:"result"`
+}
+
+// TendermintAddress responds with a tendermint public key address
 type TendermintAddress struct {
 	TendermintAddress *tmed.Address `json:"result"`
 }
@@ -125,7 +130,7 @@ type RuntimeResponse struct {
 	Runtime *registry_api.Runtime `json:"result"`
 }
 
-// RuntimesResponse responds with Multiple Runtimes
+// RuntimesResponse responds with Multiple runtimes
 type RuntimesResponse struct {
 	Runtimes []*registry_api.Runtime `json:"result"`
 }
@@ -135,7 +140,7 @@ type NodesResponse struct {
 	Nodes []*common_node.Node `json:"result"`
 }
 
-// EntitiesResponse responding with Multiple Entities
+// EntitiesResponse responding with Multiple entities
 type EntitiesResponse struct {
 	Entities []*common_entity.Entity `json:"result"`
 }
@@ -155,7 +160,7 @@ type BlockLastCommitResponse struct {
 	BlkLastCommit *mint_types.Commit `json:"result"`
 }
 
-// BlockResponse responds with custom Block Response with an unmarshalled message
+// BlockResponse responds with custom Block response with an unmarshalled message
 type BlockResponse struct {
 	Blk *consensus_api.Block `json:"result"`
 }
