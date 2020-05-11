@@ -1,6 +1,7 @@
 # Installing Docker
 
 ## On Ubuntu
+
 First, install Docker on your machine:
 ```bash
 sudo apt update
@@ -19,6 +20,7 @@ docker --version
 ```
 
 ### Creating a new user
+
 You should create a new user from which you will run the Docker images. This is not required, but suggested for security reasons.
 ```bash
 sudo adduser oasis_api_server
@@ -36,6 +38,7 @@ su oasis_api_server
 ```
 
 ## On Windows
+
 Download and Install the `Stable` version of `Docker Desktop for Windows` from [here](https://hub.docker.com/editions/community/docker-ce-desktop-windows).\
 Once it has installed, you must Log out and back in in order for the installation to complete
 

@@ -35,8 +35,8 @@ func GetConnections(w http.ResponseWriter, r *http.Request) {
 
 	lgr.Info.Println("Iterating through all socket connections.")
 	for _, socket := range allSockets {
-		lgr.Info.Println("Node : ", socket["node_name"], " has socket at : ",
-		 socket["isocket_path"])
+		lgr.Info.Printf("Node: %s has socket %s \n",socket["node_name"], 
+			socket["isocket_path"])
 		connectionsResponse = append(connectionsResponse, socket["node_name"])
 	}
 	// Encode object and send it using predefind response

@@ -1,6 +1,7 @@
 # Install and Run the Oasis API Server
 
 ## Configuring the Nodes
+
 In order for the API to be able to run correctly, Prometheus Metrics should be enabled in the Oasis node's configuration file `config.yml` in the `/serverdir/etc/` directory which was set during the installation of the Oasis Node. To enable the metrics append this to the end of the file :
 
 ```
@@ -12,6 +13,7 @@ metrics:
 Change `:9090` to the port you want prometheus to be exposed at.
 
 ## Configuring the API
+
 Configuring the API involves setting up three config files. This is a strict requirement for the API to be able to run.
 
 Start off by cloning this repository and navigating into it:
@@ -37,9 +39,11 @@ pipenv sync
 pipenv run python run_setup.py
 ```
 ### Manually
+
 Alternatively, for advanced users, you can make a copy of the `example_*.ini` files inside the `config` folder without the `example_` prefix, and manually change the values as required.
 
 ## Installing the API and Dependencies
+
 This section will guide you through the installation of the API and any of its dependencies.
 
 We recommend that the API is installed on a Linux system, given the simpler installation and running process. 
@@ -49,19 +53,23 @@ You can either [run the API from source](#running-from-source) or [run the API u
 This affects what dependencies you will need to install.
 
 ### Running from Source
+
 Running the API from source only requires you to install Golang.
 
 #### Install Golang
+
 It is assumed that since this API needs to be run on the same machine as the Oasis node then Golang is already installed,
 therefore no documentation is provided for it's installation,
 
 #### Running the API
+
 After having installed golang you can now run the API as follows from the project directory:
 ```bash
 bash run_api.sh
 ```
 
 #### Running the API as a Linux Service
+
 Running the API as a service means that it starts up automatically on boot and restarts automatically if it runs into some issue and stops running. To do so, we recommend the following steps:
 ```bash
 # Add a new user to run the API
@@ -109,17 +117,21 @@ Check out `systemctl status oasis_api_server` to confirm that the API is running
 
 
 ### Run using Docker
+
 To run the API using Docker, you shouldn't be surprised to find out that you need to install Docker.
 
 You will then obtain the Docker image, make sure that the config files are where they should be, and run everything.
 
 #### Installing Docker on your Machine
+
 To install Docker on your machine, follow [this guide](INSTALL_DOCKER.md)
 
 #### Obtaining the Docker Image
+
 This part can be done in either of two ways, either by building the Docker image yourself, or by downloading it from Docker Hub.
 
 ##### Building the Docker Image
+
 First start off by cloning this repository:
 ```bash
 git clone https://github.com/SimplyVC/oasis_api_server
@@ -133,31 +145,36 @@ docker build -t simplyvc/oasis_api_server:1.0.0 .
 
 
 ##### Downloading the Pre-Built Docker Image from DockerHub
+
 The pre-built Docker image can simply be downloaded by running the following command:
 ```bash
 docker pull simplyvc/oasis_api_server:1.0.0
 ```
 
 #### Config Files Directory and Permissions
+
 The config files needed by the Docker image are the same as those generated in the `Configuring the API` section above.\
 These config files can be moved to any directory of your choosing `<CONFIG_DIR>`.
 
 ##### On Ubuntu
+
 If you created a new user `<USER>` earlier on, set the permissions as follows:
 ```bash
 sudo chown -R <USER>:<USER> <CONFIG_DIR>
 ```
 
 ##### On Windows
+
 No further steps are required.
 
 #### Running the Docker Image
+
 Now that the Docker image is on your machine, and you have written configurations for it, you can run it as follows, where `<CONFIG_DIR>` is the **full path** to the folder containing the previously created config files. Suppose that <CONFIG_DIR> is the **full path** to the folder containing the previously created config files, <INTERNAL_SOCK_DIR> is the **full path** on your machine where the internal socket file can be found for the Oasis node (e.g: serverdir/node/), and <PATH_IN_NODE_CONFIG> is the specified location in the API setup where the API will look for the internal socket (e.g: serverdir/node/). The API Server must also be able to find the **full path** of the Sentry `tls_identity_cert.pem` files. Therefore the path <INTERNAL_TLS_DIR> is the **full path** on your machine where the `tls_identity_cert.pem` file can be found, and <PATH_IN_SENTRY_CONFIG> is the specified location in the API setup where the API will look for the `tls_identity_cert.pem` file (e.g: serverdir/etc/). Now that the Docker image is on your machine and you have written configuration for it, you can run it as follows:
 ```bash
 docker run --network="host" -p 127.0.0.1:8686:8686 \
-    -v <CONFIG_DIR>:/app/config/ \
-    -v <INTERNAL_SOCK_DIR>:<PATH_IN_NODE_CONFIG> \
-    -v <INTERNAL_TLS_DIR>:<PATH_IN_SENTRY_CONFIG> \
+    --mount type=bind,source=<CONFIG_DIR>,target=/app/config/ \
+    --mount type=bind,source=<INTERNAL_SOCK_DIR>,target=<PATH_IN_NODE_CONFIG> \
+    --mount type=bind,source=<INTERNAL_TLS_DIR>,target=<PATH_IN_SENTRY_CONFIG> \
     -d simplyvc/oasis_api_server:1.0.0
 ```
 
@@ -165,6 +182,7 @@ Note: The port after `-p` and before the `:` can be used to route a port from th
 Example: with `5678`:3000, the the API URL must look like `http://1.2.3.4:5678`, i.e. the port must match `5678`, and not 3000.
 
 ## Confirming the API Works
+
 If you wish to make sure that the API is running, the following should return `{"result":"pong"}`:
 ```bash
 curl -X GET http://localhost:3000/api/pingapi

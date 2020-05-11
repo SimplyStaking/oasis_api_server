@@ -1,6 +1,6 @@
 ## 1.0.0
 
-Released on March 2020
+Released on May 2020
 
 ### Added
 
