@@ -30,10 +30,9 @@ def get_node(nodes_so_far: List[SentryConfig]) -> Optional[SentryConfig]:
 def setup_nodes(cp: ConfigParser) -> None:
 
     print('==== Sentry')
-    print('To retrieve data from Sentry, the API needs'
-        'to know the sentry endpoints! The list of '
-        'endpoints the API will connect to will now be '
-        'set up. Node names must be unique!')
+    print('To retrieve data from sentries, the API needs to know their '
+          'endpoints! The list of sentry endpoints the API will connect '
+          'to will now be set-up. Sentry names must be unique.')
 
     # Check if list already set up
     already_set_up = len(cp.sections()) > 0
@@ -58,7 +57,7 @@ def setup_nodes(cp: ConfigParser) -> None:
         node = get_node(nodes)
         if node is not None:
             nodes.append(node)
-            print('Successfully added node.')
+            print('Successfully added Sentry node.')
 
         if not yn_prompt('Do you want to add another'
             'sentry endpoint? (Y/n)\n'):

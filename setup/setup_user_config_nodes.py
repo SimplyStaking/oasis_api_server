@@ -22,7 +22,7 @@ def get_node(nodes_so_far: List[NodeConfig]) -> Optional[NodeConfig]:
                     '(typically unix:/serverdir/nodes/internal.sock):\n')
 
     print('==== Prometheus')
-    print('To retrieve data from Prometheus, the API needs'
+    print('To retrieve data from Prometheus, the API server needs'
           'to have the Prometheus endpoints! ')
 
     # Get Prometheus's URL of the Node

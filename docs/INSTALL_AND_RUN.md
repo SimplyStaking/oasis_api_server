@@ -2,7 +2,7 @@
 
 ## Configuring the Nodes
 
-In order for the API to be able to run correctly, Prometheus Metrics should be enabled in the Oasis node's configuration file `config.yml` in the `/serverdir/etc/` directory which was set during the installation of the Oasis Node. To enable the metrics append this to the end of the file :
+In order for the API to be able to run correctly, Prometheus metrics should be enabled in the Oasis node's configuration file `config.yml` in the `/serverdir/etc/` directory which was set during the installation of the Oasis node. To enable the metrics append this to the end of the file :
 
 ```
 metrics:
@@ -11,6 +11,10 @@ metrics:
 ```
 
 Change `:9090` to the port you want prometheus to be exposed at.
+
+## Installing the Node Exporter
+
+Please follow the [installation guide](INSTALL_NODE_EXPORTER.md) to install Node Exporter that will be running along side your node.
 
 ## Configuring the API
 
@@ -23,10 +27,6 @@ cd oasis_api_server
 ```
 
 The API can be configured in either of two ways, by [using the setup script](#using-the-setup-script), or [manually](#manually).
-
-## Installing the Node Exporter
-
-Please follow the [installation guide](INSTALL_NODE_EXPORTER.md) to install Node Exporter that will be running along side your node.
 
 ### Using the Setup Script
 

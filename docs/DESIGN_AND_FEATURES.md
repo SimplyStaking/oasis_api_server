@@ -10,15 +10,15 @@ This page will present the inner workings of the API Server as well as the featu
 
 The components involved in the API Server are the following:
 - The **Oasis Nodes** from which the API retrieves information
-- This **API Server** uses Multiple Oasis API clients to retrieve data from the Oasis nodes.
-- The **User/Program** which sends `GET Requests` to the `API Server` as per the defined Endpoints, and receives JSON formatted responses from the `API Server`
+- This **API Server** uses multiple Oasis API clients to retrieve data from the Oasis nodes.
+- The **User/Program** which sends `GET Requests` to the `API Server` as per the defined endpoints, and receives JSON formatted responses from the `API Server`
 
 The diagram below gives an idea of the various components at play when the API Server is running, and how they interact with each other and the user/program:
 
 <img src="SERVER.png" alt="design"/>
 
 The API Server works as follows:
-- The API Server loads the configuration containing the internal socket information for each node from the `config/user_config_nodes.ini` file together with Prometheus Endpoints that are used to query blockchain data.
+- The API Server loads the configuration containing the internal socket information for each node from the `config/user_config_nodes.ini` file together with Prometheus endpoints that are used to query blockchain data.
 - The API Server loads the API server configuration from the `config/user_config_main.ini` file together with the Node Exporter endpoint which will be used to query machine data.
 - The API Server has an option to also retrieve the data of Sentries connected to the node through the External URl and tls certificate data of the Sentry. This data is set up in the `config/user_config_sentry` file.
 - By communicating through this port, the API Server receives the endpoints specified in the `Complete List of Endpoints` section below, and requests information from the nodes it is connected to accordingly.
