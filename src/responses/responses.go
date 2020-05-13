@@ -180,7 +180,7 @@ type SuccessResponse struct {
 	Result string `json:"result"`
 }
 
-// ErrorResponse repsonds with an error message that will be set
+// ErrorResponse responds with an error message that will be set
 type ErrorResponse struct {
 	Error string `json:"error"`
 }

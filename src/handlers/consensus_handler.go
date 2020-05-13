@@ -194,7 +194,7 @@ func PingNode(w http.ResponseWriter, r *http.Request) {
 	_, err := co.GetBlock(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Failed to ping node by retrieving heighest block height!"})
+			Error: "Failed to ping node by retrieving highest block height!"})
 
 		lgr.Error.Println("Request at /api/pingnode/ failed to ping" +
 			" node : ", err)
@@ -407,8 +407,9 @@ func GetBlockLastCommit(w http.ResponseWriter, r *http.Request) {
 		BlkLastCommit: meta.LastCommit})
 }
 
-// Accept a Consensus Public Key and respond with crypto.address
-// This is used to match consensus public keys with Tendermint Addresses
+// PublicKeyToAddress accepts a Consensus Public Key and respond with 
+// crypto.address which is used to match consensus public keys with 
+// Tendermint Addresses
 func PublicKeyToAddress(w http.ResponseWriter, r *http.Request){
 
 	// Add header so that received knows they're receiving JSON

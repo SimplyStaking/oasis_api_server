@@ -398,7 +398,7 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Unmarshal recieved text into public key object
+	// Unmarshal received text into public key object
 	err := pubKey.UnmarshalText([]byte(nodeID))
 	if err != nil {
 		lgr.Error.Println("Failed to UnmarshalText into Public Key", err)

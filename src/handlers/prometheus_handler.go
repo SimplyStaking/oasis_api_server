@@ -13,7 +13,7 @@ import (
 	"github.com/prometheus/common/expfmt"
 )
 
-// PrometheusQueryGauge to retreive prometheus data.
+// PrometheusQueryGauge to retrieve prometheus data.
 func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
 	lgr.Info.Println("Received request for /api/prometheus/gauge")
 
@@ -92,7 +92,7 @@ func PrometheusQueryGauge(w http.ResponseWriter, r *http.Request) {
 		"Received request for /api/prometheus/gauge responding with : ", s)
 }
 
-// PrometheusQueryCounter to retreive prometheus data.
+// PrometheusQueryCounter to retrieve prometheus data.
 func PrometheusQueryCounter(w http.ResponseWriter, r *http.Request) {
 
 	lgr.Info.Println("Received request for /api/prometheus/counter")

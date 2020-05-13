@@ -13,7 +13,7 @@ import (
 	"github.com/prometheus/common/expfmt"
 )
 
-// NodeExporterQueryGauge to retreive exporter data.
+// NodeExporterQueryGauge to retrieve exporter data.
 func NodeExporterQueryGauge(w http.ResponseWriter, r *http.Request) {
 
 	lgr.Info.Println("Received request for /api/exporter/gauge")
@@ -89,7 +89,7 @@ func NodeExporterQueryGauge(w http.ResponseWriter, r *http.Request) {
 		"Received request for /api/exporter/gauge responding with : ", s)
 }
 
-// NodeExporterQueryCounter to retreive exporter data.
+// NodeExporterQueryCounter to retrieve exporter data.
 func NodeExporterQueryCounter(w http.ResponseWriter, r *http.Request) {
 
 	lgr.Info.Println("Received request for /api/exporter/counter")
