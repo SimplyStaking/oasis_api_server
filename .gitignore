@@ -1,0 +1,10 @@
+.idea/
+.vscode/
+
+__pycache__/
+
+oasis_api_server
+config/user_config_main.ini
+config/user_config_nodes.ini
+config/user_config_sentry.ini
+config/tls_identity_cert.pem
