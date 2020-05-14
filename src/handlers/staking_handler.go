@@ -610,7 +610,7 @@ func GetDebondingDelegations(w http.ResponseWriter, r *http.Request) {
 		DebondingDelegations: debondingDelegations})
 }
 
-// GetEvents 
+// GetEvents returns events at a specific height.
 func GetEvents(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
