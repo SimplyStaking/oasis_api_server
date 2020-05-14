@@ -1,5 +1,9 @@
 # Oasis API Server
 
+[![version](https://img.shields.io/github/tag/SimplyVC/oasis_api_server.svg)](https://github.com/SimplyVC/oasis_api_server/releases/latest)
+[![Go Report Card](https://goreportcard.com/badge/github.com/SimplyVC/oasis_api_server)](https://goreportcard.com/report/github.com/SimplyVC/oasis_api_server)
+[![LoC](https://tokei.rs/b1/github/SimplyVC/oasis_api_server)](https://github.com/SimplyVC/oasis_api_server)
+
 <img src="./docs/OASIS.png" alt="design" />
 
 The Oasis API Server is a wrap-around of the [Oasis Protocol Golang API](https://github.com/oasislabs/oasis-core). This makes it easier to use the protocol's API with any programming language in order to query data from the Oasis nodes. This server is also able to query data from the Oasis nodes' exposed Prometheus endpoint.
