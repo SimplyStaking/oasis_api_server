@@ -32,7 +32,7 @@ The API Server works as follows:
     6. [Sentry](https://godoc.org/github.com/oasislabs/oasis-core/go/sentry/api#Backend)
 
 ## Complete List of Endpoints
-| API Endpoint                     | Required Inputs                 | Optional Inputs | Output                    | Description                                                                         |
+| API Endpoint                     | Required Inputs                 | Optional Inputs | Output                    | 
 |----------------------------------|---------------------------------|-----------------|---------------------------|-------------------------------------------------------------------------------------|
 | /api/ping/                            | none                            | none            | Pong                      | 
 | /api/getconnectionslist/              | none                            | none            | List of Connections       |
