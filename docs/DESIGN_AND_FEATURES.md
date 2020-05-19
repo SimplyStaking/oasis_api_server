@@ -34,41 +34,41 @@ The API Server works as follows:
 ## Complete List of Endpoints
 | API Endpoint                     | Required Inputs                 | Optional Inputs | Output                    | 
 |----------------------------------|---------------------------------|-----------------|---------------------------|-------------------------------------------------------------------------------------|
-| /api/ping/                            | none                            | none            | Pong                      | 
-| /api/getconnectionslist/              | none                            | none            | List of Connections       |
-| /api/consensus/genesis/               | Node Name                       | Height          | Consensus Genesis State   | 
-| /api/consensus/epoch/                 | Node Name                       | Height          | Epoch                     | 
-| /api/consensus/block/                 | Node Name                       | Height          | Block Object              | 
-| /api/consensus/blockheader/           | Node Name                       | Height          | Block Header Object       | 
-| /api/consensus/blocklastcommit/       | Node Name                       | Height          | Block Last Commit Object  |
-| /api/consensus/pubkeyaddress/         | Consensus Public Key            | none            | Tendermint Key Address    |
-| /api/consensus/transactions/          | Node Name                       | Height          | List of Transactions      | 
-| /api/pingnode/                        | Node Name                       | None            | Pong                      | 
-| /api/registry/entities/               | Node Name                       | Height          | List of entities          | 
-| /api/registry/nodes/                  | Node Name                       | Height          | List of Nodes             | 
-| /api/registry/runtimes/               | Node Name                       | Height          | List of RunTimes          | 
-| /api/registry/genesis/                | Node Name                       | Height          | Genesis State of Registry | 
-| /api/registry/entity/                 | Node Name, Entity Public Key    | Height          | Entity                    | 
-| /api/registry/node/                   | Node Name, Node Public Key      | Height          | Node                      | 
-| /api/registry/runtime/                | Node Name, Runtime Namespace    | Height          | Runtime                   | 
-| /api/staking/totalsupply/             | Node Name                       | Height          | Total Supply              | 
-| /api/staking/commonpool/              | Node Name                       | Height          | Common Pool               | 
-| /api/staking/genesis/                 | Node Name                       | Height          | Staking Genesis State     | 
-| /api/staking/threshold/               | Node Name, kind                 | Height          | Threshold                 | 
-| /api/staking/accounts/                | Node Name                       | Height          | List of accounts          |
-| /api/staking/accountinfo/             | Node Name, Account Public Key   | Height          | Account information       | 
-| /api/staking/delegations/             | Node Name, Account Public Key   | Height          | Delegations               | 
-| /api/staking/debondingdelegations/    | Node Name, Account Public Key   | Height          | DebondingDelegations      |
-| /api/staking/events/                  | Node Name                       | Height          | List of Events            |
-| /api/nodecontroller/synced/           | Node Name                       | None            | Synchronized State        | 
-| /api/scheduler/validators/            | Node Name                       | Height          | List of Validators        | 
-| /api/scheduler/committees/            | Node Name, Namespace            | Height          | Committees                | 
-| /api/scheduler/genesis/               | Node Name                       | Height          | Scheduler Genesis State   | 
-| /api/prometheus/gauge/                | Node Name, Gauge Name           | none            | Gauge Value               | 
-| /api/prometheus/counter/              | Node Name, Counter Name         | none            | Counter Value             | 
-| /api/exporter/gauge/                  | Gauge Name                      | none            | Gauge Value               | 
-| /api/exporter/counter/                | Counter Name                    | none            | Counter Value             | 
-| /api/sentry/addresses/                | Node Name                       | none            | Nodes Connected to Sentry |
+| /api/ping                            | none                            | none            | Pong                      | 
+| /api/getconnectionslist              | none                            | none            | List of Connections       |
+| /api/consensus/genesis               | Node Name                       | Height          | Consensus Genesis State   | 
+| /api/consensus/epoch                 | Node Name                       | Height          | Epoch                     | 
+| /api/consensus/block                 | Node Name                       | Height          | Block Object              | 
+| /api/consensus/blockheader           | Node Name                       | Height          | Block Header Object       | 
+| /api/consensus/blocklastcommit       | Node Name                       | Height          | Block Last Commit Object  |
+| /api/consensus/pubkeyaddress         | Consensus Public Key            | none            | Tendermint Key Address    |
+| /api/consensus/transactions          | Node Name                       | Height          | List of Transactions      | 
+| /api/pingnode                        | Node Name                       | None            | Pong                      | 
+| /api/registry/entities               | Node Name                       | Height          | List of entities          | 
+| /api/registry/nodes                  | Node Name                       | Height          | List of Nodes             | 
+| /api/registry/runtimes               | Node Name                       | Height          | List of RunTimes          | 
+| /api/registry/genesis                | Node Name                       | Height          | Genesis State of Registry | 
+| /api/registry/entity                 | Node Name, Entity Public Key    | Height          | Entity                    | 
+| /api/registry/node                   | Node Name, Node Public Key      | Height          | Node                      | 
+| /api/registry/runtime                | Node Name, Runtime Namespace    | Height          | Runtime                   | 
+| /api/staking/totalsupply             | Node Name                       | Height          | Total Supply              | 
+| /api/staking/commonpool              | Node Name                       | Height          | Common Pool               | 
+| /api/staking/genesis                 | Node Name                       | Height          | Staking Genesis State     | 
+| /api/staking/threshold               | Node Name, kind                 | Height          | Threshold                 | 
+| /api/staking/accounts                | Node Name                       | Height          | List of accounts          |
+| /api/staking/accountinfo             | Node Name, Account Public Key   | Height          | Account information       | 
+| /api/staking/delegations             | Node Name, Account Public Key   | Height          | Delegations               | 
+| /api/staking/debondingdelegations    | Node Name, Account Public Key   | Height          | DebondingDelegations      |
+| /api/staking/events                  | Node Name                       | Height          | List of Events            |
+| /api/nodecontroller/synced           | Node Name                       | None            | Synchronized State        | 
+| /api/scheduler/validators            | Node Name                       | Height          | List of Validators        | 
+| /api/scheduler/committees            | Node Name, Namespace            | Height          | Committees                | 
+| /api/scheduler/genesis               | Node Name                       | Height          | Scheduler Genesis State   | 
+| /api/prometheus/gauge                | Node Name, Gauge Name           | none            | Gauge Value               | 
+| /api/prometheus/counter              | Node Name, Counter Name         | none            | Counter Value             | 
+| /api/exporter/gauge                  | Gauge Name                      | none            | Gauge Value               | 
+| /api/exporter/counter                | Counter Name                    | none            | Counter Value             | 
+| /api/sentry/addresses                | Node Name                       | none            | Nodes Connected to Sentry |
 
 ## Using the API
 

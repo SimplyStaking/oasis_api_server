@@ -13,7 +13,7 @@ import (
 )
 
 func Test_GetValidators_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/scheduler/validators/", nil)
+	req, _ := http.NewRequest("GET", "/api/scheduler/validators", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -35,7 +35,7 @@ func Test_GetValidators_BadNode(t *testing.T) {
 }
 
 func Test_GetValidators_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/scheduler/validators/", nil)
+	req, _ := http.NewRequest("GET", "/api/scheduler/validators", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -59,7 +59,7 @@ func Test_GetValidators_InvalidHeight(t *testing.T) {
 }
 
 func Test_GetValidators_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/scheduler/validators/", nil)
+	req, _ := http.NewRequest("GET", "/api/scheduler/validators", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
@@ -93,7 +93,7 @@ func Test_GetValidators_Height3(t *testing.T) {
 }
 
 func Test_GetCommittees_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetCommittees", nil)
+	req, _ := http.NewRequest("GET", "/api/scheduler/committees", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -115,7 +115,7 @@ func Test_GetCommittees_BadNode(t *testing.T) {
 }
 
 func Test_GetCommittees_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetCommittees", nil)
+	req, _ := http.NewRequest("GET", "/api/scheduler/committees", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -139,7 +139,7 @@ func Test_GetCommittees_InvalidHeight(t *testing.T) {
 }
 
 func Test_GetSchedulerStateToGenesis_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetSchedulerStateToGenesis", nil)
+	req, _ := http.NewRequest("GET", "/api/scheduler/genesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
@@ -161,7 +161,7 @@ func Test_GetSchedulerStateToGenesis_BadNode(t *testing.T) {
 }
 
 func Test_GetSchedulerStateToGenesis_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetSchedulerStateToGenesis", nil)
+	req, _ := http.NewRequest("GET", "/api/scheduler/genesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -185,7 +185,7 @@ func Test_GetSchedulerStateToGenesis_InvalidHeight(t *testing.T) {
 }
 
 func Test_GetSchedulerStateToGenesis_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/GetSchedulerStateToGenesis", nil)
+	req, _ := http.NewRequest("GET", "/api/scheduler/genesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
