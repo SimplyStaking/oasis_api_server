@@ -1,3 +1,10 @@
+## 1.0.2
+
+Released on May 2020
+
+*  Changed endpoints by removing trailing `/` E.G `/api/ping/` is now `/api/ping`
+
+
 ## 1.0.1
 
 Released on May 2020
