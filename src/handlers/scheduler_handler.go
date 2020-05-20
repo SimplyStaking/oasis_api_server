@@ -78,13 +78,13 @@ func GetValidators(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Validators!"})
-		lgr.Error.Println("Request at /api/scheduler/validators/ "+
+		lgr.Error.Println("Request at /api/scheduler/validators "+
 			"failed to retrieve validators : ", err)
 		return
 	}
 
 	// Responding with Validators retrieved from scheduler client
-	lgr.Info.Println("Request at /api/scheduler/validators/ responding " +
+	lgr.Info.Println("Request at /api/scheduler/validators responding " +
 		"with Validators!")
 	json.NewEncoder(w).Encode(responses.ValidatorsResponse{
 		Validators: validators})
@@ -127,7 +127,7 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 	if len(nmspace) == 0 {
 
 		// Stop code here no need to establish connection and reply
-		lgr.Warning.Println("Request at /api/registry/runtime/ failed" +
+		lgr.Warning.Println("Request at /api/scheduler/committees failed" +
 			", namespace can't be empty!")
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "namespace can't be empty!"})
@@ -168,13 +168,13 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Committees!"})
-		lgr.Error.Println("Request at /api/scheduler/committees/ "+
+		lgr.Error.Println("Request at /api/scheduler/committees "+
 			"failed to retrieve committees : ", err)
 		return
 	}
 
 	// Responding with committees that were retrieved from scheduler client
-	lgr.Info.Println("Request at /api/scheduler/committees/ responding " +
+	lgr.Info.Println("Request at /api/scheduler/committees responding " +
 		"with Committees!")
 	json.NewEncoder(w).Encode(responses.CommitteesResponse{
 		Committee: committees})
@@ -231,13 +231,13 @@ func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Scheduler Genesis State!"})
-		lgr.Error.Println("Request at /api/scheduler/genesis/ failed "+
+		lgr.Error.Println("Request at /api/scheduler/genesis failed "+
 			"to retrieve Scheduler Genesis State : ", err)
 		return
 	}
 
 	// Responding with genesis state retrieved above
-	lgr.Info.Println("Request at /api/scheduler/genesis/ responding with " +
+	lgr.Info.Println("Request at /api/scheduler/genesis responding with " +
 		"scheduler genesis state!")
 	json.NewEncoder(w).Encode(responses.SchedulerGenesisState{
 		SchedulerGenesisState: gensis})

@@ -15,7 +15,7 @@ func Pong(w http.ResponseWriter, r *http.Request) {
 
 	// Add header so that received knows they're receiving JSON
 	w.Header().Add("Content-Type", "application/json")
-	lgr.Info.Println("Received request for /api/pingapi")
+	lgr.Info.Println("Received request for /api/ping")
 	json.NewEncoder(w).Encode(responses.SuccessResponsed)
 }
 
