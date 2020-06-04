@@ -33,7 +33,7 @@ The API Server works as follows:
 
 ## Complete List of Endpoints
 | API Endpoint                     | Required Inputs                 | Optional Inputs | Output                    | 
-|----------------------------------|---------------------------------|-----------------|---------------------------|-------------------------------------------------------------------------------------|
+|----------------------------------|---------------------------------|-----------------|---------------------------|
 | /api/ping                            | none                            | none            | Pong                      | 
 | /api/getconnectionslist              | none                            | none            | List of Connections       |
 | /api/consensus/genesis               | Node Name                       | Height          | Consensus Genesis State   | 
