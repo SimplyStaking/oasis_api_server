@@ -11,6 +11,7 @@ import (
 	"github.com/SimplyVC/oasis_api_server/src/responses"
 	"github.com/SimplyVC/oasis_api_server/src/rpc"
 	staking "github.com/oasisprotocol/oasis-core/go/staking/api"
+	common_signature "github.com/oasisprotocol/oasis-core/go/common/crypto/signature"
 )
 
 // loadStakingClient loads staking client and returns it
@@ -400,6 +401,46 @@ func GetAddresses(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(responses.AllAddressesResponse{AllAddresses: 
 		addresses})
 }
+
+// GetAddressFromPublicKey returns a staking address from a given public key
+func GetAddressFromPublicKey(w http.ResponseWriter, r *http.Request) {
+
+	// Add header so that received knows they're receiving JSON
+	w.Header().Add("Content-Type", "application/json")
+
+	// Get the public key from the query
+	var pubKey common_signature.PublicKey
+	publicKey := r.URL.Query().Get("pubKey")
+	if len(publicKey) == 0 {
+
+		// Stop code here no need to establish connection and reply
+		lgr.Warning.Println(
+			"Request at /api/staking/publickeytoaddress failed, pubKey " +
+				"can't be empty!")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "pubKey can't be empty!"})
+		return
+	}
+
+	// Unmarshall text into public key object
+	err := pubKey.UnmarshalText([]byte(publicKey))
+	if err != nil {
+		lgr.Error.Println("Failed to UnmarshalText into PublicKey", err)
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to UnmarshalText into PublicKey."})
+		return
+	}
+
+	// Return the address corresponding to the public key
+	address := staking.NewAddress(pubKey)
+
+	// Respond with  the address of the public key
+	lgr.Info.Println("Request at /api/staking/publickeytoaddress responding " +
+		"with Address!")
+	json.NewEncoder(w).Encode(responses.AddressResponse{
+		Address: address})
+}
+
 
 // GetConsensusParameters returns the staking consensus parameters.
 func GetConsensusParameters(w http.ResponseWriter, r *http.Request) {

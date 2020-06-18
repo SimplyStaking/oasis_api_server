@@ -97,6 +97,11 @@ type AllAddressesResponse struct {
 	AllAddresses []staking_api.Address `json:"result"`
 }
 
+// AddressResponse responds with a staking address
+type AddressResponse struct {
+	Address staking_api.Address `json:"result"`
+}
+
 // StakingGenesisResponse responds with Staking Genesis File
 type StakingGenesisResponse struct {
 	GenesisStaking *staking_api.Genesis `json:"result"`

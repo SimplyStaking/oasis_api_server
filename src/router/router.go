@@ -103,6 +103,8 @@ func StartServer() error {
 		handler.GetThreshold).Methods("Get")
 	router.HandleFunc("/api/staking/addresses",
 		handler.GetAddresses).Methods("Get")
+	router.HandleFunc("/api/staking/publickeytoaddress",
+		handler.GetAddressFromPublicKey).Methods("Get")
 	router.HandleFunc("/api/staking/consensusparameters",
 		handler.GetConsensusParameters).Methods("Get")
 	router.HandleFunc("/api/staking/account",
