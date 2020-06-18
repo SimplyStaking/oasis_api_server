@@ -10,9 +10,9 @@ import (
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
 	"github.com/SimplyVC/oasis_api_server/src/responses"
 	"github.com/SimplyVC/oasis_api_server/src/rpc"
-	common_namespace "github.com/oasislabs/oasis-core/go/common"
-	common_signature "github.com/oasislabs/oasis-core/go/common/crypto/signature"
-	registry "github.com/oasislabs/oasis-core/go/registry/api"
+	common_namespace "github.com/oasisprotocol/oasis-core/go/common"
+	common_signature "github.com/oasisprotocol/oasis-core/go/common/crypto/signature"
+	registry "github.com/oasisprotocol/oasis-core/go/registry/api"
 )
 
 // loadRegistryClient loads registry client and returns it
@@ -52,7 +52,7 @@ func GetEntities(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexepcted value found, height needs to be " +
+			Error: "Unexpected value found, height needs to be " +
 				"string of int!"})
 		return
 	}
@@ -114,7 +114,7 @@ func GetNodes(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexepcted value found, height needs to be " +
+			Error: "Unexpected value found, height needs to be " +
 				"string of int!"})
 		return
 	}
@@ -152,6 +152,68 @@ func GetNodes(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(responses.NodesResponse{Nodes: nodes})
 }
 
+// GetRegistryEvents returns the events at specified block height.
+func GetRegistryEvents(w http.ResponseWriter, r *http.Request) {
+
+	// Add header so that received knows they're receiving JSON
+	w.Header().Add("Content-Type", "application/json")
+
+	// Retrieving name of node from query request
+	nodeName := r.URL.Query().Get("name")
+	confirmation, socket := checkNodeName(nodeName)
+	if confirmation == false {
+
+		// Stop code here no need to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
+		return
+	}
+
+	// Retrieving height from query
+	recvHeight := r.URL.Query().Get("height")
+	height := checkHeight(recvHeight)
+	if height == -1 {
+
+		// Stop code here no need to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Unexpected value found, height needs to be " +
+				"string of int!"})
+		return
+	}
+
+	// Attempt to load connection with registry client
+	connection, ro := loadRegistryClient(socket)
+
+	// Close connection once code underneath executes
+	defer connection.Close()
+
+	// If null object was retrieved send response
+	if ro == nil {
+
+		// Stop code here faild to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket: " +
+				socket})
+		return
+	}
+
+	// Retrieve the events at specified block height.
+	events, err := ro.GetEvents(context.Background(), height)
+	if err != nil {
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to get Events!"})
+		lgr.Error.Println(
+			"Request at /api/registry/events failed to retrieve "+
+				"events : ", err)
+		return
+	}
+
+	// Respond with events retrieved at height
+	lgr.Info.Println(
+		"Request at /api/registry/events responding with Events!")
+	json.NewEncoder(w).Encode(responses.RegistryEventsResponse{Events: events})
+}
+
 // GetRuntimes returns all runtimes at specific block height
 func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 
@@ -176,7 +238,7 @@ func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexepcted value found, height needs to be " +
+			Error: "Unexpected value found, height needs to be " +
 				"string of int!"})
 		return
 	}
@@ -240,7 +302,7 @@ func GetRegistryStateToGenesis(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexepcted value found, height needs to be " +
+			Error: "Unexpected value found, height needs to be " +
 				"string of int!"})
 		return
 	}
@@ -304,7 +366,7 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexepcted value found, height needs to be " +
+			Error: "Unexpected value found, height needs to be " +
 				"string of int!"})
 		return
 	}
@@ -393,7 +455,7 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexepcted value found, height needs to be " +
+			Error: "Unexpected value found, height needs to be " +
 				"string of int!"})
 		return
 	}
@@ -459,6 +521,96 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 		Node: registryNode})
 }
 
+// GetNodeStatus returns eturns a node's status.
+func GetNodeStatus(w http.ResponseWriter, r *http.Request) {
+
+	// Add header so that received knows they're receiving JSON
+	w.Header().Add("Content-Type", "application/json")
+
+	// Retrieving name of node from query request
+	nodeName := r.URL.Query().Get("name")
+	confirmation, socket := checkNodeName(nodeName)
+	if confirmation == false {
+
+		// Stop code here no need to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
+		return
+	}
+
+	// Retrieving height from query
+	recvHeight := r.URL.Query().Get("height")
+	height := checkHeight(recvHeight)
+	if height == -1 {
+
+		// Stop code here no need to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Unexpected value found, height needs to be " +
+				"string of int!"})
+		return
+	}
+
+	// Note Make sure that private key that is being sent is coded properly
+	// Example A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU+h+blS9pto= should be
+	// A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU%2Bh%2BblS9pto=
+	var pubKey common_signature.PublicKey
+	nodeID := r.URL.Query().Get("nodeID")
+	if len(nodeID) == 0 {
+
+		// Stop code here no need to establish connection and reply
+		lgr.Warning.Println("Request at /api/registry/node failed, " +
+			"NodeID can't be empty!")
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "NodeID can't be empty!"})
+		return
+	}
+
+	// Unmarshal received text into public key object
+	err := pubKey.UnmarshalText([]byte(nodeID))
+	if err != nil {
+		lgr.Error.Println(
+			"Failed to UnmarshalText into Public Key", err)
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to UnmarshalText into Public Key."})
+		return
+	}
+
+	// Attempt to load connection with registry client
+	connection, ro := loadRegistryClient(socket)
+
+	// Close connection once code underneath executes
+	defer connection.Close()
+
+	// If null object was retrieved send response
+	if ro == nil {
+
+		// Stop code here faild to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket: " +
+				socket})
+		return
+	}
+
+	// Creating query that will be used to retrieved Node by it's ID
+	query := registry.IDQuery{Height: height, ID: pubKey}
+
+	// Retriveing a node's status.
+	nodeStatus, err := ro.GetNodeStatus(context.Background(), &query)
+	if err != nil {
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to get Node Status!"})
+		lgr.Error.Println("Request at /api/registry/nodestatus failed to "+
+			"retrieve Node Status: ", err)
+		return
+	}
+
+	// Responding with retrieved node object
+	lgr.Info.Println("Request at /api/registry/nodestatus responding with " +
+		"Node Status!")
+	json.NewEncoder(w).Encode(responses.NodeStatusResponse{
+		NodeStatus: nodeStatus})
+}
+
 // GetRuntime returns information with regards to single entity
 func GetRuntime(w http.ResponseWriter, r *http.Request) {
 
@@ -483,7 +635,7 @@ func GetRuntime(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexepcted value found, height needs to be " +
+			Error: "Unexpected value found, height needs to be " +
 				"string of int!"})
 		return
 	}

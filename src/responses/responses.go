@@ -5,17 +5,17 @@ import (
 	"github.com/mackerelio/go-osstat/disk"
 	"github.com/mackerelio/go-osstat/memory"
 	"github.com/mackerelio/go-osstat/network"
-	common_signature "github.com/oasislabs/oasis-core/go/common/crypto/signature"
-	common_entity "github.com/oasislabs/oasis-core/go/common/entity"
-	common_node "github.com/oasislabs/oasis-core/go/common/node"
-	common_quantity "github.com/oasislabs/oasis-core/go/common/quantity"
-	consensus_api "github.com/oasislabs/oasis-core/go/consensus/api"
-	epoch_api "github.com/oasislabs/oasis-core/go/epochtime/api"
-	gen_api "github.com/oasislabs/oasis-core/go/genesis/api"
-	registry_api "github.com/oasislabs/oasis-core/go/registry/api"
-	scheduler_api "github.com/oasislabs/oasis-core/go/scheduler/api"
-	sentry_api "github.com/oasislabs/oasis-core/go/sentry/api"
-	staking_api "github.com/oasislabs/oasis-core/go/staking/api"
+	common_entity "github.com/oasisprotocol/oasis-core/go/common/entity"
+	common_node "github.com/oasisprotocol/oasis-core/go/common/node"
+	common_quantity "github.com/oasisprotocol/oasis-core/go/common/quantity"
+	consensus_api "github.com/oasisprotocol/oasis-core/go/consensus/api"
+	epoch_api "github.com/oasisprotocol/oasis-core/go/epochtime/api"
+	gen_api "github.com/oasisprotocol/oasis-core/go/genesis/api"
+	registry_api "github.com/oasisprotocol/oasis-core/go/registry/api"
+	scheduler_api "github.com/oasisprotocol/oasis-core/go/scheduler/api"
+	sentry_api "github.com/oasisprotocol/oasis-core/go/sentry/api"
+	staking_api "github.com/oasisprotocol/oasis-core/go/staking/api"
+	document_api "github.com/oasisprotocol/oasis-core/go/genesis/api"
 	tmed "github.com/tendermint/tendermint/crypto"
 	mint_types "github.com/tendermint/tendermint/types"
 )
@@ -79,22 +79,22 @@ type IsSyncedResponse struct {
 // DebondingDelegationsResponse responds with debonding delegations
 // for specified public key
 type DebondingDelegationsResponse struct {
-	DebondingDelegations map[common_signature.PublicKey][]*staking_api.DebondingDelegation `json:"result"`
+	DebondingDelegations map[staking_api.Address][]*staking_api.DebondingDelegation `json:"result"`
 }
 
 // DelegationsResponse responds with delegations for public key
 type DelegationsResponse struct {
-	Delegations map[common_signature.PublicKey]*staking_api.Delegation `json:"result"`
+	Delegations map[staking_api.Address]*staking_api.Delegation `json:"result"`
 }
 
 // AccountResponse responds with an account
 type AccountResponse struct {
-	AccountInfo *staking_api.Account `json:"result"`
+	Account *staking_api.Account `json:"result"`
 }
 
-// AllAccountsResponse responds with list of Accounts
-type AllAccountsResponse struct {
-	AllAccounts []common_signature.PublicKey `json:"result"`
+// AllAddressesResponse responds with list of Accounts
+type AllAddressesResponse struct {
+	AllAddresses []staking_api.Address `json:"result"`
 }
 
 // StakingGenesisResponse responds with Staking Genesis File
@@ -115,6 +115,16 @@ type RegistryEntityResponse struct {
 // RegistryNodeResponse responds with details of single Node
 type RegistryNodeResponse struct {
 	Node *common_node.Node `json:"result"`
+}
+
+// RegistryEventsResponse responds with events at specified block height.
+type RegistryEventsResponse struct {
+	Events []registry_api.Event `json:"results"`
+}
+
+// NodeStatusResponse responds with a node's status.
+type NodeStatusResponse struct {
+	NodeStatus *registry_api.NodeStatus `json:"result"`
 }
 
 // RegistryGenesisResponse responds with genesis state of registry
@@ -191,6 +201,21 @@ type ErrorResponse struct {
 // ConnectionsResponse responds with all connections configured
 type ConnectionsResponse struct {
 	Results []string `json:"result"`
+}
+
+// ConsensusParametersResponse responds with the staking consensus parameters
+type ConsensusParametersResponse struct {
+	ConsensusParameters *staking_api.ConsensusParameters `json:"result"`
+}
+
+// StatusResponse responds with the current status overview
+type StatusResponse struct {
+	Status *consensus_api.Status `json:"result"`
+}
+
+// GenesisDocumentResponse reponds with the original genesis document.
+type GenesisDocumentResponse struct {
+	GenesisDocument *document_api.Document `json:"result"`
 }
 
 // SuccessResponsed Assinging Variable Responses that do not need to be changed.

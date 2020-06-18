@@ -9,9 +9,9 @@ import (
 
 	hdl "github.com/SimplyVC/oasis_api_server/src/handlers"
 	"github.com/SimplyVC/oasis_api_server/src/responses"
-	common_entity "github.com/oasislabs/oasis-core/go/common/entity"
-	common_node "github.com/oasislabs/oasis-core/go/common/node"
-	registry_api "github.com/oasislabs/oasis-core/go/registry/api"
+	common_entity "github.com/oasisprotocol/oasis-core/go/common/entity"
+	common_node "github.com/oasisprotocol/oasis-core/go/common/node"
+	registry_api "github.com/oasisprotocol/oasis-core/go/registry/api"
 )
 
 func Test_GetEntities_BadNode(t *testing.T) {
@@ -52,7 +52,7 @@ func Test_GetEntities_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexepcted value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be string of int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -132,7 +132,7 @@ func Test_GetNodes_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexepcted value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be string of int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -212,7 +212,7 @@ func Test_GetRuntimes_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexepcted value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be string of int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -292,7 +292,7 @@ func Test_GetRegistryStateToGenesis_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexepcted value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be string of int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -371,7 +371,7 @@ func Test_GetEntity_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexepcted value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be string of int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -453,7 +453,7 @@ func Test_GetNode_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexepcted value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be string of int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -466,7 +466,7 @@ func Test_GetNode_Height3(t *testing.T) {
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
-	q.Add("nodeID", "A1X90rT/WK4AOTh/dJsUlOqNDV/nXM6ZU+h+blS9pto=")
+	q.Add("nodeID", "AzJTHgUZKYGYVPoN5F8WLtMyEPh7OKpM1uJGQVRiZek=")
 
 	req.URL.RawQuery = q.Encode()
 
@@ -534,7 +534,7 @@ func Test_GetRuntime_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexepcted value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be string of int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",

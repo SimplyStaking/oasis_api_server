@@ -10,11 +10,11 @@ import (
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
 	"github.com/SimplyVC/oasis_api_server/src/responses"
 	"github.com/SimplyVC/oasis_api_server/src/rpc"
-	"github.com/oasislabs/oasis-core/go/common/cbor"
-	"github.com/oasislabs/oasis-core/go/common/crypto/signature"
-	consensus "github.com/oasislabs/oasis-core/go/consensus/api"
-	mint_api "github.com/oasislabs/oasis-core/go/consensus/tendermint/api"
-	"github.com/oasislabs/oasis-core/go/consensus/tendermint/crypto"
+	"github.com/oasisprotocol/oasis-core/go/common/cbor"
+	"github.com/oasisprotocol/oasis-core/go/common/crypto/signature"
+	consensus "github.com/oasisprotocol/oasis-core/go/consensus/api"
+	mint_api "github.com/oasisprotocol/oasis-core/go/consensus/tendermint/api"
+	"github.com/oasisprotocol/oasis-core/go/consensus/tendermint/crypto"
 )
 
 // loadConsensusClient loads consensus client and returns it
@@ -56,7 +56,7 @@ func GetConsensusStateToGenesis(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexepcted value found, height needs to be " +
+			Error: "Unexpected value found, height needs to be " +
 				"string of int!"})
 		return
 	}
@@ -119,7 +119,7 @@ func GetEpoch(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexepcted value found, height needs to be " +
+			Error: "Unexpected value found, height needs to be " +
 				"string of int!"})
 		return
 	}
@@ -236,7 +236,7 @@ func GetBlock(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexepcted value found, height needs to be " +
+			Error: "Unexpected value found, height needs to be " +
 				"string of int!"})
 		return
 	}
@@ -274,6 +274,109 @@ func GetBlock(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(responses.BlockResponse{Blk: blk})
 }
 
+// GetStatus returns the current status overview.
+func GetStatus(w http.ResponseWriter, r *http.Request) {
+
+	// Add header so that received knows they're receiving JSON
+	w.Header().Add("Content-Type", "application/json")
+
+	// Retrieving name of node from query request
+	nodeName := r.URL.Query().Get("name")
+	confirmation, socket := checkNodeName(nodeName)
+	if confirmation == false {
+
+		// Stop code here no need to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
+		return
+	}
+
+	// Attempt to load connection with consensus client
+	connection, co := loadConsensusClient(socket)
+
+	// Close connection once code underneath executes
+	defer connection.Close()
+
+	// If null object was retrieved send response
+	if co == nil {
+
+		// Stop code here faild to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket: " +
+				socket})
+		return
+	}
+
+	// Retrieve the current status overview
+	status, err := co.GetStatus(context.Background())
+	if err != nil {
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to retrieve Status!"})
+
+		lgr.Error.Println("Request at /api/consensus/status failed "+
+			"to retrieve Status : ", err)
+		return
+	}
+
+	// Responding with retrieved block
+	lgr.Info.Println(
+		"Request at /api/consensus/status responding with Status!")
+	json.NewEncoder(w).Encode(responses.StatusResponse{Status: status})
+}
+
+
+// GetGenesisDocument returns the original genesis document.
+func GetGenesisDocument(w http.ResponseWriter, r *http.Request) {
+
+	// Add header so that received knows they're receiving JSON
+	w.Header().Add("Content-Type", "application/json")
+
+	// Retrieving name of node from query request
+	nodeName := r.URL.Query().Get("name")
+	confirmation, socket := checkNodeName(nodeName)
+	if confirmation == false {
+
+		// Stop code here no need to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Node name requested doesn't exist"})
+		return
+	}
+
+	// Attempt to load connection with consensus client
+	connection, co := loadConsensusClient(socket)
+
+	// Close connection once code underneath executes
+	defer connection.Close()
+
+	// If null object was retrieved send response
+	if co == nil {
+
+		// Stop code here faild to establish connection and reply
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to establish connection using socket: " +
+				socket})
+		return
+	}
+
+	// Retrieve the current status overview
+	genesisDocument, err := co.GetGenesisDocument(context.Background())
+	if err != nil {
+		json.NewEncoder(w).Encode(responses.ErrorResponse{
+			Error: "Failed to retrieve Status!"})
+
+		lgr.Error.Println("Request at /api/consensus/genesisdocument failed "+
+			"to retrieve Genesis Document : ", err)
+		return
+	}
+
+	// Responding with retrieved block
+	lgr.Info.Println(
+		"Request at /api/consensus/genesisdocument responding with Genesis " +
+		"Document!")
+	json.NewEncoder(w).Encode(responses.GenesisDocumentResponse{GenesisDocument: 
+		genesisDocument})
+}
+
 // GetBlockHeader returns consensus block header at specific height
 func GetBlockHeader(w http.ResponseWriter, r *http.Request) {
 
@@ -298,7 +401,7 @@ func GetBlockHeader(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexepcted value found, height needs to be " +
+			Error: "Unexpected value found, height needs to be " +
 				"string of int!"})
 		return
 	}
@@ -372,7 +475,7 @@ func GetBlockLastCommit(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexepcted value found, height needs to be " +
+			Error: "Unexpected value found, height needs to be " +
 				"string of int!"})
 		return
 	}
@@ -480,7 +583,7 @@ func GetTransactions(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexepcted value found, height needs to be " +
+			Error: "Unexpected value found, height needs to be " +
 				"string of int!"})
 		return
 	}

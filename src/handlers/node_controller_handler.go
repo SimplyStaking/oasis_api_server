@@ -10,7 +10,7 @@ import (
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
 	"github.com/SimplyVC/oasis_api_server/src/responses"
 	"github.com/SimplyVC/oasis_api_server/src/rpc"
-	control "github.com/oasislabs/oasis-core/go/control/api"
+	control "github.com/oasisprotocol/oasis-core/go/control/api"
 )
 
 // loadNodeControllerClient loads node controller client and returns it
