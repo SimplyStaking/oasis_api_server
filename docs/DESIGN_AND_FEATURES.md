@@ -65,6 +65,7 @@ The API Server works as follows:
 | /api/staking/delegations             | Node Name, Account Address      | Height          | Delegations               | 
 | /api/staking/debondingdelegations    | Node Name, Account Address      | Height          | DebondingDelegations      |
 | /api/staking/events                  | Node Name                       | Height          | List of Events            |
+| /api/staking/publickeytoaddress      | Public Key                      |                 | Staking Address           |
 | /api/nodecontroller/synced           | Node Name                       | None            | Synchronized State        | 
 | /api/scheduler/validators            | Node Name                       | Height          | List of Validators        | 
 | /api/scheduler/committees            | Node Name, Namespace            | Height          | Committees                | 

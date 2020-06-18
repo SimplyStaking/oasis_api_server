@@ -6,6 +6,7 @@ Released on June 2020
 #### Staking
 
 * GetLastBlockFees Handler at /api/staking/lastblockfees
+* GetAddressFromPublicKey Handler at /api/staking/publickeytoaddress
 
 #### Consensus:
 
