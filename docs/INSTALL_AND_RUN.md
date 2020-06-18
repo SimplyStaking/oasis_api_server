@@ -193,5 +193,12 @@ If you wish to check the API's connection to a node, you can run the following f
 curl -X GET http://localhost:3000/api/pingnode?name=<NODE>
 ```
 
+**Note**
+
+Using curl with multiple queries requires the entire url to be inside double quotation marks as seen in the example below:
+
+```bash
+curl -X GET "http://localhost:3000/api/registry/nodes?name=<NODE>&height=300"
+```
 ---
 [Back to API front page](../README.md)
