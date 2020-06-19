@@ -6,7 +6,7 @@ import (
 
 	"github.com/SimplyVC/oasis_api_server/src/config"
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
-	consensus "github.com/oasislabs/oasis-core/go/consensus/api"
+	consensus "github.com/oasisprotocol/oasis-core/go/consensus/api"
 )
 
 // Function to verify and retrieve sentry data

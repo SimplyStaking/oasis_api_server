@@ -25,7 +25,7 @@ def reset_section(section: str, cp: ConfigParser) -> None:
 def setup_api_server(cp: ConfigParser) -> None:
     print('==== API Server')
     print('The API server makes the retrieval of Oasis nodes data possible. '
-          'Apart from the API server, Node Exporter is also using to query '
+          'Apart from the API server, Node Exporter is also used to query '
           'system data. During this setup process you will configure both.')
 
     already_set_up = is_already_set_up(cp, 'api_server')

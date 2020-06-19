@@ -24,20 +24,22 @@ The API Server works as follows:
 - By communicating through this port, the API Server receives the endpoints specified in the `Complete List of Endpoints` section below, and requests information from the nodes it is connected to accordingly.
 - Once a request is received for an endpoint the server will read the query which should contain the name of the node that will be queried, it then attempts to establish a connection to the node and request data from it. This data is then foramtted into JSON and returned.
 - The server interacts with the protocol API through these clients :
-    1. [Consensus Client](https://godoc.org/github.com/oasislabs/oasis-core/go/consensus/api#ClientBackend)
-    2. [Registry Backend](https://godoc.org/github.com/oasislabs/oasis-core/go/registry/api#Backend)
-    3. [Staking Backend](https://godoc.org/github.com/oasislabs/oasis-core/go/staking/api#Backend)
-    4. [Scheduler Backend](https://godoc.org/github.com/oasislabs/oasis-core/go/scheduler/api#Backend)
-    5. [NodeController](https://godoc.org/github.com/oasislabs/oasis-core/go/control/api#NodeController)
-    6. [Sentry](https://godoc.org/github.com/oasislabs/oasis-core/go/sentry/api#Backend)
+    1. [Consensus Client](https://godoc.org/github.com/oasisprotocol/oasis-core/go/consensus/api#ClientBackend)
+    2. [Registry Backend](https://godoc.org/github.com/oasisprotocol/oasis-core/go/registry/api#Backend)
+    3. [Staking Backend](https://godoc.org/github.com/oasisprotocol/oasis-core/go/staking/api#Backend)
+    4. [Scheduler Backend](https://godoc.org/github.com/oasisprotocol/oasis-core/go/scheduler/api#Backend)
+    5. [NodeController](https://godoc.org/github.com/oasisprotocol/oasis-core/go/control/api#NodeController)
+    6. [Sentry](https://godoc.org/github.com/oasisprotocol/oasis-core/go/sentry/api#Backend)
 
 ## Complete List of Endpoints
-| API Endpoint                     | Required Inputs                 | Optional Inputs | Output                    | 
-|----------------------------------|---------------------------------|-----------------|---------------------------|-------------------------------------------------------------------------------------|
+| API Endpoint                         | Required Inputs                 | Optional Inputs | Output                    | 
+|--------------------------------------|---------------------------------|-----------------|---------------------------|
 | /api/ping                            | none                            | none            | Pong                      | 
 | /api/getconnectionslist              | none                            | none            | List of Connections       |
-| /api/consensus/genesis               | Node Name                       | Height          | Consensus Genesis State   | 
-| /api/consensus/epoch                 | Node Name                       | Height          | Epoch                     | 
+| /api/consensus/genesis               | Node Name                       | Height          | Consensus Genesis State   |
+| /api/consensus/genesisdocument       | Node Name                       |                 | Original Genesis Document |
+| /api/consensus/epoch                 | Node Name                       | Height          | Epoch                     |
+| /api/consensus/status                | Node Name                       |                 | Node Status               | 
 | /api/consensus/block                 | Node Name                       | Height          | Block Object              | 
 | /api/consensus/blockheader           | Node Name                       | Height          | Block Header Object       | 
 | /api/consensus/blocklastcommit       | Node Name                       | Height          | Block Last Commit Object  |
@@ -50,16 +52,20 @@ The API Server works as follows:
 | /api/registry/genesis                | Node Name                       | Height          | Genesis State of Registry | 
 | /api/registry/entity                 | Node Name, Entity Public Key    | Height          | Entity                    | 
 | /api/registry/node                   | Node Name, Node Public Key      | Height          | Node                      | 
+| /api/registry/nodestatus             | Node Name, Node Public Key      | Height          | Node Status               | 
+| /api/registry/events                 | Node Name                       | Height          | Registry Events           | 
 | /api/registry/runtime                | Node Name, Runtime Namespace    | Height          | Runtime                   | 
 | /api/staking/totalsupply             | Node Name                       | Height          | Total Supply              | 
 | /api/staking/commonpool              | Node Name                       | Height          | Common Pool               | 
+| /api/staking/lastblockfees           | Node Name                       | Height          | Last Block Fees           |
 | /api/staking/genesis                 | Node Name                       | Height          | Staking Genesis State     | 
 | /api/staking/threshold               | Node Name, kind                 | Height          | Threshold                 | 
-| /api/staking/accounts                | Node Name                       | Height          | List of accounts          |
-| /api/staking/accountinfo             | Node Name, Account Public Key   | Height          | Account information       | 
-| /api/staking/delegations             | Node Name, Account Public Key   | Height          | Delegations               | 
-| /api/staking/debondingdelegations    | Node Name, Account Public Key   | Height          | DebondingDelegations      |
+| /api/staking/addresses               | Node Name                       | Height          | List of accounts          |
+| /api/staking/account                 | Node Name, Account Address      | Height          | Account information       | 
+| /api/staking/delegations             | Node Name, Account Address      | Height          | Delegations               | 
+| /api/staking/debondingdelegations    | Node Name, Account Address      | Height          | DebondingDelegations      |
 | /api/staking/events                  | Node Name                       | Height          | List of Events            |
+| /api/staking/publickeytoaddress      | Public Key                      |                 | Staking Address           |
 | /api/nodecontroller/synced           | Node Name                       | None            | Synchronized State        | 
 | /api/scheduler/validators            | Node Name                       | Height          | List of Validators        | 
 | /api/scheduler/committees            | Node Name, Namespace            | Height          | Committees                | 

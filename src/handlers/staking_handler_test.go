@@ -9,9 +9,8 @@ import (
 
 	hdl "github.com/SimplyVC/oasis_api_server/src/handlers"
 	"github.com/SimplyVC/oasis_api_server/src/responses"
-	common_signature "github.com/oasislabs/oasis-core/go/common/crypto/signature"
-	common_quantity "github.com/oasislabs/oasis-core/go/common/quantity"
-	staking_api "github.com/oasislabs/oasis-core/go/staking/api"
+	common_quantity "github.com/oasisprotocol/oasis-core/go/common/quantity"
+	staking_api "github.com/oasisprotocol/oasis-core/go/staking/api"
 )
 
 func Test_GetTotalSupply_BadNode(t *testing.T) {
@@ -52,7 +51,7 @@ func Test_GetTotalSupply_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexepcted value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be a string representing an int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -131,7 +130,7 @@ func Test_GetCommonPool_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexepcted value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be a string representing an int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -210,7 +209,7 @@ func Test_GetStakingStateToGenesis_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexepcted value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be a string representing an int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -289,7 +288,7 @@ func Test_GetThreshold_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexepcted value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be a string representing an int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -331,14 +330,14 @@ func Test_GetThreshold_Height3(t *testing.T) {
 	}
 }
 
-func Test_GetAccounts_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/staking/accounts", nil)
+func Test_GetAddresses_BadNode(t *testing.T) {
+	req, _ := http.NewRequest("GET", "/api/staking/addresses", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
 
 	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(hdl.GetAccounts)
+	handler := http.HandlerFunc(hdl.GetAddresses)
 	handler.ServeHTTP(rr, req)
 	if status := rr.Code; status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v",
@@ -353,8 +352,8 @@ func Test_GetAccounts_BadNode(t *testing.T) {
 	}
 }
 
-func Test_GetAccounts_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/staking/accounts", nil)
+func Test_GetAddresses_InvalidHeight(t *testing.T) {
+	req, _ := http.NewRequest("GET", "/api/staking/addresses", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -362,14 +361,14 @@ func Test_GetAccounts_InvalidHeight(t *testing.T) {
 	req.URL.RawQuery = q.Encode()
 
 	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(hdl.GetAccounts)
+	handler := http.HandlerFunc(hdl.GetAddresses)
 	handler.ServeHTTP(rr, req)
 	if status := rr.Code; status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v",
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexepcted value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be a string representing an int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -377,8 +376,8 @@ func Test_GetAccounts_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetAccounts_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/staking/accounts", nil)
+func Test_GetAddresses_Height3(t *testing.T) {
+	req, _ := http.NewRequest("GET", "/api/staking/addresses", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
@@ -386,7 +385,7 @@ func Test_GetAccounts_Height3(t *testing.T) {
 	req.URL.RawQuery = q.Encode()
 
 	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(hdl.GetAccounts)
+	handler := http.HandlerFunc(hdl.GetAddresses)
 	handler.ServeHTTP(rr, req)
 	if status := rr.Code; status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v",
@@ -395,11 +394,11 @@ func Test_GetAccounts_Height3(t *testing.T) {
 
 	expected := "result"
 
-	allAccounts := &responses.AllAccountsResponse{
-		AllAccounts: []common_signature.PublicKey{},
+	AllAddresses := &responses.AllAddressesResponse{
+		AllAddresses: []staking_api.Address{},
 	}
 
-	err := json.Unmarshal([]byte(rr.Body.String()), allAccounts)
+	err := json.Unmarshal([]byte(rr.Body.String()), AllAddresses)
 	if err != nil {
 		t.Errorf("Failed to unmarshall data")
 	}
@@ -410,14 +409,14 @@ func Test_GetAccounts_Height3(t *testing.T) {
 	}
 }
 
-func Test_GetAccountInfo_BadNode(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/staking/accountinfo", nil)
+func Test_GetAccount_BadNode(t *testing.T) {
+	req, _ := http.NewRequest("GET", "/api/staking/account", nil)
 	q := req.URL.Query()
 	q.Add("name", "Unicorn")
 	req.URL.RawQuery = q.Encode()
 
 	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(hdl.GetAccountInfo)
+	handler := http.HandlerFunc(hdl.GetAccount)
 	handler.ServeHTTP(rr, req)
 	if status := rr.Code; status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v",
@@ -432,8 +431,8 @@ func Test_GetAccountInfo_BadNode(t *testing.T) {
 	}
 }
 
-func Test_GetAccountInfo_InvalidHeight(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/staking/accountinfo", nil)
+func Test_GetAccount_InvalidHeight(t *testing.T) {
+	req, _ := http.NewRequest("GET", "/api/staking/account", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "Unicorn")
@@ -441,14 +440,14 @@ func Test_GetAccountInfo_InvalidHeight(t *testing.T) {
 	req.URL.RawQuery = q.Encode()
 
 	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(hdl.GetAccountInfo)
+	handler := http.HandlerFunc(hdl.GetAccount)
 	handler.ServeHTTP(rr, req)
 	if status := rr.Code; status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v",
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexepcted value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be a string representing an int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -456,17 +455,17 @@ func Test_GetAccountInfo_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetAccountInfo_Height3(t *testing.T) {
-	req, _ := http.NewRequest("GET", "/api/staking/accountinfo", nil)
+func Test_GetAccount_Height3(t *testing.T) {
+	req, _ := http.NewRequest("GET", "/api/staking/account", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
-	q.Add("ownerKey", "AbMv7E+H4MWxfvwzSEx/BmOOwwk11P3JnJVEVVKK/ZA=")
+	q.Add("address", "oasis1qqqf342r78nz05dq2pa3wzh0w54k3ea49u6rqdhv")
 
 	req.URL.RawQuery = q.Encode()
 
 	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(hdl.GetAccountInfo)
+	handler := http.HandlerFunc(hdl.GetAccount)
 	handler.ServeHTTP(rr, req)
 	if status := rr.Code; status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v",
@@ -476,7 +475,7 @@ func Test_GetAccountInfo_Height3(t *testing.T) {
 	expected := "result"
 
 	account := &responses.AccountResponse{
-		AccountInfo: &staking_api.Account{},
+		Account: &staking_api.Account{},
 	}
 
 	err := json.Unmarshal([]byte(rr.Body.String()), account)
@@ -528,7 +527,7 @@ func Test_GetDelegations_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexepcted value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be a string representing an int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -541,7 +540,7 @@ func Test_GetDelegations_Height3(t *testing.T) {
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
-	q.Add("ownerKey", "AbMv7E+H4MWxfvwzSEx/BmOOwwk11P3JnJVEVVKK/ZA=")
+	q.Add("address", "oasis1qqqf342r78nz05dq2pa3wzh0w54k3ea49u6rqdhv")
 
 	req.URL.RawQuery = q.Encode()
 
@@ -556,7 +555,7 @@ func Test_GetDelegations_Height3(t *testing.T) {
 	expected := "result"
 
 	delegations := &responses.DelegationsResponse{
-		Delegations: map[common_signature.PublicKey]*staking_api.Delegation{},
+		Delegations: map[staking_api.Address]*staking_api.Delegation{},
 	}
 
 	err := json.Unmarshal([]byte(rr.Body.String()), delegations)
@@ -608,7 +607,7 @@ func Test_GetDebondingDelegations_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexepcted value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be a string representing an int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -621,7 +620,7 @@ func Test_GetDebondingDelegations_Height3(t *testing.T) {
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
 	q.Add("height", "3")
-	q.Add("ownerKey", "AbMv7E+H4MWxfvwzSEx/BmOOwwk11P3JnJVEVVKK/ZA=")
+	q.Add("address", "oasis1qqqf342r78nz05dq2pa3wzh0w54k3ea49u6rqdhv")
 
 	req.URL.RawQuery = q.Encode()
 
@@ -636,7 +635,7 @@ func Test_GetDebondingDelegations_Height3(t *testing.T) {
 	expected := "result"
 
 	debondingDelegations := &responses.DebondingDelegationsResponse{
-		DebondingDelegations: map[common_signature.PublicKey][]*staking_api.DebondingDelegation{},
+		DebondingDelegations: map[staking_api.Address][]*staking_api.DebondingDelegation{},
 	}
 
 	err := json.Unmarshal([]byte(rr.Body.String()), debondingDelegations)
@@ -688,7 +687,7 @@ func Test_GetEvents_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexepcted value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be a string representing an int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",

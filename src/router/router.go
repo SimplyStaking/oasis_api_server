@@ -55,6 +55,10 @@ func StartServer() error {
 		handler.GetEpoch).Methods("Get")
 	router.HandleFunc("/api/consensus/block",
 		handler.GetBlock).Methods("Get")
+	router.HandleFunc("/api/consensus/status",
+		handler.GetStatus).Methods("Get")
+	router.HandleFunc("/api/consensus/genesisdocument",
+		handler.GetGenesisDocument).Methods("Get")
 	router.HandleFunc("/api/consensus/blockheader",
 		handler.GetBlockHeader).Methods("Get")
 	router.HandleFunc("/api/consensus/blocklastcommit",
@@ -71,6 +75,10 @@ func StartServer() error {
 		handler.GetEntities).Methods("Get")
 	router.HandleFunc("/api/registry/nodes",
 		handler.GetNodes).Methods("Get")
+	router.HandleFunc("/api/registry/nodestatus",
+		handler.GetNodeStatus).Methods("Get")
+	router.HandleFunc("/api/registry/events",
+		handler.GetRegistryEvents).Methods("Get")
 	router.HandleFunc("/api/registry/runtimes",
 		handler.GetRuntimes).Methods("Get")
 	router.HandleFunc("/api/registry/genesis",
@@ -87,14 +95,20 @@ func StartServer() error {
 		handler.GetTotalSupply).Methods("Get")
 	router.HandleFunc("/api/staking/commonpool",
 		handler.GetCommonPool).Methods("Get")
+	router.HandleFunc("/api/staking/lastblockfees",
+		handler.GetLastBlockFees).Methods("Get")
 	router.HandleFunc("/api/staking/genesis",
 		handler.GetStakingStateToGenesis).Methods("Get")
 	router.HandleFunc("/api/staking/threshold",
 		handler.GetThreshold).Methods("Get")
-	router.HandleFunc("/api/staking/accounts",
-		handler.GetAccounts).Methods("Get")
-	router.HandleFunc("/api/staking/accountinfo",
-		handler.GetAccountInfo).Methods("Get")
+	router.HandleFunc("/api/staking/addresses",
+		handler.GetAddresses).Methods("Get")
+	router.HandleFunc("/api/staking/publickeytoaddress",
+		handler.GetAddressFromPublicKey).Methods("Get")
+	router.HandleFunc("/api/staking/consensusparameters",
+		handler.GetConsensusParameters).Methods("Get")
+	router.HandleFunc("/api/staking/account",
+		handler.GetAccount).Methods("Get")
 	router.HandleFunc("/api/staking/delegations",
 		handler.GetDelegations).Methods("Get")
 	router.HandleFunc("/api/staking/debondingdelegations",
