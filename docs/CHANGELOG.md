@@ -1,5 +1,5 @@
 ## 1.0.3
-Released on June 2020
+Released on 19th June 2020
 
 ### Added
 
@@ -23,7 +23,7 @@ Released on June 2020
 #### Staking
 
 * GetAccounts at /api/staking/accounts has been changed to GetAddresses at /api/staking/addresses
-* GetAccountInfo at /api/staking/accountinfo has been changed to GetAccount at /api/staking/account and "ownerKey" query parameter has been changed to "address"
+* GetAccountInfo at /api/staking/accountinfo has been changed to GetAccount at /api/staking/account, and "ownerKey" query parameter has been changed to "address"
 * GetDelegations "ownerKey" query parameter has been changed to "address"
 * GetDebondingDelegations "ownerKey" query parameter has been changed to "address"
 

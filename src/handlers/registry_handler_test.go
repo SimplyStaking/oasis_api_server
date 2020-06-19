@@ -52,7 +52,7 @@ func Test_GetEntities_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexpected value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be a string representing an int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -132,7 +132,7 @@ func Test_GetNodes_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexpected value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be a string representing an int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -212,7 +212,7 @@ func Test_GetRuntimes_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexpected value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be a string representing an int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -292,7 +292,7 @@ func Test_GetRegistryStateToGenesis_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexpected value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be a string representing an int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -371,7 +371,7 @@ func Test_GetEntity_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexpected value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be a string representing an int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -453,7 +453,7 @@ func Test_GetNode_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexpected value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be a string representing an int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -534,7 +534,7 @@ func Test_GetRuntime_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexpected value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be a string representing an int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",

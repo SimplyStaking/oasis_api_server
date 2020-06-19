@@ -77,7 +77,7 @@ func Test_GetConsensusStateToGenesis_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexpected value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be a string representing an int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -180,7 +180,7 @@ func Test_GetEpoch_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexpected value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be a string representing an int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -257,7 +257,7 @@ func Test_GetBlock_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexpected value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be a string representing an int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -336,7 +336,7 @@ func Test_GetBlockHeader_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexpected value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be a string representing an int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -415,7 +415,7 @@ func Test_GetBlockLastCommit_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexpected value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be a string representing an int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -494,7 +494,7 @@ func Test_GetTransactions_InvalidHeight(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `{"error":"Unexpected value found, height needs to be string of int!"}`
+	expected := `{"error":"Unexpected value found, height needs to be a string representing an int!"}`
 
 	if strings.TrimSpace(rr.Body.String()) != strings.TrimSpace(expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",

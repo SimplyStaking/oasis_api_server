@@ -36,7 +36,7 @@ func GetTotalSupply(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Node name requested doesn't exist"})
@@ -49,7 +49,7 @@ func GetTotalSupply(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexpected value found, height needs to be string of int!"})
+			Error: "Unexpected value found, height needs to be a string representing an int!"})
 		return
 	}
 
@@ -93,7 +93,7 @@ func GetCommonPool(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -108,7 +108,7 @@ func GetCommonPool(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexpected value found, height needs to be string of int!"})
+			Error: "Unexpected value found, height needs to be a string representing an int!"})
 		return
 	}
 
@@ -154,7 +154,7 @@ func GetLastBlockFees(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -169,7 +169,7 @@ func GetLastBlockFees(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexpected value found, height needs to be string of int!"})
+			Error: "Unexpected value found, height needs to be a string representing an int!"})
 		return
 	}
 
@@ -215,7 +215,7 @@ func GetStakingStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -230,7 +230,7 @@ func GetStakingStateToGenesis(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexpected value found, height needs to be string of int!"})
+			Error: "Unexpected value found, height needs to be a string representing an int!"})
 		return
 	}
 
@@ -276,7 +276,7 @@ func GetThreshold(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -291,7 +291,7 @@ func GetThreshold(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexpected value found, height needs to be string of int!"})
+			Error: "Unexpected value found, height needs to be a string representing an int!"})
 		return
 	}
 
@@ -302,7 +302,7 @@ func GetThreshold(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexpected value found, kind needs to be string of int!"})
+			Error: "Unexpected value found, kind needs to be a string representing an int!"})
 		return
 	}
 
@@ -350,7 +350,7 @@ func GetAddresses(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -365,7 +365,7 @@ func GetAddresses(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexpected value found, height needs to be string of int!"})
+			Error: "Unexpected value found, height needs to be a string representing an int!"})
 		return
 	}
 
@@ -451,7 +451,7 @@ func GetConsensusParameters(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -466,7 +466,7 @@ func GetConsensusParameters(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexpected value found, height needs to be string of int!"})
+			Error: "Unexpected value found, height needs to be a string representing an int!"})
 		return
 	}
 
@@ -513,7 +513,7 @@ func GetAccount(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -528,7 +528,7 @@ func GetAccount(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexpected value found, height needs to be string of int!"})
+			Error: "Unexpected value found, height needs to be a string representing an int!"})
 		return
 	}
 
@@ -598,7 +598,7 @@ func GetDelegations(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -613,7 +613,7 @@ func GetDelegations(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexpected value found, height needs to be string of int!"})
+			Error: "Unexpected value found, height needs to be a string representing an int!"})
 		return
 	}
 
@@ -686,7 +686,7 @@ func GetDebondingDelegations(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Node name requested doesn't exist"})
@@ -700,7 +700,7 @@ func GetDebondingDelegations(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexpected value found, height needs to be string of int!"})
+			Error: "Unexpected value found, height needs to be a string representing an int!"})
 		return
 	}
 
@@ -773,7 +773,7 @@ func GetEvents(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -788,7 +788,7 @@ func GetEvents(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexpected value found, height needs to be string of int!"})
+			Error: "Unexpected value found, height needs to be a string representing an int!"})
 		return
 	}
 

@@ -37,7 +37,7 @@ func GetValidators(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -53,7 +53,7 @@ func GetValidators(w http.ResponseWriter, r *http.Request) {
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Unexpected value found, height needs to be " +
-				"string of int!"})
+				"a string representing an int!"})
 		return
 	}
 
@@ -101,7 +101,7 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Node name requested doesn't exist"})
@@ -115,7 +115,7 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Unexpected value found, height needs to be " +
-				"string of int!"})
+				"a string representing an int!"})
 		return
 	}
 
@@ -190,7 +190,7 @@ func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -206,7 +206,7 @@ func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Unexpected value found, height needs to be " +
-				"string of int!"})
+				"a string representing an int!"})
 		return
 	}
 

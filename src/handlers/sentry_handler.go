@@ -37,7 +37,7 @@ func GetSentryAddresses(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of sentry from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, extURL, tlsPath := checkSentryData(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{

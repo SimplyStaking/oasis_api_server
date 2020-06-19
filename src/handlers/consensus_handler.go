@@ -41,7 +41,7 @@ func GetConsensusStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -57,7 +57,7 @@ func GetConsensusStateToGenesis(w http.ResponseWriter, r *http.Request) {
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Unexpected value found, height needs to be " +
-				"string of int!"})
+				"a string representing an int!"})
 		return
 	}
 
@@ -104,7 +104,7 @@ func GetEpoch(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -120,7 +120,7 @@ func GetEpoch(w http.ResponseWriter, r *http.Request) {
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Unexpected value found, height needs to be " +
-				"string of int!"})
+				"a string representing an int!"})
 		return
 	}
 
@@ -167,7 +167,7 @@ func PingNode(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 		lgr.Info.Println("Node name requested doesn't exist")
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -221,7 +221,7 @@ func GetBlock(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -237,7 +237,7 @@ func GetBlock(w http.ResponseWriter, r *http.Request) {
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Unexpected value found, height needs to be " +
-				"string of int!"})
+				"a string representing an int!"})
 		return
 	}
 
@@ -269,8 +269,7 @@ func GetBlock(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Responding with retrieved block
-	lgr.Info.Println(
-		"Request at /api/consensus/block responding with Block!")
+	lgr.Info.Println("Request at /api/consensus/block responding with Block!")
 	json.NewEncoder(w).Encode(responses.BlockResponse{Blk: blk})
 }
 
@@ -283,7 +282,7 @@ func GetStatus(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -319,8 +318,7 @@ func GetStatus(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Responding with retrieved block
-	lgr.Info.Println(
-		"Request at /api/consensus/status responding with Status!")
+	lgr.Info.Println("Request at /api/consensus/status responding with Status!")
 	json.NewEncoder(w).Encode(responses.StatusResponse{Status: status})
 }
 
@@ -334,7 +332,7 @@ func GetGenesisDocument(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -386,7 +384,7 @@ func GetBlockHeader(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -402,7 +400,7 @@ func GetBlockHeader(w http.ResponseWriter, r *http.Request) {
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Unexpected value found, height needs to be " +
-				"string of int!"})
+				"a string representing an int!"})
 		return
 	}
 
@@ -460,7 +458,7 @@ func GetBlockLastCommit(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -476,7 +474,7 @@ func GetBlockLastCommit(w http.ResponseWriter, r *http.Request) {
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Unexpected value found, height needs to be " +
-				"string of int!"})
+				"a string representing an int!"})
 		return
 	}
 
@@ -568,7 +566,7 @@ func GetTransactions(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -584,7 +582,7 @@ func GetTransactions(w http.ResponseWriter, r *http.Request) {
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Unexpected value found, height needs to be " +
-				"string of int!"})
+				"a string representing an int!"})
 		return
 	}
 
