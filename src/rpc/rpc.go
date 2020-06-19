@@ -9,14 +9,14 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 
-	cmnGrpc "github.com/oasislabs/oasis-core/go/common/grpc"
-	"github.com/oasislabs/oasis-core/go/common/identity"
-	consensus "github.com/oasislabs/oasis-core/go/consensus/api"
-	control "github.com/oasislabs/oasis-core/go/control/api"
-	registry "github.com/oasislabs/oasis-core/go/registry/api"
-	scheduler "github.com/oasislabs/oasis-core/go/scheduler/api"
-	sentry "github.com/oasislabs/oasis-core/go/sentry/api"
-	staking "github.com/oasislabs/oasis-core/go/staking/api"
+	cmnGrpc "github.com/oasisprotocol/oasis-core/go/common/grpc"
+	"github.com/oasisprotocol/oasis-core/go/common/identity"
+	consensus "github.com/oasisprotocol/oasis-core/go/consensus/api"
+	control "github.com/oasisprotocol/oasis-core/go/control/api"
+	registry "github.com/oasisprotocol/oasis-core/go/registry/api"
+	scheduler "github.com/oasisprotocol/oasis-core/go/scheduler/api"
+	sentry "github.com/oasisprotocol/oasis-core/go/sentry/api"
+	staking "github.com/oasisprotocol/oasis-core/go/staking/api"
 )
 
 // SentryClient - initiate new sentry client

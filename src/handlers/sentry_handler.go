@@ -10,7 +10,7 @@ import (
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
 	"github.com/SimplyVC/oasis_api_server/src/responses"
 	"github.com/SimplyVC/oasis_api_server/src/rpc"
-	sentry "github.com/oasislabs/oasis-core/go/sentry/api"
+	sentry "github.com/oasisprotocol/oasis-core/go/sentry/api"
 )
 
 // loadSentryClient loads sentry client and returns it
@@ -37,7 +37,7 @@ func GetSentryAddresses(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of sentry from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, extURL, tlsPath := checkSentryData(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{

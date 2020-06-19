@@ -10,8 +10,8 @@ import (
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
 	"github.com/SimplyVC/oasis_api_server/src/responses"
 	"github.com/SimplyVC/oasis_api_server/src/rpc"
-	common_namespace "github.com/oasislabs/oasis-core/go/common"
-	scheduler "github.com/oasislabs/oasis-core/go/scheduler/api"
+	common_namespace "github.com/oasisprotocol/oasis-core/go/common"
+	scheduler "github.com/oasisprotocol/oasis-core/go/scheduler/api"
 )
 
 // loadSchedulerClient loads scheduler client and returns it
@@ -37,7 +37,7 @@ func GetValidators(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -52,8 +52,8 @@ func GetValidators(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexepcted value found, height needs to be " +
-				"string of int!"})
+			Error: "Unexpected value found, height needs to be " +
+				"a string representing an int!"})
 		return
 	}
 
@@ -101,7 +101,7 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Node name requested doesn't exist"})
@@ -114,8 +114,8 @@ func GetCommittees(w http.ResponseWriter, r *http.Request) {
 	if height == -1 {
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexepcted value found, height needs to be " +
-				"string of int!"})
+			Error: "Unexpected value found, height needs to be " +
+				"a string representing an int!"})
 		return
 	}
 
@@ -190,7 +190,7 @@ func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -205,8 +205,8 @@ func GetSchedulerStateToGenesis(w http.ResponseWriter, r *http.Request) {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
-			Error: "Unexepcted value found, height needs to be " +
-				"string of int!"})
+			Error: "Unexpected value found, height needs to be " +
+				"a string representing an int!"})
 		return
 	}
 
