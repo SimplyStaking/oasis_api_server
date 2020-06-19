@@ -24,7 +24,7 @@ func NodeExporterQueryGauge(w http.ResponseWriter, r *http.Request) {
 
 	//Get Node Exporter Metrics URl
 	confirmation, exporterConfig := getNodeExporter()
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -101,7 +101,7 @@ func NodeExporterQueryCounter(w http.ResponseWriter, r *http.Request) {
 
 	//Get Node Exporter Metrics URl
 	confirmation, exporterConfig := getNodeExporter()
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop the code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{

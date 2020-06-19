@@ -10,7 +10,7 @@ import (
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
 	"github.com/SimplyVC/oasis_api_server/src/responses"
 	"github.com/SimplyVC/oasis_api_server/src/rpc"
-	control "github.com/oasislabs/oasis-core/go/control/api"
+	control "github.com/oasisprotocol/oasis-core/go/control/api"
 )
 
 // loadNodeControllerClient loads node controller client and returns it
@@ -37,7 +37,7 @@ func GetIsSynced(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if confirmation == false {
+	if !confirmation  {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
