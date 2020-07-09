@@ -7,7 +7,7 @@ In order for the API to be able to run correctly, Prometheus metrics should be e
 ```
 metrics:
     mode: pull
-    addr: 0.0.0.0:9090 
+    address: 0.0.0.0:9090 
 ```
 
 Change `:9090` to the port you want prometheus to be exposed at.
@@ -185,12 +185,12 @@ Example: with `5678`:3000, the the API URL must look like `http://1.2.3.4:5678`,
 
 If you wish to make sure that the API is running, the following should return `{"result":"pong"}`:
 ```bash
-curl -X GET http://localhost:3000/api/pingapi
+curl -X GET http://localhost:8686/api/ping
 ```
 
 If you wish to check the API's connection to a node, you can run the following for some node `<NODE>`:
 ```bash
-curl -X GET http://localhost:3000/api/pingnode?name=<NODE>
+curl -X GET http://localhost:8686/api/pingnode?name=<NODE>
 ```
 
 **Note**
@@ -198,7 +198,7 @@ curl -X GET http://localhost:3000/api/pingnode?name=<NODE>
 Using curl with multiple queries requires the entire url to be inside double quotation marks as seen in the example below:
 
 ```bash
-curl -X GET "http://localhost:3000/api/registry/nodes?name=<NODE>&height=300"
+curl -X GET "http://localhost:8686/api/registry/nodes?name=<NODE>&height=300"
 ```
 ---
 [Back to API front page](../README.md)
