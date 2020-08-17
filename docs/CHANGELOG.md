@@ -1,4 +1,22 @@
+## 1.0.4
+
+Released on 17th August 2020
+
+#### Staking
+
+~ Changed Response type from `[]staking_api.Event` to `[]*staking_api.Event`
+
+#### Registry
+
+~ Changed Response type from `[]registry_api.Event` to `[]*registry_api.Event`
+~ Changed GetRuntimes to have a query parameter and it now takes suspended boolean value in the URL.
+
+#### Other
+
+* Added to docs the exact query parameters that are needed to return data from the server.
+
 ## 1.0.3
+
 Released on 19th June 2020
 
 ### Added
