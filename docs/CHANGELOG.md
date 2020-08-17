@@ -9,7 +9,8 @@ Released on 17th August 2020
 #### Registry
 
 ~ Changed Response type from `[]registry_api.Event` to `[]*registry_api.Event`
-~ Changed GetRuntimes to have a query parameter and it now takes suspended boolean value in the URL.
+~ Changed GetRuntimes to have a query object which takes the height and boolean value of suspended. 
+An example URL now looks like this `127.0.0.1:8686/api/registry/runtimes?name=Oasis_Main_Validator&height=1000&suspended=true`
 
 #### Other
 
