@@ -14,6 +14,7 @@ Released on 17th August 2020
 #### Other
 
 * Added to docs the exact query parameters that are needed to return data from the server.
+* Updated tendermint version to 0.34
 
 ## 1.0.3
 
