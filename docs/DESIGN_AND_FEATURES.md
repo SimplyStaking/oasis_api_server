@@ -129,19 +129,6 @@ This is a list of example queries with the exact parameters and a custom node `O
 
 ## Using the API
 
-For example, the endpoint `/api/staking/synced` can be called as follows: `http://localhost:8686/api/staking/synced?name=Oasis_Local`.
-If successful, this will return:
-```json
-{
-    "issynced": true
-}
-```
-
-If an API connection for the node specified in the `websocket` field is not online, this will return:
-```json
-{
-    "error": "Failed to get IsSynced!"
-}
-```
+To use the API one can either go in the browser and type in the URL that has the IP address of your running server, for example : `http://127.0.0.1:8686/api/consensus/blockheader?name=Oasis_Main_Validator&height=1000` or in the command line they can use the `curl` command to query it, for example : `curl "127.0.0.1:8686/api/consensus/blockheader?name=Oasis_Main_Validator&height=1000"`.
 
 [Back to API front page](../README.md)
