@@ -178,8 +178,8 @@ docker run --network="host" -p 127.0.0.1:8686:8686 \
     -d simplyvc/oasis_api_server:1.0.4
 ```
 
-Note: The port after `-p` and before the `:` can be used to route a port from the machine to the internal port of the Docker. If changing this, any program which refers to the API Docker container must refer to this port.\
-Example: with `8686`:8686, the the API URL must look like `http://1.2.3.4:8686`, i.e. the configured port must match `8686`.
+Note: The port after `-p` and before the `:` is used to route a port from the machine to the internal port of the Docker. If this is changed, any program which refers to the API Docker container must refer to this port.\
+Example: with `8686`:`5367`, the API URL must look like `http://1.2.3.4:8686`, but the configured port inside the files must be `5367`, it is suggested to leave them them both as `8686`.
 
 ## Confirming the API Works
 
