@@ -47,7 +47,6 @@ Released on 19th June 2020
 * GetDelegations "ownerKey" query parameter has been changed to "address"
 * GetDebondingDelegations "ownerKey" query parameter has been changed to "address"
 
-
 ## 1.0.2
 
 Released on May 2020
@@ -55,7 +54,6 @@ Released on May 2020
 ### Changed
 
 *  Changed endpoints by removing trailing `/` E.G `/api/ping/` is now `/api/ping`
-
 
 ## 1.0.1
 
