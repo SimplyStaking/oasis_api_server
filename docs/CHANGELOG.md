@@ -1,6 +1,6 @@
 ## 1.0.4
 
-Released on 17th August 2020
+Released on 18th August 2020
 
 #### Staking
 
