@@ -140,7 +140,7 @@ git clone https://github.com/SimplyVC/oasis_api_server
 Then run the following commands to build the image:
 ```bash
 cd oasis_api_server
-docker build -t simplyvc/oasis_api_server:1.0.3 .
+docker build -t simplyvc/oasis_api_server:1.0.4 .
 ```
 
 
@@ -148,7 +148,7 @@ docker build -t simplyvc/oasis_api_server:1.0.3 .
 
 The pre-built Docker image can simply be downloaded by running the following command:
 ```bash
-docker pull simplyvc/oasis_api_server:1.0.3
+docker pull simplyvc/oasis_api_server:1.0.4
 ```
 
 #### Config Files Directory and Permissions
@@ -175,22 +175,22 @@ docker run --network="host" -p 127.0.0.1:8686:8686 \
     --mount type=bind,source=<CONFIG_DIR>,target=/app/config/ \
     --mount type=bind,source=<INTERNAL_SOCK_DIR>,target=<PATH_IN_NODE_CONFIG> \
     --mount type=bind,source=<INTERNAL_TLS_DIR>,target=<PATH_IN_SENTRY_CONFIG> \
-    -d simplyvc/oasis_api_server:1.0.3
+    -d simplyvc/oasis_api_server:1.0.4
 ```
 
-Note: The port after `-p` and before the `:` can be used to route a port from the machine to the internal port of the Docker. If changing this, any program which refers to the API Docker container must refer to this port.\
-Example: with `5678`:3000, the the API URL must look like `http://1.2.3.4:5678`, i.e. the port must match `5678`, and not 3000.
+Note: The port after `-p` and before the `:` is used to route a port from the machine to the internal port of the Docker. If this is changed, any program which refers to the API Docker container must refer to this port.\
+Example: with `8686`:`5367`, the API URL must look like `http://1.2.3.4:8686`, but the configured port inside the files must be `5367`, it is suggested to leave them them both as `8686`.
 
 ## Confirming the API Works
 
 If you wish to make sure that the API is running, the following should return `{"result":"pong"}`:
 ```bash
-curl -X GET http://localhost:3000/api/pingapi
+curl -X GET http://localhost:8686/api/pingapi
 ```
 
 If you wish to check the API's connection to a node, you can run the following for some node `<NODE>`:
 ```bash
-curl -X GET http://localhost:3000/api/pingnode?name=<NODE>
+curl -X GET http://localhost:8686/api/pingnode?name=<NODE>
 ```
 
 **Note**
@@ -198,7 +198,7 @@ curl -X GET http://localhost:3000/api/pingnode?name=<NODE>
 Using curl with multiple queries requires the entire url to be inside double quotation marks as seen in the example below:
 
 ```bash
-curl -X GET "http://localhost:3000/api/registry/nodes?name=<NODE>&height=300"
+curl -X GET "http://localhost:8686/api/registry/nodes?name=<NODE>&height=300"
 ```
 ---
 [Back to API front page](../README.md)
