@@ -22,7 +22,7 @@ import (
 
 // StakingEvents responds with a list of events
 type StakingEvents struct {
-	StakingEvents []staking_api.Event `json:"result"`
+	StakingEvents []*staking_api.Event `json:"result"`
 }
 
 // TendermintAddress responds with a tendermint public key address
@@ -124,7 +124,7 @@ type RegistryNodeResponse struct {
 
 // RegistryEventsResponse responds with events at specified block height.
 type RegistryEventsResponse struct {
-	Events []registry_api.Event `json:"results"`
+	Events []*registry_api.Event `json:"results"`
 }
 
 // NodeStatusResponse responds with a node's status.

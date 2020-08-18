@@ -1,4 +1,24 @@
+## 1.0.4
+
+Released on 18th August 2020
+
+#### Staking
+
+~ Changed Response type from `[]staking_api.Event` to `[]*staking_api.Event`
+
+#### Registry
+
+~ Changed Response type from `[]registry_api.Event` to `[]*registry_api.Event`
+~ Changed GetRuntimes to have a query object which takes the height and boolean value of suspended. 
+An example URL now looks like this `127.0.0.1:8686/api/registry/runtimes?name=Oasis_Main_Validator&height=1000&suspended=true`
+
+#### Other
+
+* Added to docs the exact query parameters that are needed to return data from the server.
+* Updated tendermint version to 0.34
+
 ## 1.0.3
+
 Released on 19th June 2020
 
 ### Added
@@ -27,7 +47,6 @@ Released on 19th June 2020
 * GetDelegations "ownerKey" query parameter has been changed to "address"
 * GetDebondingDelegations "ownerKey" query parameter has been changed to "address"
 
-
 ## 1.0.2
 
 Released on May 2020
@@ -35,7 +54,6 @@ Released on May 2020
 ### Changed
 
 *  Changed endpoints by removing trailing `/` E.G `/api/ping/` is now `/api/ping`
-
 
 ## 1.0.1
 

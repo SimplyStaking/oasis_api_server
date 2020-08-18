@@ -32,6 +32,7 @@ The API Server works as follows:
     6. [Sentry](https://godoc.org/github.com/oasisprotocol/oasis-core/go/sentry/api#Backend)
 
 ## Complete List of Endpoints
+
 | API Endpoint                         | Required Inputs                 | Optional Inputs | Output                    | 
 |--------------------------------------|---------------------------------|-----------------|---------------------------|
 | /api/ping                            | none                            | none            | Pong                      | 
@@ -54,7 +55,8 @@ The API Server works as follows:
 | /api/registry/node                   | Node Name, Node Public Key      | Height          | Node                      | 
 | /api/registry/nodestatus             | Node Name, Node Public Key      | Height          | Node Status               | 
 | /api/registry/events                 | Node Name                       | Height          | Registry Events           | 
-| /api/registry/runtime                | Node Name, Runtime Namespace    | Height          | Runtime                   | 
+| /api/registry/runtime                | Node Name, Runtime Namespace    | Height          | Runtime                   |
+| /api/registry/runtimes               | Node Name, Suspended Boolean    | Height          | Runtimes                  | 
 | /api/staking/totalsupply             | Node Name                       | Height          | Total Supply              | 
 | /api/staking/commonpool              | Node Name                       | Height          | Common Pool               | 
 | /api/staking/lastblockfees           | Node Name                       | Height          | Last Block Fees           |
@@ -76,21 +78,57 @@ The API Server works as follows:
 | /api/exporter/counter                | Counter Name                    | none            | Counter Value             | 
 | /api/sentry/addresses                | Node Name                       | none            | Nodes Connected to Sentry |
 
+## Example Queries
+
+This is a list of example queries with the exact parameters and a custom node `Oasis_Main_Validator` being pinged from localhost `127.0.0.1`.
+
+| API Endpoint                         | Query                                                                                                                                        |
+|--------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| /api/ping                            | 127.0.0.1:8686/api/ping                                                                                                                      | 
+| /api/getconnectionslist              | 127.0.0.1:8686/api/getconnectionslist                                                                                                        |
+| /api/consensus/genesis               | 127.0.0.1:8686/api/consensus/genesis?name=Oasis_Main_Validator&height=1000                                                                   |
+| /api/consensus/genesisdocument       | 127.0.0.1:8686/api/consensus/genesisdocument?name=Oasis_Main_Validator&height=1000                                                           |
+| /api/consensus/epoch                 | 127.0.0.1:8686/api/consensus/epoch?name=Oasis_Main_Validator&height=1000                                                                     |
+| /api/consensus/status                | 127.0.0.1:8686/api/consensus/status?name=Oasis_Main_Validator&height=1000                                                                    | 
+| /api/consensus/block                 | 127.0.0.1:8686/api/consensus/block?name=Oasis_Main_Validator&height=1000                                                                     |
+| /api/consensus/blockheader           | 127.0.0.1:8686/api/consensus/blockheader?name=Oasis_Main_Validator&height=1000                                                               |
+| /api/consensus/blocklastcommit       | 127.0.0.1:8686/api/consensus/blocklastcommit?name=Oasis_Main_Validator&height=1000                                                           |
+| /api/consensus/pubkeyaddress         | 127.0.0.1:8686/api/consensus/pubkeyaddress?consensus_public_key=AzJTHgUZKYGYVPoN5F8WLtMyEPh7OKpM1uJGQVRiZek=                                 |
+| /api/consensus/transactions          | 127.0.0.1:8686/api/consensus/transactions?name=Oasis_Main_Validator&height=1000                                                              |
+| /api/pingnode                        | 127.0.0.1:8686/api/pingnode?name=Oasis_Main_Validator                                                                                        |
+| /api/registry/entities               | 127.0.0.1:8686/api/registry/entities?name=Oasis_Main_Validator&height=1000                                                                   |
+| /api/registry/nodes                  | 127.0.0.1:8686/api/registry/nodes?name=Oasis_Main_Validator&height=1000                                                                      |
+| /api/registry/runtimes               | 127.0.0.1:8686/api/registry/runtimes?name=Oasis_Main_Validator&height=1000                                                                   |
+| /api/registry/genesis                | 127.0.0.1:8686/api/registry/genesis?name=Oasis_Main_Validator&height=1000                                                                    |
+| /api/registry/entity                 | 127.0.0.1:8686/api/registry/entity?name=Oasis_Main_Validator&height=1000&entity=gb8SHLeDc69Elk7OTfqhtVgE2sqxrBCDQI84xKR+Bjg=                 |
+| /api/registry/node                   | 127.0.0.1:8686/api/registry/node?name=Oasis_Main_Validator&height=1000&nodeID=5RIMVgnsN1D/HdvNxXCpE+lWH5U/SGYUrYsvhsTMbyA=                   |
+| /api/registry/nodestatus             | 127.0.0.1:8686/api/registry/nodestatus?name=Oasis_Main_Validator&height=1000&nodeID=5RIMVgnsN1D/HdvNxXCpE+lWH5U/SGYUrYsvhsTMbyA=             |
+| /api/registry/events                 | 127.0.0.1:8686/api/registry/events?name=Oasis_Main_Validator&height=1000                                                                     |
+| /api/registry/runtime                | 127.0.0.1:8686/api/registry/runtime?name=Oasis_Main_Validator&height=1000&namespace=6XJLXaerB2A/HdvNxXCpE+lWH5U/SGYUrXsvhsTMbyB=             |
+| /api/registry/runtimes               | 127.0.0.1:8686/api/registry/runtimes?name=Oasis_Main_Validator&height=1000&suspended=true                                                    |
+| /api/staking/totalsupply             | 127.0.0.1:8686/api/staking/totalsupply?name=Oasis_Main_Validator&height=1000                                                                 |
+| /api/staking/commonpool              | 127.0.0.1:8686/api/staking/commonpool?name=Oasis_Main_Validator&height=1000                                                                  |
+| /api/staking/lastblockfees           | 127.0.0.1:8686/api/staking/lastblockfees?name=Oasis_Main_Validator&height=1000                                                               |
+| /api/staking/genesis                 | 127.0.0.1:8686/api/staking/genesis?name=Oasis_Main_Validator&height=1000                                                                     |
+| /api/staking/threshold               | 127.0.0.1:8686/api/staking/threshold?name=Oasis_Main_Validator&height=1000&kind=1                                                            |
+| /api/staking/addresses               | 127.0.0.1:8686/api/staking/addresses?name=Oasis_Main_Validator&height=1000                                                                   |
+| /api/staking/account                 | 127.0.0.1:8686/api/staking/account?name=Oasis_Main_Validator&height=1000&address=oasis1qqqf342r78nz05dq2pa3wzh0w54k3ea49u6rqdhv              |
+| /api/staking/delegations             | 127.0.0.1:8686/api/staking/delegations?name=Oasis_Main_Validator&height=1000&address=oasis1qqqf342r78nz05dq2pa3wzh0w54k3ea49u6rqdhv          |
+| /api/staking/debondingdelegations    | 127.0.0.1:8686/api/staking/debondingdelegations?name=Oasis_Main_Validator&height=1000&address=oasis1qqqf342r78nz05dq2pa3wzh0w54k3ea49u6rqdhv |
+| /api/staking/events                  | 127.0.0.1:8686/api/staking/events?name=Oasis_Main_Validator&height=1000                                                                      |
+| /api/staking/publickeytoaddress      | 127.0.0.1:8686/api/staking/publickeytoaddress?pubKey=BKNMlGLov7tJZi4Gopeu0sXGxXWvg1uKDfY4wNY3WCM=                                            |
+| /api/nodecontroller/synced           | 127.0.0.1:8686/api/nodecontroller/synced?name=Oasis_Main_Validator                                                                           |
+| /api/scheduler/validators            | 127.0.0.1:8686/api/scheduler/validators?name=Oasis_Main_Validator&height=1000                                                                |
+| /api/scheduler/committees            | 127.0.0.1:8686/api/scheduler/committees?name=Oasis_Main_Validator&height=1000&namespace=6XJLXaerB2A/HdvNxXCpE+lWH5U/SGYUrXsvhsTMbyB=         |
+| /api/scheduler/genesis               | 127.0.0.1:8686/api/scheduler/genesis?name=Oasis_Main_Validator&height=1000                                                                   |
+| /api/prometheus/gauge                | 127.0.0.1:8686/api/prometheus/gauge?name=Oasis_Main_Validator&gauge=go_goroutines                                                            |
+| /api/prometheus/counter              | 127.0.0.1:8686/api/prometheus/counter?name=Oasis_Main_Validator&gauge=go_memstats_alloc_bytes_total                                          |
+| /api/exporter/gauge                  | 127.0.0.1:8686/api/exporter/gauge?gauge=node_nf_conntrack_entries                                                                            |
+| /api/exporter/counter                | 127.0.0.1:8686/api/exporter/counter?counter=node_timex_pps_calibration_total                                                                 |
+| /api/sentry/addresses                | 127.0.0.1:8686/api/sentry/addresses?name=Oasis_Main_Validator                                                                                |
+
 ## Using the API
 
-For example, the endpoint `/api/staking/synced` can be called as follows: `http://localhost:8880/api/staking/synced?name=Oasis_Local`.
-If successful, this will return:
-```json
-{
-    "issynced": true
-}
-```
-
-If an API connection for the node specified in the `websocket` field is not online, this will return:
-```json
-{
-    "error": "Failed to get IsSynced!"
-}
-```
+To use the API one can either go in the browser and type in the URL that has the IP address of your running server, for example : `http://127.0.0.1:8686/api/consensus/blockheader?name=Oasis_Main_Validator&height=1000` or in the command line they can use the `curl` command to query it, for example : `curl "127.0.0.1:8686/api/consensus/blockheader?name=Oasis_Main_Validator&height=1000"`.
 
 [Back to API front page](../README.md)

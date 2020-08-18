@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
+	"strconv"
 
 	"google.golang.org/grpc"
 
@@ -243,6 +244,11 @@ func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	suspendedBool, err := strconv.ParseBool(r.URL.Query().Get("suspended"))
+	if err != nil {
+		suspendedBool = false
+	}
+
 	// Attempt to load connection with registry client
 	connection, ro := loadRegistryClient(socket)
 
@@ -259,8 +265,11 @@ func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	query := registry.GetRuntimesQuery{Height: height, 
+		IncludeSuspended: suspendedBool}
+
 	// Retrieving runtimes at specific block height from registry client
-	runtimes, err := ro.GetRuntimes(context.Background(), height)
+	runtimes, err := ro.GetRuntimes(context.Background(), &query)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get runtimes!"})
