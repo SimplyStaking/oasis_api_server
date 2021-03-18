@@ -1,3 +1,9 @@
+## 1.0.5
+
+Released on 18th March 2020
+
+~ Changed package versions to work with current Oasis Version v20.12.5
+
 ## 1.0.4
 
 Released on 18th August 2020
