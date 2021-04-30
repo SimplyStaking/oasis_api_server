@@ -85,11 +85,10 @@ func Test_GetConsensusStateToGenesis_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetConsensusStateToGenesis_Height3(t *testing.T) {
+func Test_GetConsensusStateToGenesis_Height(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/consensus/genesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
-	q.Add("height", "3")
 
 	req.URL.RawQuery = q.Encode()
 
@@ -188,11 +187,10 @@ func Test_GetEpoch_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetEpoch_Height3(t *testing.T) {
+func Test_GetEpoch_Height(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/consensus/epoch", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
-	q.Add("height", "3")
 
 	req.URL.RawQuery = q.Encode()
 
@@ -265,11 +263,10 @@ func Test_GetBlock_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetBlock_Height3(t *testing.T) {
+func Test_GetBlock_Height(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/consensus/block", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
-	q.Add("height", "3")
 
 	req.URL.RawQuery = q.Encode()
 
@@ -344,11 +341,10 @@ func Test_GetBlockHeader_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetBlockHeader_Height3(t *testing.T) {
+func Test_GetBlockHeader_Height(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/consensus/blockheader", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
-	q.Add("height", "3")
 
 	req.URL.RawQuery = q.Encode()
 
@@ -423,11 +419,10 @@ func Test_GetBlockLastCommit_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetBlockLastCommit_Height3(t *testing.T) {
+func Test_GetBlockLastCommit_Height(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/consensus/blocklastcommit", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
-	q.Add("height", "3")
 
 	req.URL.RawQuery = q.Encode()
 

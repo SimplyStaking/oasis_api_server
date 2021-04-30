@@ -12,7 +12,7 @@ import (
 func Test_NodeExporterQueryGauge(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/exporter/gauge", nil)
 	q := req.URL.Query()
-	q.Add("gauge", "node_nf_conntrack_entries")
+	q.Add("gauge", "go_memstats_alloc_bytes")
 
 	req.URL.RawQuery = q.Encode()
 

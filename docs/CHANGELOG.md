@@ -1,3 +1,12 @@
+## 1.0.6
+
+Released on 3rd May 2020
+
+~ Changed package versions to work with the current Oasis Version v21.1.1
+~ Updated tests to remove Height from query as it's unpredictable in testing.
+~ GetEpoch now gets epoch from Beacon, which is returned from Consensus handler.
+~ Updated addresses on nodes/entities for registry tests to ensure tests are still working.
+
 ## 1.0.5
 
 Released on 18th March 2020

@@ -60,11 +60,10 @@ func Test_GetEntities_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetEntities_Height3(t *testing.T) {
+func Test_GetEntities_Height(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/registry/entities", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
-	q.Add("height", "3")
 
 	req.URL.RawQuery = q.Encode()
 
@@ -140,11 +139,10 @@ func Test_GetNodes_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetNodes_Height3(t *testing.T) {
+func Test_GetNodes_Height(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/registry/nodes", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
-	q.Add("height", "3")
 
 	req.URL.RawQuery = q.Encode()
 
@@ -220,11 +218,10 @@ func Test_GetRuntimes_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetRuntimes_Height3(t *testing.T) {
+func Test_GetRuntimes_Height(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/registry/runtimes", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
-	q.Add("height", "3")
 
 	req.URL.RawQuery = q.Encode()
 
@@ -300,11 +297,10 @@ func Test_GetRegistryStateToGenesis_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetRegistryStateToGenesis_Height3(t *testing.T) {
+func Test_GetRegistryStateToGenesis_Height(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/registry/genesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
-	q.Add("height", "3")
 
 	req.URL.RawQuery = q.Encode()
 
@@ -379,12 +375,11 @@ func Test_GetEntity_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetEntity_Height3(t *testing.T) {
+func Test_GetEntity_Height(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/registry/entity", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
-	q.Add("height", "3")
-	q.Add("entity", "CVzqFIADD2Ed0khGBNf4Rvh7vSNtrL1ULTkWYQszDpc=")
+	q.Add("entity", "gb8SHLeDc69Elk7OTfqhtVgE2sqxrBCDQI84xKR+Bjg=")
 
 	req.URL.RawQuery = q.Encode()
 
@@ -461,12 +456,11 @@ func Test_GetNode_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetNode_Height3(t *testing.T) {
+func Test_GetNode_Height(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/registry/node", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
-	q.Add("height", "3")
-	q.Add("nodeID", "AzJTHgUZKYGYVPoN5F8WLtMyEPh7OKpM1uJGQVRiZek=")
+	q.Add("nodeID", "AVQbWvlbKOHi3z8uibbOVl3xsCJsw2YtWG5XXdbhhpI=")
 
 	req.URL.RawQuery = q.Encode()
 
