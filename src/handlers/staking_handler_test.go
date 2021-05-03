@@ -59,11 +59,10 @@ func Test_GetTotalSupply_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetTotalSupply_Height3(t *testing.T) {
+func Test_GetTotalSupply(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/staking/totalsupply", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
-	q.Add("height", "3")
 
 	req.URL.RawQuery = q.Encode()
 
@@ -138,11 +137,10 @@ func Test_GetCommonPool_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetCommonPool_Height3(t *testing.T) {
+func Test_GetCommonPool(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/staking/commonpool", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
-	q.Add("height", "3")
 
 	req.URL.RawQuery = q.Encode()
 
@@ -217,11 +215,10 @@ func Test_GetStakingStateToGenesis_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetStakingStateToGenesis_Height3(t *testing.T) {
+func Test_GetStakingStateToGenesis(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/staking/genesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
-	q.Add("height", "3")
 
 	req.URL.RawQuery = q.Encode()
 
@@ -296,11 +293,10 @@ func Test_GetThreshold_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetThreshold_Height3(t *testing.T) {
+func Test_GetThreshold(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/staking/threshold", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
-	q.Add("height", "3")
 	q.Add("kind", "1")
 
 	req.URL.RawQuery = q.Encode()
@@ -376,11 +372,10 @@ func Test_GetAddresses_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetAddresses_Height3(t *testing.T) {
+func Test_GetAddresses(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/staking/addresses", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
-	q.Add("height", "3")
 
 	req.URL.RawQuery = q.Encode()
 
@@ -455,11 +450,10 @@ func Test_GetAccount_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetAccount_Height3(t *testing.T) {
+func Test_GetAccount(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/staking/account", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
-	q.Add("height", "3")
 	q.Add("address", "oasis1qqqf342r78nz05dq2pa3wzh0w54k3ea49u6rqdhv")
 
 	req.URL.RawQuery = q.Encode()
@@ -535,11 +529,10 @@ func Test_GetDelegations_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetDelegations_Height3(t *testing.T) {
+func Test_GetDelegations(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/staking/delegations", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
-	q.Add("height", "3")
 	q.Add("address", "oasis1qqqf342r78nz05dq2pa3wzh0w54k3ea49u6rqdhv")
 
 	req.URL.RawQuery = q.Encode()
@@ -615,11 +608,10 @@ func Test_GetDebondingDelegations_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetDebondingDelegations_Height3(t *testing.T) {
+func Test_GetDebondingDelegations(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/staking/debondingdelegations", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
-	q.Add("height", "3")
 	q.Add("address", "oasis1qqqf342r78nz05dq2pa3wzh0w54k3ea49u6rqdhv")
 
 	req.URL.RawQuery = q.Encode()
@@ -695,11 +687,10 @@ func Test_GetEvents_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetEvents_Height3(t *testing.T) {
+func Test_GetEvents(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/staking/events", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
-	q.Add("height", "3")
 
 	req.URL.RawQuery = q.Encode()
 
@@ -714,7 +705,7 @@ func Test_GetEvents_Height3(t *testing.T) {
 	expected := "result"
 
 	events := &responses.StakingEvents{
-		StakingEvents: []staking_api.Event{},
+		StakingEvents: []*staking_api.Event{},
 	}
 
 	err := json.Unmarshal([]byte(rr.Body.String()), events)
