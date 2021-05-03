@@ -1,8 +1,17 @@
+## 1.0.6
+
+Released on 3rd May 2021
+
+- Changed package versions to work with the current Oasis Version v21.1.1
+- Updated tests to remove Height from query as it's unpredictable in testing.
+- GetEpoch now gets epoch from Beacon, which is returned from Consensus handler.
+- Updated addresses on nodes/entities for registry tests to ensure tests are still working.
+
 ## 1.0.5
 
-Released on 18th March 2020
+Released on 18th March 2021
 
-~ Changed package versions to work with current Oasis Version v20.12.5
+- Changed package versions to work with current Oasis Version v20.12.5
 
 ## 1.0.4
 
@@ -10,12 +19,12 @@ Released on 18th August 2020
 
 #### Staking
 
-~ Changed Response type from `[]staking_api.Event` to `[]*staking_api.Event`
+- Changed Response type from `[]staking_api.Event` to `[]*staking_api.Event`
 
 #### Registry
 
-~ Changed Response type from `[]registry_api.Event` to `[]*registry_api.Event`
-~ Changed GetRuntimes to have a query object which takes the height and boolean value of suspended. 
+- Changed Response type from `[]registry_api.Event` to `[]*registry_api.Event`
+- Changed GetRuntimes to have a query object which takes the height and boolean value of suspended. 
 An example URL now looks like this `127.0.0.1:8686/api/registry/runtimes?name=Oasis_Main_Validator&height=1000&suspended=true`
 
 #### Other

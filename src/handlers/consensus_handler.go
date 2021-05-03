@@ -139,8 +139,11 @@ func GetEpoch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Return epcoh of specific height
-	epoch, err := co.GetEpoch(context.Background(), height)
+	// Return beacon backend object from consensus
+	beacon := co.Beacon()
+
+	// Return Epoch at current block height
+	epoch, err := beacon.GetEpoch(context.Background(), height)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to retrieve Epoch of Block!"})

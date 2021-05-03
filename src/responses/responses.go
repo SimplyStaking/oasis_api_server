@@ -9,7 +9,7 @@ import (
 	common_node "github.com/oasisprotocol/oasis-core/go/common/node"
 	common_quantity "github.com/oasisprotocol/oasis-core/go/common/quantity"
 	consensus_api "github.com/oasisprotocol/oasis-core/go/consensus/api"
-	epoch_api "github.com/oasisprotocol/oasis-core/go/epochtime/api"
+	beacon_api "github.com/oasisprotocol/oasis-core/go/beacon/api"
 	gen_api "github.com/oasisprotocol/oasis-core/go/genesis/api"
 	registry_api "github.com/oasisprotocol/oasis-core/go/registry/api"
 	scheduler_api "github.com/oasisprotocol/oasis-core/go/scheduler/api"
@@ -185,7 +185,7 @@ type BlockResponse struct {
 
 // EpochResponse responds with epcoh time
 type EpochResponse struct {
-	Ep epoch_api.EpochTime `json:"result"`
+	Ep beacon_api.EpochTime `json:"result"`
 }
 
 // ConsensusGenesisResponse with consensus Genesis Document

@@ -658,7 +658,7 @@ func GetDelegations(w http.ResponseWriter, r *http.Request) {
 	query := staking.OwnerQuery{Height: height, Owner: address}
 
 	// Return delegations for given account query
-	delegations, err := so.Delegations(context.Background(), &query)
+	delegations, err := so.DelegationsTo(context.Background(), &query)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
 			Error: "Failed to get Delegations!"})
@@ -745,7 +745,7 @@ func GetDebondingDelegations(w http.ResponseWriter, r *http.Request) {
 	query := staking.OwnerQuery{Height: height, Owner: address}
 
 	// Retrieving debonding delegations for an account using above query
-	debondingDelegations, err := so.DebondingDelegations(context.Background(),
+	debondingDelegations, err := so.DebondingDelegationsTo(context.Background(),
 		&query)
 	if err != nil {
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
