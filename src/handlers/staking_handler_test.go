@@ -59,7 +59,7 @@ func Test_GetTotalSupply_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetTotalSupply_Height(t *testing.T) {
+func Test_GetTotalSupply(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/staking/totalsupply", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -137,7 +137,7 @@ func Test_GetCommonPool_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetCommonPool_Height(t *testing.T) {
+func Test_GetCommonPool(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/staking/commonpool", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -215,7 +215,7 @@ func Test_GetStakingStateToGenesis_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetStakingStateToGenesis_Height(t *testing.T) {
+func Test_GetStakingStateToGenesis(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/staking/genesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -293,7 +293,7 @@ func Test_GetThreshold_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetThreshold_Height(t *testing.T) {
+func Test_GetThreshold(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/staking/threshold", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -372,7 +372,7 @@ func Test_GetAddresses_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetAddresses_Height(t *testing.T) {
+func Test_GetAddresses(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/staking/addresses", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -450,7 +450,7 @@ func Test_GetAccount_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetAccount_Height(t *testing.T) {
+func Test_GetAccount(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/staking/account", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -529,7 +529,7 @@ func Test_GetDelegations_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetDelegations_Height(t *testing.T) {
+func Test_GetDelegations(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/staking/delegations", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -608,7 +608,7 @@ func Test_GetDebondingDelegations_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetDebondingDelegations_Height(t *testing.T) {
+func Test_GetDebondingDelegations(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/staking/debondingdelegations", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -687,7 +687,7 @@ func Test_GetEvents_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetEvents_Height(t *testing.T) {
+func Test_GetEvents(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/staking/events", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")

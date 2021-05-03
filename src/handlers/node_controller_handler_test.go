@@ -31,7 +31,7 @@ func Test_GetIsSynced_BadNode(t *testing.T) {
 	}
 }
 
-func Test_GetIsSynced_Height(t *testing.T) {
+func Test_GetIsSynced(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/staking/synced", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")

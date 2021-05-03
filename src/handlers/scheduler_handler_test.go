@@ -58,7 +58,7 @@ func Test_GetValidators_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetValidators_Height(t *testing.T) {
+func Test_GetValidators(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/scheduler/validators", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -183,7 +183,7 @@ func Test_GetSchedulerStateToGenesis_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetSchedulerStateToGenesis_Height(t *testing.T) {
+func Test_GetSchedulerStateToGenesis(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/scheduler/genesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")

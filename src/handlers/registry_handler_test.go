@@ -60,7 +60,7 @@ func Test_GetEntities_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetEntities_Height(t *testing.T) {
+func Test_GetEntities(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/registry/entities", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -139,7 +139,7 @@ func Test_GetNodes_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetNodes_Height(t *testing.T) {
+func Test_GetNodes(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/registry/nodes", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -218,7 +218,7 @@ func Test_GetRuntimes_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetRuntimes_Height(t *testing.T) {
+func Test_GetRuntimes(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/registry/runtimes", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -297,7 +297,7 @@ func Test_GetRegistryStateToGenesis_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetRegistryStateToGenesis_Height(t *testing.T) {
+func Test_GetRegistryStateToGenesis(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/registry/genesis", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -375,7 +375,7 @@ func Test_GetEntity_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetEntity_Height(t *testing.T) {
+func Test_GetEntity(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/registry/entity", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
@@ -456,7 +456,7 @@ func Test_GetNode_InvalidHeight(t *testing.T) {
 	}
 }
 
-func Test_GetNode_Height(t *testing.T) {
+func Test_GetNode(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/api/registry/node", nil)
 	q := req.URL.Query()
 	q.Add("name", "Oasis_Local")
