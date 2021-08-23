@@ -185,7 +185,7 @@ Example: with `8686`:`5367`, the API URL must look like `http://1.2.3.4:8686`, b
 
 If you wish to make sure that the API is running, the following should return `{"result":"pong"}`:
 ```bash
-curl -X GET http://localhost:8686/api/pingapi
+curl -X GET http://localhost:8686/api/ping
 ```
 
 If you wish to check the API's connection to a node, you can run the following for some node `<NODE>`:
