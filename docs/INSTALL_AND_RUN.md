@@ -140,7 +140,7 @@ git clone https://github.com/SimplyVC/oasis_api_server
 Then run the following commands to build the image:
 ```bash
 cd oasis_api_server
-docker build -t simplyvc/oasis_api_server:1.0.6 .
+docker build -t simplyvc/oasis_api_server:1.0.7 .
 ```
 
 
@@ -148,7 +148,7 @@ docker build -t simplyvc/oasis_api_server:1.0.6 .
 
 The pre-built Docker image can simply be downloaded by running the following command:
 ```bash
-docker pull simplyvc/oasis_api_server:1.0.6
+docker pull simplyvc/oasis_api_server:1.0.7
 ```
 
 #### Config Files Directory and Permissions
@@ -175,7 +175,7 @@ docker run --network="host" -p 127.0.0.1:8686:8686 \
     --mount type=bind,source=<CONFIG_DIR>,target=/app/config/ \
     --mount type=bind,source=<INTERNAL_SOCK_DIR>,target=<PATH_IN_NODE_CONFIG> \
     --mount type=bind,source=<INTERNAL_TLS_DIR>,target=<PATH_IN_SENTRY_CONFIG> \
-    -d simplyvc/oasis_api_server:1.0.6
+    -d simplyvc/oasis_api_server:1.0.7
 ```
 
 Note: The port after `-p` and before the `:` is used to route a port from the machine to the internal port of the Docker. If this is changed, any program which refers to the API Docker container must refer to this port.\
