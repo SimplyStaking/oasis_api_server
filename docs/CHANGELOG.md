@@ -1,3 +1,9 @@
+## 1.0.7
+
+Released on 23rd August 2021
+
+- Changed package version to work with the curren Oasis Version v21.2.8
+
 ## 1.0.6
 
 Released on 3rd May 2021
