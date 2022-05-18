@@ -15,6 +15,7 @@ require (
 	github.com/claudetech/ini v0.0.0-20140910072410-73e6100d9d51
 	github.com/gorilla/mux v1.7.4
 	github.com/mackerelio/go-osstat v0.1.0
+<<<<<<< HEAD
 	github.com/oasisprotocol/oasis-core/go v0.2201.3
 	github.com/prometheus/common v0.32.1
 	github.com/tendermint/tendermint v0.34.15
@@ -74,4 +75,11 @@ require (
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/ini.v1 v1.66.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
+=======
+	github.com/oasisprotocol/oasis-core/go v0.2103.7
+	github.com/prometheus/common v0.31.0
+	github.com/tendermint/tendermint v0.34.9
+	github.com/zenazn/goji v0.9.0
+	google.golang.org/grpc v1.41.0
+>>>>>>> ad2c5a67840ea7a8f0b5c321264df108c698ab91
 )
