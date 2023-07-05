@@ -16,5 +16,5 @@ require (
 	github.com/prometheus/common v0.31.0
 	github.com/tendermint/tendermint v0.34.9
 	github.com/zenazn/goji v0.9.0
-	google.golang.org/grpc v1.41.0
+	google.golang.org/grpc v1.53.0
 )
