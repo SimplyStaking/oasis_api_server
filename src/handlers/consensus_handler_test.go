@@ -12,9 +12,9 @@ import (
 	hdl "github.com/SimplyVC/oasis_api_server/src/handlers"
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
 	"github.com/SimplyVC/oasis_api_server/src/responses"
+	mint_types "github.com/cometbft/cometbft/types"
 	consensus_api "github.com/oasisprotocol/oasis-core/go/consensus/api"
 	gen_api "github.com/oasisprotocol/oasis-core/go/genesis/api"
-	mint_types "github.com/tendermint/tendermint/types"
 )
 
 // Setting data to test with, valid and invalid path locations

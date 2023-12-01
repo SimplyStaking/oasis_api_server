@@ -1,4 +1,4 @@
-FROM golang:1.15
+FROM golang:1.21
 
 # Add Maintainer Info
 LABEL maintainer="Vitaly Volozhinov <vitaly@simply-vc.com.mt>"
@@ -7,7 +7,7 @@ WORKDIR /app
 
 COPY /src/go.mod /src/go.sum ./
 
-RUN go mod download
+RUN go mod tidy
 
 COPY . .
 WORKDIR ./src
