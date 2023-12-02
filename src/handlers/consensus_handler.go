@@ -13,8 +13,8 @@ import (
 	"github.com/oasisprotocol/oasis-core/go/common/cbor"
 	"github.com/oasisprotocol/oasis-core/go/common/crypto/signature"
 	consensus "github.com/oasisprotocol/oasis-core/go/consensus/api"
-	mint_api "github.com/oasisprotocol/oasis-core/go/consensus/tendermint/api"
-	"github.com/oasisprotocol/oasis-core/go/consensus/tendermint/crypto"
+	mint_api "github.com/oasisprotocol/oasis-core/go/consensus/cometbft/api"
+	"github.com/oasisprotocol/oasis-core/go/consensus/cometbft/crypto"
 )
 
 // loadConsensusClient loads consensus client and returns it
@@ -104,7 +104,7 @@ func GetEpoch(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if !confirmation  {
+	if !confirmation {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -170,7 +170,7 @@ func PingNode(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if !confirmation  {
+	if !confirmation {
 		lgr.Info.Println("Node name requested doesn't exist")
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -224,7 +224,7 @@ func GetBlock(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if !confirmation  {
+	if !confirmation {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -285,7 +285,7 @@ func GetStatus(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if !confirmation  {
+	if !confirmation {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -325,7 +325,6 @@ func GetStatus(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(responses.StatusResponse{Status: status})
 }
 
-
 // GetGenesisDocument returns the original genesis document.
 func GetGenesisDocument(w http.ResponseWriter, r *http.Request) {
 
@@ -335,7 +334,7 @@ func GetGenesisDocument(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if !confirmation  {
+	if !confirmation {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -373,9 +372,8 @@ func GetGenesisDocument(w http.ResponseWriter, r *http.Request) {
 	// Responding with retrieved block
 	lgr.Info.Println(
 		"Request at /api/consensus/genesisdocument responding with Genesis " +
-		"Document!")
-	json.NewEncoder(w).Encode(responses.GenesisDocumentResponse{GenesisDocument: 
-		genesisDocument})
+			"Document!")
+	json.NewEncoder(w).Encode(responses.GenesisDocumentResponse{GenesisDocument: genesisDocument})
 }
 
 // GetBlockHeader returns consensus block header at specific height
@@ -387,7 +385,7 @@ func GetBlockHeader(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if !confirmation  {
+	if !confirmation {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -461,7 +459,7 @@ func GetBlockLastCommit(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if !confirmation  {
+	if !confirmation {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -551,7 +549,7 @@ func PublicKeyToAddress(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// Convert the consensusKey into a signature PublicKey
-	tendermintKey := crypto.PublicKeyToTendermint(consensusPublicKey)
+	tendermintKey := crypto.PublicKeyToCometBFT(consensusPublicKey)
 	cryptoAddress := tendermintKey.Address()
 	// Responds with transactions retrieved above
 	lgr.Info.Println("Request at /api/consensus/pubkeyaddress responding " +
@@ -569,7 +567,7 @@ func GetTransactions(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if !confirmation  {
+	if !confirmation {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
