@@ -689,7 +689,6 @@ func GetRuntime(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Creating query that will be used to return runtime by it's namespace
-	// query := registry.NamespaceQuery{Height: height, ID: nameSpace}
 	query := registry.GetRuntimeQuery{Height: height, ID: nameSpace}
 
 	// Retrieving runtime object using above query
