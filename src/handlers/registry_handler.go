@@ -38,7 +38,7 @@ func GetEntities(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if !confirmation  {
+	if !confirmation {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -100,7 +100,7 @@ func GetNodes(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if !confirmation  {
+	if !confirmation {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -162,7 +162,7 @@ func GetRegistryEvents(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if !confirmation  {
+	if !confirmation {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -224,7 +224,7 @@ func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if !confirmation  {
+	if !confirmation {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -265,7 +265,7 @@ func GetRuntimes(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	query := registry.GetRuntimesQuery{Height: height, 
+	query := registry.GetRuntimesQuery{Height: height,
 		IncludeSuspended: suspendedBool}
 
 	// Retrieving runtimes at specific block height from registry client
@@ -296,7 +296,7 @@ func GetRegistryStateToGenesis(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if !confirmation  {
+	if !confirmation {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -360,7 +360,7 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if !confirmation  {
+	if !confirmation {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -449,7 +449,7 @@ func GetNode(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if !confirmation  {
+	if !confirmation {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -539,7 +539,7 @@ func GetNodeStatus(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if !confirmation  {
+	if !confirmation {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -629,7 +629,7 @@ func GetRuntime(w http.ResponseWriter, r *http.Request) {
 	// Retrieving name of node from query request
 	nodeName := r.URL.Query().Get("name")
 	confirmation, socket := checkNodeName(nodeName)
-	if !confirmation  {
+	if !confirmation {
 
 		// Stop code here no need to establish connection and reply
 		json.NewEncoder(w).Encode(responses.ErrorResponse{
@@ -689,7 +689,7 @@ func GetRuntime(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Creating query that will be used to return runtime by it's namespace
-	query := registry.NamespaceQuery{Height: height, ID: nameSpace}
+	query := registry.GetRuntimeQuery{Height: height, ID: nameSpace}
 
 	// Retrieving runtime object using above query
 	registryRuntime, err := ro.GetRuntime(context.Background(), &query)

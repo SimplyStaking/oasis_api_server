@@ -1,23 +1,23 @@
 package responses
 
 import (
+	tmed "github.com/cometbft/cometbft/crypto"
+	mint_types "github.com/cometbft/cometbft/types"
 	"github.com/mackerelio/go-osstat/cpu"
 	"github.com/mackerelio/go-osstat/disk"
 	"github.com/mackerelio/go-osstat/memory"
 	"github.com/mackerelio/go-osstat/network"
+	beacon_api "github.com/oasisprotocol/oasis-core/go/beacon/api"
 	common_entity "github.com/oasisprotocol/oasis-core/go/common/entity"
 	common_node "github.com/oasisprotocol/oasis-core/go/common/node"
 	common_quantity "github.com/oasisprotocol/oasis-core/go/common/quantity"
 	consensus_api "github.com/oasisprotocol/oasis-core/go/consensus/api"
-	beacon_api "github.com/oasisprotocol/oasis-core/go/beacon/api"
+	document_api "github.com/oasisprotocol/oasis-core/go/genesis/api"
 	gen_api "github.com/oasisprotocol/oasis-core/go/genesis/api"
 	registry_api "github.com/oasisprotocol/oasis-core/go/registry/api"
 	scheduler_api "github.com/oasisprotocol/oasis-core/go/scheduler/api"
 	sentry_api "github.com/oasisprotocol/oasis-core/go/sentry/api"
 	staking_api "github.com/oasisprotocol/oasis-core/go/staking/api"
-	document_api "github.com/oasisprotocol/oasis-core/go/genesis/api"
-	tmed "github.com/tendermint/tendermint/crypto"
-	mint_types "github.com/tendermint/tendermint/types"
 )
 
 // StakingEvents responds with a list of events
