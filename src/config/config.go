@@ -1,6 +1,8 @@
 package config
 
 import (
+	"fmt"
+
 	"github.com/claudetech/ini"
 
 	lgr "github.com/SimplyVC/oasis_api_server/src/logger"
@@ -11,9 +13,9 @@ var (
 	confMain       ini.Config
 	confNodes      ini.Config
 	confSentry     ini.Config
-	mainConfigFile = "../config/user_config_main.ini"
-	nodesFile      = "../config/user_config_nodes.ini"
-	sentryFile     = "../config/user_config_sentry.ini"
+	mainConfigFile = "user_config_main.ini"
+	nodesFile      = "user_config_nodes.ini"
+	sentryFile     = "user_config_sentry.ini"
 )
 
 // SetSentryFile sets file location containing sentry data
@@ -47,10 +49,12 @@ func GetNodes() map[string]map[string]string {
 }
 
 // LoadMainConfiguration loads main configuration file from config folder
-func LoadMainConfiguration() (map[string]map[string]string, error) {
+func LoadMainConfiguration(baseDir string) (map[string]map[string]string, error) {
 
 	// Decode and read file containing Main API information
-	if err := ini.DecodeFile(mainConfigFile, &confMain); err != nil {
+	mainConfigFilePath := fmt.Sprintf("%s/%s", baseDir, mainConfigFile)
+	lgr.Info.Println("Loading main config from: %s", mainConfigFilePath)
+	if err := ini.DecodeFile(mainConfigFilePath, &confMain); err != nil {
 		lgr.Error.Println(err)
 		return nil, err
 	}
@@ -58,10 +62,12 @@ func LoadMainConfiguration() (map[string]map[string]string, error) {
 }
 
 // LoadNodesConfiguration loads node configuration file from config folder
-func LoadNodesConfiguration() (map[string]map[string]string, error) {
+func LoadNodesConfiguration(baseDir string) (map[string]map[string]string, error) {
 
 	// Decode and read file containing Node information
-	if err := ini.DecodeFile(nodesFile, &confNodes); err != nil {
+	nodesConfigFilePath := fmt.Sprintf("%s/%s", baseDir, nodesFile)
+	lgr.Info.Println("Loading nodes config from: %s", nodesConfigFilePath)
+	if err := ini.DecodeFile(nodesConfigFilePath, &confNodes); err != nil {
 		lgr.Error.Println(err)
 		return nil, err
 	}
@@ -69,10 +75,12 @@ func LoadNodesConfiguration() (map[string]map[string]string, error) {
 }
 
 // LoadSentryConfiguration loads sentry configuration details
-func LoadSentryConfiguration() (map[string]map[string]string, error) {
+func LoadSentryConfiguration(baseDir string) (map[string]map[string]string, error) {
 
 	// Decode and read file containing sentry information
-	if err := ini.DecodeFile(sentryFile, &confSentry); err != nil {
+	sentryConfigFilePath := fmt.Sprintf("%s/%s", baseDir, sentryFile)
+	lgr.Info.Println("Loading sentry config from: %s", sentryConfigFilePath)
+	if err := ini.DecodeFile(sentryConfigFilePath, &confSentry); err != nil {
 		lgr.Error.Println(err)
 		return nil, err
 	}

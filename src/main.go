@@ -13,8 +13,16 @@ func main() {
 	// Set Logger that will be used by API through all packages
 	lgr.SetLogger(os.Stdout, os.Stdout, os.Stderr)
 
+	// Retrieve arguments for a base directory
+	args := os.Args
+	baseDir := "../config"
+	if len(args) > 1 {
+		baseDir = args[1]
+	}
+	lgr.Info.Println("Using base directory: ", baseDir)
+
 	// Start server
-	err := router.StartServer()
+	err := router.StartServer(baseDir)
 	if err != nil {
 		lgr.Info.Println("Server Stopped")
 	}

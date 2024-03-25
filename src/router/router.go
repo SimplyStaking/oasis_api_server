@@ -13,10 +13,10 @@ import (
 )
 
 // StartServer starts server by setting router and all endpoints
-func StartServer() error {
+func StartServer(baseDir string) error {
 
 	// Load port configurations
-	mainConf, err2 := conf.LoadMainConfiguration()
+	mainConf, err2 := conf.LoadMainConfiguration(baseDir)
 	if err2 != nil {
 		lgr.Error.Println("Loading of Port configuration has failed!")
 		// Abort Program no Port configured to run API on
@@ -24,7 +24,7 @@ func StartServer() error {
 	}
 
 	// Load socket configuration but do not use them
-	_, err3 := conf.LoadNodesConfiguration()
+	_, err3 := conf.LoadNodesConfiguration(baseDir)
 	if err3 != nil {
 		lgr.Error.Println("Loading of Socket configuration has failed!")
 		// Abort Program no Sockets configured to run API on
@@ -32,7 +32,7 @@ func StartServer() error {
 	}
 
 	// Load sentry configuration
-	_, err4 := conf.LoadSentryConfiguration()
+	_, err4 := conf.LoadSentryConfiguration(baseDir)
 	if err4 != nil {
 		lgr.Error.Println("Loading of Sentry configuration has failed!")
 	}

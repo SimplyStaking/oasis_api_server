@@ -37,20 +37,20 @@ func teardown() {
 }
 
 func TestLoadMainConfiguration_Success_1(t *testing.T) {
-	mainConf, _ := config.LoadMainConfiguration()
+	mainConf, _ := config.LoadMainConfiguration("../config")
 	if mainConf == nil {
 		t.Errorf("Failed to load main config file from path.")
 	}
 }
 
 func TestLoadNodesConfig_Success_1(t *testing.T) {
-	nodesConf, _ := config.LoadNodesConfiguration()
+	nodesConf, _ := config.LoadNodesConfiguration("../config")
 	if nodesConf == nil {
 		t.Errorf("Failed to load node config file from path.")
 	}
 }
 func TestLoadMainConfiguration_Success_2(t *testing.T) {
-	mainConf, _ := config.LoadNodesConfiguration()
+	mainConf, _ := config.LoadNodesConfiguration("../config")
 	if mainConf == nil {
 		t.Errorf("Failed to load main config file from path.")
 	}
@@ -61,7 +61,7 @@ func TestLoadMainConfiguration_Success_2(t *testing.T) {
 }
 
 func TestLoadNodesConfig_Success_2(t *testing.T) {
-	nodesConf, _ := config.LoadNodesConfiguration()
+	nodesConf, _ := config.LoadNodesConfiguration("../config")
 	if nodesConf == nil {
 		t.Errorf("Failed to load node config file from path.")
 	}
@@ -73,7 +73,7 @@ func TestLoadNodesConfig_Success_2(t *testing.T) {
 
 func TestLoadMainConfiguration_Failure_1(t *testing.T) {
 	config.SetMainFile(mainFileFail)
-	mainConf, _ := config.LoadMainConfiguration()
+	mainConf, _ := config.LoadMainConfiguration("../config")
 	if mainConf != nil {
 		t.Errorf("Failed to not load main config file from path.")
 	}
@@ -81,7 +81,7 @@ func TestLoadMainConfiguration_Failure_1(t *testing.T) {
 
 func TestLoadNodesConfig_Failure_1(t *testing.T) {
 	config.SetNodesFile(nodesFileFail)
-	nodesConf, _ := config.LoadNodesConfiguration()
+	nodesConf, _ := config.LoadNodesConfiguration("../config")
 	if nodesConf != nil {
 		t.Errorf("Failed to not load nodes file from path.")
 	}
